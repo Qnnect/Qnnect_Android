@@ -1,3 +1,2 @@
-# android-kotlin
-
-Kotlin ver
+# Qnnect - Android
+- initial setting
