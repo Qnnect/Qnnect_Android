@@ -1,2 +1,1 @@
-# Qnnect - Android
-- initial setting
+# Qnnect - Android (initial setting)
