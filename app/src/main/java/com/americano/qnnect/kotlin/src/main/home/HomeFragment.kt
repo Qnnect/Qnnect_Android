@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import com.americano.qnnect.kotlin.R
 import com.americano.qnnect.kotlin.config.BaseFragment
-import com.softsquared.template.kotlin.databinding.FragmentHomeBinding
+import com.americano.qnnect.kotlin.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::bind, R.layout.fragment_home){
 

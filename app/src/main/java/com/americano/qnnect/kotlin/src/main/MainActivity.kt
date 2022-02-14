@@ -6,7 +6,6 @@ import com.americano.qnnect.kotlin.R
 import com.americano.qnnect.kotlin.config.BaseActivity
 import com.americano.qnnect.kotlin.databinding.ActivityMainBinding
 import com.americano.qnnect.kotlin.src.main.home.HomeFragment
-import com.americano.qnnect.kotlin.src.main.myPage.MyPageFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::inflate) {
 
