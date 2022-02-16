@@ -29,6 +29,7 @@
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp">
         <TextView
+            android:id="@+id/txt1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -41,14 +42,16 @@
             android:text="네, 모두 동의합니다.">
         </TextView>
 
-        <RadioButton
+
+        <CheckBox
             android:id="@+id/allow_radio_all"
+            android:button="@drawable/selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent">
-        </RadioButton>
+        </CheckBox>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -73,6 +76,7 @@
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp">
         <TextView
+            android:id="@+id/txt2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -85,14 +89,26 @@
             android:text="개인정보 처리방침 (필수)">
         </TextView>
 
-        <RadioButton
+        <ImageView
+            android:id="@+id/more_btn1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/txt2"
+            android:src="@mipmap/ic_allow_more_foreground"
+            android:layout_marginLeft="11dp">
+        </ImageView>
+
+        <CheckBox
             android:id="@+id/allow_radio1"
+            android:button="@drawable/selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent">
-        </RadioButton>
+        </CheckBox>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,6 +120,7 @@
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp">
         <TextView
+            android:id="@+id/txt3"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -116,14 +133,26 @@
             android:text="서비스 이용약관 (필수)">
         </TextView>
 
-        <RadioButton
+        <ImageView
+            android:id="@+id/more_btn2"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/txt3"
+            android:src="@mipmap/ic_allow_more_foreground"
+            android:layout_marginLeft="11dp">
+        </ImageView>
+
+        <CheckBox
             android:id="@+id/allow_radio2"
+            android:button="@drawable/selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent">
-        </RadioButton>
+        </CheckBox>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,6 +164,7 @@
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp">
         <TextView
+            android:id="@+id/txt4"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -147,14 +177,26 @@
             android:text="푸쉬 알림 동의 여부 (선택)">
         </TextView>
 
-        <RadioButton
+        <ImageView
+            android:id="@+id/more_btn3"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/txt4"
+            android:src="@mipmap/ic_allow_more_foreground"
+            android:layout_marginLeft="11dp">
+        </ImageView>
+
+        <CheckBox
             android:id="@+id/allow_radio3"
+            android:button="@drawable/selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent">
-        </RadioButton>
+        </CheckBox>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
