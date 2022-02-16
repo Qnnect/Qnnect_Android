@@ -25,10 +25,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.americano.qnnect.kotlin.src.main.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name="com.americano.qnnect.kotlin.src.allow.AllowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

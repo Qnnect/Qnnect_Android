@@ -1,230 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/allow_txt1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="158dp"
-        android:text="시작 전에\n약관에 동의해주세요"
-        android:fontFamily="@font/im_hyemin_regular"
-        android:textSize="20dp"
-        android:textColor="@color/gray_1"
-        android:textStyle="bold">
-    </TextView>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="com.americano.qnnect.kotlin.viewmodel.AllowViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/allow_all"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/allow_txt1"
-        android:layout_marginTop="33dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp">
+        android:layout_height="match_parent">
+
         <TextView
-            android:id="@+id/txt1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/allow_txt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="158dp"
+            android:text="시작 전에\n약관에 동의해주세요"
             android:fontFamily="@font/im_hyemin_regular"
+            android:textSize="20dp"
             android:textColor="@color/gray_1"
-            android:text="네, 모두 동의합니다.">
+            android:textStyle="bold">
         </TextView>
 
-
-        <CheckBox
-            android:id="@+id/allow_radio_all"
-            android:button="@drawable/selector"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/allow_all"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        </CheckBox>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/allow_txt1"
+            android:layout_marginTop="33dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
+            <TextView
+                android:id="@+id/txt1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_regular"
+                android:textColor="@color/gray_1"
+                android:text="네, 모두 동의합니다.">
+            </TextView>
 
-    <View
-        android:id="@+id/line1"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="21dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/allow_all"
-        android:background="@color/gray_1"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp">
-    </View>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/allow1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/line1"
-        android:layout_marginTop="33dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp">
-        <TextView
-            android:id="@+id/txt2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/im_hyemin_regular"
-            android:textColor="@color/gray_1"
-            android:text="개인정보 처리방침 (필수)">
-        </TextView>
+            <CheckBox
+                android:id="@+id/allow_radio_all"
+                android:button="@drawable/selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:checked="@={vm.allChecked}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+            </CheckBox>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/more_btn1"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/txt2"
-            android:src="@mipmap/ic_allow_more_foreground"
-            android:layout_marginLeft="11dp">
-        </ImageView>
-
-        <CheckBox
-            android:id="@+id/allow_radio1"
-            android:button="@drawable/selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        </CheckBox>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/allow2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/allow1"
-        android:layout_marginTop="27dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp">
-        <TextView
-            android:id="@+id/txt3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/im_hyemin_regular"
-            android:textColor="@color/gray_1"
-            android:text="서비스 이용약관 (필수)">
-        </TextView>
-
-        <ImageView
-            android:id="@+id/more_btn2"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/txt3"
-            android:src="@mipmap/ic_allow_more_foreground"
-            android:layout_marginLeft="11dp">
-        </ImageView>
-
-        <CheckBox
-            android:id="@+id/allow_radio2"
-            android:button="@drawable/selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        </CheckBox>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/allow3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/allow2"
-        android:layout_marginTop="26dp"
-        android:layout_marginLeft="27dp"
-        android:layout_marginRight="27dp">
-        <TextView
-            android:id="@+id/txt4"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/im_hyemin_regular"
-            android:textColor="@color/gray_1"
-            android:text="푸쉬 알림 동의 여부 (선택)">
-        </TextView>
-
-        <ImageView
-            android:id="@+id/more_btn3"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/txt4"
-            android:src="@mipmap/ic_allow_more_foreground"
-            android:layout_marginLeft="11dp">
-        </ImageView>
-
-        <CheckBox
-            android:id="@+id/allow_radio3"
-            android:button="@drawable/selector"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-        </CheckBox>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ok_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="21dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="@drawable/allow_btn_fail">
-
-        <TextView
-            android:id="@+id/ok_btn_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="21dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="동의합니다"
-            android:textSize="16dp"
-            android:fontFamily="@font/im_hyemin_regular"
-            android:textStyle="bold"
-            android:textColor="@color/gray_6">
-        </TextView>
+            app:layout_constraintTop_toBottomOf="@id/allow_all"
+            android:background="@color/gray_1"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
+        </View>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/allow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            android:layout_marginTop="33dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
+            <TextView
+                android:id="@+id/txt2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_regular"
+                android:textColor="@color/gray_1"
+                android:text="개인정보 처리방침 (필수)">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/more_btn1"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/txt2"
+                android:src="@mipmap/ic_allow_more_foreground"
+                android:layout_marginLeft="11dp">
+            </ImageView>
+
+            <CheckBox
+                android:id="@+id/allow_radio1"
+                android:button="@drawable/selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:checked="@={vm.onChecked1}">
+            </CheckBox>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/allow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/allow1"
+            android:layout_marginTop="27dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
+            <TextView
+                android:id="@+id/txt3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_regular"
+                android:textColor="@color/gray_1"
+                android:text="서비스 이용약관 (필수)">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/more_btn2"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/txt3"
+                android:src="@mipmap/ic_allow_more_foreground"
+                android:layout_marginLeft="11dp">
+            </ImageView>
+
+            <CheckBox
+                android:id="@+id/allow_radio2"
+                android:button="@drawable/selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:checked="@={vm.onChecked2}">
+            </CheckBox>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/allow3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/allow2"
+            android:layout_marginTop="26dp"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp">
+            <TextView
+                android:id="@+id/txt4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_regular"
+                android:textColor="@color/gray_1"
+                android:text="푸쉬 알림 동의 여부 (선택)">
+            </TextView>
+
+            <ImageView
+                android:id="@+id/more_btn3"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/txt4"
+                android:src="@mipmap/ic_allow_more_foreground"
+                android:layout_marginLeft="11dp">
+            </ImageView>
+
+            <CheckBox
+                android:id="@+id/allow_radio3"
+                android:button="@drawable/selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:checked="@={vm.onChecked3}">
+            </CheckBox>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ok_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginBottom="21dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:background="@drawable/allow_btn_fail">
+
+            <TextView
+                android:id="@+id/ok_btn_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="동의합니다"
+                android:textSize="16dp"
+                android:fontFamily="@font/im_hyemin_regular"
+                android:textStyle="bold"
+                android:textColor="@color/gray_6">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
