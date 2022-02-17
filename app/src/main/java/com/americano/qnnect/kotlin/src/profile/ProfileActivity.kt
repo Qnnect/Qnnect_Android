@@ -11,6 +11,7 @@ import com.americano.qnnect.kotlin.R
 import com.americano.qnnect.kotlin.base.BaseActivity
 import com.americano.qnnect.kotlin.databinding.ActivityProfileBinding
 import com.americano.qnnect.kotlin.src.allow.AllowActivity
+import com.americano.qnnect.kotlin.src.main.MainActivity
 import com.americano.qnnect.kotlin.viewmodel.LoginViewModel
 import com.americano.qnnect.kotlin.viewmodel.ProfileViewModel
 import com.bumptech.glide.Glide
@@ -36,6 +37,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     // image upload vailable
     private val GET_GALLERY_IMAGE = 200
     var path = ""
+    var check = false
 
     override fun initStartView() {
         Glide.with(this)
@@ -48,7 +50,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     }
 
     override fun initAfterBinding() {
-        user_img.setOnClickListener {
+        profile_img.setOnClickListener {
             viewModel.requestMultiplePermissions(this)
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
@@ -105,9 +107,11 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
                 var str = nick_name_edit.text.toString()
                 if(str.length > 0 && str.length < 9 && str != "null"){
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+                    check = true
                 }
                 else{
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+                    check = false
                 }
 
                 if(edit_text_len.text.length != 0){
@@ -122,5 +126,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
             }
 
         })
+
+        ok_btn.setOnClickListener {
+            if(check){
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 }

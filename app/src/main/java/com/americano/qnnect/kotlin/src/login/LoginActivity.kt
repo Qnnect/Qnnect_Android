@@ -74,8 +74,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 }
             }
             else if (token != null) {
-//                val intent = Intent(this, AllowActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, AllowActivity::class.java)
+                startActivity(intent)
             }
         }
 
