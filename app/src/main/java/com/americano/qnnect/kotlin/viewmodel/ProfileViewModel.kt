@@ -1,11 +1,14 @@
 package com.americano.qnnect.kotlin.viewmodel
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.webkit.PermissionRequest
+import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.americano.qnnect.kotlin.R
@@ -13,26 +16,34 @@ import com.americano.qnnect.kotlin.base.BaseViewModel
 import com.americano.qnnect.kotlin.model.DataModel
 import com.americano.qnnect.kotlin.model.enum.KakaoSearchSortEnum
 import com.americano.qnnect.kotlin.model.response.ImageSearchResponse
+import com.americano.qnnect.kotlin.src.profile.ProfileActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.io.*
 import java.util.*
+import androidx.databinding.ObservableField
+
+
+
 
 class ProfileViewModel() : BaseViewModel() {
 
     private val TAG = "ProfileViewModel"
 
-    requestMultiplePermissions()
-    val intent = Intent(Intent.ACTION_PICK)
-    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-    startActivityForResult(intent, GET_GALLERY_IMAGE)
+    var path = ""
+    private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
+    private val BUFFER_SIZE = 1024 * 2
 
     // 접근 권한
-    private fun requestMultiplePermissions() {
-        Dexter.withActivity(this)
+    fun requestMultiplePermissions(activity: ProfileActivity) {
+        Dexter.withActivity(activity)
             .withPermissions(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE
@@ -50,10 +61,10 @@ class ProfileViewModel() : BaseViewModel() {
                 }
 
                 override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>,
-                    token: PermissionToken
+                    permissions: MutableList<com.karumi.dexter.listener.PermissionRequest>?,
+                    token: PermissionToken?
                 ) {
-                    token.continuePermissionRequest()
+                    token!!.continuePermissionRequest()
                 }
             }).withErrorListener {
             }
@@ -61,43 +72,10 @@ class ProfileViewModel() : BaseViewModel() {
             .check()
     }
 
-    // 사진 가져오기
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
-            val selectedImageUri: Uri? = data.data
-
-            val uri: Uri = data.getData()!!
-            path = getFilePathFromURI(this, uri)
-
-            Glide.with(this)
-                .load(selectedImageUri)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(binding.userImg)
-
-            binding.nextBtn.setBackgroundResource(R.drawable.next_btn_custom)
-            img_check = true
-//            imageview.setImageURI(selectedImageUri)
-        }
-    }
-
     // file uri
     fun getFilePathFromURI(context: Context, contentUri: Uri?): String {
         //copy file and send new file path
-        val wallpaperDirectory = File(getExternalFilesDir(null).toString() + IMAGE_DIRECTORY)
-
-//        File path = Environment.getExternalStoragePublicDirectory(
-//                Environment.DIRECTORY_PICTURES);
-//        File file = new File(path, "DemoPicture.jpg");
-
-
-//        getExternalCacheDir()
-//        var path: File = this.getExternalFilesDir(null)!!
-//        var wallpaperDirectory = File(path.absolutePath.toString()+IMAGE_DIRECTORY)
-//        wallpaperDirectory.mkdirs()
-
-//        val file: File = File(wallpaperDirectory)
-//        wallpaperDirectory.mkdirs()
+        val wallpaperDirectory = File(context.getExternalFilesDir(null).toString() + IMAGE_DIRECTORY)
 
         // have the object build the directory structure, if needed.
         if (!wallpaperDirectory.exists()) {
