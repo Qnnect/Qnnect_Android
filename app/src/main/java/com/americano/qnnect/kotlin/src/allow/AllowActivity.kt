@@ -2,6 +2,8 @@ package com.americano.qnnect.kotlin.src.allow
 
 import android.content.Intent
 import android.graphics.Color
+import android.provider.ContactsContract
+import android.util.Log
 import com.americano.qnnect.kotlin.R
 import com.americano.qnnect.kotlin.base.BaseActivity
 import com.americano.qnnect.kotlin.databinding.ActivityAllowBinding
@@ -15,7 +17,6 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_allow // get() : 커스텀 접근자, 코틀린 문법
 
-
     override val viewModel: AllowViewModel by viewModel()
 
     override fun initStartView() {
@@ -26,7 +27,7 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
 
     override fun initAfterBinding() {
         allow_radio_all.setOnClickListener {
-            if(viewModel.allChecked){
+            if(allow_radio_all.isChecked){
                 allow_radio1.isChecked = true
                 allow_radio2.isChecked = true
                 allow_radio3.isChecked = true
@@ -40,8 +41,35 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
             }
         }
 
+        allow_radio1.setOnClickListener {
+            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+            }
+            else{
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+            }
+        }
+
+        allow_radio2.setOnClickListener {
+            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+            }
+            else{
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+            }
+        }
+
+        allow_radio3.setOnClickListener {
+            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+            }
+            else{
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+            }
+        }
+
         ok_btn.setOnClickListener {
-            if(viewModel.onCheckedBoxClicked()){
+            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
                 var intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
             }

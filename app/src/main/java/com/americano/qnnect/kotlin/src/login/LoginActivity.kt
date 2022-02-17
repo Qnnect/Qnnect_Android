@@ -29,10 +29,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 //                Log.d("kakao_error", error.toString())
             }
             else if (tokenInfo != null) {
-//                Log.d("kakao_token", tokenInfo.toString())
-//                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-//                val intent = Intent(this, BirthActivity::class.java)
-//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                val intent = Intent(this, AllowActivity::class.java)
+//                startActivity(intent)
 //                finish()
             }
         }
@@ -76,15 +74,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 }
             }
             else if (token != null) {
+//                val intent = Intent(this, AllowActivity::class.java)
+//                startActivity(intent)
             }
         }
 
         kakao_login_btn.setOnClickListener {
-            if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
-            }else {
-                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-            }
+//            if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
+//                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
+//            }else {
+//                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//            }
+            val intent = Intent(this, AllowActivity::class.java)
+            startActivity(intent)
         }
     }
 }
