@@ -4,3 +4,4 @@
 2. 2022.02.14(MON) -> splash, Login, profile layout
 3. 2022.02.16(WEN) -> kakao login, MVVM & Koin(Di) Setting complete
 4. 2022.02.17(THU) -> custom check box & edit Profile layout & image upload & edit text len check (use Rxjava)
+5. 2022.02.18(FRI) -> Base Fragment modify & Fragment (Home, Bookmark, Store, My page), Splash Activity modify
