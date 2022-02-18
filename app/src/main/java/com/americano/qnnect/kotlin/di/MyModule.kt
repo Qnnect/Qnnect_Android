@@ -4,10 +4,7 @@ import com.americano.qnnect.kotlin.MainSearchRecyclerViewAdapter
 import com.americano.qnnect.kotlin.model.DataModel
 import com.americano.qnnect.kotlin.model.DataModelImpl
 import com.americano.qnnect.kotlin.model.service.KakaoSearchService
-import com.americano.qnnect.kotlin.viewmodel.AllowViewModel
-import com.americano.qnnect.kotlin.viewmodel.LoginViewModel
-import com.americano.qnnect.kotlin.viewmodel.MainViewModel
-import com.americano.qnnect.kotlin.viewmodel.ProfileViewModel
+import com.americano.qnnect.kotlin.viewmodel.*
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
@@ -46,6 +43,11 @@ var viewModelPart = module {
     viewModel { LoginViewModel() }
     viewModel { AllowViewModel() }
     viewModel { ProfileViewModel() }
+    viewModel { HomeViewModel() }
+    viewModel { BookmarkViewModel() }
+    viewModel { StoreViewModel() }
+    viewModel { MypageViewModel() }
+    viewModel { SplashViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)
