@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.americano.qnnect.kotlin.viewmodel.AllowViewModel" />
+            type="com.iame.qnnect.android.viewmodel.AllowViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="vm"
-            type="com.americano.qnnect.kotlin.viewmodel.HomeViewModel" />
+            type="com.iame.qnnect.android.viewmodel.HomeViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

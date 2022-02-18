@@ -7,7 +7,7 @@
     <data>
         <variable
             name="vm"
-            type="com.americano.qnnect.kotlin.viewmodel.MypageViewModel" />
+            type="com.iame.qnnect.android.viewmodel.MypageViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

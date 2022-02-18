@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.americano.qnnect.kotlin.viewmodel.ProfileViewModel" />
+            type="com.iame.qnnect.android.viewmodel.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

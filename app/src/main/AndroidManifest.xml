@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.americano.qnnect.kotlin">
+    package="com.iame.qnnect.android">
 
     <!--  인터넷 권환  -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.americano.qnnect.kotlin.MyApplication"
+        android:name="com.iame.qnnect.android.MyApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="qnnect"
@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
         <activity
-            android:name="com.americano.qnnect.kotlin.src.splash.SplashActivity"
+            android:name="com.iame.qnnect.android.src.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -31,11 +31,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.americano.qnnect.kotlin.src.allow.AllowActivity"
+            android:name="com.iame.qnnect.android.src.allow.AllowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.americano.qnnect.kotlin.src.login.LoginActivity"
+            android:name="com.iame.qnnect.android.src.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -52,11 +52,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.americano.qnnect.kotlin.src.profile.ProfileActivity"
+            android:name="com.iame.qnnect.android.src.profile.ProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.americano.qnnect.kotlin.src.main.MainActivity"
+            android:name="com.iame.qnnect.android.src.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
