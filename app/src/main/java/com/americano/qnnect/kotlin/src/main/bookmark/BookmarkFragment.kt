@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main_two.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel>(R.layout.fragment_store) {
+class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel>(R.layout.fragment_bookmark) {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_bookmark // get() : 커스텀 접근자, 코틀린 문법
