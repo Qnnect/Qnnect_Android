@@ -1,5 +1,6 @@
 package com.americano.qnnect.kotlin.base
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
@@ -18,7 +19,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
 
 
-abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: Int) : Fragment(layoutId) {
 
     lateinit var viewDataBinding: T
 
@@ -59,7 +60,7 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel> : Fragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding = DataBindingUtil.setContentView(requireActivity(), layoutResourceId)
+        viewDataBinding = DataBindingUtil.bind(view)!!
 
 //        snackbarObserving()
         initStartView()
@@ -76,3 +77,4 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel> : Fragment()
         }
     }
 }
+

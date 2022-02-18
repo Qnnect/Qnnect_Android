@@ -1,20 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".src.main.myPage.MyPageFragment">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <Button
-        android:id="@+id/button_change_counter_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/my_page_btn_counting_number"/>
+    <data>
+        <variable
+            name="vm"
+            type="com.americano.qnnect.kotlin.viewmodel.MypageViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/p_ivory">
 
-    <TextView
-        android:id="@+id/text_view_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/bookmark_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="27dp"
+            android:text="마이페이지"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="18dp"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/alarm_btn"
+            android:layout_width="18dp"
+            android:layout_height="21dp"
+            app:layout_constraintTop_toTopOf="@id/bookmark_txt"
+            app:layout_constraintBottom_toBottomOf="@id/bookmark_txt"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="27dp"
+            android:src="@mipmap/ic_alarm_foreground">
+        </ImageView>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bookmark_txt"
+            android:background="@color/gray_4">
+        </View>
+
+        <ImageView
+            android:id="@+id/user_profile_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/img_profile"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="25dp"
+            app:layout_constraintLeft_toLeftOf="parent">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/user_diary_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/user_profile_img"
+            android:layout_marginLeft="12dp"
+            app:layout_constraintTop_toTopOf="@id/user_profile_img"
+            app:layout_constraintBottom_toBottomOf="@id/user_profile_img"
+            android:text="아아메님"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textColor="@color/black">
+        </TextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/point_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/user_profile_img"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:paddingTop="22dp"
+            android:paddingBottom="22dp"
+            android:paddingLeft="19dp"
+            android:paddingRight="19dp"
+            android:background="@drawable/mypage_point_custom">
+
+            <TextView
+                android:id="@+id/point_txt1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내 원두 포인트"
+                android:textSize="14dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textColor="@color/gray_1">
+            </TextView>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/point_txt"
+                android:layout_marginRight="7dp"
+                android:src="@mipmap/ic_main_icon_foreground">
+            </ImageView>
+
+
+            <TextView
+                android:id="@+id/point_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500P"
+                android:textSize="14dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:fontFamily="@font/bmjua_ttf"
+                android:textColor="@color/gray_1">
+            </TextView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintTop_toBottomOf="@id/point_view">
+
+            <TextView
+                android:id="@+id/drink_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="내가 만든 음료"
+                android:textSize="14dp"
+                android:gravity="center"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:paddingLeft="31dp"
+                android:paddingRight="31dp"
+                android:background="@drawable/mypage_btn_custom"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:fontFamily="@font/bmjua_ttf"
+                android:textColor="@color/gray_1"
+                android:layout_marginRight="8dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/my_question_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="내 질문 목록"
+                android:textSize="14dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:paddingLeft="31dp"
+                android:paddingRight="31dp"
+                android:background="@drawable/mypage_btn_custom"
+                app:layout_constraintRight_toRightOf="parent"
+                android:fontFamily="@font/bmjua_ttf"
+                android:textColor="@color/gray_1">
+            </TextView>
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

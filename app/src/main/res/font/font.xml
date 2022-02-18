@@ -10,4 +10,9 @@
         android:fontStyle="normal"
         android:fontWeight="400"
         android:font="@font/im_hyemin_regular"/>
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/bmjua_ttf"/>
 </font-family>
