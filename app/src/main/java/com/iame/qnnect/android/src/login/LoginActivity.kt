@@ -1,8 +1,13 @@
 package com.iame.qnnect.android.src.login
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.view.WindowCompat
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityLoginBinding
@@ -22,6 +27,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     override val viewModel: LoginViewModel by viewModel()
 
     override fun initStartView() {
+        var window = getWindow()
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#554338")
+        window.decorView.systemUiVisibility = 0
+
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {

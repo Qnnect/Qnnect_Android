@@ -1,6 +1,8 @@
 package com.iame.qnnect.android.src.allow
 
 import android.content.Intent
+import android.graphics.Color
+import android.view.WindowManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityAllowBinding
@@ -17,6 +19,9 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
     override val viewModel: AllowViewModel by viewModel()
 
     override fun initStartView() {
+        var window = getWindow()
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#FFFFFF")
     }
 
     override fun initDataBinding() {

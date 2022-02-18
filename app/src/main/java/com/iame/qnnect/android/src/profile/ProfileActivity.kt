@@ -1,10 +1,12 @@
 package com.iame.qnnect.android.src.profile
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.WindowManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityProfileBinding
@@ -36,6 +38,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     var check = false
 
     override fun initStartView() {
+        var window = getWindow()
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#FFFFFF")
+
         Glide.with(this)
             .load(R.drawable.img_profile)
             .transform(CenterCrop(), RoundedCorners(200))
