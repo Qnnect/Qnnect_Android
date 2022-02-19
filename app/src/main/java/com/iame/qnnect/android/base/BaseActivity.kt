@@ -54,9 +54,7 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewDataBinding = DataBindingUtil.setContentView(this, layoutResourceId)
-
 //        snackbarObserving()
         initStartView()
         initDataBinding()
