@@ -120,7 +120,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
                     try {
                         edit_text_len.text = str.length.toString()+"/8"
                     }catch (e: Exception){
-
+                    }
+                }
+                else{
+                    try {
+                        edit_text_len.text = "0/8"
+                    }catch (e: Exception){
                     }
                 }
             }

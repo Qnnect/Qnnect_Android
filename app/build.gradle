@@ -21,8 +21,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.softsquared.template.kotlin"
-        minSdkVersion 24
+        applicationId "com.iame.qnnect.android"
+        minSdkVersion 27
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -116,4 +116,7 @@ dependencies {
 
     // rx binding
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+
+    //viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha04'
 }
