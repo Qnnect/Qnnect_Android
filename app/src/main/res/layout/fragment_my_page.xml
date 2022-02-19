@@ -39,7 +39,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:scaleType="centerCrop"
-                android:padding="10dp"
+                android:padding="12dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -61,8 +61,8 @@
 
         <ImageView
             android:id="@+id/user_profile_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/img_profile"
             app:layout_constraintTop_toBottomOf="@id/line1"
             android:layout_marginTop="16dp"
@@ -70,20 +70,41 @@
             app:layout_constraintLeft_toLeftOf="parent">
         </ImageView>
 
-        <TextView
-            android:id="@+id/user_diary_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@id/user_profile_img"
-            android:layout_marginLeft="12dp"
             app:layout_constraintTop_toTopOf="@id/user_profile_img"
             app:layout_constraintBottom_toBottomOf="@id/user_profile_img"
-            android:text="아아메님"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:textColor="@color/black">
-        </TextView>
+            app:layout_constraintLeft_toRightOf="@id/user_profile_img"
+            android:layout_marginLeft="12dp">
+
+            <TextView
+                android:id="@+id/user_diary_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="아아메님"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textColor="@color/black">
+            </TextView>
+            <TextView
+                android:id="@+id/user_diary_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/user_diary_name"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="카카오계정으로 로그인하셨어요!"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textColor="@color/gray_3">
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/point_view"
@@ -104,7 +125,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="내 원두 포인트"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -128,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="500P"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -152,7 +173,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="내가 만든 음료"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:gravity="center"
                 android:paddingTop="22dp"
                 android:paddingBottom="22dp"
@@ -171,7 +192,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="내 질문 목록"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:layout_marginLeft="8dp"
                 android:gravity="center"
                 android:paddingTop="22dp"
@@ -183,8 +204,87 @@
                 android:fontFamily="@font/bmjua_ttf"
                 android:textColor="@color/gray_1">
             </TextView>
-
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/setting_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내가 만든 음료"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginLeft="21dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/bmjua_ttf"
+            android:textColor="@color/gray_1"
+            android:layout_marginRight="21dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/setting_notify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="공지사항"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="21dp"
+            app:layout_constraintTop_toBottomOf="@id/setting_alarm"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/bmjua_ttf"
+            android:textColor="@color/gray_1"
+            android:layout_marginRight="21dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/setting_instagram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="큐넥트 인스타그램"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="21dp"
+            app:layout_constraintTop_toBottomOf="@id/setting_notify"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/bmjua_ttf"
+            android:textColor="@color/gray_1"
+            android:layout_marginRight="21dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/setting_primium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="프리미엄"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="21dp"
+            app:layout_constraintTop_toBottomOf="@id/setting_instagram"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/bmjua_ttf"
+            android:textColor="@color/gray_1"
+            android:layout_marginRight="21dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/setting_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="21dp"
+            app:layout_constraintTop_toBottomOf="@id/setting_primium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/bmjua_ttf"
+            android:textColor="@color/gray_1"
+            android:layout_marginRight="21dp">
+        </TextView>
 
 
 

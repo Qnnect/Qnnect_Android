@@ -44,7 +44,7 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
         }
 
         allow_radio1.setOnClickListener {
-            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
+            if(allow_radio1.isChecked && allow_radio2.isChecked){
                 ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
             }
             else{
@@ -53,16 +53,7 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
         }
 
         allow_radio2.setOnClickListener {
-            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
-                ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
-            }
-            else{
-                ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
-            }
-        }
-
-        allow_radio3.setOnClickListener {
-            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
+            if(allow_radio1.isChecked && allow_radio2.isChecked){
                 ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
             }
             else{
@@ -71,7 +62,7 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
         }
 
         ok_btn.setOnClickListener {
-            if(allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked){
+            if(allow_radio1.isChecked && allow_radio2.isChecked){
                 var intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
             }

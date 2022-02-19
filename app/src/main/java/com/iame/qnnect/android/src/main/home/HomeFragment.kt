@@ -2,12 +2,10 @@ package com.iame.qnnect.android.src.main.home
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.activity_main_two.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
@@ -22,8 +20,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         get() = R.layout.fragment_home // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: HomeViewModel by viewModel()
-
-    private val questionRecyclerViewAdapter: QuestionRecyclerViewAdapter by inject()
 
     var viewPager2: ViewPager2? = null
     var question_list = ArrayList<question_item>()
