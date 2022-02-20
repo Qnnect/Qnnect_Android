@@ -51,11 +51,7 @@
                     android:src="@mipmap/ic_profile_foreground">
                 </ImageView>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
         <TextView
             android:id="@+id/nickname_txt"

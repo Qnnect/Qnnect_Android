@@ -6,7 +6,6 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.src.main.home.model.group_item
@@ -58,12 +57,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 orientation = LinearLayoutManager.HORIZONTAL
             }
             setHasFixedSize(true)
-
-//            categoryAdapter = CategoryAdapter(categoryList)
-//            cateRecyclerView = binding.categoryRecycler
-//            cateRecyclerView.adapter = categoryAdapter
-//            cateRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,
-//                false)
         }
     }
 
@@ -71,6 +64,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     override fun initAfterBinding() {
+        add_group_btn.setOnClickListener {
+            val groupBottomSheet: GroupBottomSheet = GroupBottomSheet{
+                when (it) {
+                    // next_btn click
+                    0 -> {
+                        val groupBottomNextSheet: GroupBottomNextSheet = GroupBottomNextSheet()
+                        groupBottomNextSheet.show(requireActivity().supportFragmentManager, groupBottomNextSheet.tag)
+                    }
+                }
+            }
+            groupBottomSheet.show(requireActivity().supportFragmentManager, groupBottomSheet.tag)
+        }
     }
 
 }

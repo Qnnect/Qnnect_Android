@@ -4,7 +4,6 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentBookmarkBinding
 import com.iame.qnnect.android.viewmodel.BookmarkViewModel
-import kotlinx.android.synthetic.main.activity_main_two.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel>(R.layout.fragment_bookmark) {

@@ -76,7 +76,6 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
 
             override fun onError(e: Throwable?) {
             }
-
         })
 
         ok_btn.setOnClickListener {

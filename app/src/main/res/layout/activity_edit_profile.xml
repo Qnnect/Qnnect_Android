@@ -9,6 +9,7 @@
             name="vm"
             type="com.iame.qnnect.android.viewmodel.MypageViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -150,8 +151,6 @@
                 android:textColor="@color/gray_6">
             </TextView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

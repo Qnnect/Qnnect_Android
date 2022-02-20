@@ -10,6 +10,6 @@ import com.iame.qnnect.android.model.response.ImageSearchResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class EditProfileViewModel(private val model: DataModel) : BaseViewModel() {
+class EditProfileViewModel() : BaseViewModel() {
     private val TAG = "EditProfileViewModel"
 }

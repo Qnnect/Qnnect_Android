@@ -48,6 +48,7 @@ var viewModelPart = module {
     viewModel { StoreViewModel() }
     viewModel { MypageViewModel() }
     viewModel { SplashViewModel() }
+    viewModel { EditProfileViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

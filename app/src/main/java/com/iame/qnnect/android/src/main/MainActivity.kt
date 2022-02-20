@@ -15,13 +15,10 @@ import kotlinx.android.synthetic.main.activity_main_two.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
-
-
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override val layoutResourceId: Int
-        get() = com.iame.qnnect.android.R.layout.activity_main // get() : 커스텀 접근자, 코틀린 문법
+        get() = R.layout.activity_main // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: MainViewModel by viewModel()
 
