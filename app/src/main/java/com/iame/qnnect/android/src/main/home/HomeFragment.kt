@@ -65,15 +65,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
     override fun initAfterBinding() {
         add_group_btn.setOnClickListener {
-            val groupBottomSheet: GroupBottomSheet = GroupBottomSheet{
-                when (it) {
-                    // next_btn click
-                    0 -> {
-                        val groupBottomNextSheet: GroupBottomNextSheet = GroupBottomNextSheet()
-                        groupBottomNextSheet.show(requireActivity().supportFragmentManager, groupBottomNextSheet.tag)
-                    }
-                }
-            }
+            val groupBottomSheet: GroupBottomSheet = GroupBottomSheet()
             groupBottomSheet.show(requireActivity().supportFragmentManager, groupBottomSheet.tag)
         }
     }

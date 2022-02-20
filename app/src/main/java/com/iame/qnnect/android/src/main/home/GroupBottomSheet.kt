@@ -13,7 +13,7 @@ import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class GroupBottomSheet(val itemClick: (Int) -> Unit) :
+class GroupBottomSheet() :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
 
@@ -56,8 +56,7 @@ class GroupBottomSheet(val itemClick: (Int) -> Unit) :
         }
 
         view?.findViewById<ConstraintLayout>(R.id.ok_btn)?.setOnClickListener {
-            itemClick(0)
-//            dismiss()
+            dismiss()
         }
     }
 }

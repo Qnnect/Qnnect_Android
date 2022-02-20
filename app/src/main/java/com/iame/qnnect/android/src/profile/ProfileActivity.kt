@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.WindowManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -57,22 +58,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
             val intent = Intent(Intent.ACTION_PICK)
             intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
             startActivityForResult(intent, GET_GALLERY_IMAGE)
-
-            // 사진 가져오기
-            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-                super.onActivityResult(requestCode, resultCode, data)
-                if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
-                    val selectedImageUri: Uri? = data.data
-
-                    val uri: Uri = data.getData()!!
-                    path = viewModel.getFilePathFromURI(this, uri)
-
-                    Glide.with(this)
-                        .load(selectedImageUri)
-                        .transform(CenterCrop(), RoundedCorners(200))
-                        .into(user_img)
-                }
-            }
         }
 
         // rx java 사용
@@ -136,9 +121,30 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
 
         ok_btn.setOnClickListener {
             if(check){
-                val intent = Intent(this, MainActivity::class.java)
+                var intent = Intent(this, MainActivity::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
                 startActivity(intent)
+                finish()
             }
+        }
+    }
+
+    // 사진 가져오기
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val selectedImageUri: Uri? = data.data
+
+            val uri: Uri = data.getData()!!
+            path = viewModel.getFilePathFromURI(this, uri)
+            Log.d("image_path", uri.toString())
+            Log.d("image_path", path.toString())
+
+            Glide.with(this)
+                .load(selectedImageUri)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_img)
         }
     }
 }
