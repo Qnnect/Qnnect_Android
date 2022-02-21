@@ -4,6 +4,6 @@ import com.iame.qnnect.android.base.BaseViewModel
 
 class GroupBottomViewModel() : BaseViewModel() {
 
-    private val TAG = "HomeViewModel"
+    private val TAG = "GroupBottomViewModel"
 
 }

@@ -39,10 +39,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     var check = false
 
     override fun initStartView() {
-        var window = getWindow()
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.parseColor("#FFFFFF")
-
         Glide.with(this)
             .load(R.drawable.img_profile)
             .transform(CenterCrop(), RoundedCorners(200))

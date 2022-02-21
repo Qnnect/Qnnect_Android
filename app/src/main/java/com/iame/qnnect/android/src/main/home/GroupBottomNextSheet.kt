@@ -11,52 +11,31 @@ import android.widget.TextView
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.iame.qnnect.android.base.BaseFragment
+import com.iame.qnnect.android.databinding.FragmentGroupBottomBinding
+import com.iame.qnnect.android.databinding.FragmentGroupBottomNextBinding
+import com.iame.qnnect.android.viewmodel.GroupBottomNextViewModel
+import com.iame.qnnect.android.viewmodel.GroupBottomViewModel
+import kotlinx.android.synthetic.main.fragment_group_bottom.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class GroupBottomNextSheet() :
-    BottomSheetDialogFragment(){
-    private lateinit var dlg : BottomSheetDialog
+class GroupBottomNextSheet : BaseFragment<FragmentGroupBottomNextBinding, GroupBottomNextViewModel>(R.layout.fragment_group_bottom_next) {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // 이 코드를 실행하지 않으면
-        // XML에서 round 처리를 했어도 적용되지 않는다.
-        dlg = ( super.onCreateDialog(savedInstanceState).apply {
-            // window?.setDimAmount(0.2f) // Set dim amount here
-            setOnShowListener {
-                val bottomSheet = findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
-                bottomSheet.setBackgroundResource(android.R.color.transparent)
+    override val layoutResourceId: Int
+        get() = R.layout.fragment_group_bottom_next // get() : 커스텀 접근자, 코틀린 문법
 
-                // 아래와 같이하면 Drag를 불가능하게 한다.
-                //val behavior = BottomSheetBehavior.from(bottomSheet!!)
-                //behavior.isDraggable = false
-            }
-        } ) as BottomSheetDialog
-        return dlg
+    override val viewModel: GroupBottomNextViewModel by viewModel()
+
+    override fun initStartView() {
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_group_bottom_next, container, false)
+    override fun initDataBinding() {
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initAfterBinding() {
+        close_btn.setOnClickListener {
 
-        view?.findViewById<ImageView>(R.id.close_btn)?.setOnClickListener {
-            dismiss()
         }
-
-        view?.findViewById<TextView>(R.id.before_btn)?.setOnClickListener {
-            dismiss()
-        }
-
-        view?.findViewById<TextView>(R.id.next_btn)?.setOnClickListener {
-            dismiss()
-        }
-
     }
 }

@@ -9,54 +9,39 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.iame.qnnect.android.base.BaseFragment
+import com.iame.qnnect.android.databinding.FragmentGroupBottomBinding
+import com.iame.qnnect.android.databinding.FragmentHomeBinding
+import com.iame.qnnect.android.src.main.home.model.group_item
+import com.iame.qnnect.android.src.main.home.model.question_item
+import com.iame.qnnect.android.viewmodel.GroupBottomViewModel
+import com.iame.qnnect.android.viewmodel.HomeViewModel
+import kotlinx.android.synthetic.main.fragment_group_bottom.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class GroupBottomSheet() :
-    BottomSheetDialogFragment(){
-    private lateinit var dlg : BottomSheetDialog
+class GroupBottomSheet : BaseFragment<FragmentGroupBottomBinding, GroupBottomViewModel>(R.layout.fragment_group_bottom) {
 
-    var name_check = false
-    var memver_check = false
-    var color_check = false
-    var question_day = true
+    override val layoutResourceId: Int
+        get() = R.layout.fragment_group_bottom // get() : 커스텀 접근자, 코틀린 문법
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // 이 코드를 실행하지 않으면
-        // XML에서 round 처리를 했어도 적용되지 않는다.
-        dlg = ( super.onCreateDialog(savedInstanceState).apply {
-            // window?.setDimAmount(0.2f) // Set dim amount here
-            setOnShowListener {
-                val bottomSheet = findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
-                bottomSheet.setBackgroundResource(android.R.color.transparent)
+    override val viewModel: GroupBottomViewModel by viewModel()
 
-                // 아래와 같이하면 Drag를 불가능하게 한다.
-                //val behavior = BottomSheetBehavior.from(bottomSheet!!)
-                //behavior.isDraggable = false
-            }
-        } ) as BottomSheetDialog
-        return dlg
+    override fun initStartView() {
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_group_bottom, container, false)
+    override fun initDataBinding() {
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initAfterBinding() {
+        close_btn.setOnClickListener {
 
-        view?.findViewById<ImageView>(R.id.close_btn)?.setOnClickListener {
-            dismiss()
-        }
-
-        view?.findViewById<ConstraintLayout>(R.id.ok_btn)?.setOnClickListener {
-            dismiss()
         }
     }
 }
