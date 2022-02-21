@@ -17,8 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bottom_sheet_custom"
-            android:paddingBottom="27dp">
+            android:background="@drawable/bottom_sheet_custom">
 
             <TextView
                 android:id="@+id/txt1"
@@ -244,7 +243,6 @@
                 app:layout_constraintTop_toBottomOf="@id/txt4"
                 android:layout_marginLeft="27dp"
                 android:layout_marginRight="27dp"
-                android:layout_marginTop="40dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:background="@drawable/allow_btn_ok">
@@ -265,8 +263,5 @@
                 </TextView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
     </FrameLayout>
 </layout>

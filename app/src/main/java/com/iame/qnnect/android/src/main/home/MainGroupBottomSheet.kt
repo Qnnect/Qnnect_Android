@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -52,7 +50,7 @@ class MainGroupBottomSheet() :
         viewPager = view!!.findViewById(R.id.bottom_sheet_viewPager2)
 
         // The pager adapter, which provides the pages to the view pager widget.
-        val pagerAdapter = BottomSheetViewpagerAdapter(requireActivity())
+        val pagerAdapter = BottomSheetViewpagerAdapter(requireActivity(), this, viewPager)
         viewPager.adapter = pagerAdapter
 
         var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)

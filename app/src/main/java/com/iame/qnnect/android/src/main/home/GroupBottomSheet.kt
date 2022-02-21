@@ -26,12 +26,14 @@ import kotlinx.android.synthetic.main.fragment_group_bottom.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class GroupBottomSheet : BaseFragment<FragmentGroupBottomBinding, GroupBottomViewModel>(R.layout.fragment_group_bottom) {
+class GroupBottomSheet(view: MainGroupBottomSheet, viewPager: ViewPager2) : BaseFragment<FragmentGroupBottomBinding, GroupBottomViewModel>(R.layout.fragment_group_bottom) {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_group_bottom // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: GroupBottomViewModel by viewModel()
+    var parents_view = view
+    var viewPager = viewPager
 
     override fun initStartView() {
     }
@@ -40,8 +42,10 @@ class GroupBottomSheet : BaseFragment<FragmentGroupBottomBinding, GroupBottomVie
     }
 
     override fun initAfterBinding() {
-        close_btn.setOnClickListener {
-
+        ok_btn.setOnClickListener {
+            viewPager.setCurrentItem(1, false)
         }
     }
 }
+
+

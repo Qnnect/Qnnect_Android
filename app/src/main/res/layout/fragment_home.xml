@@ -58,8 +58,6 @@
                 android:layout_marginRight="17dp"
                 android:src="@mipmap/ic_alarm_foreground">
             </ImageView>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
