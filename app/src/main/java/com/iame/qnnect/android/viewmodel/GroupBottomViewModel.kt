@@ -5,5 +5,5 @@ import com.iame.qnnect.android.base.BaseViewModel
 class GroupBottomViewModel() : BaseViewModel() {
 
     private val TAG = "GroupBottomViewModel"
-
+    var nameCheck = false
 }

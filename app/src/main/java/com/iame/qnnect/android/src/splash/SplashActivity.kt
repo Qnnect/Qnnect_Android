@@ -31,7 +31,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override fun initAfterBinding() {
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, InviteActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, 1500)
     }

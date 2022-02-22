@@ -23,6 +23,7 @@
         android:text="전체"
         android:gravity="center"
         android:textSize="16dp"
+        android:textColor="@color/gray_1"
         android:fontFamily="@font/im_hyemin_bold">
     </TextView>
 
