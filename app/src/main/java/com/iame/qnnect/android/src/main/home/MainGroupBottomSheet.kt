@@ -52,6 +52,7 @@ class MainGroupBottomSheet() :
         // The pager adapter, which provides the pages to the view pager widget.
         val pagerAdapter = BottomSheetViewpagerAdapter(requireActivity(), this, viewPager)
         viewPager.adapter = pagerAdapter
+        viewPager.isUserInputEnabled = false
 
         var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
 

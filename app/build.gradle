@@ -117,6 +117,8 @@ dependencies {
     // rx binding
     implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
 
-    //viewpager2
+    // viewpager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha04'
+    // viewpager2 indicators
+    implementation 'com.tbuonomo:dotsindicator:4.2'
 }

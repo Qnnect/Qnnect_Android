@@ -1,7 +1,14 @@
 package com.iame.qnnect.android.src.main.mypage
 
+import android.content.Intent
+import android.net.Uri
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityEditProfileBinding
@@ -23,6 +30,9 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
 
     override val viewModel: EditProfileViewModel by viewModel()
 
+    // image upload vailable
+    private val GET_GALLERY_IMAGE = 200
+    var path = ""
     var check = false
 
     override fun initStartView() {
@@ -32,6 +42,13 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
     }
 
     override fun initAfterBinding() {
+        profile_img.setOnClickListener {
+            viewModel.requestMultiplePermissions(this)
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+            startActivityForResult(intent, GET_GALLERY_IMAGE)
+        }
+
         // rx java 사용
         val observableTextQuery = Observable
             .create(ObservableOnSubscribe { emitter: ObservableEmitter<String>? ->
@@ -85,4 +102,22 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
         }
     }
 
+
+    // 사진 가져오기
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
+            val selectedImageUri: Uri? = data.data
+
+            val uri: Uri = data.getData()!!
+            path = viewModel.getFilePathFromURI(this, uri)
+            Log.d("image_path", uri.toString())
+            Log.d("image_path", path.toString())
+
+            Glide.with(this)
+                .load(selectedImageUri)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_img)
+        }
+    }
 }

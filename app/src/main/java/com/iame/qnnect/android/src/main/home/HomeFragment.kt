@@ -2,18 +2,23 @@ package com.iame.qnnect.android.src.main.home
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
+import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
 import kotlinx.android.synthetic.main.fragment_home.*
 
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
+
+
+
+
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(com.iame.qnnect.android.R.layout.fragment_home) {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_home // get() : 커스텀 접근자, 코틀린 문법
@@ -42,6 +47,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             adapter = ViewPagerAdapter(question_list)
         }
 
+        //인디케이터 타입1
+        val dotsIndicator = dots_indicator
+        dotsIndicator.setViewPager2(question_viewPager2)
+
         var group_item1 = group_item("아아메팀", "2022.02.19", "5명")
         group_list.add(group_item1)
         var group_item2 = group_item("틴틴팀", "2021.09.12", "5명")
@@ -58,6 +67,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             }
             setHasFixedSize(true)
         }
+
+
     }
 
     override fun initDataBinding() {

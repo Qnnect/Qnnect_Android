@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="com.iame.qnnect.android.viewmodel.InviteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/p_ivory">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/invite_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                android:padding="14dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/ic_back_btn_foreground">
+            </ImageView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/invite_top"
+            android:background="@color/gray_4">
+        </View>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="초대하기"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="함께 다이어리를 작성할\n친구를 초대해보세요 (최대 5명)"
+            app:layout_constraintTop_toBottomOf="@id/text1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/im_hyemin_regular"
+            android:textSize="16dp"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/gray_4"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/img_out"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:scaleType="centerCrop"
+            android:padding="30dp"
+            android:src="@mipmap/img_visit_out_foreground"
+            app:layout_constraintTop_toBottomOf="@id/text2"
+            android:layout_marginTop="10dp">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/img_in"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:scaleType="centerCrop"
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:src="@mipmap/img_visit_in_foreground"
+            app:layout_constraintTop_toBottomOf="@id/text2"
+            android:layout_marginTop="10dp">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/img_in"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="★초대장★"
+            android:layout_marginTop="70dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="22dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="신사고 5인방 카페에\n초대합니다!"
+            android:layout_marginTop="22dp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="7dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="22dp">
+        </TextView>
+
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text4"
+            app:layout_constraintLeft_toLeftOf="@id/text4"
+            android:text="(당신은 선택받은 자)"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/im_hyemin_regular"
+            android:textSize="18dp">
+        </TextView>
+
+
+        <LinearLayout
+            android:id="@+id/btn_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintTop_toBottomOf="@id/img_out">
+
+            <TextView
+                android:id="@+id/link_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="초대링크 복사"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:paddingLeft="31dp"
+                android:paddingRight="31dp"
+                android:background="@drawable/invite_btn_custom"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:fontFamily="@font/bmjua_ttf"
+                android:textColor="@color/gray_1"
+                android:layout_marginRight="8dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/kakao_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="카카오톡 초대"
+                android:textSize="16dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:paddingTop="22dp"
+                android:paddingBottom="22dp"
+                android:paddingLeft="31dp"
+                android:paddingRight="31dp"
+                android:background="@drawable/invite_btn_custom"
+                app:layout_constraintRight_toRightOf="parent"
+                android:fontFamily="@font/bmjua_ttf"
+                android:textColor="@color/gray_1">
+            </TextView>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
