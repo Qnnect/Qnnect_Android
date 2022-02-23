@@ -12,4 +12,4 @@
 - 2nd Week
 1. 2022.02.21(MON) -> add group flow Complete (Change ViewPager2) & Profile image upload flow complete
 2. 2022.02.22(TUE) -> Invite layout & group page (Not yet) & add group logic & Viewpager2 indicators
-3. 2022.02.23(WEN) -> Login Api complete (using Koin, Retrofit2 at Mvvm), profile img bottom sheet
+3. 2022.02.23(WEN) -> Login Api complete (using Koin, Retrofit2 at Mvvm), profile img bottom sheet & add group logic change (using viewModel)
