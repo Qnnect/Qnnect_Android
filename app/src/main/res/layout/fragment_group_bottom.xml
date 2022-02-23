@@ -72,13 +72,13 @@
                 android:layout_marginLeft="27dp">
 
                 <TextView
-                    android:id="@+id/group_all_btn"
+                    android:id="@+id/group_friend_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="전체"
+                    android:text="친구"
                     android:fontFamily="@font/im_hyemin_bold"
                     android:textSize="16dp"
                     android:textColor="@color/white"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/group_all_btn"
+                    app:layout_constraintLeft_toRightOf="@id/group_friend_btn"
                     android:text="가족"
                     android:fontFamily="@font/im_hyemin_bold"
                     android:textSize="16dp"
@@ -109,13 +109,13 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/group_friend_btn"
+                    android:id="@+id/group_couple_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/group_family_btn"
-                    android:text="친구"
+                    android:text="커플"
                     android:fontFamily="@font/im_hyemin_bold"
                     android:textSize="16dp"
                     android:textColor="@color/gray_1"

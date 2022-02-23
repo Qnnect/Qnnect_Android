@@ -42,86 +42,31 @@ class GroupBottomSheet(view: MainGroupBottomSheet, viewPager: ViewPager2) : Base
             }
         }
         // group check
-        group_all_btn.setOnClickListener {
-            group_family_btn.setBackgroundResource(R.drawable.group_select_fail)
-            group_family_btn.setTextColor(Color.parseColor("#333333"))
-
-            group_friend_btn.setBackgroundResource(R.drawable.group_select_fail)
-            group_friend_btn.setTextColor(Color.parseColor("#333333"))
-
-            group_all_btn.setBackgroundResource(R.drawable.group_select_ok)
-            group_all_btn.setTextColor(Color.parseColor("#FFFFFF"))
-        }
-
-        group_family_btn.setOnClickListener {
-            group_all_btn.setBackgroundResource(R.drawable.group_select_fail)
-            group_all_btn.setTextColor(Color.parseColor("#333333"))
-
-            group_friend_btn.setBackgroundResource(R.drawable.group_select_fail)
-            group_friend_btn.setTextColor(Color.parseColor("#333333"))
-
-            group_family_btn.setBackgroundResource(R.drawable.group_select_ok)
-            group_family_btn.setTextColor(Color.parseColor("#FFFFFF"))
-        }
-
         group_friend_btn.setOnClickListener {
-            group_family_btn.setBackgroundResource(R.drawable.group_select_fail)
-            group_family_btn.setTextColor(Color.parseColor("#333333"))
-
-            group_all_btn.setBackgroundResource(R.drawable.group_select_fail)
-            group_all_btn.setTextColor(Color.parseColor("#333333"))
-
-            group_friend_btn.setBackgroundResource(R.drawable.group_select_ok)
-            group_friend_btn.setTextColor(Color.parseColor("#FFFFFF"))
+            viewModel.group_select(group_friend_btn, group_family_btn, group_couple_btn)
+        }
+        group_family_btn.setOnClickListener {
+            viewModel.group_select(group_family_btn, group_friend_btn, group_couple_btn)
+        }
+        group_couple_btn.setOnClickListener {
+            viewModel.group_select(group_couple_btn, group_friend_btn, group_family_btn)
         }
 
         // color check
         color_orange_btn.setOnClickListener {
-            color_brown_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_orange_btn.setBackgroundResource(R.drawable.color_in_custom_select)
-            color_pink_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_sky_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_yellow_btn.setBackgroundResource(R.drawable.color_in_custom)
+            viewModel.color_select(color_orange_btn, color_brown_btn, color_pink_btn, color_sky_btn, color_yellow_btn)
         }
-
-        color_orange_btn.setOnClickListener {
-            color_brown_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_orange_btn.setBackgroundResource(R.drawable.color_in_custom_select)
-            color_pink_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_sky_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_yellow_btn.setBackgroundResource(R.drawable.color_in_custom)
-        }
-
         color_brown_btn.setOnClickListener {
-            color_brown_btn.setBackgroundResource(R.drawable.color_in_custom_select)
-            color_orange_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_pink_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_sky_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_yellow_btn.setBackgroundResource(R.drawable.color_in_custom)
+            viewModel.color_select(color_brown_btn, color_orange_btn, color_pink_btn, color_sky_btn, color_yellow_btn)
         }
-
         color_pink_btn.setOnClickListener {
-            color_brown_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_orange_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_pink_btn.setBackgroundResource(R.drawable.color_in_custom_select)
-            color_sky_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_yellow_btn.setBackgroundResource(R.drawable.color_in_custom)
+            viewModel.color_select(color_pink_btn, color_brown_btn, color_orange_btn, color_sky_btn, color_yellow_btn)
         }
-
         color_sky_btn.setOnClickListener {
-            color_brown_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_orange_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_pink_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_sky_btn.setBackgroundResource(R.drawable.color_in_custom_select)
-            color_yellow_btn.setBackgroundResource(R.drawable.color_in_custom)
+            viewModel.color_select(color_sky_btn, color_brown_btn, color_pink_btn, color_orange_btn, color_yellow_btn)
         }
-
         color_yellow_btn.setOnClickListener {
-            color_brown_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_orange_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_pink_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_sky_btn.setBackgroundResource(R.drawable.color_in_custom)
-            color_yellow_btn.setBackgroundResource(R.drawable.color_in_custom_select)
+            viewModel.color_select(color_yellow_btn, color_brown_btn, color_pink_btn, color_sky_btn, color_orange_btn)
         }
 
         // name check
