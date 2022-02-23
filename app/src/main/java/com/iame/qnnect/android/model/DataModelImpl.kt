@@ -4,7 +4,7 @@ import com.iame.qnnect.android.model.enum.KakaoSearchSortEnum
 import com.iame.qnnect.android.model.response.ImageSearchResponse
 import com.iame.qnnect.android.model.service.KakaoSearchService
 import io.reactivex.Single
-import what.the.mvvm.KAKAO_APP_KEY
+import what.the.mvvm.MyConstant.Companion.KAKAO_APP_KEY
 
 class DataModelImpl(private val service: KakaoSearchService) : DataModel {
 

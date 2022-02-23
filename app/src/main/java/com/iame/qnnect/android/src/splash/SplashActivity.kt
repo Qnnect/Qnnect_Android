@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.WindowManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -11,6 +12,7 @@ import com.iame.qnnect.android.databinding.ActivitySplashBinding
 import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.SplashViewModel
+import com.kakao.sdk.common.util.Utility
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
@@ -34,5 +36,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, 1500)
+
+        var keyHash = Utility.getKeyHash(this)
+        Log.d("kakao_keyHash : ", keyHash.toString())
     }
 }

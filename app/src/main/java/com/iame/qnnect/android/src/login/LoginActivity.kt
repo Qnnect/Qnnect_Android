@@ -84,19 +84,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 }
             }
             else if (token != null) {
+
+//                Log.d("kakao_token ", token.toString())
                 val intent = Intent(this, AllowActivity::class.java)
                 startActivity(intent)
             }
         }
 
         kakao_login_btn.setOnClickListener {
-//            if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
-//                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
-//            }else {
-//                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-//            }
-            val intent = Intent(this, AllowActivity::class.java)
-            startActivity(intent)
+            if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
+                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
+            }else {
+                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+            }
+//            val intent = Intent(this, AllowActivity::class.java)
+//            startActivity(intent)
         }
     }
 }

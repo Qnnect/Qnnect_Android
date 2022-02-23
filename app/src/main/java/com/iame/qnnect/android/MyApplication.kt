@@ -11,6 +11,6 @@ class MyApplication : Application() {
         startKoin(applicationContext, myDiModule)
 
         // Kakao Sdk 초기화
-        KakaoSdk.init(this, "113796b4328948f2a242ab91a2fa24db")
+        KakaoSdk.init(this, "80ae4d5ffffa5528fd8dbf7c29b8a015")
     }
 }

@@ -50,11 +50,26 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
 
     override fun initAfterBinding() {
         profile_img.setOnClickListener {
-            viewModel.requestMultiplePermissions(this)
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-            startActivityForResult(intent, GET_GALLERY_IMAGE)
+            val editImageSheet: EditImageSheet = EditImageSheet {
+                when (it) {
+                    0 -> {
+                        Glide.with(this)
+                            .load(R.drawable.img_profile)
+                            .transform(CenterCrop(), RoundedCorners(200))
+                            .into(user_img)
+                    }
+                    1 -> {
+                        viewModel.requestMultiplePermissions(this)
+                        val intent = Intent(Intent.ACTION_PICK)
+                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+                        startActivityForResult(intent, GET_GALLERY_IMAGE)
+                    }
+                }
+            }
+            editImageSheet.show(supportFragmentManager, editImageSheet.tag)
         }
+
+
 
         // rx java 사용
         val observableTextQuery = Observable

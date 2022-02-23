@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.di
 
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
+import com.iame.qnnect.android.base.Repository
 import com.iame.qnnect.android.model.DataModel
 import com.iame.qnnect.android.model.DataModelImpl
 import com.iame.qnnect.android.model.service.KakaoSearchService
@@ -37,10 +38,11 @@ var modelPart = module {
         DataModelImpl(get())
     }
 }
+val repository: Repository = Repository()
 
 var viewModelPart = module {
     viewModel { MainViewModel(get()) }
-    viewModel { LoginViewModel() }
+    viewModel { LoginViewModel(repository) }
     viewModel { AllowViewModel() }
     viewModel { ProfileViewModel() }
     viewModel { HomeViewModel() }

@@ -1,3 +1,8 @@
 package what.the.mvvm
 
-val KAKAO_APP_KEY = "113796b4328948f2a242ab91a2fa24db"
+class MyConstant {
+    companion object{
+        const val BASE_URL = "http://13.209.172.157:8080/"
+        const val KAKAO_APP_KEY = "80ae4d5ffffa5528fd8dbf7c29b8a015"
+    }
+}
