@@ -11,3 +11,4 @@
 
 - 2nd Week
 1. 2022.02.21(MON) -> add group flow Complete (Change ViewPager2) & Profile image upload flow complete
+2. 2022.02.22(TUE) -> Invite layout & group page (Not yet) & add group logic & Viewpager2 indicators
