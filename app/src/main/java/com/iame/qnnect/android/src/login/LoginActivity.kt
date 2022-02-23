@@ -1,22 +1,21 @@
 package com.iame.qnnect.android.src.login
 
-import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.core.view.WindowCompat
+import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityLoginBinding
-import com.iame.qnnect.android.src.allow.AllowActivity
+import com.iame.qnnect.android.src.login.model.PostLoginRequest
+import com.iame.qnnect.android.src.login.model.PostLoginResponse
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_main_two.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
@@ -47,6 +46,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     }
 
     override fun initDataBinding() {
+//        val repository = Repository()
+//        val viewModelFactory = LoginViewModelFactory(repository)
+//        viewModel = ViewModelProvider(this,viewModelFactory).get(LoginViewModel::class.java)
+//        viewModel.getPost()
+//        viewModel.myResponse.observe(this, Observer {
+//            Log.d("Response",it.myUserId.toString())
+//            Log.d("Response",it.id.toString())
+//            Log.d("Response",it.title)
+//            Log.d("Response",it.body)
+//        })
     }
 
     override fun initAfterBinding() {
@@ -85,9 +94,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             }
             else if (token != null) {
 
+                var accesstoken = token.accessToken
+                var loginType = "kakao"
+                var loginRequest = PostLoginRequest(accesstoken, loginType)
+                viewModel.postLogin(loginRequest)
+
+                viewModel.loginResponse.observe(this, Observer {
+                   var response = PostLoginResponse(it.accessToken, it.isNewMember, it.refreshToken, it.userSettingDone)
+                    Log.d("login_response ", response.toString())
+                })
+
 //                Log.d("kakao_token ", token.toString())
-                val intent = Intent(this, AllowActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(this, AllowActivity::class.java)
+//                startActivity(intent)
+
             }
         }
 

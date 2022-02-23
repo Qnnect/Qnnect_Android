@@ -4,8 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class PostLoginResponse(
     @SerializedName("accessToken") var accessToken: String,
-    @SerializedName("isNewMember") var loginType: Boolean,
-    @SerializedName("refreshToken") var refreshToken: String
+    @SerializedName("isNewMember") var isNewMember: Boolean,
+    @SerializedName("refreshToken") var refreshToken: String,
+    @SerializedName("userSettingDone") var userSettingDone: Boolean
     )
 //{
 //    "accessToken": "string",
