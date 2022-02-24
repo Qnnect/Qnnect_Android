@@ -3,24 +3,17 @@ package com.iame.qnnect.android.src.group
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.base.BaseFragment
-import com.iame.qnnect.android.databinding.FragmentHomeBinding
-import com.iame.qnnect.android.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
 import com.iame.qnnect.android.src.main.home.GroupAdapter
-import com.iame.qnnect.android.src.main.home.MainGroupBottomSheet
+import com.iame.qnnect.android.src.main.home.home_bottom.MainGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
 import com.iame.qnnect.android.viewmodel.GroupViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
-
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-
-
-
 
 
 class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layout.fragment_group) {
@@ -65,13 +58,13 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         var group_item4 = group_item("아아메", "2022.02.05", "5명")
         group_list.add(group_item4)
 
-        group_recycler.run {
-            adapter = GroupAdapter(group_list)
-            layoutManager = LinearLayoutManager(context).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
-            setHasFixedSize(true)
-        }
+//        group_recycler.run {
+//            adapter = SubGroupAdapter(group_list)
+//            layoutManager = LinearLayoutManager(context).apply {
+//                orientation = LinearLayoutManager.HORIZONTAL
+//            }
+//            setHasFixedSize(true)
+//        }
 
 
     }
@@ -80,10 +73,10 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
-        add_group_btn.setOnClickListener {
-            val maingroupBottomSheet: MainGroupBottomSheet = MainGroupBottomSheet()
-            maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
-        }
+//        add_group_btn.setOnClickListener {
+//            val maingroupBottomSheet: MainGroupBottomSheet = MainGroupBottomSheet()
+//            maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
+//        }
     }
 
 }

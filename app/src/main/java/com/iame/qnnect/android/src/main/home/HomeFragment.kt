@@ -7,23 +7,22 @@ import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
+import com.iame.qnnect.android.MainActivity
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.main.home.home_bottom.MainGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
 import kotlinx.android.synthetic.main.fragment_home.*
 
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
-
-
-
-
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(com.iame.qnnect.android.R.layout.fragment_home) {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_home // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: HomeViewModel by viewModel()
+
+    var fragment = this
 
     var viewPager2: ViewPager2? = null
     var question_list = ArrayList<question_item>()
@@ -61,7 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(com.iame.q
         group_list.add(group_item4)
 
         group_recycler.run {
-            adapter = GroupAdapter(group_list)
+            adapter = GroupAdapter(context, group_list, fragment)
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
             }

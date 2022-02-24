@@ -1,5 +1,9 @@
 package com.iame.qnnect.android.src.main
 
+import android.content.Context
+import android.util.Log
+import android.view.View
+import androidx.fragment.app.Fragment
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -84,7 +88,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 }
                 true
             })
-
     }
 
+    //이 함수를 통해 다른 fragment로 이동한다.생성자가 아닌 불러오는 형식
+    fun fragmentChange_for_adapter(frag: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.main_frm, frag).commit()
+    }
 }

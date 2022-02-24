@@ -1,6 +1,5 @@
-package com.iame.qnnect.android.src.main.home
+package com.iame.qnnect.android.src.main.home.home_bottom
 
-import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.viewpager2.widget.ViewPager2
@@ -14,7 +13,6 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.fragment_group_bottom.*
 import kotlinx.android.synthetic.main.fragment_group_bottom.ok_btn
 import org.koin.androidx.viewmodel.ext.android.viewModel
