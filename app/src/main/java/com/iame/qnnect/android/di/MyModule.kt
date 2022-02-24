@@ -13,13 +13,11 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import what.the.mvvm.MyConstant
 import what.the.mvvm.MyConstant.Companion.BASE_URL
 
 /**
  * MyModule.kt
  */
-
 var retrofitPart = module {
     single<KakaoSearchService> {
         Retrofit.Builder()

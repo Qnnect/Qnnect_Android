@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.login
 
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.WindowManager
@@ -8,8 +9,10 @@ import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityLoginBinding
+import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.login.model.PostLoginResponse
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
@@ -102,6 +105,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 viewModel.loginResponse.observe(this, Observer {
                    var response = PostLoginResponse(it.accessToken, it.isNewMember, it.refreshToken, it.userSettingDone)
                     Log.d("login_response ", response.toString())
+                    baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
+
+                    if(!it.userSettingDone){
+                        val intent = Intent(this, AllowActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else{
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }
                 })
 
 //                Log.d("kakao_token ", token.toString())
