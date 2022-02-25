@@ -8,8 +8,3 @@ data class PostLoginResponse(
     @SerializedName("refreshToken") var refreshToken: String,
     @SerializedName("userSettingDone") var userSettingDone: Boolean
     )
-//{
-//    "accessToken": "string",
-//    "isNewMember": true,
-//    "refreshToken": "string"
-//}

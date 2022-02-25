@@ -2,6 +2,7 @@ package com.iame.qnnect.android.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
@@ -61,6 +62,9 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
         initStartView()
         initDataBinding()
         initAfterBinding()
+
+        // 다크모드 비활성화
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     private fun snackbarObserving() {

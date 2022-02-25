@@ -4,22 +4,15 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.WindowManager
 import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
-import com.iame.qnnect.android.src.allow.AllowActivity
-import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.login.LoginActivity
-import com.iame.qnnect.android.src.login.model.PostLoginRequest
-import com.iame.qnnect.android.src.login.model.PostLoginResponse
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
-import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import com.iame.qnnect.android.viewmodel.SplashViewModel
-import com.kakao.sdk.common.util.Utility
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
@@ -33,8 +26,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.parseColor("#554338")
         window.decorView.systemUiVisibility = 0
-
-
     }
 
     override fun initDataBinding() {

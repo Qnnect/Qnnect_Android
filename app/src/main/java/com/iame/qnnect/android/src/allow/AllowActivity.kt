@@ -50,8 +50,8 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
                     viewModel.patchAlarmCheck(header, allow_radio3.isChecked)
 
                     viewModel.alarmCheckResponse.observe(this, Observer {
-//                        var response = PatchAlarmCheckResponse(it.response_code)
-//                        Log.d("heck_alarm_response!!", response.toString())
+                        var response = PatchAlarmCheckResponse(it.response_code)
+                        Log.d("heck_alarm_response!!", response.toString())
 
                         var intent = Intent(this, ProfileActivity::class.java)
                         startActivity(intent)

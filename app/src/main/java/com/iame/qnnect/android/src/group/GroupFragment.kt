@@ -1,6 +1,5 @@
 package com.iame.qnnect.android.src.group
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -8,7 +7,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
 import com.iame.qnnect.android.src.main.home.GroupAdapter
-import com.iame.qnnect.android.src.main.home.home_bottom.MainGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item

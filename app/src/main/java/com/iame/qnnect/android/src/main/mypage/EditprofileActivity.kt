@@ -48,7 +48,7 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
                 when (it) {
                     0 -> {
                         Glide.with(this)
-                            .load(R.drawable.img_profile)
+                            .load(R.mipmap.img_profile_dafault_foreground)
                             .transform(CenterCrop(), RoundedCorners(200))
                             .into(user_img)
                     }

@@ -1,7 +1,5 @@
 package com.iame.qnnect.android.src.splash.service
 
-import com.iame.qnnect.android.src.login.model.PostLoginRequest
-import com.iame.qnnect.android.src.login.model.PostLoginResponse
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import io.reactivex.Single

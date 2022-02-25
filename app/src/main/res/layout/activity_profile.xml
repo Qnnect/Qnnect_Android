@@ -28,7 +28,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:src="@drawable/img_profile"
+                android:src="@mipmap/img_profile_dafault_foreground"
                 android:scaleType="centerCrop">
             </ImageView>
 
