@@ -49,8 +49,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             viewModel.postRefresh(refreshRequest)
 
             viewModel.refreshResponse.observe(this, Observer {
-                var response = PostRefreshResponse(it.accessToken, it.refreshToken)
-                Log.d("login_response ", response.toString())
+//                var log = it.toString()
+//                Log.d("login_response ", log)
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
 
                 Handler(Looper.getMainLooper()).postDelayed({

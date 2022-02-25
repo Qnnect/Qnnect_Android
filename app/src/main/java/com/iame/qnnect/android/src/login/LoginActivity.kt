@@ -103,8 +103,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 viewModel.postLogin(loginRequest)
 
                 viewModel.loginResponse.observe(this, Observer {
-                   var response = PostLoginResponse(it.accessToken, it.isNewMember, it.refreshToken, it.userSettingDone)
-                    Log.d("login_response ", response.toString())
+//                   var response = PostLoginResponse(it.accessToken, it.isNewMember, it.refreshToken, it.userSettingDone)
+//                    Log.d("login_response ", response.toString())
                     baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
 
                     if(!it.userSettingDone){
@@ -116,10 +116,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         startActivity(intent)
                     }
                 })
-
-//                Log.d("kakao_token ", token.toString())
-//                val intent = Intent(this, AllowActivity::class.java)
-//                startActivity(intent)
 
             }
         }
