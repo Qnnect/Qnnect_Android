@@ -13,4 +13,4 @@
 1. 2022.02.21(MON) -> add group flow Complete (Change ViewPager2) & Profile image upload flow complete
 2. 2022.02.22(TUE) -> Invite layout & group page (Not yet) & add group logic & Viewpager2 indicators
 3. 2022.02.23(WEN) -> Login Api complete (using Koin, Retrofit2 at Mvvm), profile img bottom sheet & add group logic change (using viewModel)
-4. 2022.02.24(THU) -> Refresh Api, Alarm Check Api, Allow Check Box Logic Change (using viewModel func)
+4. 2022.02.24(THU) -> Refresh token Api, Alarm Check Api, Allow Check Box Logic Change (using viewModel func)
