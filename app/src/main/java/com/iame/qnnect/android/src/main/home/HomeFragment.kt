@@ -1,6 +1,8 @@
 package com.iame.qnnect.android.src.main.home
 
 import android.content.Intent
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.base.BaseFragment
@@ -8,15 +10,17 @@ import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
-import com.iame.qnnect.android.MainActivity
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.group.GroupFragment
-import com.iame.qnnect.android.src.main.home.home_bottom.GroupBottomSheet
 import com.iame.qnnect.android.src.main.home.home_bottom.MainGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
+import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.*
-
+import kotlinx.android.synthetic.main.fragment_home.dots_indicator
+import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
@@ -33,6 +37,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     lateinit var groupAdapter: GroupAdapter
     lateinit var groupRecyclerView: RecyclerView
     var group_list = ArrayList<group_item>()
+
+    var home_case = HomeFragment_case()
+
+    val fragment_s: Fragment = this
+    private var activity: MainActivity? = null
 
 
     override fun initStartView() {
@@ -82,7 +91,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 when (it) {
                     // 그룹페이지로 이동
                     0 -> {
-//                        var intent = Intent(this, GroupFragment)
+                        home_case.setHome(requireContext(), 1, "group_name")
+
+                        var fragment: Fragment = GroupFragment()
+                        var bundle: Bundle = Bundle()
+                        fragment.arguments=bundle
+
+                        activity = fragment_s.activity as MainActivity?
+                        //change_for_adapter는 mainactivity에 구현
+                        activity?.fragmentChange_for_adapter(fragment)
                     }
                 }
             }

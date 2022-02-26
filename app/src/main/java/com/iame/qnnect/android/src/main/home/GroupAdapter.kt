@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.iame.qnnect.android.src.main.home.model.group_item
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.group.GroupFragment
 import com.iame.qnnect.android.src.main.MainActivity
 
@@ -26,15 +28,17 @@ class GroupAdapter(
     var datas = ArrayList<group_item>()
     private var activity: MainActivity? = null
 
+    var home_case = HomeFragment_case()
+
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
-        var group_name: TextView = itemView.findViewById(com.iame.qnnect.android.R.id.group_name)
-        var date: TextView = itemView.findViewById(com.iame.qnnect.android.R.id.date_txt)
-        var people_count: TextView = itemView.findViewById(com.iame.qnnect.android.R.id.count_txt)
+        var group_name: TextView = itemView.findViewById(R.id.group_name)
+        var date: TextView = itemView.findViewById(R.id.date_txt)
+        var people_count: TextView = itemView.findViewById(R.id.count_txt)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(com.iame.qnnect.android.R.layout.home_group_item, parent, false)
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.home_group_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -45,6 +49,8 @@ class GroupAdapter(
 
 
         holder.itemView.setOnClickListener {
+            home_case.setHome(context, 1, "group_name")
+
             var fragment: Fragment = GroupFragment()
             var bundle: Bundle = Bundle()
 //            bundle.putString("user_id",holder?.userID.text.toString())

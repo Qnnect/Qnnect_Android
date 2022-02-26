@@ -1,17 +1,25 @@
 package com.iame.qnnect.android.src.group
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
+import com.iame.qnnect.android.src.main.home.HomeFragment
 import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
 import com.iame.qnnect.android.viewmodel.GroupViewModel
+import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.dots_indicator
+import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
 
 
 class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layout.fragment_group) {
@@ -28,6 +36,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     lateinit var groupRecyclerView: RecyclerView
     var group_list = ArrayList<group_item>()
 
+    var home_case = HomeFragment_case()
+    val fragment_s: Fragment = this
+    private var activity: MainActivity? = null
 
     override fun initStartView() {
         var question_itme1 = question_item("D-7", "아아메팀", "오늘은 뭘먹을까요??")
@@ -71,10 +82,17 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
-//        add_group_btn.setOnClickListener {
-//            val maingroupBottomSheet: MainGroupBottomSheet = MainGroupBottomSheet()
-//            maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
-//        }
+        back_btn.setOnClickListener {
+            home_case.setHome(requireContext(), 0, "")
+
+            var fragment: Fragment = HomeFragment()
+            var bundle: Bundle = Bundle()
+            fragment.arguments=bundle
+
+            activity = fragment_s.activity as MainActivity?
+            //change_for_adapter는 mainactivity에 구현
+            activity?.fragmentChange_for_adapter(fragment)
+        }
     }
 
 }
