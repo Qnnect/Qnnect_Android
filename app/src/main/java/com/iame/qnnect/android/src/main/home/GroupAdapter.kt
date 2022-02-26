@@ -26,10 +26,6 @@ class GroupAdapter(
     var datas = ArrayList<group_item>()
     private var activity: MainActivity? = null
 
-//    var group_name: String,
-//    var date: String,
-//    var people_count: String
-
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
         var group_name: TextView = itemView.findViewById(com.iame.qnnect.android.R.id.group_name)
@@ -43,10 +39,6 @@ class GroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        Glide.with(holder.itemView.getContext())
-//            .load(itemList.get(position).img)
-//            .transform(CenterCrop(), RoundedCorners(50))
-//            .into(holder.challenge_img)
         holder.group_name.setText(itemList.get(position).group_name)
         holder.date.setText(itemList.get(position).date)
         holder.people_count.setText(itemList.get(position).people_count)

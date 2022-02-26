@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main.home
 
+import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.base.BaseFragment
@@ -9,6 +10,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.MainActivity
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.group.GroupFragment
+import com.iame.qnnect.android.src.main.home.home_bottom.GroupBottomSheet
 import com.iame.qnnect.android.src.main.home.home_bottom.MainGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
@@ -75,7 +78,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
     override fun initAfterBinding() {
         add_group_btn.setOnClickListener {
-            val maingroupBottomSheet: MainGroupBottomSheet = MainGroupBottomSheet()
+            val maingroupBottomSheet: MainGroupBottomSheet = MainGroupBottomSheet {
+                when (it) {
+                    // 그룹페이지로 이동
+                    0 -> {
+//                        var intent = Intent(this, GroupFragment)
+                    }
+                }
+            }
             maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
         }
     }

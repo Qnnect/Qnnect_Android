@@ -18,13 +18,12 @@ import kotlinx.android.synthetic.main.fragment_group_bottom.ok_btn
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
-class GroupBottomSheet(view: MainGroupBottomSheet, viewPager: ViewPager2) : BaseFragment<FragmentGroupBottomBinding, GroupBottomViewModel>(R.layout.fragment_group_bottom) {
+class GroupBottomSheet() : BaseFragment<FragmentGroupBottomBinding, GroupBottomViewModel>(R.layout.fragment_group_bottom) {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_group_bottom // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: GroupBottomViewModel by viewModel()
-    var viewPager = viewPager
     var check = false
 
     override fun initStartView() {
@@ -35,9 +34,7 @@ class GroupBottomSheet(view: MainGroupBottomSheet, viewPager: ViewPager2) : Base
 
     override fun initAfterBinding() {
         ok_btn.setOnClickListener {
-            if(check){
-                viewPager.setCurrentItem(1, false)
-            }
+
         }
         // group check
         group_friend_btn.setOnClickListener {
@@ -91,27 +88,30 @@ class GroupBottomSheet(view: MainGroupBottomSheet, viewPager: ViewPager2) : Base
             .debounce(500, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
 
-        observableTextQuery.subscribe(object : Observer<String> {
-            override fun onComplete() {
+        observableTextQuery.subscribe{
+            var str = name_edit_txt.text.toString()
+            if(str.length > 0 && str.length < 11 && str != "null"){
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+                check = true
             }
-
-            override fun onSubscribe(d: Disposable?) {
+            else{
+                ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+                check = false
             }
-
-            override fun onNext(t: String) {
-                var str = name_edit_txt.text.toString()
-                if(str.length > 0 && str.length < 11 && str != "null"){
-                    ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
-                    check = true
-                }
-                else{
-                    ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
-                    check = false
-                }
-            }
-            override fun onError(e: Throwable?) {
-            }
-        })
+        }
+//        observableTextQuery.subscribe(object : Observer<String> {
+//            override fun onComplete() {
+//            }
+//
+//            override fun onSubscribe(d: Disposable?) {
+//            }
+//
+//            override fun onNext(t: String) {
+//
+//            }
+//            override fun onError(e: Throwable?) {
+//            }
+//        })
     }
 }
 

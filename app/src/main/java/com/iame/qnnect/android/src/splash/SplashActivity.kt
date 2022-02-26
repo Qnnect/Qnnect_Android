@@ -32,29 +32,33 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     }
 
     override fun initAfterBinding() {
-        if(baseToken.getAccessToken(this) != null){
-            var accessToken = baseToken.getAccessToken(this)
-            var refreshToken = baseToken.getRefreshToken(this)
-            var refreshRequest = PostRefreshRequest(accessToken!!, refreshToken!!)
+//        if(baseToken.getAccessToken(this) != null){
+//            var accessToken = baseToken.getAccessToken(this)
+//            var refreshToken = baseToken.getRefreshToken(this)
+//            var refreshRequest = PostRefreshRequest(accessToken!!, refreshToken!!)
+//
+//            viewModel.postRefresh(refreshRequest)
+//
+//            viewModel.refreshResponse.observe(this, Observer {
+////                var log = it.toString()
+////                Log.d("login_response ", log)
+//                baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
+//
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    startActivity(Intent(this, MainActivity::class.java))
+//                    finish()
+//                }, 1500)
+//            })
+//        }
+//        else{
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                startActivity(Intent(this, LoginActivity::class.java))
+//                finish()
+//            }, 1500)
+//        }
 
-            viewModel.postRefresh(refreshRequest)
-
-            viewModel.refreshResponse.observe(this, Observer {
-//                var log = it.toString()
-//                Log.d("login_response ", log)
-                baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
-
-                Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }, 1500)
-            })
-        }
-        else{
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }, 1500)
-        }
+        Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(Intent(this, MainActivity::class.java))
+                finish() }, 1500)
     }
 }

@@ -116,7 +116,6 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
         }
     }
 
-
     // 사진 가져오기
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

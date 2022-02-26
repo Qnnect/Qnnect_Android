@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class MainGroupBottomSheet() :
+class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
 
@@ -47,17 +48,22 @@ class MainGroupBottomSheet() :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // Instantiate a ViewPager2 and a PagerAdapter.
-        viewPager = view!!.findViewById(R.id.bottom_sheet_viewPager2)
+//        viewPager = view!!.findViewById(R.id.bottom_sheet_viewPager2)
 
         // The pager adapter, which provides the pages to the view pager widget.
-        val pagerAdapter = BottomSheetViewpagerAdapter(requireActivity(), this, viewPager)
-        viewPager.adapter = pagerAdapter
-        viewPager.isUserInputEnabled = false
+//        val pagerAdapter = BottomSheetViewpagerAdapter(requireActivity(), this, viewPager)
+//        viewPager.adapter = pagerAdapter
+//        viewPager.isUserInputEnabled = false
 
         var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
+        var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
 
         close_btn.setOnClickListener {
             dismiss()
+        }
+        ok_btn.setOnClickListener {
+            dismiss()
+            itemClick(0)
         }
     }
 }
