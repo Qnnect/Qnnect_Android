@@ -12,12 +12,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bottom_sheet_custom">
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_sheet_custom"
+            android:paddingBottom="20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottom_top"
@@ -36,7 +37,7 @@
                     android:text="그룹추가"
                     android:fontFamily="@font/im_hyemin_bold"
                     android:textSize="20dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/black">
                 </TextView>
 
@@ -177,91 +178,81 @@
                 android:textColor="@color/black">
             </TextView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/color_orange_btn"
                 app:layout_constraintTop_toBottomOf="@id/txt3"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="27dp"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@mipmap/color_orange_foreground"
+                android:scaleType="centerCrop"
+                android:background="@drawable/color_in_custom_select">
+            </ImageView>
 
-                <ImageView
-                    android:id="@+id/color_orange_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:src="@mipmap/color_orange_foreground"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/color_in_custom_select">
-                </ImageView>
+            <ImageView
+                android:id="@+id/color_pink_btn"
+                app:layout_constraintTop_toTopOf="@id/color_orange_btn"
+                app:layout_constraintBottom_toBottomOf="@id/color_orange_btn"
+                app:layout_constraintLeft_toRightOf="@id/color_orange_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginLeft="14dp"
+                android:src="@mipmap/color_pink_foreground"
+                android:scaleType="centerCrop"
+                android:background="@drawable/color_in_custom">
+            </ImageView>
 
-                <ImageView
-                    android:id="@+id/color_pink_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/color_orange_btn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:layout_marginLeft="14dp"
-                    android:src="@mipmap/color_pink_foreground"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/color_in_custom">
-                </ImageView>
+            <ImageView
+                android:id="@+id/color_yellow_btn"
+                app:layout_constraintTop_toTopOf="@id/color_orange_btn"
+                app:layout_constraintBottom_toBottomOf="@id/color_orange_btn"
+                app:layout_constraintLeft_toRightOf="@id/color_pink_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginLeft="14dp"
+                android:src="@mipmap/color_yellow_foreground"
+                android:scaleType="centerCrop"
+                android:background="@drawable/color_in_custom">
+            </ImageView>
 
-                <ImageView
-                    android:id="@+id/color_yellow_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/color_pink_btn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:layout_marginLeft="14dp"
-                    android:src="@mipmap/color_yellow_foreground"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/color_in_custom">
-                </ImageView>
+            <ImageView
+                android:id="@+id/color_sky_btn"
+                app:layout_constraintTop_toTopOf="@id/color_orange_btn"
+                app:layout_constraintBottom_toBottomOf="@id/color_orange_btn"
+                app:layout_constraintLeft_toRightOf="@id/color_yellow_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginLeft="14dp"
+                android:src="@mipmap/color_sky_foreground"
+                android:scaleType="centerCrop"
+                android:background="@drawable/color_in_custom">
+            </ImageView>
 
-                <ImageView
-                    android:id="@+id/color_sky_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/color_yellow_btn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:layout_marginLeft="14dp"
-                    android:src="@mipmap/color_sky_foreground"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/color_in_custom">
-                </ImageView>
-
-                <ImageView
-                    android:id="@+id/color_brown_btn"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/color_sky_btn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:layout_marginLeft="14dp"
-                    android:src="@mipmap/color_brown_foreground"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/color_in_custom">
-                </ImageView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/color_brown_btn"
+                app:layout_constraintTop_toTopOf="@id/color_orange_btn"
+                app:layout_constraintBottom_toBottomOf="@id/color_orange_btn"
+                app:layout_constraintLeft_toRightOf="@id/color_sky_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:layout_marginLeft="14dp"
+                android:src="@mipmap/color_brown_foreground"
+                android:scaleType="centerCrop"
+                android:background="@drawable/color_in_custom">
+            </ImageView>
 
             <TextView
                 android:id="@+id/txt4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/color"
+                app:layout_constraintTop_toBottomOf="@id/color_orange_btn"
                 android:layout_marginTop="38dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginLeft="27dp"
@@ -271,14 +262,84 @@
                 android:textColor="@color/black">
             </TextView>
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/custom_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/txt4">
+            </ProgressBar>
+
+            <TextView
+                android:id="@+id/day_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/progressBar"
+                android:layout_marginTop="8dp"
+                app:layout_constraintLeft_toLeftOf="@id/progressBar"
+                android:text="매일"
+                android:textColor="@color/p_brown"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="16dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/day_seven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/progressBar"
+                android:layout_marginTop="8dp"
+                app:layout_constraintRight_toRightOf="@id/progressBar"
+                android:text="7일"
+                android:textColor="@color/p_brown"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="16dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/day_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/progressBar"
+                android:layout_marginTop="8dp"
+                app:layout_constraintLeft_toLeftOf="@id/color_yellow_btn"
+                android:text="3일"
+                android:textColor="@color/p_brown"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="16dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/day_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/progressBar"
+                app:layout_constraintLeft_toLeftOf="@id/color_brown_btn"
+                android:layout_marginTop="8dp"
+                android:text="5일"
+                android:textColor="@color/p_brown"
+                android:textStyle="bold"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="16dp">
+            </TextView>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ok_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/txt4"
+                app:layout_constraintTop_toBottomOf="@id/day_all"
                 android:layout_marginLeft="27dp"
                 android:layout_marginRight="27dp"
+                android:layout_marginTop="40dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
                 android:background="@drawable/allow_btn_fail">

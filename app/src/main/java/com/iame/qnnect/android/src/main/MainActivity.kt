@@ -28,6 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private val mainSearchRecyclerViewAdapter: MainSearchRecyclerViewAdapter by inject()
 
     var case = HomeFragment_case()
+    var case_num = 0
 
     override fun initStartView() {
     }
@@ -59,7 +60,20 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                         main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
                         main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
 
-                        if(case.getHomeCase(this) == 0){
+//                        if(case.getHomeCase(this) == 0){
+//                            supportFragmentManager.beginTransaction()
+//                                .replace(R.id.main_frm, HomeFragment())
+//                                .commitAllowingStateLoss()
+//                            return@OnNavigationItemSelectedListener true
+//                        }
+//                        else{
+//                            var group_name = case.getGroupname(this)
+//                            supportFragmentManager.beginTransaction()
+//                                .replace(R.id.main_frm, GroupFragment())
+//                                .commitAllowingStateLoss()
+//                            return@OnNavigationItemSelectedListener true
+//                        }
+                        if(case_num == 0){
                             supportFragmentManager.beginTransaction()
                                 .replace(R.id.main_frm, HomeFragment())
                                 .commitAllowingStateLoss()
@@ -113,6 +127,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     //이 함수를 통해 다른 fragment로 이동한다.생성자가 아닌 불러오는 형식
     fun fragmentChange_for_adapter(frag: Fragment){
+        if(frag == HomeFragment()){
+            case_num = 0
+        }
+        else{
+            case_num = 1
+        }
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, frag).commit()
     }
 }

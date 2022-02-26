@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,8 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
-
-    private lateinit var viewPager: ViewPager2
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
@@ -28,9 +26,10 @@ class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
                 val bottomSheet = findViewById<View>(R.id.design_bottom_sheet) as FrameLayout
                 bottomSheet.setBackgroundResource(android.R.color.transparent)
 
-                // 아래와 같이하면 Drag를 불가능하게 한다.
-                //val behavior = BottomSheetBehavior.from(bottomSheet!!)
-                //behavior.isDraggable = false
+//                 아래와 같이하면 Drag를 불가능하게 한다.
+                val behavior = BottomSheetBehavior.from(bottomSheet!!)
+                behavior.isDraggable = true
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
         } ) as BottomSheetDialog
         return dlg
