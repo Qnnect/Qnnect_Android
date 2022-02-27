@@ -268,75 +268,79 @@
                 android:progressDrawable="@drawable/custom_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="16dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginBottom="40dp"
-                android:layout_marginRight="32dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginRight="27dp"
                 android:layout_marginTop="30dp"
                 app:layout_constraintTop_toBottomOf="@id/txt4">
             </ProgressBar>
 
-            <TextView
-                android:id="@+id/day_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/progressBar"
-                android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@id/progressBar"
-                android:text="매일"
-                android:textColor="@color/p_brown"
-                android:textStyle="bold"
-                android:fontFamily="@font/im_hyemin_bold"
-                android:textSize="16dp">
-            </TextView>
+            <LinearLayout
+                android:id="@+id/btn_view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="27dp"
+                android:layout_marginRight="27dp"
+                app:layout_constraintTop_toTopOf="@id/progressBar">
 
-            <TextView
-                android:id="@+id/day_seven"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/progressBar"
-                android:layout_marginTop="8dp"
-                app:layout_constraintRight_toRightOf="@id/progressBar"
-                android:text="7일"
-                android:textColor="@color/p_brown"
-                android:textStyle="bold"
-                android:fontFamily="@font/im_hyemin_bold"
-                android:textSize="16dp">
-            </TextView>
+                <TextView
+                    android:id="@+id/day_one"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="매일"
+                    android:gravity="bottom"
+                    android:textColor="@color/p_brown"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:textSize="16dp">
+                </TextView>
 
-            <TextView
-                android:id="@+id/day_three"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/progressBar"
-                android:layout_marginTop="8dp"
-                app:layout_constraintLeft_toLeftOf="@id/color_yellow_btn"
-                android:text="3일"
-                android:textColor="@color/p_brown"
-                android:textStyle="bold"
-                android:fontFamily="@font/im_hyemin_bold"
-                android:textSize="16dp">
-            </TextView>
+                <TextView
+                    android:id="@+id/day_three"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="3일"
+                    android:gravity="center|bottom"
+                    android:textColor="@color/p_brown"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:textSize="16dp">
+                </TextView>
 
-            <TextView
-                android:id="@+id/day_five"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/progressBar"
-                app:layout_constraintLeft_toLeftOf="@id/color_brown_btn"
-                android:layout_marginTop="8dp"
-                android:text="5일"
-                android:textColor="@color/p_brown"
-                android:textStyle="bold"
-                android:fontFamily="@font/im_hyemin_bold"
-                android:textSize="16dp">
-            </TextView>
+                <TextView
+                    android:id="@+id/day_five"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="5일"
+                    android:gravity="center|bottom"
+                    android:textColor="@color/p_brown"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:textSize="16dp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/day_seven"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="7일"
+                    android:gravity="end|bottom"
+                    android:textColor="@color/p_brown"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:textSize="16dp">
+                </TextView>
+            </LinearLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ok_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/day_all"
+                app:layout_constraintTop_toBottomOf="@id/btn_view"
                 android:layout_marginLeft="27dp"
                 android:layout_marginRight="27dp"
                 android:layout_marginTop="40dp"

@@ -3,10 +3,12 @@ package com.iame.qnnect.android.src.main.home.home_bottom
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.R
@@ -64,5 +66,11 @@ class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
             dismiss()
             itemClick(0)
         }
+
+        var one_btn = view!!.findViewById<TextView>(R.id.day_one)
+        var three_btn = view!!.findViewById<TextView>(R.id.day_three)
+        var five_btn = view!!.findViewById<TextView>(R.id.day_five)
+        var seven_btn = view!!.findViewById<TextView>(R.id.day_seven)
+
     }
 }
