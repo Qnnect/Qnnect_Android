@@ -25,13 +25,14 @@ class AllowViewModel(private val model: AlarmCheckDataModel) : BaseViewModel() {
     val alarmCheckResponse: LiveData<PatchAlarmCheckResponse>
         get() = patchAlarmCheckResponse
 
-    fun patchAlarmCheck(header: String, enableNotification: Boolean) {
-        addDisposable(model.patchAlarmCheck(header, enableNotification)
+    fun patchAlarmCheck(enableNotification: Boolean) {
+        addDisposable(model.patchAlarmCheck(enableNotification)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.run {
-                    patchAlarmCheckResponse.postValue(this)
+                    var result = PatchAlarmCheckResponse("200 OK")
+                    patchAlarmCheckResponse.postValue(result)
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")

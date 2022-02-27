@@ -83,6 +83,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 var accesstoken = token.accessToken
                 var loginType = "kakao"
                 var loginRequest = PostLoginRequest(accesstoken, loginType)
+                Log.d("login_response2 ", token.accessToken)
                 viewModel.postLogin(loginRequest)
 
                 viewModel.loginResponse.observe(this, Observer {
@@ -94,7 +95,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         startActivity(intent)
                     }
                     else{
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, AllowActivity::class.java)
                         startActivity(intent)
                     }
                 })

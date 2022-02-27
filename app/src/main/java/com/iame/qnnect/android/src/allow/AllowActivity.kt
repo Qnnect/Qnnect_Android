@@ -44,40 +44,25 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
 
         ok_btn.setOnClickListener {
             if(viewModel.checkNext(allow_radio1, allow_radio2)){
-                var header = baseToken.getAccessToken(this)
-
-                if(header != null){
-                    viewModel.patchAlarmCheck(header, allow_radio3.isChecked)
-
+                if(allow_radio3.isChecked){
+                    viewModel.patchAlarmCheck(allow_radio3.isChecked)
                     viewModel.alarmCheckResponse.observe(this, Observer {
-                        var response = PatchAlarmCheckResponse(it.response_code)
-                        Log.d("heck_alarm_response!!", response.toString())
-
+                        if(it.response == null){
+                            Log.d("allow_log", "null")
+                            var intent = Intent(this, ProfileActivity::class.java)
+                            startActivity(intent)
+                        }
+                        var response = PatchAlarmCheckResponse(it.response)
+                        Log.d("allow_log", response.toString())
                         var intent = Intent(this, ProfileActivity::class.java)
                         startActivity(intent)
                     })
+//                    var intent = Intent(this, ProfileActivity::class.java)
+//                    startActivity(intent)
                 }
+//                var intent = Intent(this, ProfileActivity::class.java)
+//                startActivity(intent)
             }
         }
     }
 }
-
-// var accesstoken = token.accessToken
-//                var loginType = "kakao"
-//                var loginRequest = PostLoginRequest(accesstoken, loginType)
-//                viewModel.postLogin(loginRequest)
-//
-//                viewModel.loginResponse.observe(this, Observer {
-//                   var response = PostLoginResponse(it.accessToken, it.isNewMember, it.refreshToken, it.userSettingDone)
-//                    Log.d("login_response ", response.toString())
-//                    baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
-//
-//                    if(!it.userSettingDone){
-//                        val intent = Intent(this, AllowActivity::class.java)
-//                        startActivity(intent)
-//                    }
-//                    else{
-//                        val intent = Intent(this, MainActivity::class.java)
-//                        startActivity(intent)
-//                    }
-//                })

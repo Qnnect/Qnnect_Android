@@ -7,7 +7,6 @@ import retrofit2.http.*
 interface AlarmCheckAPI {
     @PATCH("/api/v1/user/enablenotification")
     fun patchAlarmCheck(
-        @Header("Authorization") auth: String,
         @Query("enableNotification") enableNotification: Boolean,
-    ) : Single<PatchAlarmCheckResponse>
+    ) : Single<Unit>
 }

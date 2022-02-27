@@ -17,7 +17,7 @@ class BaseToken {
     fun getAccessToken(context: Context): String? {
         // shared preference
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
-        var token = text.getString("X-ACCESS-TOKEN", null)
+        var token = text.getString("", null)
         return token
     }
 
@@ -26,5 +26,19 @@ class BaseToken {
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
         var token = text.getString("refresh-token", null)
         return token
+    }
+
+    fun getHeaderToken(context: Context): String?{
+        // shared preference
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var token = text.getString("X-ACCESS-TOKEN", null)
+        return "Bearer "+token
+    }
+
+    fun getRefreshHeaderToken(context: Context): String?{
+        // shared preference
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var token = text.getString("refresh-token", null)
+        return "Bearer "+token
     }
 }
