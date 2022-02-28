@@ -36,17 +36,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override fun initAfterBinding() {
         val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
         val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
-        Log.d("splash_check1 ", jwtToken!!+"  "+refreshToken)
 
         if(jwtToken != null){
             var refreshRequest = PostRefreshRequest(jwtToken!!, refreshToken!!)
-            Log.d("splash_check2 ", refreshRequest.toString())
 
             viewModel.postRefresh(refreshRequest)
 
             viewModel.refreshResponse.observe(this, Observer {
-                var log = it.toString()
-                Log.d("login_response ", log)
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
 
                 Handler(Looper.getMainLooper()).postDelayed({

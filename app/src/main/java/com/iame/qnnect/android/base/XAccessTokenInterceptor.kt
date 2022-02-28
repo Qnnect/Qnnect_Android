@@ -16,7 +16,7 @@ class XAccessTokenInterceptor : Interceptor {
         val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
 
         // refresh token
-        val refreshToken: String? = sSharedPreferences.getString("refresh_token", null)
+        val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
 
         if (jwtToken != null) {
             builder.addHeader("Authorization", "Bearer "+jwtToken)
