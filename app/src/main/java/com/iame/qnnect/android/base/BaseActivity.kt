@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
+import com.iame.qnnect.android.MyApplication
 
 
 /**
@@ -59,6 +60,7 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
         super.onCreate(savedInstanceState)
         viewDataBinding = DataBindingUtil.setContentView(this, layoutResourceId)
 //        snackbarObserving()
+
         initStartView()
         initDataBinding()
         initAfterBinding()

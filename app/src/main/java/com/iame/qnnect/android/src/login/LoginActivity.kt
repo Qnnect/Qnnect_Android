@@ -95,7 +95,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         startActivity(intent)
                     }
                     else{
-                        val intent = Intent(this, AllowActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     }
                 })

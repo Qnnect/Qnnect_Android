@@ -4,8 +4,10 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.WindowManager
 import androidx.lifecycle.Observer
+import com.iame.qnnect.android.MyApplication.Companion.sSharedPreferences
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
@@ -32,33 +34,33 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     }
 
     override fun initAfterBinding() {
-//        if(baseToken.getAccessToken(this) != null){
-//            var accessToken = baseToken.getAccessToken(this)
-//            var refreshToken = baseToken.getRefreshToken(this)
-//            var refreshRequest = PostRefreshRequest(accessToken!!, refreshToken!!)
-//
-//            viewModel.postRefresh(refreshRequest)
-//
-//            viewModel.refreshResponse.observe(this, Observer {
-////                var log = it.toString()
-////                Log.d("login_response ", log)
-//                baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
-//
-//                Handler(Looper.getMainLooper()).postDelayed({
-//                    startActivity(Intent(this, MainActivity::class.java))
-//                    finish()
-//                }, 1500)
-//            })
-//        }
-//        else{
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                startActivity(Intent(this, LoginActivity::class.java))
-//                finish()
-//            }, 1500)
-//        }
+        val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
+        val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
+        Log.d("splash_check1 ", jwtToken!!+"  "+refreshToken)
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        if(jwtToken != null){
+            var refreshRequest = PostRefreshRequest(jwtToken!!, refreshToken!!)
+            Log.d("splash_check2 ", refreshRequest.toString())
+
+            viewModel.postRefresh(refreshRequest)
+
+            viewModel.refreshResponse.observe(this, Observer {
+                var log = it.toString()
+                Log.d("login_response ", log)
+                baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }, 1500)
+            })
+        }
+        else{
+            Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, LoginActivity::class.java))
-                finish() }, 1500)
+                finish()
+            }, 1500)
+        }
+
     }
 }
