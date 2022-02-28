@@ -17,3 +17,4 @@
 5. 2022.02.25(FRI) -> Api Chekcing
 6. 2022.02.26(SAT) -> move Group Page logic change
 7. 2022.02.27(SUN) -> Alarm Check Api complete, Response 200 OK -> null check Logic, Add Header
+8. 2022.02.28(MON) -> reissue Api complete
