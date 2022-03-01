@@ -13,6 +13,7 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.viewmodel.SplashViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,7 +47,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
 
                 Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, ProfileActivity::class.java))
                     finish()
                 }, 1500)
             })

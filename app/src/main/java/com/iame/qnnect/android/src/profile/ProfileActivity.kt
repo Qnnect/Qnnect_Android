@@ -1,29 +1,31 @@
 package com.iame.qnnect.android.src.profile
 
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.WindowManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityProfileBinding
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.viewmodel.ProfileViewModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_profile.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>() {
@@ -74,7 +76,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
         // rx java 사용
         val observableTextQuery = Observable
             .create(ObservableOnSubscribe { emitter: ObservableEmitter<String>? ->
-                nick_name_edit.addTextChangedListener(object : TextWatcher{
+                nick_name_edit.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable?) {
                     }
 
@@ -82,7 +84,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
                         s: CharSequence?,
                         start: Int,
                         count: Int,
-                        after: Int
+                        after: Int,
                     ) {
                         emitter?.onNext(s.toString())
                     }
@@ -94,7 +96,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
             .debounce(500, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
 
-        observableTextQuery.subscribe(object : Observer<String> {
+        observableTextQuery.subscribe(object : io.reactivex.rxjava3.core.Observer<String> {
             override fun onComplete() {
             }
 
@@ -132,11 +134,29 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
 
         ok_btn.setOnClickListener {
             if(check){
-                var intent = Intent(this, MainActivity::class.java)
-                intent.flags =
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
-                startActivity(intent)
-                finish()
+                // nickname
+                val nickname = nick_name_edit.text.toString()
+                val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nick name", nickname)
+                // 이미지
+                if(path == ""){
+                    viewModel.patchProfile(nicknamePart , null)
+                }
+                else{
+                    val file = File(path)
+                    val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaType())
+                    val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profile Pricture", path, requestBody)
+
+                    viewModel.patchProfile(nicknamePart , fileToUpload)
+                }
+
+                viewModel.profileResponse.observe(this, androidx.lifecycle.Observer {
+                    Log.d("profile_response ", it.toString())
+                    var intent = Intent(this, MainActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+                    startActivity(intent)
+                    finish()
+                })
             }
         }
     }

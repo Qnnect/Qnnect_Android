@@ -14,6 +14,9 @@ import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
 import com.iame.qnnect.android.src.main.home.GroupAdapter
+import com.iame.qnnect.android.src.profile.model.ProfileDataModel
+import com.iame.qnnect.android.src.profile.service.ProfileAPI
+import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
@@ -74,6 +77,16 @@ var retrofitPart = module {
             .build()
             .create(AlarmCheckAPI::class.java)
     }
+    single<ProfileAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ProfileAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -95,6 +108,9 @@ var modelPart = module {
     factory<AlarmCheckDataModel> {
         AlarmCheckDataImpl(get())
     }
+    factory<ProfileDataModel> {
+        ProfileDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -102,7 +118,7 @@ var viewModelPart = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { AllowViewModel(get()) }
-    viewModel { ProfileViewModel() }
+    viewModel { ProfileViewModel(get()) }
     viewModel { HomeViewModel() }
     viewModel { BookmarkViewModel() }
     viewModel { StoreViewModel() }

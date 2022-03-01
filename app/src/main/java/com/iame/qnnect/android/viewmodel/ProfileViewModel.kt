@@ -4,23 +4,48 @@ import android.Manifest
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.src.profile.ProfileActivity
+import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
+import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import okhttp3.MultipartBody
 import java.io.*
 import java.util.*
 
 
-class ProfileViewModel() : BaseViewModel() {
+class ProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
 
     private val TAG = "ProfileViewModel"
 
     var path = ""
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
     private val BUFFER_SIZE = 1024 * 2
+
+    private val patchProfileResponse = MutableLiveData<PatchProfileResponse>()
+    val profileResponse: LiveData<PatchProfileResponse>
+        get() = patchProfileResponse
+
+    fun patchProfile(nickname: MultipartBody.Part, image: MultipartBody.Part?) {
+        addDisposable(model.getData(nickname, image)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    patchProfileResponse.postValue(this)
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
 
     // 접근 권한
     fun requestMultiplePermissions(activity: ProfileActivity) {
