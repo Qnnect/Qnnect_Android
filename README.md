@@ -20,4 +20,4 @@
 
 - 3rd Week
 1. 2022.02.28(MON) -> reissue Api complete (At Splash), Add Group Bottom Sheet Progress Bar ->  Seek Bar Update
-2. 2022.03.01(TUE) -> Not Answer & Not Question Dialog, Home layout update, Seek Bar Divider complete
+2. 2022.03.01(TUE) -> Not Answer & Not Question Dialog, Home layout update, Seek Bar Divider complete, User Profile Api complete
