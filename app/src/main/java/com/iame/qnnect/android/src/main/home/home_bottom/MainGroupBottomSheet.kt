@@ -53,13 +53,6 @@ class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // Instantiate a ViewPager2 and a PagerAdapter.
-//        viewPager = view!!.findViewById(R.id.bottom_sheet_viewPager2)
-
-        // The pager adapter, which provides the pages to the view pager widget.
-//        val pagerAdapter = BottomSheetViewpagerAdapter(requireActivity(), this, viewPager)
-//        viewPager.adapter = pagerAdapter
-//        viewPager.isUserInputEnabled = false
 
         var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
         var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
