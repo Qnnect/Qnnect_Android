@@ -19,5 +19,5 @@
 7. 2022.02.27(SUN) -> Alarm Check Api complete, Response 200 OK -> null check Logic, Add Header
 
 - 3rd Week
-1. 2022.02.28(MON) -> reissue Api complete, Add Group Bottom Sheet Progress Bar ->  Seek Bar Update
-2. 2022.03.01(TUE) -> Not Answer, Not Question Dialog, Home layout update, Seek Bar Divider complete
+1. 2022.02.28(MON) -> reissue Api complete (At Splash), Add Group Bottom Sheet Progress Bar ->  Seek Bar Update
+2. 2022.03.01(TUE) -> Not Answer & Not Question Dialog, Home layout update, Seek Bar Divider complete
