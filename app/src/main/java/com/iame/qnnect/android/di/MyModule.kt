@@ -119,11 +119,12 @@ var viewModelPart = module {
     viewModel { SplashViewModel(get()) }
     viewModel { AllowViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { EditProfileViewModel(get()) }
+
     viewModel { HomeViewModel() }
     viewModel { BookmarkViewModel() }
     viewModel { StoreViewModel() }
     viewModel { MypageViewModel() }
-    viewModel { EditProfileViewModel() }
     viewModel { GroupBottomViewModel() }
 }
 

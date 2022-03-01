@@ -12,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityEditProfileBinding
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.profile.EditImageSheet
 import com.iame.qnnect.android.viewmodel.EditProfileViewModel
 import io.reactivex.rxjava3.core.Observable
@@ -20,8 +21,18 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
+import kotlinx.android.synthetic.main.activity_profile.ok_btn
+import kotlinx.android.synthetic.main.activity_profile.profile_img
+import kotlinx.android.synthetic.main.activity_profile.user_img
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfileViewModel>() {
@@ -111,8 +122,29 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
 
         ok_btn.setOnClickListener {
             if(check){
-                finish()
+                // nickname
+                val nickname = nick_name_edit.text.toString()
+                val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nick name", nickname)
+                // 이미지
+                if(path == ""){
+                    viewModel.patchProfile(nicknamePart , null)
+                }
+                else{
+                    val file = File(path)
+                    val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaType())
+                    val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profile Pricture", path, requestBody)
+
+                    viewModel.patchProfile(nicknamePart , fileToUpload)
+                }
+
+                viewModel.profileResponse.observe(this, androidx.lifecycle.Observer {
+                    Log.d("profile_response ", it.toString())
+                })
             }
+        }
+
+        back_btn.setOnClickListener {
+            finish()
         }
     }
 
