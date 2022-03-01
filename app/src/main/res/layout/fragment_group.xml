@@ -54,9 +54,22 @@
                 android:padding="12dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="17dp"
+                app:layout_constraintRight_toLeftOf="@+id/more_btn"
+                android:layout_marginRight="5dp"
                 android:src="@mipmap/ic_question_list_foreground">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/more_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                android:padding="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:src="@mipmap/ic_more_foreground"
+                android:layout_marginRight="3dp">
             </ImageView>
 
 
@@ -100,42 +113,44 @@
             android:layout_marginLeft="27dp">
         </TextView>
 
-        <TextView
-            android:id="@+id/invite_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+ 초대하기"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:textColor="@color/black"
-            android:textSize="16dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/group_name_txt"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="27dp"
-            android:background="@drawable/group_select_fail"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="13dp"
-            android:paddingRight="13dp">
-        </TextView>
+
 
         <ImageView
             android:id="@+id/drink_img"
-            android:layout_width="90dp"
-            android:layout_height="140dp"
+            android:layout_width="72dp"
+            android:layout_height="100dp"
             app:layout_constraintTop_toTopOf="@id/group_date_txt"
-            android:src="@mipmap/img_drink_foreground"
+            android:src="@mipmap/img_drink_default_foreground"
             android:scaleType="centerCrop"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="40dp">
+            android:layout_marginRight="75dp">
         </ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="12dp"
+            app:layout_constraintTop_toTopOf="@id/drink_img"
+            app:layout_constraintBottom_toBottomOf="@id/drink_img"
+            android:layout_marginTop="100dp"
+            android:text="음료 선택하기"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="27dp"
+            android:textColor="@color/gray_1"
+            android:background="@drawable/add_drink_btn_custom"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp">
+        </TextView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/drink_list"
             android:layout_width="match_parent"
             android:layout_height="140dp"
             app:layout_constraintTop_toBottomOf="@id/drink_img"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="35dp"
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
             android:background="@drawable/group_drink_list_out_custom">

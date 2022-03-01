@@ -93,6 +93,12 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             //change_for_adapter는 mainactivity에 구현
             activity?.fragmentChange_for_adapter(fragment)
         }
+
+//        val notanswerDialog = NotAnswerDialog()
+//        notanswerDialog.show(requireActivity().supportFragmentManager, notanswerDialog.tag)
+
+//        val notquestionDialog = NotQuestionDialog()
+//        notquestionDialog.show(requireActivity().supportFragmentManager, notquestionDialog.tag)
     }
 
 }

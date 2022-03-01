@@ -12,6 +12,6 @@
         android:color="@color/gray_1" />
     <!-- 크기 -->
     <size
-        android:width="30dp"
-        android:height="30dp"/>
+        android:width="26dp"
+        android:height="26dp"/>
 </shape>

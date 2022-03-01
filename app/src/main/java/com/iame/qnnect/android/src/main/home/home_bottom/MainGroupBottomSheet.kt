@@ -48,7 +48,7 @@ class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
         savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(com.iame.qnnect.android.R.layout.fragment_main_group_bottom, container, false)
+        return inflater.inflate(R.layout.fragment_main_group_bottom, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
