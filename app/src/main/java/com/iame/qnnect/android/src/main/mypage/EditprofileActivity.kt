@@ -12,8 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityEditProfileBinding
-import com.iame.qnnect.android.src.main.MainActivity
-import com.iame.qnnect.android.src.profile.EditImageSheet
+import com.iame.qnnect.android.src.profile.EditImageBottomSheet
 import com.iame.qnnect.android.viewmodel.EditProfileViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
@@ -22,7 +21,6 @@ import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
 import kotlinx.android.synthetic.main.activity_profile.ok_btn
 import kotlinx.android.synthetic.main.activity_profile.profile_img
@@ -55,7 +53,7 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
 
     override fun initAfterBinding() {
         profile_img.setOnClickListener {
-            val editImageSheet: EditImageSheet = EditImageSheet {
+            val editImageSheet: EditImageBottomSheet = EditImageBottomSheet {
                 when (it) {
                     0 -> {
                         Glide.with(this)

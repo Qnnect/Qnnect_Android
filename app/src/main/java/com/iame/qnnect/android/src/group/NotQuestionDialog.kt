@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.iame.qnnect.android.R
 
-class NotQuestionDialog() : DialogFragment() {
+class NotQuestionDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //false로 설정해 주면 화면밖 혹은 뒤로가기 버튼시 다이얼로그라 dismiss 되지 않는다.
@@ -22,8 +22,10 @@ class NotQuestionDialog() : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.not_question_dialog, container, false)
+        val view = inflater.inflate(R.layout.not_question_dialog, container,false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,6 +38,12 @@ class NotQuestionDialog() : DialogFragment() {
         var close_btn = view!!.findViewById<TextView>(R.id.close_btn)
         close_btn.setOnClickListener {
             dismiss()
+        }
+
+        var add_drink_btn = view!!.findViewById<TextView>(R.id.add_drink_btn)
+        add_drink_btn.setOnClickListener {
+            dismiss()
+            itemClick(1)
         }
 
 

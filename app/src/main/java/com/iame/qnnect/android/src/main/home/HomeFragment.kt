@@ -1,6 +1,5 @@
 package com.iame.qnnect.android.src.main.home
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,10 +13,9 @@ import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.group.GroupFragment
-import com.iame.qnnect.android.src.main.home.home_bottom.MainGroupBottomSheet
+import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
-import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
 import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
@@ -87,7 +85,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
     override fun initAfterBinding() {
         add_group_btn.setOnClickListener {
-            val maingroupBottomSheet: MainGroupBottomSheet = MainGroupBottomSheet {
+            val maingroupBottomSheet: AddGroupBottomSheet = AddGroupBottomSheet {
                 when (it) {
                     // 그룹페이지로 이동
                     0 -> {

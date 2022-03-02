@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -20,7 +19,7 @@ import android.widget.SeekBar
 import kotlinx.android.synthetic.main.fragment_group_bottom.*
 
 
-class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
+class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
 
@@ -48,7 +47,7 @@ class MainGroupBottomSheet(val itemClick: (Int) -> Unit) :
         savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_main_group_bottom, container, false)
+        return inflater.inflate(R.layout.fragment_add_group_bottom, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

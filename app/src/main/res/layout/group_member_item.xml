@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/member_drink"
+        android:layout_width="50dp"
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_drink_default_foreground">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/member_name"
+        android:layout_width="60dp"
+        android:layout_height="14dp"
+        app:layout_constraintTop_toBottomOf="@id/member_drink"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="지민지민.."
+        android:layout_marginTop="5dp"
+        android:textSize="12dp"
+        android:gravity="center"
+        android:lineSpacingExtra="8dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/im_hyemin_bold">
+    </TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

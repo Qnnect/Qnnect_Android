@@ -22,8 +22,10 @@ class NotAnswerDialog() : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.not_answer_dialog, container, false)
+        val view = inflater.inflate(R.layout.not_answer_dialog, container,false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +39,6 @@ class NotAnswerDialog() : DialogFragment() {
         close_btn.setOnClickListener {
             dismiss()
         }
-
 
     }
     override fun onResume() {

@@ -1,17 +1,20 @@
-package com.iame.qnnect.android.src.profile
+package com.iame.qnnect.android.src.group.group_setting
 
 import android.app.Dialog
+import android.content.Context
+import android.graphics.Point
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.iame.qnnect.android.R
 
-class EditImageSheet(val itemClick: (Int) -> Unit) :
+class GroupSettingBottomSheet(val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
 
@@ -38,28 +41,33 @@ class EditImageSheet(val itemClick: (Int) -> Unit) :
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_edit_image, container, false)
+        return inflater.inflate(R.layout.fragment_group_setting_bottom, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // default_img
-        view?.findViewById<TextView>(R.id.default_img)?.setOnClickListener {
+        // 초대하기
+        view?.findViewById<TextView>(R.id.invite_btn)?.setOnClickListener {
             itemClick(0)
             dismiss()
         }
 
-        // gallery_img
-        view?.findViewById<TextView>(R.id.gllery_img)?.setOnClickListener {
+        // 카페 수정
+        view?.findViewById<TextView>(R.id.edit_caffe)?.setOnClickListener {
             itemClick(1)
             dismiss()
         }
 
+        // 음료 수정
+        view?.findViewById<TextView>(R.id.edit_drink)?.setOnClickListener {
+            itemClick(2)
+            dismiss()
+        }
 
-
-//        view?.findViewById<TextView>(R.id.no_btn)?.setOnClickListener {
-//            itemClick(1)
-//            dismiss()
-//        }
+        // 카페 삭제
+        view?.findViewById<TextView>(R.id.delete_caffe)?.setOnClickListener {
+            itemClick(3)
+            dismiss()
+        }
     }
 }

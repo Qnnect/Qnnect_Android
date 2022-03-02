@@ -52,7 +52,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
 
     override fun initAfterBinding() {
         profile_img.setOnClickListener {
-            val editImageSheet: EditImageSheet = EditImageSheet {
+            val editImageSheet: EditImageBottomSheet = EditImageBottomSheet {
                 when (it) {
                     0 -> {
                         Glide.with(this)
