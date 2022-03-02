@@ -7,6 +7,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
+import com.iame.qnnect.android.src.main.home.model.GetUserResponse
+import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
@@ -29,6 +31,7 @@ class ProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
     private val BUFFER_SIZE = 1024 * 2
 
+    // profile update
     private val patchProfileResponse = MutableLiveData<PatchProfileResponse>()
     val profileResponse: LiveData<PatchProfileResponse>
         get() = patchProfileResponse

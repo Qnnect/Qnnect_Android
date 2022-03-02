@@ -6,6 +6,7 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -17,7 +18,6 @@ import com.iame.qnnect.android.viewmodel.EditProfileViewModel
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_profile.*
@@ -32,6 +32,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.util.concurrent.TimeUnit
+
 
 class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfileViewModel>() {
 
@@ -49,6 +50,19 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
     }
 
     override fun initDataBinding() {
+        viewModel.getUser()
+
+        viewModel.userResponse.observe(this, Observer {
+            var image = it.profileImage
+
+            // Profile Url
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_img)
+            // User Name
+            nick_name_edit.setText(it.nickName)
+        })
     }
 
     override fun initAfterBinding() {
@@ -95,7 +109,7 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
             .debounce(500, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
 
-        observableTextQuery.subscribe(object : Observer<String> {
+        observableTextQuery.subscribe(object : io.reactivex.rxjava3.core.Observer<String> {
             override fun onComplete() {
             }
 

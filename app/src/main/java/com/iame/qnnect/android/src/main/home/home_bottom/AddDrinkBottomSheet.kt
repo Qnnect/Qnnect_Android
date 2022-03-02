@@ -11,10 +11,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
-import kotlinx.android.synthetic.main.fragment_group_bottom.*
-
-
 class AddDrinkBottomSheet() :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog

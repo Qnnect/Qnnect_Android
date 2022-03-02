@@ -14,6 +14,9 @@ import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
 import com.iame.qnnect.android.src.main.home.GroupAdapter
+import com.iame.qnnect.android.src.main.home.model.UserDataModel
+import com.iame.qnnect.android.src.main.home.service.UserAPI
+import com.iame.qnnect.android.src.main.home.service.UserDataImpl
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import com.iame.qnnect.android.src.profile.service.ProfileAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
@@ -87,6 +90,16 @@ var retrofitPart = module {
             .build()
             .create(ProfileAPI::class.java)
     }
+    single<UserAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(UserAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -111,6 +124,9 @@ var modelPart = module {
     factory<ProfileDataModel> {
         ProfileDataImpl(get())
     }
+    factory<UserDataModel> {
+        UserDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -119,13 +135,13 @@ var viewModelPart = module {
     viewModel { SplashViewModel(get()) }
     viewModel { AllowViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
-    viewModel { EditProfileViewModel(get()) }
+    viewModel { EditProfileViewModel(get(), get()) }
+    viewModel { HomeViewModel(get()) }
+    viewModel { MypageViewModel(get()) }
 
-    viewModel { HomeViewModel() }
     viewModel { BookmarkViewModel() }
     viewModel { StoreViewModel() }
-    viewModel { MypageViewModel() }
-    viewModel { GroupBottomViewModel() }
+
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

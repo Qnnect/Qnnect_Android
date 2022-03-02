@@ -38,17 +38,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initAfterBinding() {
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
-//        if(case.getHomeCase(this) == 0){
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.main_frm, HomeFragment())
-//                .commitAllowingStateLoss()
-//        }
-//        else{
-//            var group_name = case.getGroupname(this)
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.main_frm, GroupFragment())
-//                .commitAllowingStateLoss()
-//        }
         main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom_clicked_foreground)
 
         main_btm_nav.setOnNavigationItemSelectedListener(
@@ -60,19 +49,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                         main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
                         main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
 
-//                        if(case.getHomeCase(this) == 0){
-//                            supportFragmentManager.beginTransaction()
-//                                .replace(R.id.main_frm, HomeFragment())
-//                                .commitAllowingStateLoss()
-//                            return@OnNavigationItemSelectedListener true
-//                        }
-//                        else{
-//                            var group_name = case.getGroupname(this)
-//                            supportFragmentManager.beginTransaction()
-//                                .replace(R.id.main_frm, GroupFragment())
-//                                .commitAllowingStateLoss()
-//                            return@OnNavigationItemSelectedListener true
-//                        }
                         if(case_num == 0){
                             supportFragmentManager.beginTransaction()
                                 .replace(R.id.main_frm, HomeFragment())

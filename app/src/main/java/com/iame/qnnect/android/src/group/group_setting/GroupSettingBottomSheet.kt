@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -46,6 +47,10 @@ class GroupSettingBottomSheet(val itemClick: (Int) -> Unit) :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        // 초대하기
+        view?.findViewById<ImageView>(R.id.close_btn)?.setOnClickListener {
+            dismiss()
+        }
         // 초대하기
         view?.findViewById<TextView>(R.id.invite_btn)?.setOnClickListener {
             itemClick(0)

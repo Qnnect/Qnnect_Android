@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseViewModel
-import kotlinx.android.synthetic.main.fragment_group_bottom.*
 
 class GroupBottomViewModel() : BaseViewModel() {
 

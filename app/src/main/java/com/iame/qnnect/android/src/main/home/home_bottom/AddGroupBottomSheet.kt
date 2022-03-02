@@ -14,9 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
 import android.widget.SeekBar
-import kotlinx.android.synthetic.main.fragment_group_bottom.*
 
 
 class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :

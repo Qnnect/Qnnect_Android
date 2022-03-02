@@ -10,6 +10,8 @@ import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.model.DataModel
 import com.iame.qnnect.android.model.enum.KakaoSearchSortEnum
 import com.iame.qnnect.android.model.response.ImageSearchResponse
+import com.iame.qnnect.android.src.main.home.model.GetUserResponse
+import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.main.mypage.EditprofileActivity
 import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
@@ -24,7 +26,7 @@ import okhttp3.MultipartBody
 import java.io.*
 import java.util.*
 
-class EditProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
+class EditProfileViewModel(private val model: ProfileDataModel, private val model2: UserDataModel) : BaseViewModel() {
     private val TAG = "EditProfileViewModel"
 
     var path = ""
@@ -42,6 +44,25 @@ class EditProfileViewModel(private val model: ProfileDataModel) : BaseViewModel(
             .subscribe({
                 it.run {
                     patchProfileResponse.postValue(this)
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
+
+    // get user
+    private val getUserResponse = MutableLiveData<GetUserResponse>()
+    val userResponse: LiveData<GetUserResponse>
+        get() = getUserResponse
+
+    fun getUser() {
+        addDisposable(model2.getData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    getUserResponse.postValue(this)
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")

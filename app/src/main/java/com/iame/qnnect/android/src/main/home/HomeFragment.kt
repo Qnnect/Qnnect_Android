@@ -1,7 +1,10 @@
 package com.iame.qnnect.android.src.main.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.base.BaseFragment
@@ -9,13 +12,18 @@ import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.group.GroupFragment
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
 import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
@@ -81,6 +89,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     override fun initDataBinding() {
+        viewModel.getUser()
+
+        viewModel.userResponse.observe(this, Observer {
+            var image = it.profileImage
+
+            // Profile Url
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_profile_img)
+            // User Name
+            user_diary_name.text = it.nickName+"님의 다이어리"
+            // User Point
+            point_txt.text = it.point.toString()+"P"
+        })
     }
 
     override fun initAfterBinding() {

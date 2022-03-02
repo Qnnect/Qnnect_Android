@@ -42,15 +42,15 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     override fun initStartView() {
 
         // Member Recycler View
-        var group_item1 = group_drink_item(R.mipmap.img_drink_default_foreground, "두루두")
+        var group_item1 = group_drink_item(R.mipmap.img_drink_basic_foreground, "두루두루")
         member_list.add(group_item1)
-        var group_item2 = group_drink_item(R.mipmap.img_drink_default_foreground, "제제로제제로")
+        var group_item2 = group_drink_item(R.mipmap.img_drink_basic_foreground, "제제로제제로")
         member_list.add(group_item2)
-        var group_item3 = group_drink_item(R.mipmap.img_drink_default_foreground, "조이조이")
+        var group_item3 = group_drink_item(R.mipmap.img_drink_basic_foreground, "조이조이")
         member_list.add(group_item3)
-        var group_item4 = group_drink_item(R.mipmap.img_drink_default_foreground, "슈테른슈테른")
+        var group_item4 = group_drink_item(R.mipmap.img_drink_basic_foreground, "슈테른슈테른")
         member_list.add(group_item4)
-        var group_item5 = group_drink_item(R.mipmap.img_drink_default_foreground, "모래모래")
+        var group_item5 = group_drink_item(R.mipmap.img_drink_basic_foreground, "모래모래")
         member_list.add(group_item5)
 
         member_recycler.run {
