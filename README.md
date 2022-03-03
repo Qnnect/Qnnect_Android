@@ -22,3 +22,4 @@
 1. 2022.02.28(MON) -> reissue Api complete (At Splash), Add Group Bottom Sheet Progress Bar ->  Seek Bar Update
 2. 2022.03.01(TUE) -> Not Answer & Not Question Dialog, Home layout update, Seek Bar Divider complete, User Profile Api complete
 3. 2022.03.02(WEN) -> Get User api complete, Group Fragment bottom sheet & dialog complete
+4. 2022.03.03(THU) -> User profile Api re update, Answer activity publishing, group bottom logic change
