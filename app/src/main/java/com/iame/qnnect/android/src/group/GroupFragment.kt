@@ -112,7 +112,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         question_btn.setOnClickListener {
             val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
                 when (it) {
-                    // 차단하기
+                    // 음료추가
                     1 -> {
                         val addDrinkBottomSheet = AddDrinkBottomSheet()
                         addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
@@ -148,6 +148,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     }
                     // 카페 삭제
                     3 -> {
+                        val deleteGroupDialog = DeleteGroupDialog()
+                        deleteGroupDialog.show(requireActivity().supportFragmentManager, deleteGroupDialog.tag)
+
                     }
                 }
             }
