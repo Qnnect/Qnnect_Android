@@ -5,6 +5,10 @@ import okhttp3.MultipartBody
 import retrofit2.http.Part
 
 interface ProfileDataModel {
-    fun getData(@Part nickname: MultipartBody.Part, @Part image: MultipartBody.Part?): Single<PatchProfileResponse>
+    fun getData(@Part profilePicture: MultipartBody.Part?, @Part nickName: MultipartBody.Part?): Single<PatchProfileResponse>
 }
 
+// data class PatchProfileRequest(
+//    @SerializedName("profilePicture") val profilePicture: File,
+//    @SerializedName("nickName") val nickName: String
+//)

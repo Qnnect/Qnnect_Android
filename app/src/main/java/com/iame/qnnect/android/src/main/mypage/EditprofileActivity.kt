@@ -21,11 +21,9 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
-import kotlinx.android.synthetic.main.activity_profile.ok_btn
-import kotlinx.android.synthetic.main.activity_profile.profile_img
-import kotlinx.android.synthetic.main.activity_profile.user_img
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -136,21 +134,21 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
             if(check){
                 // nickname
                 val nickname = nick_name_edit.text.toString()
-                val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nick name", nickname)
+                val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nickName", nickname)
                 // 이미지
                 if(path == ""){
-                    viewModel.patchProfile(nicknamePart , null)
+                    viewModel.patchProfile(null , nicknamePart)
                 }
                 else{
                     val file = File(path)
                     val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaType())
-                    val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profile Pricture", path, requestBody)
+                    val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profilePicture", "photo.jpg", requestBody)
 
-                    viewModel.patchProfile(nicknamePart , fileToUpload)
+                    viewModel.patchProfile(fileToUpload , nicknamePart)
                 }
 
-                viewModel.profileResponse.observe(this, androidx.lifecycle.Observer {
-                    Log.d("profile_response ", it.toString())
+                viewModel.profileResponse.observe(this, Observer {
+                    finish()
                 })
             }
         }

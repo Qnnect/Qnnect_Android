@@ -33,12 +33,13 @@ class EditProfileViewModel(private val model: ProfileDataModel, private val mode
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
     private val BUFFER_SIZE = 1024 * 2
 
+    // profile update
     private val patchProfileResponse = MutableLiveData<PatchProfileResponse>()
     val profileResponse: LiveData<PatchProfileResponse>
         get() = patchProfileResponse
 
-    fun patchProfile(nickname: MultipartBody.Part, image: MultipartBody.Part?) {
-        addDisposable(model.getData(nickname, image)
+    fun patchProfile(profilePicture: MultipartBody.Part?, nickName: MultipartBody.Part?) {
+        addDisposable(model.getData(profilePicture, nickName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

@@ -27,6 +27,17 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
     }
 
     override fun initDataBinding() {
+    }
+
+    override fun initAfterBinding() {
+        user_profile_img.setOnClickListener {
+            var intent = Intent(context, EditprofileActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         viewModel.getUser()
 
         viewModel.userResponse.observe(this, Observer {
@@ -42,13 +53,6 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             // User Point
             point_txt.text = it.point.toString()+"P"
         })
-    }
-
-    override fun initAfterBinding() {
-        user_profile_img.setOnClickListener {
-            var intent = Intent(context, EditprofileActivity::class.java)
-            startActivity(intent)
-        }
     }
 
 }

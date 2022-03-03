@@ -9,10 +9,11 @@ import io.reactivex.Single
 import okhttp3.MultipartBody
 
 class ProfileDataImpl(private val service: ProfileAPI) : ProfileDataModel {
+
     override fun getData(
-        nickname: MultipartBody.Part,
-        image: MultipartBody.Part?,
+        profilePicture: MultipartBody.Part?,
+        nickName: MultipartBody.Part?,
     ): Single<PatchProfileResponse> {
-        return service.postLogin(nickname, image)
+        return service.patchProfile(profilePicture, nickName)
     }
 }

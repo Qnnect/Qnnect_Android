@@ -36,8 +36,8 @@ class ProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
     val profileResponse: LiveData<PatchProfileResponse>
         get() = patchProfileResponse
 
-    fun patchProfile(nickname: MultipartBody.Part, image: MultipartBody.Part?) {
-        addDisposable(model.getData(nickname, image)
+    fun patchProfile(profilePicture: MultipartBody.Part?, nickName: MultipartBody.Part?) {
+        addDisposable(model.getData(profilePicture, nickName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

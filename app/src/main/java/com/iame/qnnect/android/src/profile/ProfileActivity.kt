@@ -20,7 +20,12 @@ import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
+import kotlinx.android.synthetic.main.activity_profile.ok_btn
+import kotlinx.android.synthetic.main.activity_profile.profile_img
+import kotlinx.android.synthetic.main.activity_profile.user_img
 import kotlinx.android.synthetic.main.fragment_home.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -138,26 +143,22 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
             if(check){
                 // nickname
                 val nickname = nick_name_edit.text.toString()
-                val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nick name", nickname)
+                val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nickName", nickname)
                 // 이미지
                 if(path == ""){
-                    viewModel.patchProfile(nicknamePart , null)
+                    viewModel.patchProfile(null , nicknamePart)
                 }
                 else{
                     val file = File(path)
                     val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaType())
-                    val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profile Pricture", path, requestBody)
+                    val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profilePicture", "photo.jpg", requestBody)
 
-                    viewModel.patchProfile(nicknamePart , fileToUpload)
+                    viewModel.patchProfile(fileToUpload , nicknamePart)
                 }
 
-                viewModel.profileResponse.observe(this, androidx.lifecycle.Observer {
-                    Log.d("profile_response ", it.toString())
+                viewModel.profileResponse.observe(this, Observer {
                     var intent = Intent(this, MainActivity::class.java)
-                    intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
                     startActivity(intent)
-                    finish()
                 })
             }
         }

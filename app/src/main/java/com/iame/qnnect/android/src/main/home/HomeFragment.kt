@@ -26,7 +26,11 @@ import com.iame.qnnect.android.src.main.home.model.question_item
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
+import kotlinx.android.synthetic.main.fragment_home.point_txt
 import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
+import kotlinx.android.synthetic.main.fragment_home.user_diary_name
+import kotlinx.android.synthetic.main.fragment_home.user_profile_img
+import kotlinx.android.synthetic.main.fragment_my_page.*
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
@@ -89,21 +93,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     override fun initDataBinding() {
-        viewModel.getUser()
-
-        viewModel.userResponse.observe(this, Observer {
-            var image = it.profileImage
-
-            // Profile Url
-            Glide.with(this)
-                .load(image)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(user_profile_img)
-            // User Name
-            user_diary_name.text = it.nickName+"님의 다이어리"
-            // User Point
-            point_txt.text = it.point.toString()+"P"
-        })
     }
 
     override fun initAfterBinding() {
@@ -126,6 +115,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             }
             maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUser()
+
+        viewModel.userResponse.observe(this, Observer {
+            var image = it.profileImage
+
+            // Profile Url
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_profile_img)
+            // User Name
+            user_diary_name.text = it.nickName+"님의 다이어리"
+            // User Point
+            point_txt.text = it.point.toString()+"P"
+        })
     }
 
 }

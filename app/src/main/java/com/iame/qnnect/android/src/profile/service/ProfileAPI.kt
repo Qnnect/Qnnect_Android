@@ -10,5 +10,10 @@ import retrofit2.http.Part
 interface ProfileAPI {
     @Multipart
     @PATCH("/api/v1/user/profile")
-    fun postLogin(@Part nickname: MultipartBody.Part, @Part image: MultipartBody.Part?) : Single<PatchProfileResponse>
+    fun patchProfile(@Part profilePicture: MultipartBody.Part?, @Part nickName: MultipartBody.Part?) : Single<PatchProfileResponse>
 }
+
+// // data class PatchProfileRequest(
+////    @SerializedName("profilePicture") val profilePicture: File,
+////    @SerializedName("nickName") val nickName: String
+////)

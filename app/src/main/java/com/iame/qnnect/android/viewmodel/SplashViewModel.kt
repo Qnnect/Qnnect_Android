@@ -31,6 +31,8 @@ class SplashViewModel(private val model: RefreshDataModel) : BaseViewModel() {
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")
+                var response = PostRefreshResponse("", "")
+                postRefreshResponse.postValue(response)
             })
         )
     }
