@@ -141,6 +141,7 @@ var viewModelPart = module {
 
     viewModel { BookmarkViewModel() }
     viewModel { StoreViewModel() }
+    viewModel { DiaryViewModel() }
 
 }
 

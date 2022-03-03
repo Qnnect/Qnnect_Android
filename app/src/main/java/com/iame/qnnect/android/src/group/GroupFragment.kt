@@ -75,7 +75,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         question_list.add(question_itme4)
 
         question_viewPager2.run {
-            adapter = GroupQuestionViewPagerAdapter(question_list)
+            adapter = GroupQuestionViewPagerAdapter(question_list, context)
         }
 
         //인디케이터 타입1
