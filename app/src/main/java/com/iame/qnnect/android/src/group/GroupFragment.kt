@@ -9,6 +9,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
+import com.iame.qnnect.android.src.group.group_bottom.EditDrinkBottomSheet
+import com.iame.qnnect.android.src.group.group_bottom.EditGroupBottomSheet
 import com.iame.qnnect.android.src.group.group_setting.GroupSettingBottomSheet
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
 import com.iame.qnnect.android.src.group.model.group_drink_item
@@ -18,6 +20,7 @@ import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.HomeFragment
 import com.iame.qnnect.android.src.main.home.home_bottom.AddDrinkBottomSheet
+import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import com.iame.qnnect.android.viewmodel.GroupViewModel
 import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
@@ -111,8 +114,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 when (it) {
                     // 차단하기
                     1 -> {
-                        val groupBottomNextSheet = AddDrinkBottomSheet()
-                        groupBottomNextSheet.show(requireActivity().supportFragmentManager, groupBottomNextSheet.tag)
+                        val addDrinkBottomSheet = AddDrinkBottomSheet()
+                        addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
                     }
                 }
             }
@@ -129,9 +132,19 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     }
                     // 카페 수정
                     1 -> {
+                        val editgroupBottomSheet: EditGroupBottomSheet = EditGroupBottomSheet {
+                            when (it) {
+                                // 카페 수정
+                                0 -> {
+                                }
+                            }
+                        }
+                        editgroupBottomSheet.show(requireActivity().supportFragmentManager, editgroupBottomSheet.tag)
                     }
                     // 음료 수정
                     2 -> {
+                        val editDrinkBottomSheet = EditDrinkBottomSheet()
+                        editDrinkBottomSheet.show(requireActivity().supportFragmentManager, editDrinkBottomSheet.tag)
                     }
                     // 카페 삭제
                     3 -> {

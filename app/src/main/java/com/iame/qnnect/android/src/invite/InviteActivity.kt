@@ -4,6 +4,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityInviteBinding
 import com.iame.qnnect.android.viewmodel.InviteViewModel
+import kotlinx.android.synthetic.main.activity_invite.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
@@ -20,5 +21,8 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
     }
 
     override fun initAfterBinding() {
+        back_btn.setOnClickListener {
+            finish()
+        }
     }
 }
