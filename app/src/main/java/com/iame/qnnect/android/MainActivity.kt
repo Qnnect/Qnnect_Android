@@ -3,13 +3,13 @@ package com.iame.qnnect.android
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.iame.qnnect.android.base.BaseActivity
-import com.iame.qnnect.android.databinding.ActivityMainTwoBinding
+import com.iame.qnnect.android.databinding.ActivityMainBinding
 import com.iame.qnnect.android.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main_two.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<ActivityMainTwoBinding, MainViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override val layoutResourceId: Int
         get() = R.layout.activity_main // get() : 커스텀 접근자, 코틀린 문법

@@ -83,6 +83,10 @@
             android:name="com.iame.qnnect.android.src.drink.DrinkActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.iame.qnnect.android.src.edit_drink.EditDrinkActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

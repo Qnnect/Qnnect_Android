@@ -144,6 +144,7 @@ var viewModelPart = module {
     viewModel { DiaryViewModel() }
     viewModel { AnswerViewModel() }
     viewModel { DrinkViewModel() }
+    viewModel { EditDrinkViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)
