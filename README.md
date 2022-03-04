@@ -23,4 +23,4 @@
 2. 2022.03.01(TUE) -> Not Answer & Not Question Dialog, Home layout update, Seek Bar Divider complete, User Profile Api complete
 3. 2022.03.02(WEN) -> Get User api complete, Group Fragment bottom sheet & dialog complete
 4. 2022.03.03(THU) -> User profile Api re update, Answer activity publishing, group bottom logic change
-5. 2022.03.04(FRI) -> Question & Answer Activity layout
+5. 2022.03.04(FRI) -> Question & Answer & drink & Edit Drink Activity layout 
