@@ -9,6 +9,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
+import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.group.group_bottom.EditDrinkBottomSheet
 import com.iame.qnnect.android.src.group.group_bottom.EditGroupBottomSheet
 import com.iame.qnnect.android.src.group.group_setting.GroupSettingBottomSheet
@@ -21,6 +22,7 @@ import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.HomeFragment
 import com.iame.qnnect.android.src.main.home.home_bottom.AddDrinkBottomSheet
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
+import com.iame.qnnect.android.src.question.QuestionActivity
 import com.iame.qnnect.android.viewmodel.GroupViewModel
 import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
@@ -110,16 +112,18 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         }
 
         question_btn.setOnClickListener {
-            val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
-                when (it) {
-                    // 음료추가
-                    1 -> {
-                        val addDrinkBottomSheet = AddDrinkBottomSheet()
-                        addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
-                    }
-                }
-            }
-            notquestionDialog.show(requireActivity().supportFragmentManager, notquestionDialog.tag)
+//            val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
+//                when (it) {
+//                    // 음료추가
+//                    1 -> {
+//                        val addDrinkBottomSheet = AddDrinkBottomSheet()
+//                        addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
+//                    }
+//                }
+//            }
+//            notquestionDialog.show(requireActivity().supportFragmentManager, notquestionDialog.tag)
+            var intent = Intent(context, QuestionActivity::class.java)
+            startActivity(intent)
         }
 
         more_btn.setOnClickListener {
