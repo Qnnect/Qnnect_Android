@@ -10,6 +10,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
 import com.iame.qnnect.android.src.answer.AnswerActivity
+import com.iame.qnnect.android.src.drink.DrinkActivity
 import com.iame.qnnect.android.src.group.group_bottom.EditDrinkBottomSheet
 import com.iame.qnnect.android.src.group.group_bottom.EditGroupBottomSheet
 import com.iame.qnnect.android.src.group.group_setting.GroupSettingBottomSheet
@@ -99,6 +100,11 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
+        drink_img.setOnClickListener {
+            var intent = Intent(context, DrinkActivity::class.java)
+            startActivity(intent)
+        }
+
         back_btn.setOnClickListener {
             home_case.setHome(requireContext(), 0, "")
 
