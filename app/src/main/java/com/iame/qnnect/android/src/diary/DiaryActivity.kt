@@ -13,6 +13,7 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityDiaryBinding
 import com.iame.qnnect.android.databinding.ActivityLoginBinding
 import com.iame.qnnect.android.src.allow.AllowActivity
+import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.model.answer_item
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
@@ -62,7 +63,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         answer_list.add(item4)
 
         answer_recycler.run {
-            adapter = AnswerAdapter(answer_list)
+            adapter = AnswerAdapter(answer_list, context)
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
             }
@@ -71,6 +72,11 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
 
         back_btn.setOnClickListener {
             finish()
+        }
+
+        answer_btn.setOnClickListener {
+            var intent = Intent(this, AnswerActivity::class.java)
+            startActivity(intent)
         }
     }
 }

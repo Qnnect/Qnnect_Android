@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.diary
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +18,15 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.model.answer_item
 import com.iame.qnnect.android.src.group.GroupFragment
 import com.iame.qnnect.android.src.main.MainActivity
 
 
 class AnswerAdapter(
-    private val itemList: ArrayList<answer_item>
+    private val itemList: ArrayList<answer_item>,
+    val context: Context
 ) :
     RecyclerView.Adapter<AnswerAdapter.ViewHolder>(){
     var datas = ArrayList<answer_item>()
@@ -34,6 +37,7 @@ class AnswerAdapter(
         var user_name: TextView = itemView.findViewById(R.id.user_name)
         var contents: TextView = itemView.findViewById(R.id.answer_contents)
         var answer_img: ImageView = itemView.findViewById(R.id.answer_img)
+        var answer_btn: ImageView = itemView.findViewById(R.id.answer_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,27 +55,10 @@ class AnswerAdapter(
             holder.answer_img.visibility = View.GONE
         }
 
-
-//        holder.itemView.setOnClickListener {
-//            home_case.setHome(context, 1, "group_name")
-//
-//            var fragment: Fragment = GroupFragment()
-//            var bundle: Bundle = Bundle()
-////            bundle.putString("user_id",holder?.userID.text.toString())
-////            bundle.putString("goal_id",holder?.goalID.text.toString())
-////            bundle.putString("content",holder?.content_txt.text.toString())
-////            bundle.putString("date",holder?.date_txt.text.toString())
-//
-//            fragment.arguments=bundle
-//            // 나는 fragment안에 fragment가 있기 때문에 이런식으로 bundle을 붙여줘야했다.
-//            /*그런게 아니라면
-//            fragment_s.fragmentManager!!.beginTransaction().replace(R.id.content).commit()
-//            해주면 된다.*/
-//
-//            activity = fragment_s.activity as MainActivity?
-//            //change_for_adapter는 mainactivity에 구현
-//            activity?.fragmentChange_for_adapter(fragment)
-//        }
+        holder.answer_btn.setOnClickListener {
+            var intent = Intent(context, AnswerActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
