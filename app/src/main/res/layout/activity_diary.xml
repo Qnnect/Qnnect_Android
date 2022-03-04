@@ -56,144 +56,158 @@
             android:background="@color/gray_4">
         </View>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/question_main"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
+        <androidx.core.widget.NestedScrollView
             app:layout_constraintTop_toBottomOf="@id/line1"
-            android:layout_gravity="center"
-            android:layout_marginTop="18dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"
-            android:background="@drawable/home_question_custom_in">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:id="@+id/group_scroll"
+            android:paddingBottom="50dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/dday_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:paddingLeft="11dp"
-                    android:paddingRight="11dp"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/question_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:text="D-7"
-                    android:textSize="11dp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/im_hyemin_bold"
-                    android:layout_marginRight="17dp"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/black"
-                    android:background="@drawable/home_question_custom_out">
-                </TextView>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginRight="27dp"
+                    android:background="@drawable/home_question_custom_in">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/dday_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="9dp"
+                            android:paddingBottom="9dp"
+                            android:paddingLeft="11dp"
+                            android:paddingRight="11dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:text="D-7"
+                            android:textSize="11dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/im_hyemin_bold"
+                            android:layout_marginRight="17dp"
+                            android:layout_marginTop="16dp"
+                            android:textColor="@color/black"
+                            android:background="@drawable/home_question_custom_out">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/create_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="2022.1.22"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/gray_2"
+                            android:fontFamily="@font/im_hyemin_bold"
+                            android:layout_marginTop="30dp">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/who_question"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/create_date"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="모래의 질문"
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/im_hyemin_bold"
+                            android:layout_marginTop="8dp">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/question_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/who_question"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="친구와 함께 가장 가고싶은\n외국 여행지는 어디인가요?"
+                            android:gravity="center"
+                            android:textSize="16dp"
+                            android:lineSpacingExtra="3dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/im_hyemin_bold"
+                            android:layout_marginTop="16dp">
+                        </TextView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/my_profile_img"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/question_main"
+                    app:layout_constraintLeft_toLeftOf="@id/question_main"
+                    android:src="@mipmap/img_profile_dafault_foreground">
+                </ImageView>
 
                 <TextView
-                    android:id="@+id/create_date"
+                    android:id="@+id/my_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="2022.1.22"
-                    android:textSize="12dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_2"
+                    app:layout_constraintTop_toTopOf="@id/my_profile_img"
+                    app:layout_constraintBottom_toBottomOf="@id/my_profile_img"
+                    app:layout_constraintLeft_toRightOf="@id/my_profile_img"
+                    android:layout_marginLeft="11dp"
                     android:fontFamily="@font/im_hyemin_bold"
-                    android:layout_marginTop="30dp">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/who_question"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/create_date"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="모래의 질문"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/im_hyemin_bold"
-                    android:layout_marginTop="8dp">
-                </TextView>
-
-                <TextView
-                    android:id="@+id/question_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/who_question"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="친구와 함께 가장 가고싶은\n외국 여행지는 어디인가요?"
-                    android:gravity="center"
                     android:textSize="16dp"
-                    android:lineSpacingExtra="3dp"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/im_hyemin_bold"
-                    android:layout_marginTop="16dp">
+                    android:textStyle="bold"
+                    android:text="아아메">
                 </TextView>
+
+                <TextView
+                    android:id="@+id/answer_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/my_profile_img"
+                    android:paddingTop="32dp"
+                    android:paddingBottom="32dp"
+                    android:gravity="center"
+                    android:text="질문에 답해보세요!"
+                    android:textColor="@color/gray_4"
+                    android:textSize="16dp">
+                </TextView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/answer_btn">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/answer_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never">
+                    </androidx.recyclerview.widget.RecyclerView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/my_profile_img"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/question_main"
-            app:layout_constraintLeft_toLeftOf="@id/question_main"
-            android:src="@mipmap/img_profile_dafault_foreground">
-        </ImageView>
-
-        <TextView
-            android:id="@+id/my_profile_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/my_profile_img"
-            app:layout_constraintBottom_toBottomOf="@id/my_profile_img"
-            app:layout_constraintLeft_toRightOf="@id/my_profile_img"
-            android:layout_marginLeft="11dp"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:textSize="16dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="아아메">
-        </TextView>
-
-        <TextView
-            android:id="@+id/answer_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/my_profile_img"
-            android:paddingTop="32dp"
-            android:paddingBottom="32dp"
-            android:gravity="center"
-            android:text="질문에 답해보세요!"
-            android:textColor="@color/gray_4"
-            android:textSize="16dp">
-        </TextView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/answer_btn">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/answer_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never">
-            </androidx.recyclerview.widget.RecyclerView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -33,8 +33,7 @@ class AnswerAdapter(
         var user_img: ImageView = itemView.findViewById(R.id.user_img)
         var user_name: TextView = itemView.findViewById(R.id.user_name)
         var contents: TextView = itemView.findViewById(R.id.answer_contents)
-        var images: ImageView = itemView.findViewById(R.id.answer_img)
-        var answer_img_main: ConstraintLayout = itemView.findViewById(R.id.answer_img_main)
+        var answer_img: ImageView = itemView.findViewById(R.id.answer_img)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,7 +48,7 @@ class AnswerAdapter(
         holder.contents.setText(itemList.get(position).contents)
 
         if(itemList.get(position).images == null){
-            holder.answer_img_main.visibility = View.GONE
+            holder.answer_img.visibility = View.GONE
         }
 
 
