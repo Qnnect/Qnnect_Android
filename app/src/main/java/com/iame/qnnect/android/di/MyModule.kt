@@ -10,6 +10,10 @@ import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
+import com.iame.qnnect.android.src.group.model.GetGroupDataModel
+import com.iame.qnnect.android.src.group.model.GetGroupResponse
+import com.iame.qnnect.android.src.group.service.GroupAPI
+import com.iame.qnnect.android.src.group.service.GroupDataImpl
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
@@ -100,6 +104,16 @@ var retrofitPart = module {
             .build()
             .create(UserAPI::class.java)
     }
+    single<GroupAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GroupAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -127,6 +141,9 @@ var modelPart = module {
     factory<UserDataModel> {
         UserDataImpl(get())
     }
+    factory<GetGroupDataModel> {
+        GroupDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -138,6 +155,7 @@ var viewModelPart = module {
     viewModel { EditProfileViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { MypageViewModel(get()) }
+    viewModel { GroupViewModel(get()) }
 
     viewModel { BookmarkViewModel() }
     viewModel { StoreViewModel() }

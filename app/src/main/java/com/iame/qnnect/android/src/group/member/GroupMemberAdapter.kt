@@ -21,12 +21,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.group.GroupFragment
+import com.iame.qnnect.android.src.group.model.CafeUserResponse
 import com.iame.qnnect.android.src.group.model.group_drink_item
 import com.iame.qnnect.android.src.main.MainActivity
 
 
 class GroupMemberAdapter(
-    private val itemList: ArrayList<group_drink_item>
+    private val itemList: ArrayList<CafeUserResponse>
 ) :
     RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>(){
     var datas = ArrayList<group_drink_item>()
@@ -49,8 +50,7 @@ class GroupMemberAdapter(
 //            .load(itemList.get(position).drink_img)
 //            .transform(CenterCrop())
 //            .into(holder.member_drink)
-        holder.member_drink.setImageResource(itemList.get(position).drink_img)
-        holder.member_name.setText(itemList.get(position).member_name)
+        holder.member_name.setText(itemList.get(position).user.nickName)
     }
 
     override fun getItemCount(): Int {

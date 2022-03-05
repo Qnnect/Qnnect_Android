@@ -11,16 +11,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.diary.DiaryActivity
+import com.iame.qnnect.android.src.group.model.CafeQuestionResponse
 import com.iame.qnnect.android.src.group.model.group_question_item
 import com.iame.qnnect.android.src.main.home.ViewHolderPage
 
 
 class GroupQuestionViewPagerAdapter internal constructor(
-    data: ArrayList<group_question_item>,
+    data: ArrayList<CafeQuestionResponse>,
     var context: Context
 ) :
     RecyclerView.Adapter<GroupViewHolderPage>() {
-    private val listData: ArrayList<group_question_item>
+    private val listData: ArrayList<CafeQuestionResponse>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolderPage {
         val context: Context = parent.context
         val view: View =
