@@ -9,6 +9,7 @@
             name="vm"
             type="com.iame.qnnect.android.viewmodel.HomeViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,8 +26,8 @@
                 android:layout_width="20dp"
                 android:layout_height="26dp"
                 android:layout_marginLeft="27dp"
+                android:src="@mipmap/img_main_kong"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_main_icon_foreground"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent">

@@ -3,23 +3,42 @@ package com.iame.qnnect.android.src.main.home.home_bottom
 import android.app.Dialog
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
+import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupRequest
+import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupResponse
+import com.iame.qnnect.android.src.main.home.home_bottom.service.AddGroupService
+import com.iame.qnnect.android.src.main.home.home_bottom.service.AddGroupView
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.*
+import java.util.concurrent.TimeUnit
 
 
 class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
-    BottomSheetDialogFragment(){
+    BottomSheetDialogFragment(), AddGroupView{
     private lateinit var dlg : BottomSheetDialog
+
+    var title: String = ""
+    var groupType: String = "친구"
+    var diaryColor: String = "red"
+    var questionCycle: String = "everyDay"
+    var check = false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
@@ -54,17 +73,95 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
         var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
         var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
 
+        var name_edit_txt = view!!.findViewById<EditText>(R.id.name_edit_txt)
+
         close_btn.setOnClickListener {
             dismiss()
         }
+
         ok_btn.setOnClickListener {
-            dismiss()
-            itemClick(0)
+            if(check){
+                title = name_edit_txt.text.toString()
+                var postAddGroupRequest = PostAddGroupRequest(diaryColor, groupType, questionCycle, title)
+                AddGroupService(this).tryAddGroup(postAddGroupRequest)
+            }
         }
+
+        // rx java 사용
+        val observableTextQuery = Observable
+            .create(ObservableOnSubscribe { emitter: ObservableEmitter<String>? ->
+                name_edit_txt.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {
+                    }
+
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int,
+                    ) {
+                        emitter?.onNext(s.toString())
+                    }
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    }
+                })
+            })
+            .debounce(500, TimeUnit.MILLISECONDS)
+            .subscribeOn(Schedulers.io())
+
+        observableTextQuery.subscribe(object : io.reactivex.rxjava3.core.Observer<String> {
+            override fun onComplete() {
+            }
+
+            override fun onSubscribe(d: Disposable?) {
+            }
+
+            override fun onNext(t: String) {
+                var len = name_edit_txt.text.toString()
+                if(len.length > 0 && len.length < 11){
+                    ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+                    check = true
+                }
+                else{
+                    ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+                    check = false
+                }
+            }
+            override fun onError(e: Throwable?) {
+            }
+
+        })
 
         val seekBar = view!!.findViewById<SeekBar>(R.id.seekBar)
         seekBar.max = 3 // 시크바 최대값 설정
         seekBar.progress = 0 // 초기 시크바 값 설정
+
+        // OnSeekBarChange 리스너 - Seekbar 값 변경시 이벤트처리 Listener
+        // OnSeekBarChange 리스너 - Seekbar 값 변경시 이벤트처리 Listener
+        seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // onStopTrackingTouch - SeekBar 값 변경 끝나고 드래그 떼면 호출
+                if(seekBar.progress == 0){
+                    questionCycle = "everyDay"
+                }
+                else if(seekBar.progress == 1){
+                    questionCycle = "threeDay"
+                }
+                else if(seekBar.progress == 2){
+                    questionCycle = "fiveDay"
+                }
+                else{
+                    questionCycle = "sevenDay"
+                }
+            }
+        })
 
         // group check
         var group_friend_btn = view!!.findViewById<TextView>(R.id.group_friend_btn)
@@ -111,6 +208,16 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
 
         select.setBackgroundResource(R.drawable.group_select_ok)
         select.setTextColor(Color.parseColor("#FFFFFF"))
+
+        if(select == group_friend_btn){
+            groupType = "친구"
+        }
+        else if(select == group_family_btn){
+            groupType = "가족"
+        }
+        else{
+            groupType = "커플"
+        }
     }
     fun color_select(select: ImageView, item1: ImageView, item2: ImageView, item3: ImageView, item4: ImageView){
         select.setBackgroundResource(R.drawable.color_in_custom_select)
@@ -119,5 +226,31 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
         item2.setBackgroundResource(R.drawable.color_in_custom)
         item3.setBackgroundResource(R.drawable.color_in_custom)
         item4.setBackgroundResource(R.drawable.color_in_custom)
+
+        if(select == color_orange_btn){
+            diaryColor = "red"
+        }
+        else if(select == color_brown_btn){
+            groupType = "brown"
+        }
+        else if(select == color_pink_btn){
+            groupType = "pink"
+        }
+        else if(select == color_sky_btn){
+            groupType = "blue"
+        }
+        else{
+            groupType = "yellow"
+        }
+    }
+
+    override fun onAddGroupSuccess(response: PostAddGroupResponse) {
+        Log.d("add_group_response", response.toString())
+        dismiss()
+        itemClick(0)
+    }
+
+    override fun onAddGroupFailure(message: String) {
+        Log.d("add_group_response", message.toString())
     }
 }

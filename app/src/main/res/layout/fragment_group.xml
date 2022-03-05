@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:src="@mipmap/ic_more_foreground"
+                android:src="@mipmap/ic_more_btn_foreground"
                 android:layout_marginRight="17dp">
             </ImageView>
 
