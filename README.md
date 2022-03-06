@@ -25,4 +25,4 @@
 4. 2022.03.03(THU) -> User profile Api re update, Answer activity publishing, group bottom logic change
 5. 2022.03.04(FRI) -> Question & Answer & drink & Edit Drink Activity layout 
 6. 2022.03.05(SAT) -> Create Cafe Api complete, Cafe home Api reponse value serialize
-7. 2022.03.06(SUN) -> Cafe page Api complete <- (Logic Change use Mvvm & Koin), Not Selected Drink User & Empty recipe list Logic
+7. 2022.03.06(SUN) -> Cafe page Api complete <- (Logic Change use Mvvm & Koin), Not Selected Drink User & Empty recipe list Logic, Answer activity keyboard imset, multiple image select & delete
