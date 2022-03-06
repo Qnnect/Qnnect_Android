@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.R
@@ -31,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_main_two.*
 import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
 import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
+import org.koin.android.ext.android.inject
 
 
 class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layout.fragment_group) {
@@ -40,63 +43,54 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
 
     override val viewModel: GroupViewModel by viewModel()
 
-    var question_list = ArrayList<CafeQuestionResponse>()
+    private val groupMemberAdapter: GroupMemberAdapter by inject()
+    private val groupQuestionViewPagerAdapter: GroupQuestionViewPagerAdapter by inject()
 
-    var member_list = ArrayList<CafeUserResponse>()
-
-//    data class CafeQuestionResponse(
-//        val createdAt: String,
-//        val daysLeft: Int,
-//        val question: String,
-//        val questioner: String
-//    )
 
     var home_case = HomeFragment_case()
     val fragment_s: Fragment = this
     private var activity: MainActivity? = null
 
     override fun initStartView() {
-    }
-
-    override fun initDataBinding() {
-        var cafeId = GetGroupRequest(12)
-        viewModel.getGroup(cafeId)
-
-        viewModel.groupResponse.observe(this, Observer {
-            for(i in 0..it.cafeUserResponseList.size-1){
-                var item = it.cafeUserResponseList.get(i)
-                member_list.add(item)
-            }
-
-            for(i in 0..it.cafeQuestionResponseList.size-1){
-                var item = it.cafeQuestionResponseList.get(i)
-                question_list.add(item)
-            }
-        })
-
+        // member recycler
         member_recycler.run {
-            adapter = GroupMemberAdapter(member_list)
+            adapter = groupMemberAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
             }
             setHasFixedSize(true)
         }
 
+        // question viewpager
         question_viewPager2.run {
-            adapter = GroupQuestionViewPagerAdapter(question_list, context)
+            adapter = groupQuestionViewPagerAdapter
         }
-
+        
         //인디케이터 타입1
         val dotsIndicator = dots_indicator
         dotsIndicator.setViewPager2(question_viewPager2)
 
-//        group_recycler.run {
-//            adapter = SubGroupAdapter(group_list)
-//            layoutManager = LinearLayoutManager(context).apply {
-//                orientation = LinearLayoutManager.HORIZONTAL
-//            }
-//            setHasFixedSize(true)
-//        }
+    }
+
+    override fun initDataBinding() {
+        viewModel.getGroup(12)
+
+        viewModel.groupResponse.observe(this, Observer {
+            group_date_txt.text = it.createdAt
+            group_name_txt.text = it.title
+            group_name_main.text = it.title
+
+            it.cafeQuestionList.forEach { item ->
+                groupQuestionViewPagerAdapter.addItem(item)
+            }
+
+            it.cafeUserList.forEach { item ->
+                groupMemberAdapter.addItem(item)
+            }
+
+            groupQuestionViewPagerAdapter.notifyDataSetChanged()
+            groupMemberAdapter.notifyDataSetChanged()
+        })
     }
 
     override fun initAfterBinding() {
@@ -167,11 +161,5 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
 
             groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
         }
-
-//        val notanswerDialog = NotAnswerDialog()
-//        notanswerDialog.show(requireActivity().supportFragmentManager, notanswerDialog.tag)
-
-
     }
-
 }

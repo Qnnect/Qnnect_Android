@@ -10,14 +10,14 @@ import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
-import com.iame.qnnect.android.src.group.model.GetGroupDataModel
-import com.iame.qnnect.android.src.group.model.GetGroupResponse
+import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
+import com.iame.qnnect.android.src.group.model.GroupDataModel
+import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
 import com.iame.qnnect.android.src.group.service.GroupAPI
 import com.iame.qnnect.android.src.group.service.GroupDataImpl
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
-import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.main.home.service.UserAPI
 import com.iame.qnnect.android.src.main.home.service.UserDataImpl
@@ -120,6 +120,12 @@ var adapterPart = module {
     factory {
         MainSearchRecyclerViewAdapter()
     }
+    factory {
+        GroupQuestionViewPagerAdapter()
+    }
+    factory {
+        GroupMemberAdapter()
+    }
 }
 
 var modelPart = module {
@@ -141,7 +147,7 @@ var modelPart = module {
     factory<UserDataModel> {
         UserDataImpl(get())
     }
-    factory<GetGroupDataModel> {
+    factory<GroupDataModel> {
         GroupDataImpl(get())
     }
 }

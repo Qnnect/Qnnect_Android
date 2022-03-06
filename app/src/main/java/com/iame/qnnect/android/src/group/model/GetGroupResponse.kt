@@ -1,10 +1,12 @@
 package com.iame.qnnect.android.src.group.model
 
+import com.google.gson.annotations.SerializedName
+
 data class GetGroupResponse(
-    val cafeQuestionResponseList: List<CafeQuestionResponse>,
-    val cafeUserResponseList: List<CafeUserResponse>,
-    val code: String,
-    val createdAt: String,
-    val organizer: Organizer,
-    val title: String
+    @SerializedName("cafeQuestionResponseList") var cafeQuestionList: List<CafeQuestion>,
+    @SerializedName("cafeUserResponseList") var cafeUserList: List<CafeUser>,
+    @SerializedName("code") var code: String,
+    @SerializedName("createdAt") var createdAt: String,
+    @SerializedName("organizer") var organizer: Organizer,
+    @SerializedName("title") var title: String
 )

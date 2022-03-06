@@ -45,6 +45,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
             viewModel.refreshResponse.observe(this, Observer {
                 if(it.accessToken == "" || it.refreshToken == ""){
+                    Log.d("login_response", it.toString())
                     Handler(Looper.getMainLooper()).postDelayed({
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
