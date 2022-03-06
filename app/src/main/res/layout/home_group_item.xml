@@ -34,8 +34,8 @@
         android:textSize="14dp"
         android:lineSpacingExtra="8dp"
         android:textStyle="normal"
-        android:textColor="@color/gray_1"
-        android:fontFamily="@font/im_hyemin_regular"
+        android:textColor="@color/gray_2"
+        android:fontFamily="@font/im_hyemin_bold"
         android:layout_marginTop="6dp"
         android:layout_marginLeft="18dp">
     </TextView>
