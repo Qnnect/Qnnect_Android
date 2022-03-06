@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.group.model.CafeUser
@@ -37,10 +39,19 @@ class GroupMemberAdapter() : RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        Glide.with(holder.itemView.getContext())
-//            .load(itemList.get(position).drink_img)
-//            .transform(CenterCrop())
-//            .into(holder.member_drink)
+        if(itemList.get(position).userDrinkSelected == null){
+            holder.member_drink.setImageResource(R.mipmap.img_drink_default_foreground)
+//            Glide.with(holder.itemView.getContext())
+//                .load(itemList.get(position).drink_img)
+//                .transform(CenterCrop())
+//                .into(holder.member_drink)
+        }
+        else{
+            if(itemList.get(position).drinkIngredientsFilledResponseList.size == 0){
+                holder.member_drink.setImageResource(R.mipmap.img_drink_basic_foreground)
+            }
+        }
+
         holder.member_name.setText(itemList.get(position).user.nickName)
     }
 

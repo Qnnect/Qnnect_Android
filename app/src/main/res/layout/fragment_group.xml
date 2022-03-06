@@ -97,7 +97,7 @@
             app:layout_constraintTop_toBottomOf="@id/line1"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="27dp"
-            android:layout_marginTop="23dp">
+            android:layout_marginTop="35dp">
         </TextView>
 
         <TextView
@@ -120,7 +120,8 @@
             android:id="@+id/drink_img"
             android:layout_width="72dp"
             android:layout_height="100dp"
-            app:layout_constraintTop_toTopOf="@id/group_date_txt"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            android:layout_marginTop="25dp"
             android:src="@mipmap/img_drink_default_foreground"
             android:scaleType="centerCrop"
             app:layout_constraintRight_toRightOf="parent"
@@ -151,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="140dp"
             app:layout_constraintTop_toBottomOf="@id/drink_img"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
             android:background="@drawable/group_drink_list_out_custom">
@@ -189,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/drink_list"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"/>
 
         <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
