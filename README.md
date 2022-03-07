@@ -26,3 +26,6 @@
 5. 2022.03.04(FRI) -> Question & Answer & drink & Edit Drink Activity layout 
 6. 2022.03.05(SAT) -> Create Cafe Api complete, Cafe home Api reponse value serialize
 7. 2022.03.06(SUN) -> Cafe page Api complete <- (Logic Change use Mvvm & Koin), Not Selected Drink User & Empty recipe list Logic, Answer activity keyboard imset, multiple image select & delete
+
+- 4th Week
+1. 2022.03.07(MON) -> Home Api, Cafe Home Api response change, Create Cafe Api response change, Recipe Functional, Home Adapter Logic Change, Move Cafe layout Logic change
