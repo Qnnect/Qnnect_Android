@@ -5,11 +5,11 @@ import android.content.Context.MODE_PRIVATE
 
 class HomeFragment_case {
 
-    fun setHome(context: Context, home_case: Int, group_name: String) {
+    fun setHome(context: Context, home_case: Int, group_index: Int) {
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
         var editor = text.edit()
         editor.putInt("home_case", home_case)
-        editor.putString("group_name", group_name)
+        editor.putInt("group_index", group_index)
         editor.commit()
     }
 
@@ -20,10 +20,10 @@ class HomeFragment_case {
         return home_case
     }
 
-    fun getGroupname(context: Context): String?{
+    fun getGroupname(context: Context): Int?{
         // shared preference
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
-        var group_name = text.getString("group_name", null)
+        var group_name = text.getInt("group_index", -1)
         return group_name
     }
 }

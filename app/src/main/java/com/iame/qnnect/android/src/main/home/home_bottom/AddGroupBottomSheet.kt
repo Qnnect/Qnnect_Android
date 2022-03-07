@@ -16,6 +16,7 @@ import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.widget.SeekBar.OnSeekBarChangeListener
+import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupRequest
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupResponse
 import com.iame.qnnect.android.src.main.home.home_bottom.service.AddGroupService
@@ -39,6 +40,7 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
     var diaryColor: String = "red"
     var questionCycle: String = "everyDay"
     var check = false
+    var home = HomeFragment_case()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
@@ -231,21 +233,22 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
             diaryColor = "red"
         }
         else if(select == color_brown_btn){
-            groupType = "brown"
+            diaryColor = "brown"
         }
         else if(select == color_pink_btn){
-            groupType = "pink"
+            diaryColor = "pink"
         }
         else if(select == color_sky_btn){
-            groupType = "blue"
+            diaryColor = "blue"
         }
         else{
-            groupType = "yellow"
+            diaryColor = "yellow"
         }
     }
 
-    override fun onAddGroupSuccess(response: PostAddGroupResponse) {
+    override fun onAddGroupSuccess(response: Int) {
         Log.d("add_group_response", response.toString())
+        home.setHome(requireContext(), 1, response)
         dismiss()
         itemClick(0)
     }

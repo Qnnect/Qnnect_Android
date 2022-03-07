@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_main"
         android:layout_width="match_parent"
         android:layout_height="235dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,7 +18,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp"
-        android:background="@drawable/home_question_custom_in">
+        android:background="@drawable/nnect_question_custom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

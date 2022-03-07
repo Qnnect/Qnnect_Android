@@ -13,6 +13,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.iame.qnnect.android.MyConstant.Companion.radius
 import com.iame.qnnect.android.R
 
 
@@ -58,6 +61,7 @@ class MultiImageAdapter internal constructor(
         val image_uri: Uri = mData!![position]
         Glide.with(mContext!!)
             .load(image_uri)
+            .transform(CenterCrop(), RoundedCorners(radius))
             .into(holder.image)
 
         holder.delete_btn.setOnClickListener {

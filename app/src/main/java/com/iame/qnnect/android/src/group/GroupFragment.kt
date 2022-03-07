@@ -3,6 +3,7 @@ package com.iame.qnnect.android.src.group
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,6 +51,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     var home_case = HomeFragment_case()
     val fragment_s: Fragment = this
     private var activity: MainActivity? = null
+    var drink_check = false
+
+    var home = HomeFragment_case()
 
     override fun initStartView() {
         // member recycler
@@ -73,34 +77,72 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initDataBinding() {
-        viewModel.getGroup(12)
+        var id = home.getGroupname(context!!)
+        viewModel.getGroup(id!!)
 
         viewModel.groupResponse.observe(this, Observer {
             group_date_txt.text = it.createdAt
             group_name_txt.text = it.title
             group_name_main.text = it.title
 
-            it.cafeQuestionList.forEach { item ->
-                groupQuestionViewPagerAdapter.addItem(item)
+            if(it.currentUser.userDrinkSelected == null){
+                drink_img.setImageResource(R.mipmap.img_drink_default_foreground)
+                drink_check = false
+            }
+            else{
+                if(it.currentUser.drinkIngredientsFilledResponseList.size == 0){
+                    drink_img.setImageResource(R.mipmap.img_drink_basic_foreground)
+                    select_text.visibility = View.GONE
+                    drink_check = true
+                }
             }
 
-            it.cafeUserList.forEach { item ->
-                groupMemberAdapter.addItem(item)
+            if(it.cafeUserList.size == 0){
+                empty_drink.visibility = View.VISIBLE
+                member_recycler.visibility = View.GONE
+            }
+            else{
+                member_recycler.visibility = View.VISIBLE
+                empty_drink.visibility = View.GONE
+                it.cafeUserList.forEach { item ->
+                    groupMemberAdapter.addItem(item)
+                }
+                groupMemberAdapter.notifyDataSetChanged()
             }
 
-            groupQuestionViewPagerAdapter.notifyDataSetChanged()
-            groupMemberAdapter.notifyDataSetChanged()
+            if(it.cafeQuestionList.size == 0){
+                item_main.visibility = View.VISIBLE
+                question_viewPager2.visibility = View.GONE
+                dots_indicator.visibility = View.GONE
+            }
+            else{
+                item_main.visibility = View.GONE
+                question_viewPager2.visibility = View.VISIBLE
+                dots_indicator.visibility = View.VISIBLE
+                it.cafeQuestionList.forEach { item ->
+                    groupQuestionViewPagerAdapter.addItem(item)
+                }
+                groupQuestionViewPagerAdapter.notifyDataSetChanged()
+            }
+
         })
     }
 
     override fun initAfterBinding() {
+
         drink_img.setOnClickListener {
-            var intent = Intent(context, DrinkActivity::class.java)
-            startActivity(intent)
+            if(drink_check){
+                var intent = Intent(context, DrinkActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                val addDrinkBottomSheet = AddDrinkBottomSheet()
+                addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
+            }
         }
 
         back_btn.setOnClickListener {
-            home_case.setHome(requireContext(), 0, "")
+            home_case.setHome(requireContext(), 0, -1)
 
             var fragment: Fragment = HomeFragment()
             var bundle: Bundle = Bundle()
@@ -112,18 +154,22 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         }
 
         question_btn.setOnClickListener {
-//            val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
-//                when (it) {
-//                    // 음료추가
-//                    1 -> {
-//                        val addDrinkBottomSheet = AddDrinkBottomSheet()
-//                        addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
-//                    }
-//                }
-//            }
-//            notquestionDialog.show(requireActivity().supportFragmentManager, notquestionDialog.tag)
-            var intent = Intent(context, QuestionActivity::class.java)
-            startActivity(intent)
+            if(drink_check){
+                var intent = Intent(context, QuestionActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
+                    when (it) {
+                        // 음료추가
+                        1 -> {
+                            val addDrinkBottomSheet = AddDrinkBottomSheet()
+                            addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
+                        }
+                    }
+                }
+                notquestionDialog.show(requireActivity().supportFragmentManager, notquestionDialog.tag)
+            }
         }
 
         more_btn.setOnClickListener {

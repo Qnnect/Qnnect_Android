@@ -45,13 +45,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
             viewModel.refreshResponse.observe(this, Observer {
                 if(it.accessToken == "" || it.refreshToken == ""){
-                    Log.d("login_response", it.toString())
                     Handler(Looper.getMainLooper()).postDelayed({
                         startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }, 1500)
                 }
                 else{
+                    Log.d("login_response", it.toString())
                     baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
                     Handler(Looper.getMainLooper()).postDelayed({
                         startActivity(Intent(this, MainActivity::class.java))

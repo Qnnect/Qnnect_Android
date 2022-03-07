@@ -195,6 +195,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp">
             </androidx.recyclerview.widget.RecyclerView>

@@ -8,5 +8,5 @@ import retrofit2.http.*
 
 interface AddGroupAPI {
     @POST("/api/v1/cafes")
-    fun postAddGroup(@Body body: PostAddGroupRequest) : Call<PostAddGroupResponse>
+    fun postAddGroup(@Body body: PostAddGroupRequest) : Call<Int>
 }

@@ -18,9 +18,15 @@ import com.iame.qnnect.android.src.group.service.GroupDataImpl
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
+import com.iame.qnnect.android.src.main.home.GroupAdapter
+import com.iame.qnnect.android.src.main.home.QuestionRecyclerViewAdapter
+import com.iame.qnnect.android.src.main.home.home_model.HomeDataModel
+import com.iame.qnnect.android.src.main.home.home_service.HomeAPI
+import com.iame.qnnect.android.src.main.home.home_service.HomeDataImpl
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.main.home.service.UserAPI
 import com.iame.qnnect.android.src.main.home.service.UserDataImpl
+import com.iame.qnnect.android.src.main.store.RecipeAdapter
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import com.iame.qnnect.android.src.profile.service.ProfileAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
@@ -114,6 +120,16 @@ var retrofitPart = module {
             .build()
             .create(GroupAPI::class.java)
     }
+    single<HomeAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(HomeAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -125,6 +141,15 @@ var adapterPart = module {
     }
     factory {
         GroupMemberAdapter()
+    }
+    factory {
+        RecipeAdapter()
+    }
+    factory {
+        QuestionRecyclerViewAdapter()
+    }
+    factory {
+        GroupAdapter()
     }
 }
 
@@ -149,6 +174,9 @@ var modelPart = module {
     }
     factory<GroupDataModel> {
         GroupDataImpl(get())
+    }
+    factory<HomeDataModel> {
+        HomeDataImpl(get())
     }
 }
 

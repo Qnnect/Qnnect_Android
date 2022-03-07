@@ -8,35 +8,34 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.answer.AnswerActivity
+import com.iame.qnnect.android.src.main.home.home_model.HomeQuestion
+import com.iame.qnnect.android.src.main.home.model.question_item
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_question_item.view.*
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
 class QuestionRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    data class question_item(var date: String, var group_name: String ,var question: String)
-
     class QuestionHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.home_question_item, parent, false)
     ) {
-        fun onBind(item: question_item) {
+        fun onBind(item: HomeQuestion) {
             itemView.run {
-                dday_txt.text = item.date
-                diary_name.text = item.group_name
-                question_txt.text = item.question
+                dday_txt.text = "D-"+item.daysLeft.toString()
+                diary_name.text = item.cafeTitle
+                question_txt.text = item.content
 
-//                item_main_image_view.setOnClickListener {
-//                    ContextCompat.startActivity(
-//                        context,
-//                        Intent(Intent.ACTION_VIEW, Uri.parse(item.documentUrl)),
-//                        null
-//                    )
-//                }
+                itemView.setOnClickListener {
+                    var intent = Intent(context, AnswerActivity::class.java)
+                    intent.putExtra("questionId", item.cafeQuestionId)
+                    context.startActivity(intent)
+                }
             }
         }
     }
 
-    private val questionList = ArrayList<question_item>()
+    private val questionList = ArrayList<HomeQuestion>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = QuestionHolder(parent)
 
@@ -46,8 +45,8 @@ class QuestionRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         (holder as? QuestionHolder)?.onBind(questionList[position])
     }
 
-    fun addImageItem(date: String, group_name: String ,question: String) {
-        questionList.add(question_item(date, group_name, question))
+    fun addItem(item: HomeQuestion) {
+        questionList.add(item)
     }
 
     fun clear() {

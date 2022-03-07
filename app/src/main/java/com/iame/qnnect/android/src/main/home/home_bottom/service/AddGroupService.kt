@@ -11,13 +11,12 @@ class AddGroupService(val view: AddGroupView) {
     fun tryAddGroup(addGroupRequest: PostAddGroupRequest){
         val addgroupAPI = MyApplication.sRetrofit.create(AddGroupAPI::class.java)
         addgroupAPI.postAddGroup(addGroupRequest).enqueue(object :
-            Callback<PostAddGroupResponse> {
-            override fun onResponse(call: Call<PostAddGroupResponse>, response: Response<PostAddGroupResponse>) {
-                var result = PostAddGroupResponse("200 OK")
-                view.onAddGroupSuccess(result)
+            Callback<Int> {
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                view.onAddGroupSuccess(response.body() as Int)
             }
 
-            override fun onFailure(call: Call<PostAddGroupResponse>, t: Throwable) {
+            override fun onFailure(call: Call<Int>, t: Throwable) {
                 view.onAddGroupFailure(t.message ?: "통신 오류")
             }
         })
