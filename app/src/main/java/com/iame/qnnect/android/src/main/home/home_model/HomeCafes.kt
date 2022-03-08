@@ -6,7 +6,8 @@ data class HomeCafes(
     @SerializedName("id") var id: Int,
     @SerializedName("title") var title: String,
     @SerializedName("createdAt") var createdAt: String,
-    @SerializedName("cafeUserNum") var cafeUserNum: Int
+    @SerializedName("cafeUserNum") var cafeUserNum: Int,
+    @SerializedName("diaryColor") var diaryColor: String
     )
 
 // {

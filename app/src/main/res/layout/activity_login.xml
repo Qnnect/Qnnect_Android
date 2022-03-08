@@ -13,12 +13,10 @@
         android:layout_height="match_parent"
         android:background="@color/p_ivory">
 
-
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/img_login_foreground"
+            android:src="@drawable/img_login_svg"
             android:scaleType="centerCrop">
         </ImageView>
 

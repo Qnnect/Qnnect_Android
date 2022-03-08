@@ -26,10 +26,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override val viewModel: SplashViewModel by viewModel()
 
     override fun initStartView() {
-        var window = getWindow()
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.parseColor("#554338")
-        window.decorView.systemUiVisibility = 0
+//        var window = getWindow()
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//        window.statusBarColor = Color.parseColor("#554338")
+//        window.decorView.systemUiVisibility = 0
     }
 
     override fun initDataBinding() {

@@ -2,6 +2,7 @@ package com.iame.qnnect.android.src.main.home
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,6 +45,24 @@ class GroupAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         fun onBind(item: HomeCafes) {
             itemView.run {
+                if(item.diaryColor == "red"){
+                    group_main.setBackgroundResource(R.drawable.home_question_custom_in_red)
+                }
+                else if(item.diaryColor == "brown"){
+                    group_name.setTextColor(Color.parseColor("#FFFFFF"))
+                    date_txt.setTextColor(Color.parseColor("#FFFFFF"))
+                    count_txt.setTextColor(Color.parseColor("#FFFFFF"))
+                    group_main.setBackgroundResource(R.drawable.home_question_custom_in_brown)
+                }
+                else if(item.diaryColor == "pink"){
+                    group_main.setBackgroundResource(R.drawable.home_question_custom_in_pink)
+                }
+                else if(item.diaryColor == "blue"){
+                    group_main.setBackgroundResource(R.drawable.home_question_custom_in_blue)
+                }
+                else{
+                    group_main.setBackgroundResource(R.drawable.home_question_custom_in)
+                }
                 group_name.setText(item.title)
                 date_txt.setText(item.createdAt+"~")
                 count_txt.setText(item.cafeUserNum.toString()+"명")
