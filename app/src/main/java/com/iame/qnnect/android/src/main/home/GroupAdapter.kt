@@ -48,12 +48,6 @@ class GroupAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 if(item.diaryColor == "red"){
                     group_main.setBackgroundResource(R.drawable.home_question_custom_in_red)
                 }
-                else if(item.diaryColor == "brown"){
-                    group_name.setTextColor(Color.parseColor("#FFFFFF"))
-                    date_txt.setTextColor(Color.parseColor("#FFFFFF"))
-                    count_txt.setTextColor(Color.parseColor("#FFFFFF"))
-                    group_main.setBackgroundResource(R.drawable.home_question_custom_in_brown)
-                }
                 else if(item.diaryColor == "pink"){
                     group_main.setBackgroundResource(R.drawable.home_question_custom_in_pink)
                 }

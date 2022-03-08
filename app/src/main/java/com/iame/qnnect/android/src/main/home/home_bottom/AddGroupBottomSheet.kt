@@ -181,24 +181,20 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
 
         // color check
         var color_orange_btn = view!!.findViewById<ImageView>(R.id.color_orange_btn)
-        var color_brown_btn = view!!.findViewById<ImageView>(R.id.color_brown_btn)
         var color_pink_btn = view!!.findViewById<ImageView>(R.id.color_pink_btn)
         var color_sky_btn = view!!.findViewById<ImageView>(R.id.color_sky_btn)
         var color_yellow_btn = view!!.findViewById<ImageView>(R.id.color_yellow_btn)
         color_orange_btn.setOnClickListener {
-            color_select(color_orange_btn, color_brown_btn, color_pink_btn, color_sky_btn, color_yellow_btn)
-        }
-        color_brown_btn.setOnClickListener {
-            color_select(color_brown_btn, color_orange_btn, color_pink_btn, color_sky_btn, color_yellow_btn)
+            color_select(color_orange_btn, color_yellow_btn, color_pink_btn, color_sky_btn)
         }
         color_pink_btn.setOnClickListener {
-            color_select(color_pink_btn, color_brown_btn, color_orange_btn, color_sky_btn, color_yellow_btn)
+            color_select(color_pink_btn, color_yellow_btn, color_orange_btn, color_sky_btn)
         }
         color_sky_btn.setOnClickListener {
-            color_select(color_sky_btn, color_brown_btn, color_pink_btn, color_orange_btn, color_yellow_btn)
+            color_select(color_sky_btn, color_yellow_btn, color_pink_btn, color_orange_btn)
         }
         color_yellow_btn.setOnClickListener {
-            color_select(color_yellow_btn, color_brown_btn, color_pink_btn, color_sky_btn, color_orange_btn)
+            color_select(color_yellow_btn, color_orange_btn, color_pink_btn, color_sky_btn)
         }
     }
 
@@ -221,19 +217,15 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
             groupType = "커플"
         }
     }
-    fun color_select(select: ImageView, item1: ImageView, item2: ImageView, item3: ImageView, item4: ImageView){
+    fun color_select(select: ImageView, item1: ImageView, item2: ImageView, item3: ImageView){
         select.setBackgroundResource(R.drawable.color_in_custom_select)
 
         item1.setBackgroundResource(R.drawable.color_in_custom)
         item2.setBackgroundResource(R.drawable.color_in_custom)
         item3.setBackgroundResource(R.drawable.color_in_custom)
-        item4.setBackgroundResource(R.drawable.color_in_custom)
 
         if(select == color_orange_btn){
             diaryColor = "red"
-        }
-        else if(select == color_brown_btn){
-            diaryColor = "brown"
         }
         else if(select == color_pink_btn){
             diaryColor = "pink"

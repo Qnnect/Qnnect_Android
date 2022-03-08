@@ -10,6 +10,6 @@ import retrofit2.http.PATCH
 import retrofit2.http.Path
 
 interface HomeAPI {
-    @PATCH("/api/v1/home")
+    @GET("/api/v1/home")
     fun patchHome() : Single<GetHomeResponse>
 }
