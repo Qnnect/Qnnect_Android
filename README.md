@@ -29,3 +29,4 @@
 
 - 4th Week
 1. 2022.03.07(MON) -> Home Api, Cafe Home Api response change, Create Cafe Api response change, Recipe Functional, Home Adapter Logic Change, Move Cafe layout Logic change
+2. 2022.03.08(TUE) -> Home Api Group Color, Bookmark Cafe List Api, Select Group Color Change, Splash Logo, Onboarding Activity 
