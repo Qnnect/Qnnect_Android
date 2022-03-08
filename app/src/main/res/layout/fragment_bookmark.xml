@@ -74,7 +74,7 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/group_recycler"
+                    android:id="@+id/boomark_group_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/group_recycler"
+                    app:layout_constraintTop_toBottomOf="@id/boomark_group_recycler"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
                     android:paddingLeft="24dp"

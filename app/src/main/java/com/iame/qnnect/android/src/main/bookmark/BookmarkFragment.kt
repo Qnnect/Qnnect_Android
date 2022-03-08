@@ -1,20 +1,28 @@
 package com.iame.qnnect.android.src.main.bookmark
 
+import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentBookmarkBinding
+import com.iame.qnnect.android.src.main.bookmark.model.Cafe
+import com.iame.qnnect.android.src.main.bookmark.model.GetCafeListResponse
 import com.iame.qnnect.android.src.main.bookmark.model.bookmark_group
 import com.iame.qnnect.android.src.main.bookmark.model.bookmark_question
 import com.iame.qnnect.android.src.main.home.GroupAdapter
+import com.iame.qnnect.android.src.main.home.QuestionRecyclerViewAdapter
 import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
 import com.iame.qnnect.android.viewmodel.BookmarkViewModel
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_home.group_recycler
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel>(R.layout.fragment_bookmark) {
@@ -24,34 +32,25 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
 
     override val viewModel: BookmarkViewModel by viewModel()
 
-    var group_list = ArrayList<bookmark_group>()
+    private val groupnameAdapter: GroupnameAdapter by inject()
+
     var question_list = ArrayList<bookmark_question>()
 
     override fun initStartView() {
+        // group list recycler
+        boomark_group_recycler.run {
+            adapter = groupnameAdapter
+            layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
+            setHasFixedSize(true)
+        }
     }
 
     override fun initDataBinding() {
     }
 
     override fun initAfterBinding() {
-        var group_item1= bookmark_group("전체")
-        group_list.add(group_item1)
-        var group_item2= bookmark_group("아아메")
-        group_list.add(group_item2)
-        var group_item3= bookmark_group("틴틴")
-        group_list.add(group_item3)
-        var group_item4= bookmark_group("Light One")
-        group_list.add(group_item4)
-        var group_item5= bookmark_group("어바웃타임 & 토핑")
-        group_list.add(group_item5)
-
-        group_recycler.run {
-            adapter = GroupnameAdapter(group_list)
-            layoutManager = LinearLayoutManager(context).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
-            setHasFixedSize(true)
-        }
 
         var question_item1 = bookmark_question("#1", "금요일에 맛있는거 사주세요", "2022.02.25")
         question_list.add(question_item1)
@@ -79,8 +78,23 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         question_recycler.run {
             adapter = QuestionListAdapter(question_list)
             layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
+           setHasFixedSize(true)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getCafes()
+
+        viewModel.cafesResponse.observe(this, Observer {
+            Log.d("login_response", it.toString())
+            it.forEach { item ->
+                groupnameAdapter.addItem(item)
+            }
+
+            groupnameAdapter.notifyDataSetChanged()
+        })
     }
 
 }

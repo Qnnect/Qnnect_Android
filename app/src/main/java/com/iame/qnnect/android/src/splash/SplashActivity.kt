@@ -13,6 +13,7 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.src.onboarding.OnboardActivity
 import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.viewmodel.SplashViewModel
@@ -62,7 +63,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         }
         else{
             Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, OnboardActivity::class.java))
                 finish()
             }, 1500)
         }

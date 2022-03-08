@@ -52,6 +52,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     val fragment_s: Fragment = this
     private var activity: MainActivity? = null
     var drink_check = false
+    var check = false
 
     var home = HomeFragment_case()
 
@@ -84,6 +85,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             group_date_txt.text = it.createdAt
             group_name_txt.text = it.title
             group_name_main.text = it.title
+            check = it.organizer
 
             if(it.currentUser.userDrinkSelected == null){
                 drink_img.setImageResource(R.mipmap.img_drink_default_foreground)
@@ -144,13 +146,13 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         back_btn.setOnClickListener {
             home_case.setHome(requireContext(), 0, -1)
 
-            var fragment: Fragment = HomeFragment()
-            var bundle: Bundle = Bundle()
-            fragment.arguments=bundle
+//            var fragment: Fragment = HomeFragment()
+//            var bundle: Bundle = Bundle()
+//            fragment.arguments=bundle
 
             activity = fragment_s.activity as MainActivity?
             //change_for_adapter는 mainactivity에 구현
-            activity?.fragmentChange_for_adapter(fragment)
+            activity?.fragmentChange_for_adapter()
         }
 
         question_btn.setOnClickListener {
@@ -204,6 +206,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     }
                 }
             }
+
+            groupSettingBottomSheet.set(check)
 
             groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
         }

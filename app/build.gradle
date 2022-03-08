@@ -28,6 +28,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -124,4 +125,7 @@ dependencies {
 
     // viewmodel scope
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+
+    // svg
+    implementation("com.android.support:appcompat-v7:23.2.0")
 }

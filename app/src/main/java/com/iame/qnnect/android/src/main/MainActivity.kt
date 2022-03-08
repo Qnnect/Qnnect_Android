@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
@@ -25,10 +26,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override val viewModel: MainViewModel by viewModel()
 
-    private val mainSearchRecyclerViewAdapter: MainSearchRecyclerViewAdapter by inject()
-
-    var case = HomeFragment_case()
     var case_num = 0
+    var home = HomeFragment_case()
 
     override fun initStartView() {
     }
@@ -56,7 +55,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                             return@OnNavigationItemSelectedListener true
                         }
                         else{
-                            var group_name = case.getGroupname(this)
                             supportFragmentManager.beginTransaction()
                                 .replace(R.id.main_frm, GroupFragment())
                                 .commitAllowingStateLoss()
@@ -102,13 +100,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     //이 함수를 통해 다른 fragment로 이동한다.생성자가 아닌 불러오는 형식
-    fun fragmentChange_for_adapter(frag: Fragment){
-        if(frag == HomeFragment()){
-            case_num = 0
+    fun fragmentChange_for_adapter(){
+        case_num = home.getHomeCase(this)!!
+        if(case_num == 0){
+            Log.d("main_response", case_num.toString())
+            supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commit()
         }
         else{
-            case_num = 1
+            Log.d("main_response", case_num.toString())
+            supportFragmentManager.beginTransaction().replace(R.id.main_frm, GroupFragment()).commit()
         }
-        supportFragmentManager.beginTransaction().replace(R.id.main_frm, frag).commit()
+//        Log.d("main_response", case_num.toString())
+//        supportFragmentManager.beginTransaction().replace(R.id.main_frm, frag).commit()
     }
 }

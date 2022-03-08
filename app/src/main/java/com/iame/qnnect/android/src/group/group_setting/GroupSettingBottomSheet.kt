@@ -19,6 +19,8 @@ class GroupSettingBottomSheet(val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
 
+    var organizer = false
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
         // XML에서 round 처리를 했어도 적용되지 않는다.
@@ -47,7 +49,7 @@ class GroupSettingBottomSheet(val itemClick: (Int) -> Unit) :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // 초대하기
+        // 닫기
         view?.findViewById<ImageView>(R.id.close_btn)?.setOnClickListener {
             dismiss()
         }
@@ -55,6 +57,11 @@ class GroupSettingBottomSheet(val itemClick: (Int) -> Unit) :
         view?.findViewById<TextView>(R.id.invite_btn)?.setOnClickListener {
             itemClick(0)
             dismiss()
+        }
+
+        if(!organizer){
+            view?.findViewById<TextView>(R.id.edit_caffe)!!.visibility = View.GONE
+            view?.findViewById<TextView>(R.id.delete_caffe)!!.visibility = View.GONE
         }
 
         // 카페 수정
@@ -74,5 +81,9 @@ class GroupSettingBottomSheet(val itemClick: (Int) -> Unit) :
             itemClick(3)
             dismiss()
         }
+    }
+
+    fun set(status: Boolean){
+        organizer = status
     }
 }

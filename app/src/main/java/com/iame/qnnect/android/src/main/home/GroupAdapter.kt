@@ -52,22 +52,9 @@ class GroupAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                 itemView.setOnClickListener {
                     home_case.setHome(context, 1, id)
 
-                    var fragment: Fragment = GroupFragment()
-                    var bundle: Bundle = Bundle()
-//            bundle.putString("user_id",holder?.userID.text.toString())
-//            bundle.putString("goal_id",holder?.goalID.text.toString())
-//            bundle.putString("content",holder?.content_txt.text.toString())
-//            bundle.putString("date",holder?.date_txt.text.toString())
-
-                    fragment.arguments=bundle
-                    // 나는 fragment안에 fragment가 있기 때문에 이런식으로 bundle을 붙여줘야했다.
-                    /*그런게 아니라면
-                    fragment_s.fragmentManager!!.beginTransaction().replace(R.id.content).commit()
-                    해주면 된다.*/
-
                     activity = context as MainActivity?
                     //change_for_adapter는 mainactivity에 구현
-                    activity?.fragmentChange_for_adapter(fragment)
+                    activity?.fragmentChange_for_adapter()
                 }
             }
         }

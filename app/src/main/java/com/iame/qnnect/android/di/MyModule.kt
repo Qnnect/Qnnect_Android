@@ -18,6 +18,10 @@ import com.iame.qnnect.android.src.group.service.GroupDataImpl
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
+import com.iame.qnnect.android.src.main.bookmark.GroupnameAdapter
+import com.iame.qnnect.android.src.main.bookmark.model.CafeListDataModel
+import com.iame.qnnect.android.src.main.bookmark.service.CafeListAPI
+import com.iame.qnnect.android.src.main.bookmark.service.CafeListDataImpl
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.QuestionRecyclerViewAdapter
 import com.iame.qnnect.android.src.main.home.home_model.HomeDataModel
@@ -130,6 +134,16 @@ var retrofitPart = module {
             .build()
             .create(HomeAPI::class.java)
     }
+    single<CafeListAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CafeListAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -150,6 +164,9 @@ var adapterPart = module {
     }
     factory {
         GroupAdapter()
+    }
+    factory {
+        GroupnameAdapter()
     }
 }
 
@@ -178,6 +195,9 @@ var modelPart = module {
     factory<HomeDataModel> {
         HomeDataImpl(get())
     }
+    factory<CafeListDataModel> {
+        CafeListDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -190,13 +210,14 @@ var viewModelPart = module {
     viewModel { HomeViewModel(get()) }
     viewModel { MypageViewModel(get()) }
     viewModel { GroupViewModel(get()) }
+    viewModel { BookmarkViewModel(get()) }
 
-    viewModel { BookmarkViewModel() }
     viewModel { StoreViewModel() }
     viewModel { DiaryViewModel() }
     viewModel { AnswerViewModel() }
     viewModel { DrinkViewModel() }
     viewModel { EditDrinkViewModel() }
+    viewModel { OnboardViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

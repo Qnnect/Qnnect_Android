@@ -12,14 +12,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.main.bookmark.model.Cafe
 import com.iame.qnnect.android.src.main.bookmark.model.bookmark_group
+import com.iame.qnnect.android.src.main.home.home_model.HomeCafes
 import com.iame.qnnect.android.src.main.home.model.group_item
 
 
-class GroupnameAdapter(private val itemList : ArrayList<bookmark_group>) :
+class GroupnameAdapter() :
     RecyclerView.Adapter<GroupnameAdapter.ViewHolder>(){
-    var datas = ArrayList<bookmark_group>()
 
+    private val itemList = ArrayList<Cafe>()
 
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
@@ -32,22 +34,18 @@ class GroupnameAdapter(private val itemList : ArrayList<bookmark_group>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.group_name.setText(itemList.get(position).group_name)
-
-
-//        holder.itemView.setOnClickListener {
-//            var intent = Intent(holder.itemView?.context, StreamingActivity::class.java)
-//            intent.putExtra("what_streaming", "challenge")
-////            var challengeId = intent.getIntExtra("challengeId", 0)
-//            intent.putExtra("challengeId", itemList.get(position).challengeId)
-//            ContextCompat.startActivity(holder.itemView.context, intent, null)
-////            val name = itemList.get(position).category_name
-////            intent.putExtra("category_name", name)
-////            ContextCompat.startActivity(holder.itemView.context, intent, null)
-//        }
+        holder.group_name.setText(itemList.get(position).cafeTitle)
     }
 
     override fun getItemCount(): Int {
         return itemList.size
+    }
+
+    fun addItem(item: Cafe) {
+        itemList.add(item)
+    }
+
+    fun clear() {
+        itemList.clear()
     }
 }

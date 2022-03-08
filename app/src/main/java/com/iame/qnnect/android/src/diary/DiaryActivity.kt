@@ -39,6 +39,8 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
     var answer_list = ArrayList<answer_item>()
     var image_list = ArrayList<String>()
 
+    var bookmark_check = false
+
     override val viewModel: DiaryViewModel by viewModel()
 
     override fun initStartView() {
@@ -77,6 +79,15 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         answer_btn.setOnClickListener {
             var intent = Intent(this, AnswerActivity::class.java)
             startActivity(intent)
+        }
+
+        bookmark_btn.setOnClickListener {
+            if(bookmark_check){
+                bookmark_btn.setImageResource(R.mipmap.ic_bookmark_bottom_foreground)
+            }
+            else{
+                bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
+            }
         }
     }
 }
