@@ -85,9 +85,7 @@
                 android:padding="6dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:background="@drawable/profile_camera"
-                android:layout_marginBottom="7dp"
-                android:layout_marginRight="7dp">
+                android:background="@drawable/profile_camera">
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -122,6 +120,21 @@
             android:state_focused="true"
             android:gravity="center">
         </EditText>
+
+        <TextView
+            android:id="@+id/check_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/nick_name_edit"
+            app:layout_constraintLeft_toLeftOf="@id/nick_name_edit"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="10dp"
+            android:text="닉네임은 2~8자 이하 입니다"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="14dp"
+            android:visibility="invisible"
+            android:textColor="@color/redForText">
+        </TextView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ok_btn"

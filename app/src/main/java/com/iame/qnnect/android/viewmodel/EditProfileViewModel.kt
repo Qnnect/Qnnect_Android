@@ -4,8 +4,13 @@ import android.Manifest
 import android.content.Context
 import android.net.Uri
 import android.util.Log
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.model.DataModel
 import com.iame.qnnect.android.model.enum.KakaoSearchSortEnum
@@ -22,6 +27,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import okhttp3.MultipartBody
 import java.io.*
 import java.util.*
@@ -32,6 +38,23 @@ class EditProfileViewModel(private val model: ProfileDataModel, private val mode
     var path = ""
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
     private val BUFFER_SIZE = 1024 * 2
+
+    // nickname check
+    fun nickname_check(nick_name_edit: EditText, ok_btn: ConstraintLayout, check_txt: TextView): Boolean{
+        var str = nick_name_edit.text.toString()
+        if(str.length > 0 && str.length < 9 && str != "null"){
+            check_txt.visibility = View.INVISIBLE
+            nick_name_edit.setBackgroundResource(R.drawable.nickname_edit_ok)
+            ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+            return true
+        }
+        else{
+            check_txt.visibility = View.VISIBLE
+            nick_name_edit.setBackgroundResource(R.drawable.nickname_edit)
+            ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+            return false
+        }
+    }
 
     // profile update
     private val patchProfileResponse = MutableLiveData<PatchProfileResponse>()

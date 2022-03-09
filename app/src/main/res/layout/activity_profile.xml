@@ -87,6 +87,20 @@
         </EditText>
 
         <TextView
+            android:id="@+id/check_txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/edit_text_len"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text_len"
+            app:layout_constraintLeft_toLeftOf="@id/nick_name_edit"
+            android:text="닉네임은 2~8자 이하 입니다"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="14dp"
+            android:visibility="invisible"
+            android:textColor="@color/redForText">
+        </TextView>
+
+        <TextView
             android:id="@+id/edit_text_len"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

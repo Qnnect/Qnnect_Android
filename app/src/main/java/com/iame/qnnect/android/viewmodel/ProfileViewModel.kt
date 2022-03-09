@@ -2,10 +2,16 @@ package com.iame.qnnect.android.viewmodel
 
 import android.Manifest
 import android.content.Context
+import android.graphics.Color
 import android.net.Uri
 import android.util.Log
+import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
@@ -18,6 +24,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_profile.*
 import okhttp3.MultipartBody
 import java.io.*
 import java.util.*
@@ -30,6 +37,25 @@ class ProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
     var path = ""
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
     private val BUFFER_SIZE = 1024 * 2
+
+    // nickname check
+    fun nickname_check(nick_name_edit: EditText, ok_btn: ConstraintLayout, check_txt: TextView, len_check: TextView): Boolean{
+        var str = nick_name_edit.text.toString()
+        if(str.length > 0 && str.length < 9 && str != "null"){
+            ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+            nick_name_edit.setBackgroundResource(R.drawable.nickname_edit_ok)
+            check_txt.visibility = View.INVISIBLE
+            len_check.text = str.length.toString()+"/8"
+            return true
+        }
+        else{
+            check_txt.visibility = View.VISIBLE
+            nick_name_edit.setBackgroundResource(R.drawable.nickname_edit)
+            ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+            len_check.text = str.length.toString()+"/8"
+            return false
+        }
+    }
 
     // profile update
     private val patchProfileResponse = MutableLiveData<PatchProfileResponse>()

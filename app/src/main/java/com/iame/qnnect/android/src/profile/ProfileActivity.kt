@@ -6,6 +6,7 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -80,63 +81,15 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
 
 
 
-        // rx java 사용
-        val observableTextQuery = Observable
-            .create(ObservableOnSubscribe { emitter: ObservableEmitter<String>? ->
-                nick_name_edit.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-                    }
+        nick_name_edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
 
-                    override fun beforeTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int,
-                    ) {
-                        emitter?.onNext(s.toString())
-                    }
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    }
-                })
-            })
-            .debounce(500, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-
-        observableTextQuery.subscribe(object : io.reactivex.rxjava3.core.Observer<String> {
-            override fun onComplete() {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
 
-            override fun onSubscribe(d: Disposable?) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                check = viewModel.nickname_check(nick_name_edit, ok_btn, check_txt1, edit_text_len)
             }
-
-            override fun onNext(t: String) {
-                var str = nick_name_edit.text.toString()
-                if(str.length > 0 && str.length < 9 && str != "null"){
-                    ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
-                    check = true
-                }
-                else{
-                    ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
-                    check = false
-                }
-
-                if(edit_text_len.text.length != 0){
-                    try {
-                        edit_text_len.text = str.length.toString()+"/8"
-                    }catch (e: Exception){
-                    }
-                }
-                else{
-                    try {
-                        edit_text_len.text = "0/8"
-                    }catch (e: Exception){
-                    }
-                }
-            }
-            override fun onError(e: Throwable?) {
-            }
-
         })
 
         ok_btn.setOnClickListener {
