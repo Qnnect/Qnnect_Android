@@ -38,6 +38,9 @@ import com.iame.qnnect.android.src.main.store.RecipeAdapter
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import com.iame.qnnect.android.src.profile.service.ProfileAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
+import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
+import com.iame.qnnect.android.src.question.service.PostQuestionAPI
+import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
@@ -158,6 +161,16 @@ var retrofitPart = module {
             .build()
             .create(BookmarkListAPI::class.java)
     }
+    single<PostQuestionAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostQuestionAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -218,6 +231,9 @@ var modelPart = module {
     factory<BookmarkListDataModel> {
         BookmarkListDataImpl(get())
     }
+    factory<PostQuestionDataModel> {
+        PostQuestionDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -231,6 +247,7 @@ var viewModelPart = module {
     viewModel { MypageViewModel(get()) }
     viewModel { GroupViewModel(get()) }
     viewModel { BookmarkViewModel(get(), get())}
+    viewModel { QuestionViewModel(get())}
 
     viewModel { StoreViewModel() }
     viewModel { DiaryViewModel() }

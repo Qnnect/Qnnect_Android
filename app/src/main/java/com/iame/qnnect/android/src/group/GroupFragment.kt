@@ -51,7 +51,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     var home_case = HomeFragment_case()
     val fragment_s: Fragment = this
     private var activity: MainActivity? = null
-    var drink_check = false
+    var drink_check = true
     var check = false
 
     var home = HomeFragment_case()
@@ -153,7 +153,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         }
 
         question_btn.setOnClickListener {
-            if(drink_check){
+            if(true){
                 var intent = Intent(context, QuestionActivity::class.java)
                 startActivity(intent)
             }

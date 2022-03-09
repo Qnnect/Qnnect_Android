@@ -62,7 +62,9 @@
 
             <TextView
                 android:id="@+id/question_txt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/diary_name"
                 app:layout_constraintRight_toRightOf="parent"
