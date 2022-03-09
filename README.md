@@ -30,4 +30,4 @@
 - 4th Week
 1. 2022.03.07(MON) -> Home Api, Cafe Home Api response change, Create Cafe Api response change, Recipe Functional, Home Adapter Logic Change, Move Cafe layout Logic change
 2. 2022.03.08(TUE) -> Home Api Group Color, Bookmark Cafe List Api, Select Group Color Change, Splash Logo, Onboarding Activity, Login Layout
-3. 2022.03.09(WEN) -> Edit Group & Delete Group Api Complete, Bookmark List at Cafes Api Complete, Question Api, Question text check, Edittext len check Logic change(Rxjava -> not user Rxjava (Why: Not using Overlap api))
+3. 2022.03.09(WEN) -> Edit Group & Delete Group Api Complete, Bookmark List at Cafes Api Complete, Question Api, Question text check, Edittext len check Logic change(Rxjava -> not use Rxjava (Why: Not using Overlap api -> Not Network resource wasted))
