@@ -8,6 +8,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
+import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -34,6 +35,15 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             var intent = Intent(context, EditprofileActivity::class.java)
             startActivity(intent)
         }
+
+        setting_logout.setOnClickListener {
+            baseToken.setAccessToken(context!!, "", "")
+            var intent = Intent(context, LoginActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+            startActivity(intent)
+        }
+
     }
 
     override fun onResume() {

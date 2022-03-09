@@ -19,7 +19,11 @@ import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
 import com.iame.qnnect.android.src.main.bookmark.GroupnameAdapter
+import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
+import com.iame.qnnect.android.src.main.bookmark.model.BookmarkListDataModel
 import com.iame.qnnect.android.src.main.bookmark.model.CafeListDataModel
+import com.iame.qnnect.android.src.main.bookmark.service.BookmarkListAPI
+import com.iame.qnnect.android.src.main.bookmark.service.BookmarkListDataImpl
 import com.iame.qnnect.android.src.main.bookmark.service.CafeListAPI
 import com.iame.qnnect.android.src.main.bookmark.service.CafeListDataImpl
 import com.iame.qnnect.android.src.main.home.GroupAdapter
@@ -144,6 +148,16 @@ var retrofitPart = module {
             .build()
             .create(CafeListAPI::class.java)
     }
+    single<BookmarkListAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(BookmarkListAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -167,6 +181,9 @@ var adapterPart = module {
     }
     factory {
         GroupnameAdapter()
+    }
+    factory {
+        QuestionListAdapter()
     }
 }
 
@@ -198,6 +215,9 @@ var modelPart = module {
     factory<CafeListDataModel> {
         CafeListDataImpl(get())
     }
+    factory<BookmarkListDataModel> {
+        BookmarkListDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -210,7 +230,7 @@ var viewModelPart = module {
     viewModel { HomeViewModel(get()) }
     viewModel { MypageViewModel(get()) }
     viewModel { GroupViewModel(get()) }
-    viewModel { BookmarkViewModel(get()) }
+    viewModel { BookmarkViewModel(get(), get())}
 
     viewModel { StoreViewModel() }
     viewModel { DiaryViewModel() }

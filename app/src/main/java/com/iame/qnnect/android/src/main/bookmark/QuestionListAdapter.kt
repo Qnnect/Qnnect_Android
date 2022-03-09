@@ -12,13 +12,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
+import com.iame.qnnect.android.src.main.bookmark.model.Cafe
 import com.iame.qnnect.android.src.main.bookmark.model.bookmark_question
 import com.iame.qnnect.android.src.main.home.model.group_item
 
 
-class QuestionListAdapter(private val itemList : ArrayList<bookmark_question>) :
+class QuestionListAdapter() :
     RecyclerView.Adapter<QuestionListAdapter.ViewHolder>(){
-    var datas = ArrayList<bookmark_question>()
+
+    private val itemList = ArrayList<Bookmark>()
 
 //    var group_name: String,
 //    var date: String,
@@ -37,24 +40,24 @@ class QuestionListAdapter(private val itemList : ArrayList<bookmark_question>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.question_num.setText(itemList.get(position).question_num)
-        holder.question_contents.setText(itemList.get(position).question_contents)
-        holder.date.setText(itemList.get(position).date)
-
-
-//        holder.itemView.setOnClickListener {
-//            var intent = Intent(holder.itemView?.context, StreamingActivity::class.java)
-//            intent.putExtra("what_streaming", "challenge")
-////            var challengeId = intent.getIntExtra("challengeId", 0)
-//            intent.putExtra("challengeId", itemList.get(position).challengeId)
-//            ContextCompat.startActivity(holder.itemView.context, intent, null)
-////            val name = itemList.get(position).category_name
-////            intent.putExtra("category_name", name)
-////            ContextCompat.startActivity(holder.itemView.context, intent, null)
-//        }
+        holder.question_num.setText("# "+position.toString())
+        holder.question_contents.setText(itemList.get(position).question)
+        holder.date.setText(itemList.get(position).createdAt)
     }
 
     override fun getItemCount(): Int {
         return itemList.size
+    }
+
+    fun addItem(item: Bookmark) {
+        itemList.add(item)
+    }
+
+    fun clear() {
+        itemList.clear()
+    }
+
+    fun getItem(position: Int): Bookmark {
+        return itemList.get(position)
     }
 }
