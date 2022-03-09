@@ -223,20 +223,6 @@
         android:background="@drawable/color_in_custom">
     </ImageView>
 
-    <ImageView
-        android:id="@+id/color_brown_btn"
-        app:layout_constraintTop_toTopOf="@id/color_orange_btn"
-        app:layout_constraintBottom_toBottomOf="@id/color_orange_btn"
-        app:layout_constraintLeft_toRightOf="@id/color_sky_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:layout_marginLeft="14dp"
-        android:src="@mipmap/color_brown_foreground"
-        android:scaleType="centerCrop"
-        android:background="@drawable/color_in_custom">
-    </ImageView>
-
     <TextView
         android:id="@+id/txt4"
         android:layout_width="wrap_content"

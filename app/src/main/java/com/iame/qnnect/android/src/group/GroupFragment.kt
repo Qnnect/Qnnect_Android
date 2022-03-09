@@ -56,6 +56,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
 
     var home = HomeFragment_case()
 
+
     override fun initStartView() {
         // member recycler
         member_recycler.run {
@@ -146,10 +147,6 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         back_btn.setOnClickListener {
             home_case.setHome(requireContext(), 0, -1)
 
-//            var fragment: Fragment = HomeFragment()
-//            var bundle: Bundle = Bundle()
-//            fragment.arguments=bundle
-
             activity = fragment_s.activity as MainActivity?
             //change_for_adapter는 mainactivity에 구현
             activity?.fragmentChange_for_adapter()
@@ -188,6 +185,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                             when (it) {
                                 // 카페 수정
                                 0 -> {
+                                    initDataBinding()
                                 }
                             }
                         }
@@ -200,7 +198,17 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     }
                     // 카페 삭제
                     3 -> {
-                        val deleteGroupDialog = DeleteGroupDialog()
+                        val deleteGroupDialog = DeleteGroupDialog {
+                            when (it) {
+                                0 -> {
+                                    home_case.setHome(requireContext(), 0, -1)
+
+                                    activity = fragment_s.activity as MainActivity?
+                                    //change_for_adapter는 mainactivity에 구현
+                                    activity?.fragmentChange_for_adapter()
+                                }
+                            }
+                        }
                         deleteGroupDialog.show(requireActivity().supportFragmentManager, deleteGroupDialog.tag)
 
                     }

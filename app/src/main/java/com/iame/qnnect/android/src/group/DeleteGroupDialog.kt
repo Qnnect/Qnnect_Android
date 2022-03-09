@@ -9,8 +9,11 @@ import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.src.group.group_bottom.service.DeleteGroupService
+import com.iame.qnnect.android.src.group.group_bottom.service.DeleteGroupView
 
-class DeleteGroupDialog() : DialogFragment() {
+class DeleteGroupDialog(val itemClick: (Int) -> Unit) : DialogFragment(), DeleteGroupView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //false로 설정해 주면 화면밖 혹은 뒤로가기 버튼시 다이얼로그라 dismiss 되지 않는다.
@@ -42,7 +45,8 @@ class DeleteGroupDialog() : DialogFragment() {
 
         var delete_btn = view!!.findViewById<TextView>(R.id.delete_btn)
         delete_btn.setOnClickListener {
-            dismiss()
+            var cafeId = HomeFragment_case().getGroupname(context!!)
+            DeleteGroupService(this).tryDeleteGroup(cafeId!!)
         }
 
     }
@@ -56,5 +60,14 @@ class DeleteGroupDialog() : DialogFragment() {
         val deviceWidth = size.x
         params?.width = (deviceWidth * 0.9).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
+    }
+
+    override fun onDeleteGroupSuccess(response: String) {
+        itemClick(0)
+        dismiss()
+    }
+
+    override fun onDeleteGroupFailure(message: String) {
+        TODO("Not yet implemented")
     }
 }
