@@ -26,7 +26,9 @@ import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
 import kotlinx.android.synthetic.main.fragment_add_group_bottom.*
 import java.util.concurrent.TimeUnit
 
@@ -89,37 +91,13 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
             }
         }
 
-        // rx java 사용
-        val observableTextQuery = Observable
-            .create(ObservableOnSubscribe { emitter: ObservableEmitter<String>? ->
-                name_edit_txt.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {
-                    }
+        name_edit_txt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
 
-                    override fun beforeTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int,
-                    ) {
-                        emitter?.onNext(s.toString())
-                    }
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    }
-                })
-            })
-            .debounce(500, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.io())
-
-        observableTextQuery.subscribe(object : io.reactivex.rxjava3.core.Observer<String> {
-            override fun onComplete() {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
 
-            override fun onSubscribe(d: Disposable?) {
-            }
-
-            override fun onNext(t: String) {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = name_edit_txt.text.toString()
                 if(len.length > 0 && len.length < 11){
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
@@ -130,9 +108,6 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
                     check = false
                 }
             }
-            override fun onError(e: Throwable?) {
-            }
-
         })
 
         val seekBar = view!!.findViewById<SeekBar>(R.id.seekBar)

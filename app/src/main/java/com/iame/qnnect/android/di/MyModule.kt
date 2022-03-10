@@ -41,6 +41,9 @@ import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
 import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
 import com.iame.qnnect.android.src.question.service.PostQuestionAPI
 import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
+import com.iame.qnnect.android.src.search.model.SearchDataModel
+import com.iame.qnnect.android.src.search.service.SearchAPI
+import com.iame.qnnect.android.src.search.service.SearchDataImpl
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
@@ -171,6 +174,16 @@ var retrofitPart = module {
             .build()
             .create(PostQuestionAPI::class.java)
     }
+    single<SearchAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(SearchAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -234,6 +247,9 @@ var modelPart = module {
     factory<PostQuestionDataModel> {
         PostQuestionDataImpl(get())
     }
+    factory<SearchDataModel> {
+        SearchDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -248,6 +264,7 @@ var viewModelPart = module {
     viewModel { GroupViewModel(get()) }
     viewModel { BookmarkViewModel(get(), get())}
     viewModel { QuestionViewModel(get())}
+    viewModel { SearchViewModel(get())}
 
     viewModel { StoreViewModel() }
     viewModel { DiaryViewModel() }

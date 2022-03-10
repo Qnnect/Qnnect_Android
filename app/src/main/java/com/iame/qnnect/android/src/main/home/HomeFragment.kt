@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.base.BaseFragment
-import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.viewmodel.HomeViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.bumptech.glide.Glide
@@ -13,6 +12,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
@@ -84,8 +84,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         questionRecyclerViewAdapter.clear()
 
         viewModel.getHome()
+//        showLoadingDialog(context!!)
 
         viewModel.homeResponse.observe(this, Observer {
+//            dismissLoadingDialog()
             var image = it.user.profileImage
 
             // Profile Url

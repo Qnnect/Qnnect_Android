@@ -85,10 +85,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 var loginRequest = PostLoginRequest(accesstoken, loginType)
                 Log.d("login_response2 ", token.accessToken)
                 viewModel.postLogin(loginRequest)
+                showLoadingDialog(this)
 
                 viewModel.loginResponse.observe(this, Observer {
                     Log.d("login_response ", it.toString())
                     baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
+                    dismissLoadingDialog()
 
                     if(!it.userSettingDone){
                         val intent = Intent(this, AllowActivity::class.java)

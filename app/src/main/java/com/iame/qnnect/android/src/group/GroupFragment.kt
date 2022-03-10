@@ -81,6 +81,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     override fun initDataBinding() {
         var id = home.getGroupname(context!!)
         viewModel.getGroup(id!!)
+        showLoadingDialog(context!!)
 
         viewModel.groupResponse.observe(this, Observer {
             group_date_txt.text = it.createdAt
@@ -129,6 +130,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             }
 
         })
+        dismissLoadingDialog()
     }
 
     override fun initAfterBinding() {

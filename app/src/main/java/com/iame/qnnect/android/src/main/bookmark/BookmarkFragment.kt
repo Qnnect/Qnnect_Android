@@ -22,6 +22,7 @@ import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
 import com.iame.qnnect.android.viewmodel.BookmarkViewModel
+import kotlinx.android.synthetic.main.activity_diary.*
 import kotlinx.android.synthetic.main.fragment_bookmark.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
@@ -71,6 +72,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         super.onResume()
 
         viewModel.getCafes()
+        showLoadingDialog(context!!)
 
         viewModel.cafesResponse.observe(this, Observer {
             Log.d("login_response", it.toString())
@@ -94,6 +96,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
                 var request = groupnameAdapter.getItem(position)
 
                 viewModel.getBookamrk(request.cafeId)
+                showLoadingDialog(context!!)
             }
         })
 
@@ -102,7 +105,10 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
                 questionListAdapter.addItem(item)
             }
             questionListAdapter.notifyDataSetChanged()
+            dismissLoadingDialog()
         })
+
+
     }
 
 }
