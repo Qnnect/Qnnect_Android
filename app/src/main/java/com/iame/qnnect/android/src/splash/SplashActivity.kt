@@ -11,6 +11,7 @@ import com.iame.qnnect.android.MyApplication.Companion.sSharedPreferences
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
+import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.onboarding.OnboardActivity
@@ -47,7 +48,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             viewModel.refreshResponse.observe(this, Observer {
                 if(it.accessToken == "" || it.refreshToken == ""){
                     Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, LoginActivity::class.java))
+                        startActivity(Intent(this, InviteActivity::class.java))
                         finish()
                     }, 1500)
                 }
@@ -55,7 +56,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                     Log.d("login_response", it.toString())
                     baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
                     Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, InviteActivity::class.java))
                         finish()
                     }, 1500)
                 }

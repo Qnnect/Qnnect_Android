@@ -53,6 +53,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     private var activity: MainActivity? = null
     var drink_check = true
     var check = false
+    var code = ""
 
     var home = HomeFragment_case()
 
@@ -88,6 +89,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             group_name_txt.text = it.title
             group_name_main.text = it.title
             check = it.organizer
+            code = it.code
 
             if(it.currentUser.userDrinkSelected == null){
                 drink_img.setImageResource(R.mipmap.img_drink_default_foreground)
@@ -179,6 +181,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     // 초대하기
                     0 -> {
                         var intent = Intent(context, InviteActivity::class.java)
+                        intent.putExtra("code", code)
                         startActivity(intent)
                     }
                     // 카페 수정

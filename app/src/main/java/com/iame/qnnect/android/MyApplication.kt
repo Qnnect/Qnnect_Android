@@ -2,6 +2,10 @@ package com.iame.qnnect.android
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
 import com.iame.qnnect.android.base.NullOnEmptyConverterFactory
 import com.iame.qnnect.android.base.XAccessTokenInterceptor
@@ -43,6 +47,21 @@ class MyApplication : Application() {
 
         // 레트로핏 인스턴스 생성
         initRetrofitInstance()
+
+        // fire base settings
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("response!", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            Log.d("response!", token!!)
+            Toast.makeText(baseContext, token!!, Toast.LENGTH_SHORT).show()
+        })
     }
 
     // 레트로핏 인스턴스를 생성하고, 레트로핏에 각종 설정값들을 지정해줍니다.

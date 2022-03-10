@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "703661303723",
+    "project_id": "qnnect-d6ecc",
+    "storage_bucket": "qnnect-d6ecc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703661303723:android:b438482aa489a047bbd4ee",
+        "android_client_info": {
+          "package_name": "com.iame.qnnect.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703661303723-9dlmmto72o91u5mnvrpm5d1uhv18aceu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA184Buz6Zn9-j4NAkuZgG5ZinVv7RZWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703661303723-9dlmmto72o91u5mnvrpm5d1uhv18aceu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "703661303723-6m0rl6omb9h9l6aa1qfvu70626sim9rt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iame.qnnect.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

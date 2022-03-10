@@ -128,4 +128,12 @@ dependencies {
 
     // svg
     implementation("com.android.support:appcompat-v7:23.2.0")
+
+    // firebase
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // fcm
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
 }
+//가장 밑에 한줄을 추가하자!!
+apply plugin: 'com.google.gms.google-services'
