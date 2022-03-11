@@ -64,5 +64,6 @@ class AnswerAdapter() :
 
     fun clear() {
         itemList.clear()
+        this.notifyDataSetChanged()
     }
 }

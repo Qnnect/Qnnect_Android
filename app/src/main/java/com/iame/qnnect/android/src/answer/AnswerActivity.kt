@@ -6,15 +6,29 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.Nullable
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
+import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityAnswerBinding
 import com.iame.qnnect.android.viewmodel.AnswerViewModel
 import kotlinx.android.synthetic.main.activity_answer.*
 import kotlinx.android.synthetic.main.activity_diary.back_btn
+import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
+import kotlinx.android.synthetic.main.activity_profile.user_img
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
 import java.lang.Exception
 
 class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
@@ -25,22 +39,103 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
     override val viewModel: AnswerViewModel by viewModel()
 
     var uriList: ArrayList<Uri> = ArrayList() // 이미지의 uri를 담을 ArrayList 객체
+    var pathList: ArrayList<String> = ArrayList()
 
     var recyclerView // 이미지를 보여줄 리사이클러뷰
             : RecyclerView? = null
     var adapter // 리사이클러뷰에 적용시킬 어댑터
             : MultiImageAdapter? = null
 
+    var home = HomeFragment_case()
+    var cafeId = 0
+
+    var cafeQuestionId = 0
+    var date = ""
+    var dday = ""
+    var questioner = ""
+    var question = ""
+
     override fun initStartView() {
         recyclerView = image_recycler
     }
 
     override fun initDataBinding() {
+        cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
+        create_date.text = intent.getStringExtra("date")!!
+        dday_txt.text = intent.getStringExtra("dday")!!
+        who_question.text = intent.getStringExtra("questioner")!!+"의 질문"
+        question_txt.text = intent.getStringExtra("question")!!
+
+        cafeId = home.getGroupname(this)!!
+
+        viewModel.userResponse.observe(this, Observer {
+            var image = it.profileImage
+
+            // Profile Url
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(my_profile_img)
+            // User Name
+            my_profile_name.setText(it.nickName)
+            dismissLoadingDialog()
+        })
     }
 
     override fun initAfterBinding() {
+        viewModel.getUser()
+        showLoadingDialog(this)
+
         save_btn.setOnClickListener {
-            finish()
+            for(i in 0..uriList.size-1){
+                var path = viewModel.getFilePathFromURI(this, uriList.get(i))
+                pathList.add(path)
+            }
+
+            val content = answer_edit.text.toString()
+            val contentPart: MultipartBody.Part = MultipartBody.Part.createFormData("content", content)
+
+            if(uriList.size == 1){
+                var request = getPath(pathList.get(0), "image1")
+                viewModel.postAnswer(null, null, null, null, request,
+                    contentPart, cafeId, cafeQuestionId)
+            }
+            else if(uriList.size == 2){
+                var request1 = getPath(pathList.get(0), "image1")
+                var request2 = getPath(pathList.get(1), "image2")
+                viewModel.postAnswer(null, null, null, request2, request1,
+                    contentPart, cafeId, cafeQuestionId)
+            }
+            else if(uriList.size == 3){
+                var request1 = getPath(pathList.get(0), "image1")
+                var request2 = getPath(pathList.get(1), "image2")
+                var request3 = getPath(pathList.get(2), "image3")
+                viewModel.postAnswer(null, null, request3, request2, request1,
+                    contentPart, cafeId, cafeQuestionId)
+            }
+            else if(uriList.size == 4){
+                var request1 = getPath(pathList.get(0), "image1")
+                var request2 = getPath(pathList.get(1), "image2")
+                var request3 = getPath(pathList.get(2), "image3")
+                var request4 = getPath(pathList.get(3), "image4")
+                viewModel.postAnswer(null, request4, request3, request2, request1,
+                    contentPart, cafeId, cafeQuestionId)
+            }
+            else{
+                var request1 = getPath(pathList.get(0), "image1")
+                var request2 = getPath(pathList.get(1), "image2")
+                var request3 = getPath(pathList.get(2), "image3")
+                var request4 = getPath(pathList.get(3), "image4")
+                var request5 = getPath(pathList.get(3), "image5")
+                viewModel.postAnswer(request5, request4, request3, request2, request1,
+                    contentPart, cafeId, cafeQuestionId)
+            }
+            showLoadingDialog(this)
+
+            viewModel.answerResponse.observe(this, Observer {
+                dismissLoadingDialog()
+                finish()
+            })
         }
 
         back_btn.setOnClickListener {
@@ -99,5 +194,13 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
 
     companion object {
         private const val TAG = "MultiImageActivity"
+    }
+
+    fun getPath(path: String, name: String): MultipartBody.Part{
+        val file = File(path)
+        val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaType())
+        val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData(name, name+".jpg", requestBody)
+
+        return fileToUpload
     }
 }

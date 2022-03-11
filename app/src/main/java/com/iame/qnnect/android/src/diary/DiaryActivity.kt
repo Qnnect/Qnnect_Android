@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityDiaryBinding
@@ -27,6 +30,7 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_diary.*
 import kotlinx.android.synthetic.main.activity_diary.back_btn
+import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,6 +43,12 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
     var writer = false
     var scraped = false
     var cafeQuestionId = 0
+
+    var date = ""
+    var dday = ""
+    var questioner = ""
+    var question = ""
+
 
     override val viewModel: DiaryViewModel by viewModel()
 
@@ -60,10 +70,12 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
     override fun onResume() {
         super.onResume()
 
+        answerAdapter.clear()
         viewModel.getQuestion(cafeQuestionId)
         showLoadingDialog(this)
-        answerAdapter.clear()
+    }
 
+    override fun initDataBinding() {
         viewModel.questionResponse.observe(this, Observer {
             var main = it.questionMainResponse
             liked = main.liked
@@ -75,12 +87,29 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             who_question.text = main.questioner+"의 질문"
             question_txt.text = main.question
 
+            date = main.createdAt
+            dday = "D-"+main.daysLeft.toString()
+            questioner = main.questioner
+            question = main.question
+
             it.comments.forEach { item ->
                 answerAdapter.addItem(item)
             }
 
             answerAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
+        })
+
+        viewModel.userResponse.observe(this, Observer {
+            var image = it.profileImage
+
+            // Profile Url
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(my_profile_img)
+            // User Name
+            my_profile_name.text = it.nickName
         })
 
         if(writer){
@@ -95,16 +124,20 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         }
     }
 
-    override fun initDataBinding() {
-    }
-
     override fun initAfterBinding() {
+        viewModel.getUser()
+
         back_btn.setOnClickListener {
             finish()
         }
 
         answer_btn.setOnClickListener {
             var intent = Intent(this, AnswerActivity::class.java)
+            intent.putExtra("cafeQuestionId", cafeQuestionId)
+            intent.putExtra("date", date)
+            intent.putExtra("dday", dday)
+            intent.putExtra("questioner", questioner)
+            intent.putExtra("question", question)
             startActivity(intent)
         }
 

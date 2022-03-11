@@ -61,7 +61,7 @@ class MultiImageAdapter internal constructor(
         val image_uri: Uri = mData!![position]
         Glide.with(mContext!!)
             .load(image_uri)
-            .transform(CenterCrop(), RoundedCorners(radius))
+            .transform(CenterCrop(), RoundedCorners(30))
             .into(holder.image)
 
         holder.delete_btn.setOnClickListener {

@@ -33,29 +33,30 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
     }
 
     override fun initDataBinding() {
-    }
-
-    override fun initAfterBinding() {
-
-        search_keyword.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                //Enter key Action
-                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    var search = search_keyword.text.toString()
-                    viewModel.getBookamrk(search)
-                    showLoadingDialog(this@SearchActivity)
-                    return true
-                }
-                return false
-            }
-        })
-
         viewModel.bookmarkResponse.observe(this, Observer {
             it.forEach { item ->
                 questionListAdapter.addItem(item)
             }
             questionListAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
+        })
+    }
+
+    override fun initAfterBinding() {
+        search_keyword.setOnKeyListener(object : View.OnKeyListener {
+            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+                //Enter key Action
+                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    var search = search_keyword.text.toString()
+
+                    questionListAdapter.clear()
+
+                    viewModel.getBookamrk(search)
+                    showLoadingDialog(this@SearchActivity)
+                    return true
+                }
+                return false
+            }
         })
     }
 }

@@ -85,6 +85,7 @@ class GroupnameAdapter() :
 
     fun clear() {
         itemList.clear()
+        this.notifyDataSetChanged()
     }
 
     fun getItem(position: Int): Cafe{

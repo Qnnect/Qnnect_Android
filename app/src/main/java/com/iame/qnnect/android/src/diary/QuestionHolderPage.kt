@@ -65,9 +65,9 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
         }
 
         answer_btn.setOnClickListener {
-            var intent = Intent(context, AnswerActivity::class.java)
-            intent.putExtra("commentId", data.commentId)
-            context.startActivity(intent)
+//            var intent = Intent(context, AnswerActivity::class.java)
+//            intent.putExtra("commentId", data.commentId)
+//            context.startActivity(intent)
         }
     }
 

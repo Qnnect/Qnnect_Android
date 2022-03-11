@@ -59,33 +59,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     override fun initDataBinding() {
-    }
-
-    override fun initAfterBinding() {
-        add_group_btn.setOnClickListener {
-            val maingroupBottomSheet: AddGroupBottomSheet = AddGroupBottomSheet {
-                when (it) {
-                    // 그룹페이지로 이동
-                    0 -> {
-                        activity = fragment_s.activity as MainActivity?
-                        //change_for_adapter는 mainactivity에 구현
-                        activity?.fragmentChange_for_adapter()
-                    }
-                }
-            }
-            maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        groupAdapter.clear()
-        questionRecyclerViewAdapter.clear()
-
-        viewModel.getHome()
-//        showLoadingDialog(context!!)
-
         viewModel.homeResponse.observe(this, Observer {
 //            dismissLoadingDialog()
             var image = it.user.profileImage
@@ -111,6 +84,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
             questionRecyclerViewAdapter.notifyDataSetChanged()
             groupAdapter.notifyDataSetChanged()
+            dismissLoadingDialog()
         })
+    }
+
+    override fun initAfterBinding() {
+        add_group_btn.setOnClickListener {
+            val maingroupBottomSheet: AddGroupBottomSheet = AddGroupBottomSheet {
+                when (it) {
+                    // 그룹페이지로 이동
+                    0 -> {
+                        activity = fragment_s.activity as MainActivity?
+                        //change_for_adapter는 mainactivity에 구현
+                        activity?.fragmentChange_for_adapter()
+                    }
+                }
+            }
+            maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        groupAdapter.clear()
+        questionRecyclerViewAdapter.clear()
+
+        viewModel.getHome()
+        showLoadingDialog(context!!)
     }
 }

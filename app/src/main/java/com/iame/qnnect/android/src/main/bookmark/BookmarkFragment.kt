@@ -60,38 +60,33 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
     }
 
     override fun initDataBinding() {
-
-    }
-
-    override fun initAfterBinding() {
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.getCafes()
-        showLoadingDialog(context!!)
-        var all = Cafe(-1, "전체")
-        groupnameAdapter.addItem(all)
-
         viewModel.cafesResponse.observe(this, Observer {
-            Log.d("login_response", it.toString())
+            var all = Cafe(-1, "전체")
+            groupnameAdapter.addItem(all)
+
             it.forEach { item ->
                 groupnameAdapter.addItem(item)
             }
-
             groupnameAdapter.notifyDataSetChanged()
-
-            viewModel.getAllBookamrk()
         })
 
+        viewModel.bookmarkResponse.observe(this, Observer {
+            it.forEach { item ->
+                questionListAdapter.addItem(item)
+            }
+            questionListAdapter.notifyDataSetChanged()
+            dismissLoadingDialog()
+        })
+    }
 
+    override fun initAfterBinding() {
         // item click listener
         groupnameAdapter.setOnItemClickListener(object : GroupnameAdapter.OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 var request = groupnameAdapter.getItem(position)
 
                 questionListAdapter.clear()
+                questionListAdapter.notifyDataSetChanged()
 
                 if(position == 0){
                     viewModel.getAllBookamrk()
@@ -104,20 +99,20 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
             }
         })
 
-        viewModel.bookmarkResponse.observe(this, Observer {
-            it.forEach { item ->
-                questionListAdapter.addItem(item)
-            }
-            questionListAdapter.notifyDataSetChanged()
-            dismissLoadingDialog()
-        })
-
         search_btn.setOnClickListener {
             var intent = Intent(context, SearchActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.getCafes()
+        viewModel.getAllBookamrk()
+        groupnameAdapter.clear()
+        questionListAdapter.clear()
+
+        showLoadingDialog(context!!)
+    }
 }

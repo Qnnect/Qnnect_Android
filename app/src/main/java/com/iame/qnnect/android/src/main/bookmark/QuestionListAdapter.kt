@@ -52,6 +52,7 @@ class QuestionListAdapter() :
 
     fun clear() {
         itemList.clear()
+        this.notifyDataSetChanged()
     }
 
     fun getItem(position: Int): Bookmark {

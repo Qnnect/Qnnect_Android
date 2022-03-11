@@ -10,6 +10,9 @@ import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
+import com.iame.qnnect.android.src.answer.model.PostAnswerDataModel
+import com.iame.qnnect.android.src.answer.service.PostAnswerAPI
+import com.iame.qnnect.android.src.answer.service.PostAnswerDataImpl
 import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
 import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
@@ -227,6 +230,16 @@ var retrofitPart = module {
             .build()
             .create(GetQuestionAPI::class.java)
     }
+    single<PostAnswerAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostAnswerAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -308,6 +321,9 @@ var modelPart = module {
     factory<GetQuestionDataModel> {
         GetQuestionDataImpl(get())
     }
+    factory<PostAnswerDataModel> {
+        PostAnswerDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -323,10 +339,10 @@ var viewModelPart = module {
     viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
-    viewModel { DiaryViewModel(get(), get(), get())}
+    viewModel { DiaryViewModel(get(), get(), get(), get())}
+    viewModel { AnswerViewModel(get(), get()) }
 
     viewModel { StoreViewModel() }
-    viewModel { AnswerViewModel() }
     viewModel { DrinkViewModel() }
     viewModel { EditDrinkViewModel() }
     viewModel { OnboardViewModel() }
