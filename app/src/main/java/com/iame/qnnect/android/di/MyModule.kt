@@ -10,12 +10,11 @@ import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
+import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
+import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
 import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
-import com.iame.qnnect.android.src.diary.service.DeleteScrapAPI
-import com.iame.qnnect.android.src.diary.service.DeleteScrapDataImpl
-import com.iame.qnnect.android.src.diary.service.PostScrapAPI
-import com.iame.qnnect.android.src.diary.service.PostScrapDataImpl
+import com.iame.qnnect.android.src.diary.service.*
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
 import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
@@ -218,6 +217,16 @@ var retrofitPart = module {
             .build()
             .create(DeleteScrapAPI::class.java)
     }
+    single<GetQuestionAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetQuestionAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -244,6 +253,9 @@ var adapterPart = module {
     }
     factory {
         QuestionListAdapter()
+    }
+    factory {
+        AnswerAdapter()
     }
 }
 
@@ -293,6 +305,9 @@ var modelPart = module {
     factory<DeleteScrapDataModel> {
         DeleteScrapDataImpl(get())
     }
+    factory<GetQuestionDataModel> {
+        GetQuestionDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -308,7 +323,7 @@ var viewModelPart = module {
     viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
-    viewModel { DiaryViewModel(get(), get())}
+    viewModel { DiaryViewModel(get(), get(), get())}
 
     viewModel { StoreViewModel() }
     viewModel { AnswerViewModel() }
