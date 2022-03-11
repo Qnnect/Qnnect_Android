@@ -10,6 +10,12 @@ import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
+import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
+import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
+import com.iame.qnnect.android.src.diary.service.DeleteScrapAPI
+import com.iame.qnnect.android.src.diary.service.DeleteScrapDataImpl
+import com.iame.qnnect.android.src.diary.service.PostScrapAPI
+import com.iame.qnnect.android.src.diary.service.PostScrapDataImpl
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
 import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
@@ -20,12 +26,10 @@ import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
 import com.iame.qnnect.android.src.main.bookmark.GroupnameAdapter
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
+import com.iame.qnnect.android.src.main.bookmark.model.BookmarkAllDataModel
 import com.iame.qnnect.android.src.main.bookmark.model.BookmarkListDataModel
 import com.iame.qnnect.android.src.main.bookmark.model.CafeListDataModel
-import com.iame.qnnect.android.src.main.bookmark.service.BookmarkListAPI
-import com.iame.qnnect.android.src.main.bookmark.service.BookmarkListDataImpl
-import com.iame.qnnect.android.src.main.bookmark.service.CafeListAPI
-import com.iame.qnnect.android.src.main.bookmark.service.CafeListDataImpl
+import com.iame.qnnect.android.src.main.bookmark.service.*
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.QuestionRecyclerViewAdapter
 import com.iame.qnnect.android.src.main.home.home_model.HomeDataModel
@@ -184,6 +188,36 @@ var retrofitPart = module {
             .build()
             .create(SearchAPI::class.java)
     }
+    single<BookmarkAllAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(BookmarkAllAPI::class.java)
+    }
+    single<PostScrapAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostScrapAPI::class.java)
+    }
+    single<DeleteScrapAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(DeleteScrapAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -250,6 +284,15 @@ var modelPart = module {
     factory<SearchDataModel> {
         SearchDataImpl(get())
     }
+    factory<BookmarkAllDataModel> {
+        BookmarkAllDataImpl(get())
+    }
+    factory<PostScrapDataModel> {
+        PostScrapDataImpl(get())
+    }
+    factory<DeleteScrapDataModel> {
+        DeleteScrapDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -262,12 +305,12 @@ var viewModelPart = module {
     viewModel { HomeViewModel(get()) }
     viewModel { MypageViewModel(get()) }
     viewModel { GroupViewModel(get()) }
-    viewModel { BookmarkViewModel(get(), get())}
+    viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
+    viewModel { DiaryViewModel(get(), get())}
 
     viewModel { StoreViewModel() }
-    viewModel { DiaryViewModel() }
     viewModel { AnswerViewModel() }
     viewModel { DrinkViewModel() }
     viewModel { EditDrinkViewModel() }

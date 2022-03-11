@@ -47,15 +47,13 @@
                     android:textColorHint="@color/gray_4"
                     android:textSize="16dp"
                     android:background="@drawable/search_custom"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginBottom="7dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginRight="27dp"
-                    android:paddingLeft="10dp">
+                    android:paddingLeft="13dp">
                 </EditText>
 
             </LinearLayout>
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View

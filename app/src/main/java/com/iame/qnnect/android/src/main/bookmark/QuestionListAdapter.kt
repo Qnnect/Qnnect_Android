@@ -23,9 +23,6 @@ class QuestionListAdapter() :
 
     private val itemList = ArrayList<Bookmark>()
 
-//    var group_name: String,
-//    var date: String,
-//    var people_count: String
 
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){

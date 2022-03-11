@@ -9,7 +9,9 @@ import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class BookmarkViewModel(private val model: CafeListDataModel, private val model2: BookmarkListDataModel) : BaseViewModel() {
+class BookmarkViewModel(private val model: CafeListDataModel,
+                        private val model2: BookmarkListDataModel,
+                        private val model3: BookmarkAllDataModel) : BaseViewModel() {
 
     private val TAG = "BookmarkViewModel"
 
@@ -38,6 +40,20 @@ class BookmarkViewModel(private val model: CafeListDataModel, private val model2
 
     fun getBookamrk(cafeId: Int) {
         addDisposable(model2.getData(cafeId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    getBookmarkResponse.postValue(this)
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
+
+    fun getAllBookamrk() {
+        addDisposable(model3.getData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main.bookmark
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -12,15 +13,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentBookmarkBinding
-import com.iame.qnnect.android.src.main.bookmark.model.Cafe
-import com.iame.qnnect.android.src.main.bookmark.model.GetCafeListResponse
-import com.iame.qnnect.android.src.main.bookmark.model.bookmark_group
-import com.iame.qnnect.android.src.main.bookmark.model.bookmark_question
+import com.iame.qnnect.android.src.main.bookmark.model.*
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.QuestionRecyclerViewAdapter
 import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
+import com.iame.qnnect.android.src.search.SearchActivity
 import com.iame.qnnect.android.viewmodel.BookmarkViewModel
 import kotlinx.android.synthetic.main.activity_diary.*
 import kotlinx.android.synthetic.main.fragment_bookmark.*
@@ -61,7 +60,6 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
     }
 
     override fun initDataBinding() {
-//        viewModel.getBookamrk()
 
     }
 
@@ -73,6 +71,8 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
 
         viewModel.getCafes()
         showLoadingDialog(context!!)
+        var all = Cafe(-1, "전체")
+        groupnameAdapter.addItem(all)
 
         viewModel.cafesResponse.observe(this, Observer {
             Log.d("login_response", it.toString())
@@ -82,11 +82,7 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
 
             groupnameAdapter.notifyDataSetChanged()
 
-            var count = groupnameAdapter.itemCount
-            if(count != 0){
-                var request = groupnameAdapter.getItem(0)
-                viewModel.getBookamrk(request.cafeId)
-            }
+            viewModel.getAllBookamrk()
         })
 
 
@@ -95,8 +91,16 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
             override fun onItemClick(v: View?, position: Int) {
                 var request = groupnameAdapter.getItem(position)
 
-                viewModel.getBookamrk(request.cafeId)
-                showLoadingDialog(context!!)
+                questionListAdapter.clear()
+
+                if(position == 0){
+                    viewModel.getAllBookamrk()
+                    showLoadingDialog(context!!)
+                }
+                else{
+                    viewModel.getBookamrk(request.cafeId)
+                    showLoadingDialog(context!!)
+                }
             }
         })
 
@@ -107,6 +111,11 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
             questionListAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
         })
+
+        search_btn.setOnClickListener {
+            var intent = Intent(context, SearchActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

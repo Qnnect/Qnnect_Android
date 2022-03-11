@@ -3,6 +3,7 @@ package com.iame.qnnect.android.src.diary
 import android.content.Intent
 import android.graphics.Color
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -39,11 +40,38 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
     var answer_list = ArrayList<answer_item>()
     var image_list = ArrayList<String>()
 
-    var bookmark_check = false
+    var liked = false
+    var writer = false
+    var scraped = false
+    var cafeQuestionId = 0
 
     override val viewModel: DiaryViewModel by viewModel()
 
     override fun initStartView() {
+        liked = intent.getBooleanExtra("liked", false)
+        writer = intent.getBooleanExtra("writer", false)
+        scraped = intent.getBooleanExtra("scraped", false)
+        cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
+        Log.d("diary_response", cafeQuestionId.toString())
+        Log.d("diary_response", cafeQuestionId.toString())
+
+        if(writer){
+            edit_btn.visibility = View.VISIBLE
+            delete_btn.visibility = View.VISIBLE
+        }
+        if(scraped){
+            bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
+        }
+
+//        question_txt
+//        who_question
+//        create_date
+//        dday_txt
+//        bookmark_btn
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun initDataBinding() {
@@ -82,11 +110,26 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         }
 
         bookmark_btn.setOnClickListener {
-            if(bookmark_check){
+            if(scraped){
                 bookmark_btn.setImageResource(R.mipmap.ic_bookmark_bottom_foreground)
+                viewModel.deleteScrap(cafeQuestionId)
+                showLoadingDialog(this)
+
+                viewModel.scrapResponse.observe(this, Observer {
+                    dismissLoadingDialog()
+                    scraped = false
+                })
+
             }
             else{
                 bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
+                viewModel.postScrap(cafeQuestionId)
+                showLoadingDialog(this)
+
+                viewModel.scrapResponse.observe(this, Observer {
+                    dismissLoadingDialog()
+                    scraped = true
+                })
             }
         }
     }

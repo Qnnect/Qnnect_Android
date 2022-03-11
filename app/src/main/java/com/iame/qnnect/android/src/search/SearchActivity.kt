@@ -10,15 +10,13 @@ import com.iame.qnnect.android.databinding.ActivitySearchBinding
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
 import com.iame.qnnect.android.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.fragment_bookmark.*
-import kotlinx.android.synthetic.main.fragment_bookmark.question_recycler
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override val layoutResourceId: Int
-        get() = R.layout.activity_login // get() : 커스텀 접근자, 코틀린 문법
+        get() = R.layout.activity_search // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: SearchViewModel by viewModel()
     private val questionListAdapter: QuestionListAdapter by inject()
@@ -39,12 +37,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override fun initAfterBinding() {
 
-        search_btn.setOnKeyListener(object : View.OnKeyListener {
+        search_keyword.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
                 //Enter key Action
                 if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     var search = search_keyword.text.toString()
                     viewModel.getBookamrk(search)
+                    showLoadingDialog(this@SearchActivity)
                     return true
                 }
                 return false
