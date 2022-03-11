@@ -7,6 +7,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface DeleteGroupAPI {
-    @DELETE("/api/v1/cafes/{cafeId}")
-    fun deleteGroup(@Path("cafeId") cafeId: Int) : Call<Void>
+    @PATCH("/api/v1/cafes/leaver")
+    fun deleteGroup(@Query("cafeId") cafeId: Int) : Call<Void>
 }

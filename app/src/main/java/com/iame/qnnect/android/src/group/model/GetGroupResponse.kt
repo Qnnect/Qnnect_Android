@@ -6,8 +6,8 @@ data class GetGroupResponse(
     @SerializedName("createdAt") var createdAt: String,
     @SerializedName("title") var title: String,
     @SerializedName("code") var code: String,
+    @SerializedName("diaryColor") var diaryColor: String,
     @SerializedName("currentUserResponse") var currentUser: CafeUser,
     @SerializedName("cafeUserResponseList") var cafeUserList: List<CafeUser>,
-    @SerializedName("cafeQuestionResponseList") var cafeQuestionList: List<CafeQuestion>,
-    @SerializedName("organizer") var organizer: Boolean,
+    @SerializedName("cafeQuestionResponseList") var cafeQuestionList: List<CafeQuestion>
 )

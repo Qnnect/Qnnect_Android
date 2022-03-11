@@ -52,7 +52,6 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     val fragment_s: Fragment = this
     private var activity: MainActivity? = null
     var drink_check = true
-    var check = false
     var code = ""
 
     var home = HomeFragment_case()
@@ -88,7 +87,6 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             group_date_txt.text = it.createdAt
             group_name_txt.text = it.title
             group_name_main.text = it.title
-            check = it.organizer
             code = it.code
 
             if(it.currentUser.userDrinkSelected == null){
@@ -219,8 +217,6 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     }
                 }
             }
-
-            groupSettingBottomSheet.set(check)
 
             groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
         }
