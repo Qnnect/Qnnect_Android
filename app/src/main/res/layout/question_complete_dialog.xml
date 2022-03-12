@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_custom">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="26dp"
+        android:paddingBottom="22dp">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:lineSpacingExtra="8dp"
+            android:text="질문이 등록되었습니다\n
+마이페이지에서 내 질문을 확인하세요"
+            android:textStyle="bold">
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/btn_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="45dp"
+            app:layout_constraintTop_toBottomOf="@id/text1">
+
+            <TextView
+                android:id="@+id/go_cafe_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="카페로 가기"
+                android:textSize="18dp"
+                android:gravity="center"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:background="@drawable/profile_edit_custom"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textColor="@color/p_brown"
+                android:layout_marginRight="14dp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/go_question_btn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="질문 보러가기"
+                android:textSize="18dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:background="@drawable/allow_btn_ok"
+                app:layout_constraintRight_toRightOf="parent"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textColor="@color/white">
+            </TextView>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

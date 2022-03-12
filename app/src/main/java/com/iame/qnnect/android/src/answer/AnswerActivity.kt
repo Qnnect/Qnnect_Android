@@ -1,8 +1,11 @@
 package com.iame.qnnect.android.src.answer
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.Nullable
@@ -18,11 +21,20 @@ import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityAnswerBinding
 import com.iame.qnnect.android.viewmodel.AnswerViewModel
 import kotlinx.android.synthetic.main.activity_answer.*
+import kotlinx.android.synthetic.main.activity_answer.create_date
+import kotlinx.android.synthetic.main.activity_answer.dday_txt
+import kotlinx.android.synthetic.main.activity_answer.my_profile_img
+import kotlinx.android.synthetic.main.activity_answer.my_profile_name
+import kotlinx.android.synthetic.main.activity_answer.question_txt
+import kotlinx.android.synthetic.main.activity_answer.save_btn
+import kotlinx.android.synthetic.main.activity_answer.who_question
+import kotlinx.android.synthetic.main.activity_diary.*
 import kotlinx.android.synthetic.main.activity_diary.back_btn
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.nick_name_edit
 import kotlinx.android.synthetic.main.activity_profile.user_img
+import kotlinx.android.synthetic.main.activity_question.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -55,6 +67,8 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
     var questioner = ""
     var question = ""
 
+    var check = false
+
     override fun initStartView() {
         recyclerView = image_recycler
     }
@@ -67,6 +81,25 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
         question_txt.text = intent.getStringExtra("question")!!
 
         cafeId = home.getGroupname(this)!!
+
+        answer_edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                var len = answer_edit.text.toString()
+                if(len.length > 0){
+                    save_btn.setTextColor(Color.parseColor("#FD774C"))
+                    check = true
+                }
+                else{
+                    save_btn.setTextColor(Color.parseColor("#BDBDBD"))
+                    check = false
+                }
+            }
+        })
 
         viewModel.userResponse.observe(this, Observer {
             var image = it.profileImage
@@ -87,55 +120,57 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
         showLoadingDialog(this)
 
         save_btn.setOnClickListener {
-            for(i in 0..uriList.size-1){
-                var path = viewModel.getFilePathFromURI(this, uriList.get(i))
-                pathList.add(path)
-            }
+            if(check){
+                for(i in 0..uriList.size-1){
+                    var path = viewModel.getFilePathFromURI(this, uriList.get(i))
+                    pathList.add(path)
+                }
 
-            val content = answer_edit.text.toString()
-            val contentPart: MultipartBody.Part = MultipartBody.Part.createFormData("content", content)
+                val content = answer_edit.text.toString()
+                val contentPart: MultipartBody.Part = MultipartBody.Part.createFormData("content", content)
 
-            if(uriList.size == 1){
-                var request = getPath(pathList.get(0), "image1")
-                viewModel.postAnswer(null, null, null, null, request,
-                    contentPart, cafeId, cafeQuestionId)
-            }
-            else if(uriList.size == 2){
-                var request1 = getPath(pathList.get(0), "image1")
-                var request2 = getPath(pathList.get(1), "image2")
-                viewModel.postAnswer(null, null, null, request2, request1,
-                    contentPart, cafeId, cafeQuestionId)
-            }
-            else if(uriList.size == 3){
-                var request1 = getPath(pathList.get(0), "image1")
-                var request2 = getPath(pathList.get(1), "image2")
-                var request3 = getPath(pathList.get(2), "image3")
-                viewModel.postAnswer(null, null, request3, request2, request1,
-                    contentPart, cafeId, cafeQuestionId)
-            }
-            else if(uriList.size == 4){
-                var request1 = getPath(pathList.get(0), "image1")
-                var request2 = getPath(pathList.get(1), "image2")
-                var request3 = getPath(pathList.get(2), "image3")
-                var request4 = getPath(pathList.get(3), "image4")
-                viewModel.postAnswer(null, request4, request3, request2, request1,
-                    contentPart, cafeId, cafeQuestionId)
-            }
-            else{
-                var request1 = getPath(pathList.get(0), "image1")
-                var request2 = getPath(pathList.get(1), "image2")
-                var request3 = getPath(pathList.get(2), "image3")
-                var request4 = getPath(pathList.get(3), "image4")
-                var request5 = getPath(pathList.get(3), "image5")
-                viewModel.postAnswer(request5, request4, request3, request2, request1,
-                    contentPart, cafeId, cafeQuestionId)
-            }
-            showLoadingDialog(this)
+                if(uriList.size == 1){
+                    var request = getPath(pathList.get(0), "image1")
+                    viewModel.postAnswer(null, null, null, null, request,
+                        contentPart, cafeId, cafeQuestionId)
+                }
+                else if(uriList.size == 2){
+                    var request1 = getPath(pathList.get(0), "image1")
+                    var request2 = getPath(pathList.get(1), "image2")
+                    viewModel.postAnswer(null, null, null, request2, request1,
+                        contentPart, cafeId, cafeQuestionId)
+                }
+                else if(uriList.size == 3){
+                    var request1 = getPath(pathList.get(0), "image1")
+                    var request2 = getPath(pathList.get(1), "image2")
+                    var request3 = getPath(pathList.get(2), "image3")
+                    viewModel.postAnswer(null, null, request3, request2, request1,
+                        contentPart, cafeId, cafeQuestionId)
+                }
+                else if(uriList.size == 4){
+                    var request1 = getPath(pathList.get(0), "image1")
+                    var request2 = getPath(pathList.get(1), "image2")
+                    var request3 = getPath(pathList.get(2), "image3")
+                    var request4 = getPath(pathList.get(3), "image4")
+                    viewModel.postAnswer(null, request4, request3, request2, request1,
+                        contentPart, cafeId, cafeQuestionId)
+                }
+                else{
+                    var request1 = getPath(pathList.get(0), "image1")
+                    var request2 = getPath(pathList.get(1), "image2")
+                    var request3 = getPath(pathList.get(2), "image3")
+                    var request4 = getPath(pathList.get(3), "image4")
+                    var request5 = getPath(pathList.get(3), "image5")
+                    viewModel.postAnswer(request5, request4, request3, request2, request1,
+                        contentPart, cafeId, cafeQuestionId)
+                }
+                showLoadingDialog(this)
 
-            viewModel.answerResponse.observe(this, Observer {
-                dismissLoadingDialog()
-                finish()
-            })
+                viewModel.answerResponse.observe(this, Observer {
+                    dismissLoadingDialog()
+                    finish()
+                })
+            }
         }
 
         back_btn.setOnClickListener {

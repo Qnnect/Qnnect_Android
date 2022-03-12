@@ -1,25 +1,31 @@
-package com.iame.qnnect.android.src.search
+package com.iame.qnnect.android.src.question
 
+import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
+import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.databinding.ActivityQuestionlistBinding
 import com.iame.qnnect.android.databinding.ActivitySearchBinding
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
-import com.iame.qnnect.android.viewmodel.SearchViewModel
-import kotlinx.android.synthetic.main.activity_search.*
+import com.iame.qnnect.android.src.search.SearchActivity
+import com.iame.qnnect.android.viewmodel.QuestionListViewModel
+import kotlinx.android.synthetic.main.activity_questionlist.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
+class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionListViewModel>() {
 
     override val layoutResourceId: Int
-        get() = R.layout.activity_search // get() : 커스텀 접근자, 코틀린 문법
+        get() = R.layout.activity_questionlist // get() : 커스텀 접근자, 코틀린 문법
 
-    override val viewModel: SearchViewModel by viewModel()
+    override val viewModel: QuestionListViewModel by viewModel()
     private val questionListAdapter: QuestionListAdapter by inject()
+
+    var home = HomeFragment_case()
 
     override fun initStartView() {
         // question list recycler
@@ -43,24 +49,20 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
     }
 
     override fun initAfterBinding() {
-        search_keyword.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                //Enter key Action
-                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    var search = search_keyword.text.toString()
+        questionListAdapter.clear()
 
-                    questionListAdapter.clear()
+        var cafeId = home.getGroupname(this)
 
-                    viewModel.getBookamrk(search)
-                    showLoadingDialog(this@SearchActivity)
-                    return true
-                }
-                return false
-            }
-        })
+        viewModel.getBookamrk(cafeId!!)
+        showLoadingDialog(this)
 
         back_btn.setOnClickListener {
             finish()
+        }
+
+        search_btn.setOnClickListener {
+            var intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -14,6 +14,8 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityQuestionBinding
+import com.iame.qnnect.android.src.group.DeleteGroupDialog
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.question.model.PostQuestionRequest
 import com.iame.qnnect.android.viewmodel.QuestionViewModel
 import io.reactivex.rxjava3.core.Observable
@@ -95,8 +97,21 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
 
                 viewModel.postquestionResponse.observe(this, Observer {
                     Log.d("question test", "질문 성공 "+it.toString()+"번째 질문")
-                    finish()
+                    val questionCompleteDialog = QuestionCompleteDialog {
+                        when (it) {
+                            // 카페로 가기
+                            0 -> {
+                                finish()
+                            }
+                            // 카페별 질문 리스트로 이동
+                            1 -> {
+                            var intent = Intent(this, QuestionListActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
+                    }
                 })
+
             }
         }
 

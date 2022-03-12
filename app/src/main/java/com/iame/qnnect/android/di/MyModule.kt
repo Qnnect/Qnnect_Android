@@ -341,6 +341,7 @@ var viewModelPart = module {
     viewModel { SearchViewModel(get())}
     viewModel { DiaryViewModel(get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get()) }
+    viewModel { QuestionListViewModel(get())}
 
     viewModel { StoreViewModel() }
     viewModel { DrinkViewModel() }
