@@ -70,17 +70,42 @@
         android:textSize="14dp"
         android:textColor="@color/gray_3">
     </TextView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/drink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/txt2"
+        android:paddingLeft="27dp"
+        android:paddingRight="27dp"
+        android:layout_marginTop="10dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/drink_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never">
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ok_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/txt1"
+        app:layout_constraintTop_toBottomOf="@id/drink"
         android:layout_marginLeft="27dp"
         android:layout_marginRight="27dp"
         android:layout_marginTop="40dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:background="@drawable/allow_btn_fail">
+        android:background="@drawable/allow_btn_ok">
 
         <TextView
             android:id="@+id/ok_btn_txt"

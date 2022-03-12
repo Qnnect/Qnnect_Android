@@ -1,36 +1,26 @@
 package com.iame.qnnect.android.src.group
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentGroupBinding
-import com.iame.qnnect.android.src.allow.AllowActivity
-import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.drink.DrinkActivity
 import com.iame.qnnect.android.src.group.group_bottom.EditDrinkBottomSheet
 import com.iame.qnnect.android.src.group.group_bottom.EditGroupBottomSheet
 import com.iame.qnnect.android.src.group.group_setting.GroupSettingBottomSheet
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
-import com.iame.qnnect.android.src.group.model.*
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
 import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.main.MainActivity
-import com.iame.qnnect.android.src.main.home.HomeFragment
-import com.iame.qnnect.android.src.main.home.home_bottom.AddDrinkBottomSheet
-import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
 import com.iame.qnnect.android.src.question.QuestionActivity
 import com.iame.qnnect.android.viewmodel.GroupViewModel
-import kotlinx.android.synthetic.main.activity_main_two.*
 import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
 import kotlinx.android.synthetic.main.fragment_home.question_viewPager2
@@ -75,7 +65,6 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         //인디케이터 타입1
         val dotsIndicator = dots_indicator
         dotsIndicator.setViewPager2(question_viewPager2)
-
     }
 
     override fun initDataBinding() {
@@ -134,7 +123,6 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
-
         drink_img.setOnClickListener {
             if(drink_check){
                 var intent = Intent(context, DrinkActivity::class.java)

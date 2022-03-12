@@ -1,29 +1,40 @@
-package com.iame.qnnect.android.src.group.group_bottom
+package com.iame.qnnect.android.src.add_drink
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.recyclerview.widget.*
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.iame.qnnect.android.src.add_drink.DrinkAdapter
-import com.iame.qnnect.android.src.add_drink.drink
+import com.iame.qnnect.android.src.main.bookmark.GroupnameAdapter
+import androidx.recyclerview.widget.PagerSnapHelper
 
-class EditDrinkBottomSheet() :
-    BottomSheetDialogFragment(){
+import androidx.recyclerview.widget.SnapHelper
+
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.src.add_drink.service.AddDrinkService
+import com.iame.qnnect.android.src.add_drink.service.AddDrinkView
+
+
+class AddDrinkBottomSheet() :
+    BottomSheetDialogFragment(), AddDrinkView{
     private lateinit var dlg : BottomSheetDialog
 
     lateinit var drinkAdapter: DrinkAdapter
     lateinit var drinkRecyclerView: RecyclerView
     var drinkList = ArrayList<drink>()
+
+    var home = HomeFragment_case()
+    var drinkId = 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
@@ -49,7 +60,7 @@ class EditDrinkBottomSheet() :
         savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_edit_drink_bottom, container, false)
+        return inflater.inflate(R.layout.fragment_add_drink_bottom, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -62,7 +73,8 @@ class EditDrinkBottomSheet() :
             dismiss()
         }
         ok_btn.setOnClickListener {
-            dismiss()
+            var cafeId = home.getGroupname(context!!)
+            AddDrinkService(this@AddDrinkBottomSheet).tryAddDrink(cafeId!!, drinkId)
         }
 
         drinkList.clear()
@@ -83,13 +95,20 @@ class EditDrinkBottomSheet() :
 
         drinkAdapter.setOnItemClickListener(object : DrinkAdapter.OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
-                var request = drinkAdapter.getItem(position)
-
+                drinkId = drinkAdapter.getItem(position).index
                 drinkAdapter.notifyDataSetChanged()
-
 //                viewModel.getBookamrk(request.cafeId)
 //                showLoadingDialog(context!!)
             }
         })
+    }
+
+    override fun onAddDrinkSuccess(response: String) {
+        dismiss()
+        Log.d("login_response", response)
+    }
+
+    override fun onAddDrinkFailure(message: String) {
+
     }
 }
