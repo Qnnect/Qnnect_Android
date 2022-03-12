@@ -65,5 +65,6 @@ class GroupMemberAdapter() : RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>
 
     fun clear() {
         itemList.clear()
+        this.notifyDataSetChanged()
     }
 }

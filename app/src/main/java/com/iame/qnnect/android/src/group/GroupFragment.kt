@@ -67,10 +67,16 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         dotsIndicator.setViewPager2(question_viewPager2)
     }
 
-    override fun initDataBinding() {
+    override fun onResume() {
+        super.onResume()
+        groupMemberAdapter.clear()
+        groupQuestionViewPagerAdapter.clear()
         var id = home.getGroupname(context!!)
         viewModel.getGroup(id!!)
         showLoadingDialog(context!!)
+    }
+
+    override fun initDataBinding() {
 
         viewModel.groupResponse.observe(this, Observer {
             group_date_txt.text = it.createdAt
@@ -85,9 +91,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             else{
                 if(it.currentUser.drinkIngredientsFilledResponseList.size == 0){
                     drink_img.setImageResource(R.mipmap.img_drink_basic_foreground)
-                    select_text.visibility = View.GONE
-                    drink_check = true
                 }
+                select_text.visibility = View.GONE
+                drink_check = true
             }
 
             if(it.cafeUserList.size == 0){
@@ -117,9 +123,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 }
                 groupQuestionViewPagerAdapter.notifyDataSetChanged()
             }
-
+            dismissLoadingDialog()
         })
-        dismissLoadingDialog()
     }
 
     override fun initAfterBinding() {
@@ -129,7 +134,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 startActivity(intent)
             }
             else{
-                val addDrinkBottomSheet = AddDrinkBottomSheet()
+                val addDrinkBottomSheet = AddDrinkBottomSheet(this)
                 addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
             }
         }
@@ -143,7 +148,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         }
 
         question_btn.setOnClickListener {
-            if(true){
+            if(drink_check){
                 var intent = Intent(context, QuestionActivity::class.java)
                 startActivity(intent)
             }
@@ -152,7 +157,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     when (it) {
                         // 음료추가
                         1 -> {
-                            val addDrinkBottomSheet = AddDrinkBottomSheet()
+                            val addDrinkBottomSheet = AddDrinkBottomSheet(this)
                             addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
                         }
                     }
@@ -162,51 +167,51 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         }
 
         more_btn.setOnClickListener {
-            val groupSettingBottomSheet: GroupSettingBottomSheet = GroupSettingBottomSheet {
-                when (it) {
-                    // 초대하기
-                    0 -> {
-                        var intent = Intent(context, InviteActivity::class.java)
-                        intent.putExtra("code", code)
-                        startActivity(intent)
-                    }
-                    // 카페 수정
-                    1 -> {
-                        val editgroupBottomSheet: EditGroupBottomSheet = EditGroupBottomSheet {
-                            when (it) {
-                                // 카페 수정
-                                0 -> {
-                                    initDataBinding()
+            if(drink_check){
+                val groupSettingBottomSheet: GroupSettingBottomSheet = GroupSettingBottomSheet {
+                    when (it) {
+                        // 초대하기
+                        0 -> {
+                            var intent = Intent(context, InviteActivity::class.java)
+                            intent.putExtra("code", code)
+                            startActivity(intent)
+                        }
+                        // 카페 수정
+                        1 -> {
+                            val editgroupBottomSheet: EditGroupBottomSheet = EditGroupBottomSheet {
+                                when (it) {
+                                    // 카페 수정
+                                    0 -> {
+                                        initDataBinding()
+                                    }
                                 }
                             }
+                            editgroupBottomSheet.show(requireActivity().supportFragmentManager, editgroupBottomSheet.tag)
                         }
-                        editgroupBottomSheet.show(requireActivity().supportFragmentManager, editgroupBottomSheet.tag)
-                    }
-                    // 음료 수정
-                    2 -> {
-                        val editDrinkBottomSheet = EditDrinkBottomSheet()
-                        editDrinkBottomSheet.show(requireActivity().supportFragmentManager, editDrinkBottomSheet.tag)
-                    }
-                    // 카페 삭제
-                    3 -> {
-                        val deleteGroupDialog = DeleteGroupDialog {
-                            when (it) {
-                                0 -> {
-                                    home_case.setHome(requireContext(), 0, -1)
+                        // 음료 수정
+                        2 -> {
+                            val editDrinkBottomSheet = EditDrinkBottomSheet(this)
+                            editDrinkBottomSheet.show(requireActivity().supportFragmentManager, editDrinkBottomSheet.tag)
+                        }
+                        // 카페 삭제
+                        3 -> {
+                            val deleteGroupDialog = DeleteGroupDialog {
+                                when (it) {
+                                    0 -> {
+                                        home_case.setHome(requireContext(), 0, -1)
 
-                                    activity = fragment_s.activity as MainActivity?
-                                    //change_for_adapter는 mainactivity에 구현
-                                    activity?.fragmentChange_for_adapter()
+                                        activity = fragment_s.activity as MainActivity?
+                                        //change_for_adapter는 mainactivity에 구현
+                                        activity?.fragmentChange_for_adapter()
+                                    }
                                 }
                             }
+                            deleteGroupDialog.show(requireActivity().supportFragmentManager, deleteGroupDialog.tag)
                         }
-                        deleteGroupDialog.show(requireActivity().supportFragmentManager, deleteGroupDialog.tag)
-
                     }
                 }
+                groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
             }
-
-            groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
         }
     }
 }

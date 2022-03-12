@@ -14,16 +14,23 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.add_drink.DrinkAdapter
 import com.iame.qnnect.android.src.add_drink.drink
+import com.iame.qnnect.android.src.add_drink.service.AddDrinkService
+import com.iame.qnnect.android.src.add_drink.service.AddDrinkView
+import com.iame.qnnect.android.src.group.GroupFragment
 
-class EditDrinkBottomSheet() :
-    BottomSheetDialogFragment(){
+class EditDrinkBottomSheet(var frag: GroupFragment) :
+    BottomSheetDialogFragment(), AddDrinkView{
     private lateinit var dlg : BottomSheetDialog
 
     lateinit var drinkAdapter: DrinkAdapter
     lateinit var drinkRecyclerView: RecyclerView
     var drinkList = ArrayList<drink>()
+
+    var home = HomeFragment_case()
+    var drinkId = 1
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
@@ -62,7 +69,8 @@ class EditDrinkBottomSheet() :
             dismiss()
         }
         ok_btn.setOnClickListener {
-            dismiss()
+            var cafeId = home.getGroupname(context!!)
+            AddDrinkService(this).tryAddDrink(cafeId!!, drinkId)
         }
 
         drinkList.clear()
@@ -91,5 +99,14 @@ class EditDrinkBottomSheet() :
 //                showLoadingDialog(context!!)
             }
         })
+    }
+
+    override fun onAddDrinkSuccess(response: String) {
+        dismiss()
+        frag.onResume()
+    }
+
+    override fun onAddDrinkFailure(message: String) {
+        TODO("Not yet implemented")
     }
 }

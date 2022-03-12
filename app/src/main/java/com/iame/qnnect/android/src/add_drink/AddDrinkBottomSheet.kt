@@ -23,9 +23,10 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.add_drink.service.AddDrinkService
 import com.iame.qnnect.android.src.add_drink.service.AddDrinkView
+import com.iame.qnnect.android.src.group.GroupFragment
 
 
-class AddDrinkBottomSheet() :
+class AddDrinkBottomSheet(var frag: GroupFragment) :
     BottomSheetDialogFragment(), AddDrinkView{
     private lateinit var dlg : BottomSheetDialog
 
@@ -34,7 +35,7 @@ class AddDrinkBottomSheet() :
     var drinkList = ArrayList<drink>()
 
     var home = HomeFragment_case()
-    var drinkId = 0
+    var drinkId = 1
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // 이 코드를 실행하지 않으면
@@ -74,7 +75,7 @@ class AddDrinkBottomSheet() :
         }
         ok_btn.setOnClickListener {
             var cafeId = home.getGroupname(context!!)
-            AddDrinkService(this@AddDrinkBottomSheet).tryAddDrink(cafeId!!, drinkId)
+            AddDrinkService(this).tryAddDrink(cafeId!!, drinkId)
         }
 
         drinkList.clear()
@@ -106,6 +107,7 @@ class AddDrinkBottomSheet() :
     override fun onAddDrinkSuccess(response: String) {
         dismiss()
         Log.d("login_response", response)
+        frag.onResume()
     }
 
     override fun onAddDrinkFailure(message: String) {

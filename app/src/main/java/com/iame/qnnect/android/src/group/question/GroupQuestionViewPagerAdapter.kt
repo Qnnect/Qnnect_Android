@@ -49,6 +49,7 @@ class GroupQuestionViewPagerAdapter internal constructor() :
 
     fun clear() {
         listData.clear()
+        this.notifyDataSetChanged()
     }
 }
 

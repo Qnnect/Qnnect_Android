@@ -102,7 +102,7 @@
         android:layout_marginTop="40dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:background="@drawable/allow_btn_fail">
+        android:background="@drawable/allow_btn_ok">
 
         <TextView
             android:id="@+id/ok_btn_txt"
