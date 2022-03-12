@@ -33,4 +33,4 @@
 3. 2022.03.09(WEN) -> Edit Group & Delete Group Api Complete, Bookmark List at Cafes Api Complete, Question Api, Question text check, Edittext len check Logic change(Rxjava -> not use Rxjava (Why: Not using Overlap api -> Not waste of Network resource))
 4. 2022.03.10(THU) -> Search Activity & Api, Firebase connect, Kakao link Complete
 5. 2022.03.11(FRI) -> Answer Api Complete, Post Answer Api Complete, Kakao link Test Complete, Search bookmark api complete, Bookmark & Answer adapter logic change
-6. 2022.03.12(SAT) -> Add drink api complete, drink recycler complete
+6. 2022.03.12(SAT) -> Add drink api complete, drink recycler complete, Group Frag onResume logic change
