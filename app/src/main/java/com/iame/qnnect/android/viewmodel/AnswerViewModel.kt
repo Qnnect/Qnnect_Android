@@ -49,6 +49,10 @@ class AnswerViewModel(private val model: PostAnswerDataModel,
     val answerResponse: LiveData<Int>
         get() = postAnswereResponse
 
+    private val BadResponse = MutableLiveData<String>()
+    val badResponse: LiveData<String>
+        get() = BadResponse
+
     fun postAnswer(image5: MultipartBody.Part?,
                      image4: MultipartBody.Part?,
                      image3: MultipartBody.Part?,
@@ -65,7 +69,9 @@ class AnswerViewModel(private val model: PostAnswerDataModel,
                     postAnswereResponse.postValue(this)
                 }
             }, {
+                BadResponse.postValue("질문을 답변할 수 있는 기간이 지났습니다")
                 Log.d(TAG, "response error, message : ${it.message}")
+
             })
         )
     }

@@ -174,6 +174,11 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
                     dismissLoadingDialog()
                     finish()
                 })
+
+                viewModel.badResponse.observe(this, Observer {
+                    dismissLoadingDialog()
+                    Toast.makeText(baseContext, "질문을 답변할 수 있는 기간이 지났습니다", Toast.LENGTH_SHORT).show()
+                })
             }
         }
 

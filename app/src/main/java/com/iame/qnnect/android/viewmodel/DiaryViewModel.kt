@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.model.response.ImageSearchResponse
-import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
-import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
-import com.iame.qnnect.android.src.diary.model.GetQuestionResponse
-import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
+import com.iame.qnnect.android.src.diary.model.*
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.login.model.PostLoginResponse
@@ -20,9 +17,30 @@ import io.reactivex.schedulers.Schedulers
 class DiaryViewModel(private var model: PostScrapDataModel,
                      private var model2: DeleteScrapDataModel,
                      private var model3: GetQuestionDataModel,
-                     private var model4: UserDataModel) : BaseViewModel() {
+                     private var model4: UserDataModel,
+                     private var model5: PostLikeDataModel) : BaseViewModel() {
 
     private val TAG = "DiaryViewModel"
+
+    private val postLikeResponse = MutableLiveData<String>()
+    val likeResponse: LiveData<String>
+        get() = postLikeResponse
+
+
+    fun postLike(cafeQuestionId: Int, isUserLiked: Boolean) {
+        addDisposable(model5.getData(cafeQuestionId, isUserLiked)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    var response = "200 OK"
+                    postLikeResponse.postValue(response)
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
 
     private val postScrapResponse = MutableLiveData<String>()
     val scrapResponse: LiveData<String>

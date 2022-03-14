@@ -23,6 +23,7 @@ import com.iame.qnnect.android.src.answer.service.PostAnswerDataImpl
 import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
 import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
+import com.iame.qnnect.android.src.diary.model.PostLikeDataModel
 import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
 import com.iame.qnnect.android.src.diary.service.*
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
@@ -292,6 +293,16 @@ var retrofitPart = module {
             .build()
             .create(DeleteScrapAPI::class.java)
     }
+    single<PostLikeAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostLikeAPI::class.java)
+    }
     single<GetQuestionAPI> {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -419,6 +430,9 @@ var modelPart = module {
     factory<DeleteScrapDataModel> {
         DeleteScrapDataImpl(get())
     }
+    factory<PostLikeDataModel> {
+        PostLikeDataImpl(get())
+    }
     factory<GetQuestionDataModel> {
         GetQuestionDataImpl(get())
     }
@@ -446,7 +460,7 @@ var viewModelPart = module {
     viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
-    viewModel { DiaryViewModel(get(), get(), get(), get())}
+    viewModel { DiaryViewModel(get(), get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get()) }
     viewModel { QuestionListViewModel(get())}
     viewModel { ReplyViewModel(get(), get()) }

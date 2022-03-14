@@ -167,25 +167,24 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
 
         like_btn.setOnClickListener {
             if(liked){
-                like_btn.setImageResource(R.mipmap.ic_like_btn_foreground)
-//                viewModel.deleteScrap(cafeQuestionId)
-//                showLoadingDialog(this)
-//
-//                viewModel.scrapResponse.observe(this, Observer {
-//                    dismissLoadingDialog()
-//                    liked = false
-//                })
+                viewModel.postLike(cafeQuestionId, !liked)
+                showLoadingDialog(this)
 
+                viewModel.likeResponse.observe(this, Observer {
+                    dismissLoadingDialog()
+                    liked = false
+                    like_btn.setImageResource(R.mipmap.ic_like_btn_foreground)
+                })
             }
             else{
-                bookmark_btn.setImageResource(R.mipmap.ic_like_select_btn_foreground)
-//                viewModel.postScrap(cafeQuestionId)
-//                showLoadingDialog(this)
-//
-//                viewModel.scrapResponse.observe(this, Observer {
-//                    dismissLoadingDialog()
-//                    liked = true
-//                })
+                viewModel.postLike(cafeQuestionId, !liked)
+                showLoadingDialog(this)
+
+                viewModel.likeResponse.observe(this, Observer {
+                    dismissLoadingDialog()
+                    liked = true
+                    like_btn.setImageResource(R.mipmap.ic_like_select_btn_foreground)
+                })
             }
         }
     }
