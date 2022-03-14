@@ -12,84 +12,31 @@ import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.login.model.PostLoginResponse
+import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
 import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
+import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
+import com.iame.qnnect.android.src.reply.model.GetReplyDataModel
+import com.iame.qnnect.android.src.reply.model.GetReplyResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ReplyViewModel(private var model: PostScrapDataModel,
-                     private var model2: DeleteScrapDataModel,
-                     private var model3: GetQuestionDataModel,
-                     private var model4: UserDataModel) : BaseViewModel() {
+class ReplyViewModel(private val model: GetReplyDataModel) : BaseViewModel() {
 
-    private val TAG = "DiaryViewModel"
-
-    private val postScrapResponse = MutableLiveData<String>()
-    val scrapResponse: LiveData<String>
-        get() = postScrapResponse
-
-
-    fun postScrap(cafeQuestionId: Int) {
-        addDisposable(model.getData(cafeQuestionId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.run {
-                    var response = "200 OK"
-                    postScrapResponse.postValue(response)
-                }
-            }, {
-                Log.d(TAG, "response error, message : ${it.message}")
-            })
-        )
-    }
-
-    fun deleteScrap(cafeQuestionId: Int) {
-        addDisposable(model2.getData(cafeQuestionId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.run {
-                    var response = "200 OK"
-                    postScrapResponse.postValue(response)
-                }
-            }, {
-                Log.d(TAG, "response error, message : ${it.message}")
-            })
-        )
-    }
-
-    private val getQuestionResponse = MutableLiveData<GetQuestionResponse>()
-    val questionResponse: LiveData<GetQuestionResponse>
-        get() = getQuestionResponse
-
-
-    fun getQuestion(cafeQuestionId: Int) {
-        addDisposable(model3.getData(cafeQuestionId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.run {
-                    getQuestionResponse.postValue(this)
-                }
-            }, {
-                Log.d(TAG, "response error, message : ${it.message}")
-            })
-        )
-    }
+    private val TAG = "ReplyViewModel"
 
     // get user
-    private val getUserResponse = MutableLiveData<GetUserResponse>()
-    val userResponse: LiveData<GetUserResponse>
-        get() = getUserResponse
+    private val getReplyResponse = MutableLiveData<GetReplyResponse>()
+    val replyResponse: LiveData<GetReplyResponse>
+        get() = getReplyResponse
 
-    fun getUser() {
-        addDisposable(model4.getData()
+    fun getReply(commentId: Int) {
+        addDisposable(model.getData(commentId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.run {
-                    getUserResponse.postValue(this)
+                    getReplyResponse.postValue(this)
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")

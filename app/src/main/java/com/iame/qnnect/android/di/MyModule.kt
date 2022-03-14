@@ -59,6 +59,11 @@ import com.iame.qnnect.android.src.profile.service.ProfileDefaultDataImpl
 import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
 import com.iame.qnnect.android.src.question.service.PostQuestionAPI
 import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
+import com.iame.qnnect.android.src.reply.ImageAdapter
+import com.iame.qnnect.android.src.reply.ReplyAdapter
+import com.iame.qnnect.android.src.reply.model.GetReplyDataModel
+import com.iame.qnnect.android.src.reply.service.GetReplyAPI
+import com.iame.qnnect.android.src.reply.service.GetReplyDataImpl
 import com.iame.qnnect.android.src.search.model.SearchDataModel
 import com.iame.qnnect.android.src.search.service.SearchAPI
 import com.iame.qnnect.android.src.search.service.SearchDataImpl
@@ -304,6 +309,16 @@ var retrofitPart = module {
             .build()
             .create(PostAnswerAPI::class.java)
     }
+    single<GetReplyAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetReplyAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -333,6 +348,12 @@ var adapterPart = module {
     }
     factory {
         AnswerAdapter()
+    }
+    factory {
+        ReplyAdapter()
+    }
+    factory {
+        ImageAdapter()
     }
 }
 
@@ -391,6 +412,9 @@ var modelPart = module {
     factory<PostAnswerDataModel> {
         PostAnswerDataImpl(get())
     }
+    factory<GetReplyDataModel> {
+        GetReplyDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -409,11 +433,13 @@ var viewModelPart = module {
     viewModel { DiaryViewModel(get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get()) }
     viewModel { QuestionListViewModel(get())}
+    viewModel { ReplyViewModel(get()) }
 
     viewModel { StoreViewModel() }
     viewModel { DrinkViewModel() }
     viewModel { EditDrinkViewModel() }
     viewModel { OnboardViewModel() }
+
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

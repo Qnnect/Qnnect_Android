@@ -45,63 +45,71 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     override val layoutResourceId: Int
         get() = R.layout.activity_reply // get() : 커스텀 접근자, 코틀린 문법
 
-//    var liked = false
-//    var writer = false
-//    var scraped = false
-//    var cafeQuestionId = 0
-//
-//    var date = ""
-//    var dday = ""
-//    var questioner = ""
-//    var question = ""
-
+    var commentId = 0
 
     override val viewModel: ReplyViewModel by viewModel()
 
-    private val answerAdapter: AnswerAdapter by inject()
+    private val replyAdapter: ReplyAdapter by inject()
+    private val imageAdapter: ImageAdapter by inject()
 
     override fun initStartView() {
-        answer_recycler.run {
-            adapter = answerAdapter
+        reply_recycler.run {
+            adapter = replyAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
             }
             setHasFixedSize(true)
         }
+
+        image_recycler.run {
+            adapter = imageAdapter
+            layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
+            setHasFixedSize(true)
+        }
+
+        commentId = intent.getIntExtra("commentId", 0)
     }
 
     override fun onResume() {
         super.onResume()
-
-        answerAdapter.clear()
+        replyAdapter.clear()
+        imageAdapter.clear()
+        viewModel.getReply(commentId)
+        showLoadingDialog(this)
     }
 
     override fun initDataBinding() {
-
-        viewModel.userResponse.observe(this, Observer {
-            var image = it.profileImage
-
-            // Profile Url
-            Glide.with(this)
-                .load(image)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(my_profile_img)
-            // User Name
-            my_profile_name.text = it.nickName
-        })
-    }
-
-    override fun initAfterBinding() {
-        viewModel.getUser()
-
         back_btn.setOnClickListener {
             finish()
         }
 
-        send_btn.setOnClickListener {
-            finish()
-        }
+        viewModel.replyResponse.observe(this, Observer {
 
+            Glide.with(this)
+                .load(it.writer.profileImage)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(my_profile_img)
+            my_profile_name.text = it.writer.nickName
+            answer_txt.text = it.content
 
+            it.replies.forEach { item ->
+                replyAdapter.addItem(item)
+            }
+
+            imageAdapter.addItem(it.imageUrl1.toString())
+            imageAdapter.addItem(it.imageUrl2.toString())
+            imageAdapter.addItem(it.imageUrl3.toString())
+            imageAdapter.addItem(it.imageUrl4.toString())
+            imageAdapter.addItem(it.imageUrl5.toString())
+
+            replyAdapter.notifyDataSetChanged()
+            imageAdapter.notifyDataSetChanged()
+            dismissLoadingDialog()
+        })
+    }
+
+    override fun initAfterBinding() {
     }
 }
