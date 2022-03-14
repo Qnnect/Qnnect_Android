@@ -32,10 +32,15 @@ class ImageHolderPage internal constructor(itemView: View, var context: Context)
         this.data = data
 
         if(data != "null"){
-            Glide.with(context)
-                .load(data)
-                .transform(CenterCrop(), RoundedCorners(50))
-                .into(image)
+            try{
+                Glide.with(context)
+                    .load(data)
+                    .transform(CenterCrop(), RoundedCorners(50))
+                    .into(image)
+            }catch (e: Exception){
+                itemView.visibility = View.GONE
+            }
+
         }
         delete_btn.visibility = View.GONE
     }

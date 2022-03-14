@@ -2,6 +2,8 @@ package com.iame.qnnect.android.src.reply
 
 import android.content.Intent
 import android.graphics.Color
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -31,12 +33,14 @@ import com.iame.qnnect.android.viewmodel.ReplyViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
+import kotlinx.android.synthetic.main.activity_answer.*
 import kotlinx.android.synthetic.main.activity_diary.*
 import kotlinx.android.synthetic.main.activity_diary.back_btn
 import kotlinx.android.synthetic.main.activity_diary.my_profile_img
 import kotlinx.android.synthetic.main.activity_diary.my_profile_name
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_reply.*
+import kotlinx.android.synthetic.main.activity_reply.image_recycler
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,6 +55,8 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
     private val replyAdapter: ReplyAdapter by inject()
     private val imageAdapter: ImageAdapter by inject()
+
+    var reply_check = false
 
     override fun initStartView() {
         reply_recycler.run {
@@ -81,10 +87,6 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     }
 
     override fun initDataBinding() {
-        back_btn.setOnClickListener {
-            finish()
-        }
-
         viewModel.replyResponse.observe(this, Observer {
 
             Glide.with(this)
@@ -94,7 +96,10 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             my_profile_name.text = it.writer.nickName
             answer_txt.text = it.content
 
+            date_txt.text = it.createdAt
+
             it.replies.forEach { item ->
+                Log.d("reply_response_count", item.toString())
                 replyAdapter.addItem(item)
             }
 
@@ -108,8 +113,37 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             imageAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
         })
+
+        viewModel.po_replyResponse.observe(this, Observer {
+            reply_edit.text = null
+            reply_check = false
+            dismissLoadingDialog()
+            onResume()
+        })
     }
 
     override fun initAfterBinding() {
+        back_btn.setOnClickListener {
+            finish()
+        }
+
+        reply_edit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                var len = reply_edit.text.toString()
+                reply_check = len.length > 0 && len.length < 51
+            }
+        })
+
+        send_btn.setOnClickListener {
+            if(reply_check){
+                viewModel.postReply(commentId, reply_edit.text.toString())
+                showLoadingDialog(this)
+            }
+        }
     }
 }

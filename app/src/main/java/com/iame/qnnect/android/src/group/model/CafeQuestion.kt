@@ -8,9 +8,7 @@ data class CafeQuestion(
     @SerializedName("cafeQuestionId") var cafeQuestionId: Int,
     @SerializedName("questioner") var questioner: String,
     @SerializedName("question") var question: String,
-    @SerializedName("liked") var liked: Boolean,
-    @SerializedName("writer") var writer: Boolean,
-    @SerializedName("scraped") var scraped: Boolean
+    @SerializedName("writer") var writer: Boolean
 )
 
 // {
@@ -19,7 +17,5 @@ data class CafeQuestion(
 //            "cafeQuestionId": 1,
 //            "questioner": "넥트",
 //            "question": "첫번째 질문입니다.",
-//            "liked": false,
-//            "writer": false,
-//            "scraped": false
-//        }
+//            "writer": false
+//        },

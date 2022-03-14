@@ -16,31 +16,3 @@ data class GetReplyResponse(
     @SerializedName("replies") var replies: List<Replies>,
     @SerializedName("writer") var writer: Writer
     )
-
-// {
-//  "commentId": 0,
-//  "content": "string",
-//  "createdAt": "2022-03-14",
-//  "imageUrl1": "string",
-//  "imageUrl2": "string",
-//  "imageUrl3": "string",
-//  "imageUrl4": "string",
-//  "imageUrl5": "string",
-//  "replies": [
-//    {
-//      "content": "string",
-//      "createdAt": "2022-03-14",
-//      "replyId": 0,
-//      "writer": {
-//        "nickName": "string",
-//        "point": 0,
-//        "profileImage": "string"
-//      }
-//    }
-//  ],
-//  "writer": {
-//    "nickName": "string",
-//    "point": 0,
-//    "profileImage": "string"
-//  }
-//}

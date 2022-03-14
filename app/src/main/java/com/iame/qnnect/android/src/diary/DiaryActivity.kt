@@ -78,9 +78,9 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
     override fun initDataBinding() {
         viewModel.questionResponse.observe(this, Observer {
             var main = it.questionMainResponse
-            liked = main.liked
+            liked = it.liked
             writer = main.writer
-            scraped = main.scraped
+            scraped = it.scraped
 
             create_date.text = main.createdAt
             dday_txt.text = "D-"+main.daysLeft

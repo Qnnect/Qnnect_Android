@@ -37,6 +37,7 @@ class GroupViewHolderPage internal constructor(itemView: View, var context: Cont
         question_txt.text = data.question
         itemView.setOnClickListener {
             var intent = Intent(context, DiaryActivity::class.java)
+            intent.putExtra("writer", data.writer)
             intent.putExtra("cafeQuestionId", data.cafeQuestionId)
             context.startActivity(intent)
         }

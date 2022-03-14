@@ -129,7 +129,11 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
                 val content = answer_edit.text.toString()
                 val contentPart: MultipartBody.Part = MultipartBody.Part.createFormData("content", content)
 
-                if(uriList.size == 1){
+                if(uriList.size == 0){
+                    viewModel.postAnswer(null, null, null, null, null,
+                        contentPart, cafeId, cafeQuestionId)
+                }
+                else if(uriList.size == 1){
                     var request = getPath(pathList.get(0), "image1")
                     viewModel.postAnswer(null, null, null, null, request,
                         contentPart, cafeId, cafeQuestionId)

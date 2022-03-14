@@ -11,16 +11,3 @@ data class Replies(
     @SerializedName("replyId") var replyId: Int,
     @SerializedName("writer") var writer: Writer
     )
-
-// "replies": [
-////    {
-////      "content": "string",
-////      "createdAt": "2022-03-14",
-////      "replyId": 0,
-////      "writer": {
-////        "nickName": "string",
-////        "point": 0,
-////        "profileImage": "string"
-////      }
-////    }
-////  ],

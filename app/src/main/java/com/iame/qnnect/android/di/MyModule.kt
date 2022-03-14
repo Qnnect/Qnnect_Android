@@ -62,8 +62,11 @@ import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
 import com.iame.qnnect.android.src.reply.ImageAdapter
 import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.src.reply.model.GetReplyDataModel
+import com.iame.qnnect.android.src.reply.model.PostReplyDataModel
 import com.iame.qnnect.android.src.reply.service.GetReplyAPI
 import com.iame.qnnect.android.src.reply.service.GetReplyDataImpl
+import com.iame.qnnect.android.src.reply.service.PostReplyAPI
+import com.iame.qnnect.android.src.reply.service.PostReplyDataImpl
 import com.iame.qnnect.android.src.search.model.SearchDataModel
 import com.iame.qnnect.android.src.search.service.SearchAPI
 import com.iame.qnnect.android.src.search.service.SearchDataImpl
@@ -319,6 +322,16 @@ var retrofitPart = module {
             .build()
             .create(GetReplyAPI::class.java)
     }
+    single<PostReplyAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostReplyAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -415,6 +428,9 @@ var modelPart = module {
     factory<GetReplyDataModel> {
         GetReplyDataImpl(get())
     }
+    factory<PostReplyDataModel> {
+        PostReplyDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -433,7 +449,7 @@ var viewModelPart = module {
     viewModel { DiaryViewModel(get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get()) }
     viewModel { QuestionListViewModel(get())}
-    viewModel { ReplyViewModel(get()) }
+    viewModel { ReplyViewModel(get(), get()) }
 
     viewModel { StoreViewModel() }
     viewModel { DrinkViewModel() }
