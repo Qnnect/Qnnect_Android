@@ -34,3 +34,4 @@
 4. 2022.03.10(THU) -> Search Activity & Api, Firebase connect, Kakao link Complete
 5. 2022.03.11(FRI) -> Answer Api Complete, Post Answer Api Complete, Kakao link Test Complete, Search bookmark api complete, Bookmark & Answer adapter logic change
 6. 2022.03.12(SAT) -> Add drink api complete, drink recycler complete, Group Frag onResume logic change
+7. 2022.03.13(SUN) -> token expire logic ing
