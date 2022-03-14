@@ -1,6 +1,13 @@
 package com.iame.qnnect.android.di
 
+import android.content.Context
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import androidx.lifecycle.Observer
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
+import com.iame.qnnect.android.MyApplication
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
 import com.iame.qnnect.android.base.NullOnEmptyConverterFactory
 import com.iame.qnnect.android.base.XAccessTokenInterceptor
@@ -23,9 +30,11 @@ import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
 import com.iame.qnnect.android.src.group.service.GroupAPI
 import com.iame.qnnect.android.src.group.service.GroupDataImpl
+import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.bookmark.GroupnameAdapter
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
 import com.iame.qnnect.android.src.main.bookmark.model.BookmarkAllDataModel
@@ -50,27 +59,69 @@ import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
 import com.iame.qnnect.android.src.search.model.SearchDataModel
 import com.iame.qnnect.android.src.search.service.SearchAPI
 import com.iame.qnnect.android.src.search.service.SearchDataImpl
+import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
+import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
 import com.iame.qnnect.android.viewmodel.*
+import io.reactivex.Single
+import kotlinx.coroutines.runBlocking
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
  * MyModule.kt
  */
 
+/*
+   * bearer 토큰 필요한 api 사용시 accessToken유효한지 검사
+   * 유효하지 않다면 재발급 api 호출
+   * refreshToken이 유효하다면 정상적으로 accessToken재발급 후 기존 api 동작 완료
+   * */
+class BearerInterceptor: Interceptor {
+    //todo 조건 분기로 인터셉터 구조 변경
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): Response {
+        var accessToken = MyApplication.sSharedPreferences.getString("X-ACCESS-TOKEN", null)
+        var refreshToken = MyApplication.sSharedPreferences.getString("refresh-token", null)
+        val response = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RefreshAPI::class.java)
+
+        var request = PostRefreshRequest(accessToken!!, refreshToken!!)
+        var result = response.postRefresh(request)
+
+        var editor = MyApplication.editor
+        editor.putString("X-ACCESS-TOKEN", result.blockingGet().accessToken)
+        editor.putString("refresh-token", result.blockingGet().refreshToken)
+        editor.commit()
+
+        accessToken = result.blockingGet().accessToken
+
+        val newRequest = chain.request().newBuilder().addHeader("Authorization", "Bearer ${accessToken}")
+            .build()
+        return chain.proceed(newRequest)
+    }
+}
+
 val client: OkHttpClient = OkHttpClient.Builder()
     .readTimeout(5000, TimeUnit.MILLISECONDS)
     .connectTimeout(5000, TimeUnit.MILLISECONDS)
     // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
+    .addInterceptor(BearerInterceptor())
     .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
     .addNetworkInterceptor(XAccessTokenInterceptor()) // JWT 자동 헤더 전송
     .build()

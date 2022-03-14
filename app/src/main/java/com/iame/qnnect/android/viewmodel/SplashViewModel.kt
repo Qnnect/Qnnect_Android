@@ -37,27 +37,3 @@ class SplashViewModel(private val model: RefreshDataModel) : BaseViewModel() {
         )
     }
 }
-
-//class LoginViewModel(private val model: LoginDataModel) : BaseViewModel() {
-//
-//    private val TAG = "LoginViewModel"
-//
-//    private val postLoginResponse = MutableLiveData<PostLoginResponse>()
-//    val loginResponse: LiveData<PostLoginResponse>
-//        get() = postLoginResponse
-//
-//
-//    fun postLogin(postLoginRequest: PostLoginRequest) {
-//        addDisposable(model.getData(postLoginRequest)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                it.run {
-//                    postLoginResponse.postValue(this)
-//                }
-//            }, {
-//                Log.d(TAG, "response error, message : ${it.message}")
-//            })
-//        )
-//    }
-//}

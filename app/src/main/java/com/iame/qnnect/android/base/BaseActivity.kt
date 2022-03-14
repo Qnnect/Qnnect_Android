@@ -2,11 +2,17 @@ package com.iame.qnnect.android.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
+import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
+import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
+import com.iame.qnnect.android.src.splash.model.RefreshDataModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
