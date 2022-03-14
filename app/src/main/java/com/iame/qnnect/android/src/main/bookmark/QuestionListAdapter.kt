@@ -26,7 +26,7 @@ class QuestionListAdapter() :
 
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
-        var question_num: TextView = itemView.findViewById(R.id.question_num)
+        var question_group: TextView = itemView.findViewById(R.id.question_group)
         var question_contents: TextView = itemView.findViewById(R.id.question_contents)
         var date: TextView = itemView.findViewById(R.id.question_date)
     }
@@ -37,7 +37,7 @@ class QuestionListAdapter() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.question_num.setText("# "+position.toString())
+        holder.question_group.setText(itemList.get(position).cafeTitle)
         holder.question_contents.setText(itemList.get(position).question)
         holder.date.setText(itemList.get(position).createdAt)
     }

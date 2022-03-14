@@ -60,7 +60,7 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
         else{
             Glide.with(context)
                 .load(images.imageUrl1)
-                .transform(CenterCrop(), RoundedCorners(200))
+                .transform(CenterCrop(), RoundedCorners(50))
                 .into(answer_img)
         }
 

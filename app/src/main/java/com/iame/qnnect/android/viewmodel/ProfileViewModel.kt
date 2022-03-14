@@ -18,6 +18,7 @@ import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
+import com.iame.qnnect.android.src.profile.model.ProfileDefaultDataModel
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -30,7 +31,8 @@ import java.io.*
 import java.util.*
 
 
-class ProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
+class ProfileViewModel(private val model: ProfileDataModel,
+                       private val model2: ProfileDefaultDataModel) : BaseViewModel() {
 
     private val TAG = "ProfileViewModel"
 
@@ -55,6 +57,25 @@ class ProfileViewModel(private val model: ProfileDataModel) : BaseViewModel() {
             len_check.text = str.length.toString()+"/8"
             return false
         }
+    }
+
+    // profile default update
+    private val patchProfileDefaultResponse = MutableLiveData<String?>()
+    val profileDefaultResponse: LiveData<String?>
+        get() = patchProfileDefaultResponse
+
+    fun patchDefaultProfile() {
+        addDisposable(model2.getData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    patchProfileDefaultResponse.postValue("200 OK")
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
     }
 
     // profile update

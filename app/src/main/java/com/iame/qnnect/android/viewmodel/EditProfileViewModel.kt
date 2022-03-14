@@ -21,6 +21,7 @@ import com.iame.qnnect.android.src.main.mypage.EditprofileActivity
 import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
+import com.iame.qnnect.android.src.profile.model.ProfileDefaultDataModel
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -32,7 +33,10 @@ import okhttp3.MultipartBody
 import java.io.*
 import java.util.*
 
-class EditProfileViewModel(private val model: ProfileDataModel, private val model2: UserDataModel) : BaseViewModel() {
+class EditProfileViewModel(private val model: ProfileDataModel,
+                           private val model2: UserDataModel,
+                           private val model3: ProfileDefaultDataModel
+) : BaseViewModel() {
     private val TAG = "EditProfileViewModel"
 
     var path = ""
@@ -54,6 +58,25 @@ class EditProfileViewModel(private val model: ProfileDataModel, private val mode
             ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
             return false
         }
+    }
+
+    // profile default update
+    private val patchProfileDefaultResponse = MutableLiveData<String?>()
+    val profileDefaultResponse: LiveData<String?>
+        get() = patchProfileDefaultResponse
+
+    fun patchDefaultProfile() {
+        addDisposable(model3.getData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    patchProfileDefaultResponse.postValue("200 OK")
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
     }
 
     // profile update

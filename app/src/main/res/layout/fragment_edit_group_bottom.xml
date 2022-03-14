@@ -176,7 +176,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:padding="8dp"
-        android:src="@mipmap/color_orange_foreground"
+        android:src="@mipmap/color_orange1_foreground"
         android:scaleType="centerCrop"
         android:background="@drawable/color_in_custom_select">
     </ImageView>
@@ -190,7 +190,7 @@
         android:layout_height="40dp"
         android:padding="8dp"
         android:layout_marginLeft="14dp"
-        android:src="@mipmap/color_pink_foreground"
+        android:src="@mipmap/color_pink1_foreground"
         android:scaleType="centerCrop"
         android:background="@drawable/color_in_custom">
     </ImageView>
@@ -204,7 +204,7 @@
         android:layout_height="40dp"
         android:padding="8dp"
         android:layout_marginLeft="14dp"
-        android:src="@mipmap/color_yellow_foreground"
+        android:src="@mipmap/color_yellow1_foreground"
         android:scaleType="centerCrop"
         android:background="@drawable/color_in_custom">
     </ImageView>
@@ -218,7 +218,7 @@
         android:layout_height="40dp"
         android:padding="8dp"
         android:layout_marginLeft="14dp"
-        android:src="@mipmap/color_sky_foreground"
+        android:src="@mipmap/color_sky1_foreground"
         android:scaleType="centerCrop"
         android:background="@drawable/color_in_custom">
     </ImageView>

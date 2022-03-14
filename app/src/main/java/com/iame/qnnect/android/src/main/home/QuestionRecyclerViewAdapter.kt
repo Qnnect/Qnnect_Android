@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.answer.AnswerActivity
+import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.main.home.home_model.HomeQuestion
 import com.iame.qnnect.android.src.main.home.model.question_item
 import com.squareup.picasso.Picasso
@@ -27,8 +28,8 @@ class QuestionRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
                 question_txt.text = item.content
 
                 itemView.setOnClickListener {
-                    var intent = Intent(context, AnswerActivity::class.java)
-                    intent.putExtra("questionId", item.cafeQuestionId)
+                    var intent = Intent(context, DiaryActivity::class.java)
+                    intent.putExtra("cafeQuestionId", item.cafeQuestionId)
                     context.startActivity(intent)
                 }
             }

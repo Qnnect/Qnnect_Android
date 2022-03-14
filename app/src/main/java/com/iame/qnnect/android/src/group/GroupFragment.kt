@@ -139,6 +139,17 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             }
         }
 
+        select_text.setOnClickListener {
+            if(drink_check){
+                var intent = Intent(context, DrinkActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                val addDrinkBottomSheet = AddDrinkBottomSheet(this)
+                addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
+            }
+        }
+
         back_btn.setOnClickListener {
             home_case.setHome(requireContext(), 0, -1)
 

@@ -44,6 +44,7 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
     private val GET_GALLERY_IMAGE = 200
     var path = ""
     var check = false
+    var default_img_check = false
 
     override fun initStartView() {
     }
@@ -69,12 +70,14 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
             val editImageSheet: EditImageBottomSheet = EditImageBottomSheet {
                 when (it) {
                     0 -> {
+                        default_img_check = true
                         Glide.with(this)
                             .load(R.mipmap.img_profile_dafault_foreground)
                             .transform(CenterCrop(), RoundedCorners(200))
                             .into(user_img)
                     }
                     1 -> {
+                        default_img_check = false
                         viewModel.requestMultiplePermissions(this)
                         val intent = Intent(Intent.ACTION_PICK)
                         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
@@ -103,6 +106,9 @@ class EditprofileActivity : BaseActivity<ActivityEditProfileBinding, EditProfile
                 val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nickName", nickname)
                 // 이미지
                 if(path == ""){
+                    if(default_img_check){
+                        viewModel.patchDefaultProfile()
+                    }
                     viewModel.patchProfile(null , nicknamePart)
                 }
                 else{

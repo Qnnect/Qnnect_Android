@@ -51,8 +51,11 @@ import com.iame.qnnect.android.src.main.home.service.UserAPI
 import com.iame.qnnect.android.src.main.home.service.UserDataImpl
 import com.iame.qnnect.android.src.main.store.RecipeAdapter
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
+import com.iame.qnnect.android.src.profile.model.ProfileDefaultDataModel
 import com.iame.qnnect.android.src.profile.service.ProfileAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
+import com.iame.qnnect.android.src.profile.service.ProfileDefaultAPI
+import com.iame.qnnect.android.src.profile.service.ProfileDefaultDataImpl
 import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
 import com.iame.qnnect.android.src.question.service.PostQuestionAPI
 import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
@@ -160,6 +163,16 @@ var retrofitPart = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AlarmCheckAPI::class.java)
+    }
+    single<ProfileDefaultAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ProfileDefaultAPI::class.java)
     }
     single<ProfileAPI> {
         Retrofit.Builder()
@@ -339,6 +352,9 @@ var modelPart = module {
     factory<ProfileDataModel> {
         ProfileDataImpl(get())
     }
+    factory<ProfileDefaultDataModel> {
+        ProfileDefaultDataImpl(get())
+    }
     factory<UserDataModel> {
         UserDataImpl(get())
     }
@@ -382,8 +398,8 @@ var viewModelPart = module {
     viewModel { LoginViewModel(get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { AllowViewModel(get()) }
-    viewModel { ProfileViewModel(get()) }
-    viewModel { EditProfileViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get(), get()) }
+    viewModel { EditProfileViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { MypageViewModel(get()) }
     viewModel { GroupViewModel(get()) }
