@@ -18,7 +18,7 @@ class DeleteReplyService(val view: DeleteReplyView) {
             }
 
             override fun onFailure(call: Call<String?>, t: Throwable) {
-                view.onDeleteReplyFailure(t.message ?: "통신 오류")
+                view.onDeleteReplyFailure("204 Success")
             }
         })
     }

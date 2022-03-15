@@ -56,9 +56,12 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context,
         date_txt.text = data.createdAt
 
         more_btn.setOnClickListener(View.OnClickListener { a_view ->
-            val replyId = data.replyId
-            a_itemClickListener.onItemClick(a_view, data.replyId)
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                a_itemClickListener.onItemClick(a_view, position)
+            }
         })
+
     }
 
     init {

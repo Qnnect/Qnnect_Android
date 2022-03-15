@@ -9,12 +9,15 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
 import com.iame.qnnect.android.base.NullOnEmptyConverterFactory
 import com.iame.qnnect.android.base.XAccessTokenInterceptor
+import com.iame.qnnect.android.di.BearerInterceptor
 import com.iame.qnnect.android.di.myDiModule
+import com.iame.qnnect.android.src.reply.service.PostReplyAPI
 import com.kakao.sdk.common.KakaoSdk
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.android.startKoin
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -74,6 +77,7 @@ class MyApplication : Application() {
             .readTimeout(5000, TimeUnit.MILLISECONDS)
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
             // 로그캣에 okhttp.OkHttpClient로 검색하면 http 통신 내용을 보여줍니다.
+            .addInterceptor(BearerInterceptor())
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addNetworkInterceptor(XAccessTokenInterceptor()) // JWT 자동 헤더 전송
             .build()
@@ -83,6 +87,7 @@ class MyApplication : Application() {
         sRetrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(NullOnEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

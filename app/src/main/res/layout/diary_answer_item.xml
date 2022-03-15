@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="27dp"
-    android:paddingRight="27dp">
+    android:paddingRight="27dp"
+    android:layout_marginTop="10dp">
 
     <ImageView
         android:id="@+id/user_img"
@@ -63,15 +64,13 @@
 
     <ImageView
         android:id="@+id/answer_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="20dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:padding="8dp"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/btn_view"
         app:layout_constraintRight_toRightOf="parent"
-        android:src="@mipmap/ic_answer_btn_foreground"
-        android:layout_marginBottom="5dp">
+        android:src="@mipmap/ic_answer_btn_foreground">
     </ImageView>
     
 </androidx.constraintlayout.widget.ConstraintLayout>

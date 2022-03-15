@@ -166,7 +166,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             override fun onItemClick(a_view: View?, a_position: Int) {
                 val item: Replies = replyAdapter.getItem(a_position)
 
-                val replyMoreBottomSheet: ReplyMoreBottomSheet = ReplyMoreBottomSheet(commentId, item.replyId)
+                val replyMoreBottomSheet: ReplyMoreBottomSheet = ReplyMoreBottomSheet(commentId, item.replyId, item.content)
                 replyMoreBottomSheet.show(supportFragmentManager, replyMoreBottomSheet.tag)
             }
         })

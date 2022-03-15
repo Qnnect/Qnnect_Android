@@ -103,6 +103,14 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             questioner = main.questioner
             question = main.question
 
+            // item add
+            if(it.currentUserComment != null){
+                answer_main.visibility = View.GONE
+                my_profile_name.visibility = View.GONE
+                my_profile_img.visibility = View.GONE
+                answerAdapter.addItem(it.currentUserComment)
+            }
+
             it.comments.forEach { item ->
                 answerAdapter.addItem(item)
             }
@@ -131,7 +139,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             finish()
         }
 
-        answer_btn.setOnClickListener {
+        answer_main.setOnClickListener {
             var intent = Intent(this, AnswerActivity::class.java)
             intent.putExtra("cafeQuestionId", cafeQuestionId)
             intent.putExtra("date", date)

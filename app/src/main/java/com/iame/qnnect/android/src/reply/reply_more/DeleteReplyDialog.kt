@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
@@ -38,13 +39,14 @@ class DeleteReplyDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
         var close_btn = view!!.findViewById<TextView>(R.id.close_btn)
         close_btn.setOnClickListener {
             dismiss()
-            itemClick(0)
         }
 
         var ok_btn = view!!.findViewById<TextView>(R.id.ok_btn)
         ok_btn.setOnClickListener {
-            dismiss()
             itemClick(1)
+            Log.d("response!!!", "11111")
+            dismiss()
+
         }
 
     }
