@@ -14,7 +14,7 @@ interface PostAnswerDataModel {
                 @Part image2: MultipartBody.Part?,
                 @Part image1: MultipartBody.Part?,
                 @Part content: MultipartBody.Part?,
-                cafeId: Int, cafeQuestionId: Int): Single<Int>
+                cafeQuestionId: Int): Single<Int>
 }
 
 //@SerializedName("image5") val image5: File,

@@ -52,6 +52,7 @@ import kotlinx.android.synthetic.main.activity_reply.image_recycler
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.src.reply.ReplyAdapter.OnItemClickEventListener
+import com.iame.qnnect.android.src.reply.model.PostReplyRequest
 import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 
@@ -151,12 +152,13 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = reply_edit.text.toString()
-                reply_check = len.length > 0 && len.length < 51
+                reply_check = len.length > 0 && len.length < 50
             }
         })
 
         send_btn.setOnClickListener {
             if(reply_check){
+                Log.d("edittext_reply", reply_edit.text.toString())
                 viewModel.postReply(commentId, reply_edit.text.toString())
                 showLoadingDialog(this)
             }
@@ -166,7 +168,16 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             override fun onItemClick(a_view: View?, a_position: Int) {
                 val item: Replies = replyAdapter.getItem(a_position)
 
-                val replyMoreBottomSheet: ReplyMoreBottomSheet = ReplyMoreBottomSheet(commentId, item.replyId, item.content)
+                val replyMoreBottomSheet: ReplyMoreBottomSheet = ReplyMoreBottomSheet(commentId, item.replyId, item.content) {
+                    when (it) {
+                        0-> {
+                            replyAdapter.clear()
+                            imageAdapter.clear()
+                            viewModel.getReply(commentId)
+                            showLoadingDialog(this@ReplyActivity)
+                        }
+                    }
+                }
                 replyMoreBottomSheet.show(supportFragmentManager, replyMoreBottomSheet.tag)
             }
         })

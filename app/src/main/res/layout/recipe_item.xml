@@ -6,7 +6,8 @@
     android:layout_height="180dp"
     android:layout_gravity="center"
     android:layout_margin="10dp"
-    android:background="@drawable/store_recipe_custom">
+    android:background="@drawable/store_recipe_custom"
+    android:id="@+id/recipe_main">
 
     <ImageView
         android:id="@+id/recipe_img"

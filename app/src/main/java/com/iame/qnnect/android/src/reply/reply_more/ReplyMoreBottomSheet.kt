@@ -12,11 +12,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.iame.qnnect.android.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.iame.qnnect.android.src.reply.ReplyActivity
 import com.iame.qnnect.android.src.reply.reply_more.service.DeleteReplyService
 import com.iame.qnnect.android.src.reply.reply_more.service.DeleteReplyView
 
 
-class ReplyMoreBottomSheet(commentId: Int, replyId: Int, content: String) :
+class ReplyMoreBottomSheet(commentId: Int, replyId: Int, content: String, val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(), DeleteReplyView{
     private lateinit var dlg : BottomSheetDialog
 
@@ -64,6 +65,7 @@ class ReplyMoreBottomSheet(commentId: Int, replyId: Int, content: String) :
             intent.putExtra("replyId", replyId)
             intent.putExtra("contents", content)
             startActivity(intent)
+            dismiss()
         }
 
         var delete_btn = view!!.findViewById<TextView>(R.id.delte_reply)
@@ -86,9 +88,12 @@ class ReplyMoreBottomSheet(commentId: Int, replyId: Int, content: String) :
     }
 
     override fun onDeleteReplySuccess(response: String?) {
+        dismiss()
+        itemClick(0)
     }
 
     override fun onDeleteReplyFailure(message: String) {
         dismiss()
+        itemClick(0)
     }
 }

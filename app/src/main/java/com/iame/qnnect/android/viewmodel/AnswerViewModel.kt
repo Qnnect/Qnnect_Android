@@ -59,9 +59,8 @@ class AnswerViewModel(private val model: PostAnswerDataModel,
                      image2: MultipartBody.Part?,
                      image1: MultipartBody.Part?,
                      content: MultipartBody.Part?,
-                     cafeId: Int,
-                     cafeQuestionId: Int,) {
-        addDisposable(model.getData(image5, image4, image3, image2, image1, content, cafeId, cafeQuestionId)
+                     cafeQuestionId: Int) {
+        addDisposable(model.getData(image5, image4, image3, image2, image1, content, cafeQuestionId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

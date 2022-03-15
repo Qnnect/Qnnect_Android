@@ -1,11 +1,15 @@
 package com.iame.qnnect.android.src.main.store
 
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.*
+import com.iame.qnnect.android.src.add_drink.DrinkAdapter
+import com.iame.qnnect.android.src.group.DeleteGroupDialog
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.util.*
@@ -71,6 +75,22 @@ class StoreFragment : BaseFragment<FragmentStoreBinding, StoreViewModel>(R.layou
             var items = toppingrecipe()
             recipeInit(items)
         }
+
+        recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
+            override fun onItemClick(v: View?, position: Int) {
+                var request = recipeAdapter.getItem(position)
+                recipeAdapter.notifyDataSetChanged()
+
+                val recipeDialog = RecipeDialog(request) {
+                    when (it) {
+                        1 -> {
+
+                        }
+                    }
+                }
+                recipeDialog.show(requireActivity().supportFragmentManager, recipeDialog.tag)
+            }
+        })
     }
 
     fun recipeInit(items: ArrayList<recipe>){

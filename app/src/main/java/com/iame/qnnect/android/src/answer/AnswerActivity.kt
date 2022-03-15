@@ -80,8 +80,6 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
         who_question.text = intent.getStringExtra("questioner")!!+"의 질문"
         question_txt.text = intent.getStringExtra("question")!!
 
-        cafeId = home.getGroupname(this)!!
-
         answer_edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
 
@@ -90,7 +88,7 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = answer_edit.text.toString()
-                if(len.length > 0 && len.length < 51){
+                if(len.length > 0 && len.length < 50){
                     save_btn.setTextColor(Color.parseColor("#FD774C"))
                     check = true
                 }
@@ -131,25 +129,25 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
 
                 if(uriList.size == 0){
                     viewModel.postAnswer(null, null, null, null, null,
-                        contentPart, cafeId, cafeQuestionId)
+                        contentPart, cafeQuestionId)
                 }
                 else if(uriList.size == 1){
                     var request = getPath(pathList.get(0), "image1")
                     viewModel.postAnswer(null, null, null, null, request,
-                        contentPart, cafeId, cafeQuestionId)
+                        contentPart, cafeQuestionId)
                 }
                 else if(uriList.size == 2){
                     var request1 = getPath(pathList.get(0), "image1")
                     var request2 = getPath(pathList.get(1), "image2")
                     viewModel.postAnswer(null, null, null, request2, request1,
-                        contentPart, cafeId, cafeQuestionId)
+                        contentPart, cafeQuestionId)
                 }
                 else if(uriList.size == 3){
                     var request1 = getPath(pathList.get(0), "image1")
                     var request2 = getPath(pathList.get(1), "image2")
                     var request3 = getPath(pathList.get(2), "image3")
                     viewModel.postAnswer(null, null, request3, request2, request1,
-                        contentPart, cafeId, cafeQuestionId)
+                        contentPart, cafeQuestionId)
                 }
                 else if(uriList.size == 4){
                     var request1 = getPath(pathList.get(0), "image1")
@@ -157,7 +155,7 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
                     var request3 = getPath(pathList.get(2), "image3")
                     var request4 = getPath(pathList.get(3), "image4")
                     viewModel.postAnswer(null, request4, request3, request2, request1,
-                        contentPart, cafeId, cafeQuestionId)
+                        contentPart, cafeQuestionId)
                 }
                 else{
                     var request1 = getPath(pathList.get(0), "image1")
@@ -166,7 +164,7 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
                     var request4 = getPath(pathList.get(3), "image4")
                     var request5 = getPath(pathList.get(3), "image5")
                     viewModel.postAnswer(request5, request4, request3, request2, request1,
-                        contentPart, cafeId, cafeQuestionId)
+                        contentPart, cafeQuestionId)
                 }
                 showLoadingDialog(this)
 

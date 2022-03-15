@@ -7,14 +7,13 @@ import retrofit2.http.*
 
 interface PostAnswerAPI {
     @Multipart
-    @POST("/api/v1/cafes/{cafeId}/questions/{cafeQuestionId}/comments")
+    @POST("/api/v1/questions/{cafeQuestionId}/comments")
     fun postAnswer(@Part image5: MultipartBody.Part?,
                      @Part image4: MultipartBody.Part?,
                      @Part image3: MultipartBody.Part?,
                      @Part image2: MultipartBody.Part?,
                      @Part image1: MultipartBody.Part?,
                      @Part content: MultipartBody.Part?,
-                     @Path("cafeId") cafeId: Int,
                      @Path("cafeQuestionId") cafeQuestionId: Int
     ) : Single<Int>
 }

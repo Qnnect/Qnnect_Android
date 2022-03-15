@@ -134,6 +134,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // fcm
     implementation 'com.google.firebase:firebase-messaging:21.1.0'
+
+
+    // utf-8
+    compile  'com.squareup.retrofit2:converter-scalars:2.1.0'
 }
 //가장 밑에 한줄을 추가하자!!
 apply plugin: 'com.google.gms.google-services'

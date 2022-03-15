@@ -51,8 +51,8 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context,
                 .transform(CenterCrop(), RoundedCorners(200))
                 .into(writer_img)
         }
-        writer_name.setText(profile.nickName)
-        answer_text.setText(data.content)
+        writer_name.text = profile.nickName
+        answer_text.text = data.content
         date_txt.text = data.createdAt
 
         more_btn.setOnClickListener(View.OnClickListener { a_view ->

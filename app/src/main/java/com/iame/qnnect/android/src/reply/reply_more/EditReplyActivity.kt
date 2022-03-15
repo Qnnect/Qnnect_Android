@@ -31,6 +31,7 @@ class EditReplyActivity : BaseActivity<ActivityEditReplyBinding, EditReplyViewMo
         contents = intent.getStringExtra("contents")!!
 
         contents_edit.setText(contents)
+        Log.d("edittext_reply", contents)
     }
 
     override fun initDataBinding() {
@@ -53,7 +54,7 @@ class EditReplyActivity : BaseActivity<ActivityEditReplyBinding, EditReplyViewMo
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = contents_edit.text.toString()
-                check = len.length > 0 && len.length < 51 && contents_edit.text.toString() != contents
+                check = len.length > 0 && len.length < 50 && contents_edit.text.toString() != contents
                 if(check){
                     save_btn.setTextColor(Color.parseColor("#FD774C"))
                 }

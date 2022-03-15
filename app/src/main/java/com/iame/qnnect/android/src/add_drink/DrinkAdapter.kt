@@ -48,10 +48,6 @@ class DrinkAdapter(private val itemList : ArrayList<drink>) :
         holder.drink_img.setImageResource(itemList.get(position).img)
         holder.drink_name.setText(itemList.get(position).name)
 
-        holder.itemView.setOnClickListener {
-
-        }
-
         // // item click listener
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
             val pos: Int = position
@@ -64,14 +60,11 @@ class DrinkAdapter(private val itemList : ArrayList<drink>) :
                 notifyDataSetChanged()
             }
         })
-        if(select_index==position){
+        if(select_index==position) {
             holder.drink_main.setBackgroundResource(R.drawable.store_recipe_select_custom)
-            holder.drink_name.setTextColor(Color.parseColor("#FFFFFF"))
         }
-        else
-        {
+        else {
             holder.drink_main.setBackgroundResource(R.drawable.store_recipe_custom)
-            holder.drink_name.setTextColor(Color.parseColor("#333333"))
         }
     }
 

@@ -14,6 +14,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
+import com.iame.qnnect.android.src.main.home.home_bottom.InviteGroupBottomSheet
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
 import kotlinx.android.synthetic.main.fragment_home.point_txt
@@ -101,6 +102,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 }
             }
             maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
+        }
+
+        invite_group_btn.setOnClickListener {
+            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet {
+                when (it) {
+                    // 그룹페이지로 이동
+                    0 -> {
+                        activity = fragment_s.activity as MainActivity?
+                        //change_for_adapter는 mainactivity에 구현
+                        activity?.fragmentChange_for_adapter()
+                    }
+                }
+            }
+            invitgroupBottomSheet.show(requireActivity().supportFragmentManager, invitgroupBottomSheet.tag)
         }
     }
 

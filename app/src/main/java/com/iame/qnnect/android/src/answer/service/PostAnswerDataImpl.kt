@@ -17,9 +17,8 @@ class PostAnswerDataImpl(private val service: PostAnswerAPI) : PostAnswerDataMod
         image2: MultipartBody.Part?,
         image1: MultipartBody.Part?,
         content: MultipartBody.Part?,
-        cafeId: Int,
-        cafeQuestionId: Int,
+        cafeQuestionId: Int
     ): Single<Int> {
-        return service.postAnswer(image5, image4, image3, image2, image1, content, cafeId, cafeQuestionId)
+        return service.postAnswer(image5, image4, image3, image2, image1, content, cafeQuestionId)
     }
 }
