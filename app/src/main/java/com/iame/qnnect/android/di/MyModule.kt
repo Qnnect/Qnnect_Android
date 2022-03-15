@@ -99,7 +99,8 @@ import java.util.concurrent.TimeUnit
    * bearer 토큰 필요한 api 사용시 accessToken유효한지 검사
    * 유효하지 않다면 재발급 api 호출
    * refreshToken이 유효하다면 정상적으로 accessToken재발급 후 기존 api 동작 완료
-   * */
+   *
+*/
 class BearerInterceptor: Interceptor {
     //todo 조건 분기로 인터셉터 구조 변경
     @Throws(IOException::class)
@@ -469,7 +470,7 @@ var viewModelPart = module {
     viewModel { DrinkViewModel() }
     viewModel { EditDrinkViewModel() }
     viewModel { OnboardViewModel() }
-
+    viewModel { EditQuestionViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="vm"
+            type="com.iame.qnnect.android.viewmodel.QuestionViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/p_ivory">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/diary_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                android:padding="14dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="17dp"
+                android:src="@mipmap/ic_back_btn_foreground">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/back_btn"
+                app:layout_constraintLeft_toRightOf="@id/back_btn"
+                app:layout_constraintBottom_toBottomOf="@id/back_btn"
+                android:layout_marginLeft="16dp"
+                android:text="내 질문 수정"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="18dp"
+                android:textColor="@color/gray_1">
+            </TextView>
+
+            <TextView
+                android:id="@+id/save_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="완료"
+                android:textSize="18dp"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textColor="@color/gray_4"
+                android:padding="12dp"
+                android:layout_marginRight="15dp">
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/diary_top"
+            android:background="@color/gray_4">
+        </View>
+
+
+        <ImageView
+            android:id="@+id/question"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            android:layout_marginLeft="27dp"
+            android:layout_marginRight="27dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/user_question_custom">
+        </ImageView>
+
+        <EditText
+            android:id="@+id/contents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/question"
+            app:layout_constraintBottom_toBottomOf="@id/question"
+            app:layout_constraintLeft_toLeftOf="@id/question"
+            app:layout_constraintRight_toRightOf="@id/question"
+            android:hint="답변을 입력하세요"
+            android:background="@null"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray_3"
+            android:paddingLeft="80dp"
+            android:paddingRight="80dp">
+        </EditText>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

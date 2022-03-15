@@ -20,10 +20,12 @@ import com.iame.qnnect.android.src.group.model.CafeQuestion
 import com.iame.qnnect.android.src.group.model.group_question_item
 import com.iame.qnnect.android.src.reply.ReplyActivity
 import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.DeleteReplyDialog
+import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
-class ReplyHolderPage internal constructor(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
+class ReplyHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: ReplyAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val writer_img :ImageView
     private val writer_name: TextView
     private val answer_text: TextView
@@ -52,6 +54,11 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context)
         writer_name.setText(profile.nickName)
         answer_text.setText(data.content)
         date_txt.text = data.createdAt
+
+        more_btn.setOnClickListener(View.OnClickListener { a_view ->
+            val replyId = data.replyId
+            a_itemClickListener.onItemClick(a_view, data.replyId)
+        })
     }
 
     init {

@@ -25,10 +25,12 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityDiaryBinding
 import com.iame.qnnect.android.databinding.ActivityLoginBinding
 import com.iame.qnnect.android.databinding.ActivityReplyBinding
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
 import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.answer_item
+import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
@@ -49,6 +51,10 @@ import kotlinx.android.synthetic.main.activity_reply.*
 import kotlinx.android.synthetic.main.activity_reply.image_recycler
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.iame.qnnect.android.src.reply.ReplyAdapter.OnItemClickEventListener
+import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
+
 
 class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
@@ -155,5 +161,14 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 showLoadingDialog(this)
             }
         }
+
+        replyAdapter.setOnItemClickListener(object : OnItemClickEventListener {
+            override fun onItemClick(a_view: View?, a_position: Int) {
+                val item: Replies = replyAdapter.getItem(a_position)
+
+                val replyMoreBottomSheet: ReplyMoreBottomSheet = ReplyMoreBottomSheet(commentId, item.replyId)
+                replyMoreBottomSheet.show(supportFragmentManager, replyMoreBottomSheet.tag)
+            }
+        })
     }
 }
