@@ -82,6 +82,17 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             writer = main.writer
             scraped = it.scraped
 
+            if(writer){
+                edit_btn.visibility = View.VISIBLE
+                delete_btn.visibility = View.VISIBLE
+            }
+            if(scraped){
+                bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
+            }
+            if(liked){
+                like_btn.setImageResource(R.mipmap.ic_like_select_btn_foreground)
+            }
+
             create_date.text = main.createdAt
             dday_txt.text = "D-"+main.daysLeft
             who_question.text = main.questioner+"의 질문"
@@ -111,17 +122,6 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             // User Name
             my_profile_name.text = it.nickName
         })
-
-        if(writer){
-            edit_btn.visibility = View.VISIBLE
-            delete_btn.visibility = View.VISIBLE
-        }
-        if(scraped){
-            bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
-        }
-        if(liked){
-            like_btn.setImageResource(R.mipmap.ic_like_select_btn_foreground)
-        }
     }
 
     override fun initAfterBinding() {

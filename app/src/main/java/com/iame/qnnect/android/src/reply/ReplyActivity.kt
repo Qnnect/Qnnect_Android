@@ -1,13 +1,19 @@
 package com.iame.qnnect.android.src.reply
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.view.doOnLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -90,13 +96,17 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
         viewModel.replyResponse.observe(this, Observer {
 
             Glide.with(this)
-                .load(it.writer.profileImage)
+                .load(it.writerInfo.profileImage)
                 .transform(CenterCrop(), RoundedCorners(200))
                 .into(my_profile_img)
-            my_profile_name.text = it.writer.nickName
+            my_profile_name.text = it.writerInfo.nickName
             answer_txt.text = it.content
 
             date_txt.text = it.createdAt
+
+            if(it.writer){
+                more_btn.visibility = View.VISIBLE
+            }
 
             it.replies.forEach { item ->
                 Log.d("reply_response_count", item.toString())

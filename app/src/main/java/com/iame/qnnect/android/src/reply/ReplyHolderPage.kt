@@ -34,7 +34,11 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context)
     fun onBind(data: Replies) {
         this.data = data
 
-        var profile = data.writer
+        if(data.writer){
+            more_btn.visibility = View.VISIBLE
+        }
+
+        var profile = data.writerInfo
 
         if(profile.profileImage == null){
             writer_img.setImageResource(R.mipmap.img_profile_dafault_foreground)

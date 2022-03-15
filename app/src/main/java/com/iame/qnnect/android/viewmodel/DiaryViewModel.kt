@@ -72,7 +72,8 @@ class DiaryViewModel(private var model: PostScrapDataModel,
                     postScrapResponse.postValue(response)
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                var response = "204 Delete OK"
+                postScrapResponse.postValue(response)
             })
         )
     }

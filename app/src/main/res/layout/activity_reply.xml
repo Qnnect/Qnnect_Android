@@ -41,6 +41,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginRight="17dp"
+                android:visibility="gone"
                 android:src="@drawable/reply_more_btn">
             </ImageView>
 
@@ -57,13 +58,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/line1">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            android:paddingTop="57dp">
 
             <androidx.core.widget.NestedScrollView
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:fillViewport="true"
                 android:id="@+id/group_scroll">
 
@@ -148,7 +150,7 @@
                         android:nestedScrollingEnabled="false"
                         android:overScrollMode="never"
                         android:layout_marginTop="10dp"
-                        android:paddingBottom="150dp">
+                        android:paddingBottom="100dp">
                     </androidx.recyclerview.widget.RecyclerView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
