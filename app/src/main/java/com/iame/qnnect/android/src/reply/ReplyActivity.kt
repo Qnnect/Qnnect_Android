@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,49 +13,29 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.ScrollView
 import android.widget.Toast
+import androidx.annotation.UiThread
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
-import com.iame.qnnect.android.databinding.ActivityDiaryBinding
-import com.iame.qnnect.android.databinding.ActivityLoginBinding
 import com.iame.qnnect.android.databinding.ActivityReplyBinding
-import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
-import com.iame.qnnect.android.src.allow.AllowActivity
-import com.iame.qnnect.android.src.answer.AnswerActivity
-import com.iame.qnnect.android.src.diary.AnswerAdapter
-import com.iame.qnnect.android.src.diary.model.answer_item
-import com.iame.qnnect.android.src.group.NotQuestionDialog
-import com.iame.qnnect.android.src.login.model.PostLoginRequest
-import com.iame.qnnect.android.src.main.MainActivity
-import com.iame.qnnect.android.src.main.home.GroupAdapter
-import com.iame.qnnect.android.src.main.home.model.group_item
-import com.iame.qnnect.android.viewmodel.DiaryViewModel
-import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.iame.qnnect.android.viewmodel.ReplyViewModel
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.model.AuthErrorCause
-import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.synthetic.main.activity_answer.*
-import kotlinx.android.synthetic.main.activity_diary.*
-import kotlinx.android.synthetic.main.activity_diary.back_btn
-import kotlinx.android.synthetic.main.activity_diary.my_profile_img
-import kotlinx.android.synthetic.main.activity_diary.my_profile_name
-import kotlinx.android.synthetic.main.activity_edit_profile.*
 import kotlinx.android.synthetic.main.activity_reply.*
 import kotlinx.android.synthetic.main.activity_reply.image_recycler
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.src.reply.ReplyAdapter.OnItemClickEventListener
-import com.iame.qnnect.android.src.reply.model.PostReplyRequest
 import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
+import kotlinx.coroutines.*
 
 
 class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
@@ -63,6 +44,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
         get() = R.layout.activity_reply // get() : 커스텀 접근자, 코틀린 문법
 
     var commentId = 0
+    var check = false
 
     override val viewModel: ReplyViewModel by viewModel()
 
@@ -101,7 +83,6 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
     override fun initDataBinding() {
         viewModel.replyResponse.observe(this, Observer {
-
             Glide.with(this)
                 .load(it.writerInfo.profileImage)
                 .transform(CenterCrop(), RoundedCorners(200))
@@ -129,13 +110,33 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             replyAdapter.notifyDataSetChanged()
             imageAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
+
+
+            if(check){
+                // coroutine 써보려고
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(100)
+                    val smoothScroller: RecyclerView.SmoothScroller by lazy {
+                        object : LinearSmoothScroller(this@ReplyActivity) {
+                            override fun getVerticalSnapPreference() = SNAP_TO_START
+                        }
+                    }
+                    smoothScroller.targetPosition = replyAdapter.itemCount-1
+                    reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
+                    group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
+                }
+                check = false
+            }
         })
 
         viewModel.po_replyResponse.observe(this, Observer {
             reply_edit.text = null
             reply_check = false
             dismissLoadingDialog()
-            onResume()
+            replyAdapter.clear()
+            imageAdapter.clear()
+            viewModel.getReply(commentId)
+            showLoadingDialog(this)
         })
     }
 
@@ -160,6 +161,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             if(reply_check){
                 Log.d("edittext_reply", reply_edit.text.toString())
                 viewModel.postReply(commentId, reply_edit.text.toString())
+                check = true
                 showLoadingDialog(this)
             }
         }
