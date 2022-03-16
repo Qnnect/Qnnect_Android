@@ -39,4 +39,4 @@
 - 5th Week
 1. 2022.03.14(MON) -> Token expire logic complete, group color change, Post & Get reply api complete, like api complete, Bookmark Api complete
 2. 2022.03.15(TUE) -> String to UTF-8, Store Dialog, Question Layout update, Edit & Delete Reply Api complete
-3. 2022.03.16(WEN) -> Reply activity move to latest reply update(use coroutine)
+3. 2022.03.16(WEN) -> Reply activity move to latest reply update(use coroutine), Recipe & My material & Store & Edit Drink Activity complete
