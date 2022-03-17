@@ -12,7 +12,7 @@ data class recipe(
 fun recipe(num: Int): recipe {
     var recipelist: recipe? = null
     recipelist = when (num) {
-        1 -> recipe(1, "얼음", R.mipmap.img_ice_foreground, 10)
+        1 -> recipe(1, "얼음", R.mipmap.img_ice_edit_foreground, 10)
         2 -> recipe(2, "우유", R.mipmap.img_milk_foreground, 30)
         3 -> recipe(3, "사이다", R.mipmap.img_ciedar_foreground, 20)
         4 -> recipe(4, "딸기퓨래", R.mipmap.img_straw_foreground, 50)

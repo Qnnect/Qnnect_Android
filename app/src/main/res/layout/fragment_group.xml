@@ -114,14 +114,11 @@
             android:layout_marginLeft="27dp">
         </TextView>
 
-
-
         <ImageView
             android:id="@+id/drink_img"
             android:layout_width="72dp"
             android:layout_height="100dp"
-            app:layout_constraintTop_toBottomOf="@id/line1"
-            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toTopOf="@id/group_date_txt"
             android:src="@mipmap/img_drink_default_foreground"
             android:scaleType="centerCrop"
             app:layout_constraintRight_toRightOf="parent"

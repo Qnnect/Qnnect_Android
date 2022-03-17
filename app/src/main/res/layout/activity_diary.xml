@@ -259,9 +259,6 @@
                     </TextView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/answer"
                     android:layout_width="match_parent"

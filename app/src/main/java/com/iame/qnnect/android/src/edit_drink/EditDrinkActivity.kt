@@ -24,6 +24,9 @@ import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
+import com.iame.qnnect.android.src.recipe.RecipeActivity
+import com.iame.qnnect.android.src.store.MyMaterialActivity
+import com.iame.qnnect.android.src.store.StoreActivity
 import com.iame.qnnect.android.viewmodel.DiaryViewModel
 import com.iame.qnnect.android.viewmodel.DrinkViewModel
 import com.iame.qnnect.android.viewmodel.EditDrinkViewModel
@@ -34,6 +37,8 @@ import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_diary.*
 import kotlinx.android.synthetic.main.activity_diary.back_btn
 import kotlinx.android.synthetic.main.activity_drink.*
+import kotlinx.android.synthetic.main.activity_drink.store_btn
+import kotlinx.android.synthetic.main.activity_edit_drink.*
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -55,6 +60,21 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
     override fun initAfterBinding() {
         back_btn.setOnClickListener {
             finish()
+        }
+
+        store_btn.setOnClickListener {
+            var intent = Intent(this, StoreActivity::class.java)
+            startActivity(intent)
+        }
+
+        material_btn.setOnClickListener {
+            var intent = Intent(this, MyMaterialActivity::class.java)
+            startActivity(intent)
+        }
+
+        recipe_btn.setOnClickListener {
+            var intent = Intent(this, RecipeActivity::class.java)
+            startActivity(intent)
         }
     }
 }

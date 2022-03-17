@@ -10,13 +10,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.ScrollView
-import android.widget.Toast
-import androidx.annotation.UiThread
-import androidx.core.view.doOnLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
@@ -107,13 +101,27 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             imageAdapter.addItem(it.imageUrl4.toString())
             imageAdapter.addItem(it.imageUrl5.toString())
 
-            replyAdapter.notifyDataSetChanged()
+            if(imageAdapter.itemCount == 1){
+                Glide.with(this)
+                    .load(imageAdapter.getItem(0))
+                    .transform(CenterCrop(), RoundedCorners(50))
+                    .into(img_one)
+                image_recycler.visibility = View.GONE
+            }
+            else if(imageAdapter.itemCount == 0){
+                image_recycler.visibility = View.GONE
+            }
+            else{
+                img_one.visibility = View.GONE
+            }
+
             imageAdapter.notifyDataSetChanged()
+            replyAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
 
 
             if(check){
-                // coroutine 써보려고
+                // coroutine 써보려고 -> coroutine 안쓰면 제대로 안넘어감
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(100)
                     val smoothScroller: RecyclerView.SmoothScroller by lazy {

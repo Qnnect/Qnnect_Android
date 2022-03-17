@@ -35,7 +35,7 @@
             </TextView>
 
             <ImageView
-                android:id="@+id/store_btn"
+                android:id="@+id/material_btn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:scaleType="centerCrop"

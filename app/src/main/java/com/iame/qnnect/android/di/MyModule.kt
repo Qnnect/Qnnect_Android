@@ -489,6 +489,9 @@ var viewModelPart = module {
     viewModel { EditReplyViewModel(get()) }
 
     viewModel { StoreViewModel() }
+    viewModel { StoreActivityViewModel() }
+    viewModel { MyMaterialViewModel() }
+    viewModel { RecipeViewModel() }
     viewModel { DrinkViewModel() }
     viewModel { EditDrinkViewModel() }
     viewModel { OnboardViewModel() }

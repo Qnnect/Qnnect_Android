@@ -86,7 +86,6 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
                         }
                     }
                 })
-
             }
         }
 

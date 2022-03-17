@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main.store
 
+import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
+import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.util.*
 import com.iame.qnnect.android.viewmodel.StoreViewModel
 import kotlinx.android.synthetic.main.fragment_group.*
@@ -48,6 +50,11 @@ class StoreFragment : BaseFragment<FragmentStoreBinding, StoreViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
+        material_btn.setOnClickListener {
+            var intent = Intent(context, MyMaterialActivity::class.java)
+            startActivity(intent)
+        }
+
         all_btn.setOnClickListener {
             viewModel.recipe_click(all_btn, base_btn, main_btn, topping_btn)
 

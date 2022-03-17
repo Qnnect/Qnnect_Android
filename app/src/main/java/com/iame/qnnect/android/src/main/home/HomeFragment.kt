@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main.home
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -74,6 +75,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             user_diary_name.text = it.user.nickName+"님의 다이어리"
             // User Point
             point_txt.text = it.user.point.toString()+"P"
+
+            if(it.questionList.size == 1){
+                dots_indicator.visibility = View.INVISIBLE
+            }
 
             it.questionList.forEach { item ->
                 questionRecyclerViewAdapter.addItem(item)

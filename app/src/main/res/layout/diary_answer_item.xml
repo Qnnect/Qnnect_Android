@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="160dp"
     android:paddingLeft="27dp"
     android:paddingRight="27dp"
     android:layout_marginTop="10dp">
@@ -49,6 +49,7 @@
             android:textSize="15dp"
             android:textColor="@color/black"
             android:textStyle="bold"
+            android:maxLines="4"
             android:text="95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내95자이내">
         </TextView>
 
@@ -66,7 +67,7 @@
         android:id="@+id/answer_btn"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:padding="8dp"
+        android:padding="9dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/btn_view"
         app:layout_constraintRight_toRightOf="parent"

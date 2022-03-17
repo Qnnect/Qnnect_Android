@@ -59,11 +59,14 @@ class ImageAdapter() :
         return itemList.size
     }
 
+    fun getItem(position: Int): String {
+        return itemList.get(position)
+    }
+
     fun addItem(item: String) {
         if(item != "null"){
             itemList.add(item)
         }
-
     }
 
     fun clear() {

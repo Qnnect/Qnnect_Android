@@ -55,7 +55,7 @@ class NotAnswerDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
         display.getSize(size)
         val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
         val deviceWidth = size.x
-        params?.width = (deviceWidth * 0.9).toInt()
+        params?.width = (deviceWidth * 0.8).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 }

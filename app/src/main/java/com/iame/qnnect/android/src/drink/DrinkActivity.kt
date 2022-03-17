@@ -23,6 +23,7 @@ import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
+import com.iame.qnnect.android.src.store.StoreActivity
 import com.iame.qnnect.android.viewmodel.DiaryViewModel
 import com.iame.qnnect.android.viewmodel.DrinkViewModel
 import com.iame.qnnect.android.viewmodel.LoginViewModel
@@ -78,6 +79,11 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
 
         ok_btn.setOnClickListener {
             var intent = Intent(this, EditDrinkActivity::class.java)
+            startActivity(intent)
+        }
+
+        store_btn.setOnClickListener {
+            var intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
         }
     }

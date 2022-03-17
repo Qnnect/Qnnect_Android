@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="26dp"
-        android:paddingBottom="22dp">
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp">
 
         <TextView
             android:id="@+id/text1"
@@ -50,7 +50,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:fontFamily="@font/im_hyemin_bold"
                 android:textColor="@color/white"
-                android:layout_marginRight="14dp">
+                android:layout_marginRight="7dp">
             </TextView>
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="확인"
                 android:textSize="18dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="7dp"
                 android:gravity="center"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"

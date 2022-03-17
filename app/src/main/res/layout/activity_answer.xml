@@ -33,6 +33,19 @@
             </ImageView>
 
             <TextView
+                android:id="@+id/bookmark_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/back_btn"
+                android:text="답변 쓰기"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="18dp"
+                android:textColor="@color/black">
+            </TextView>
+
+            <TextView
                 android:id="@+id/save_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,7 +195,8 @@
                 android:paddingRight="27dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:hint="답변을 입력하세요"
+                android:hint="댓글을 입력하세요"
+                android:fontFamily="@font/im_hyemin_bold"
                 android:background="@null"
                 android:textColor="@color/gray_1"
                 android:textSize="16dp">
