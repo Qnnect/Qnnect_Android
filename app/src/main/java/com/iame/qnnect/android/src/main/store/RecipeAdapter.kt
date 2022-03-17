@@ -65,7 +65,7 @@ class RecipeAdapter() :
             }
         })
         if(select_index==position) {
-            holder.recipe_main.setBackgroundResource(R.drawable.store_recipe_select_custom)
+            holder.recipe_main.setBackgroundResource(R.drawable.recipe_material_select_custom)
         }
         else {
             holder.recipe_main.setBackgroundResource(R.drawable.store_recipe_custom)
@@ -82,6 +82,7 @@ class RecipeAdapter() :
 
     fun clear() {
         itemList.clear()
+        this.notifyDataSetChanged()
     }
 
     fun getItem(position: Int): recipe {

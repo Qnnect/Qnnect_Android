@@ -86,9 +86,10 @@ import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
+import com.iame.qnnect.android.src.store.model.GetMyMaterialAllDataModel
+import com.iame.qnnect.android.src.store.model.GetMyMaterialDataModel
 import com.iame.qnnect.android.src.store.model.PostBuyMaterialDataModel
-import com.iame.qnnect.android.src.store.service.PostBuyMaterialAPI
-import com.iame.qnnect.android.src.store.service.PostBuyMaterialImpl
+import com.iame.qnnect.android.src.store.service.*
 import com.iame.qnnect.android.viewmodel.*
 import io.reactivex.Single
 import kotlinx.coroutines.runBlocking
@@ -402,6 +403,26 @@ var retrofitPart = module {
             .build()
             .create(PostBuyMaterialAPI::class.java)
     }
+    single<GetMyMaterialAllAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetMyMaterialAllAPI::class.java)
+    }
+    single<GetMyMaterialAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetMyMaterialAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -438,9 +459,9 @@ var adapterPart = module {
     factory {
         ImageAdapter()
     }
-    factory {
-    MyRecipeAdapter()
-}
+    factory { 
+        MyRecipeAdapter() 
+    }
 }
 
 var modelPart = module {
@@ -519,6 +540,12 @@ var modelPart = module {
     factory<PostBuyMaterialDataModel> {
         PostBuyMaterialImpl(get())
     }
+    factory<GetMyMaterialAllDataModel> {
+        GetMyMaterialAllImpl(get())
+    }
+    factory<GetMyMaterialDataModel> {
+        GetMyMaterialImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -542,8 +569,8 @@ var viewModelPart = module {
     viewModel { EditDrinkViewModel(get(), get()) }
     viewModel { StoreViewModel(get() ) }
     viewModel { StoreActivityViewModel(get() ) }
+    viewModel { MyMaterialViewModel(get(), get()) }
 
-    viewModel { MyMaterialViewModel() }
     viewModel { RecipeViewModel() }
     viewModel { DrinkViewModel() }
     viewModel { OnboardViewModel() }

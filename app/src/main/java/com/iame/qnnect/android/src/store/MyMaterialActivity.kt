@@ -1,6 +1,8 @@
 package com.iame.qnnect.android.src.store
 
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -36,41 +38,53 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
     }
 
     override fun initDataBinding() {
-        recipe_list = allrecipe()
-        recipeInit(recipe_list)
+        // 전체 나의 재료
+        viewModel.mymaterialAllResponse.observe(this, Observer {
+            recipeAdapter.clear()
+
+            it.forEach { item ->
+                recipeAdapter.addItem(recipe(item.ingredientId))
+            }
+            recipeAdapter.notifyDataSetChanged()
+        })
+
+        // 부분별 나의 재료
+        viewModel.mymaterialAllResponse.observe(this, Observer {
+            recipeAdapter.clear()
+
+            it.forEach { item ->
+                recipeAdapter.addItem(recipe(item.ingredientId))
+            }
+            recipeAdapter.notifyDataSetChanged()
+        })
+
     }
 
     override fun initAfterBinding() {
+        viewModel.getMyMaterialAll()
+
         back_btn.setOnClickListener {
             finish()
         }
 
         all_btn.setOnClickListener {
             viewModel.recipe_click(all_btn, base_btn, main_btn, topping_btn)
-
-            var items = allrecipe()
-            recipeInit(items)
+            viewModel.getMyMaterialAll()
         }
 
         base_btn.setOnClickListener {
             viewModel.recipe_click(base_btn, all_btn, main_btn, topping_btn)
-
-            var items = baserecipe()
-            recipeInit(items)
+            viewModel.getMyMaterial("ice_base")
         }
 
         main_btn.setOnClickListener {
             viewModel.recipe_click(main_btn, base_btn, all_btn, topping_btn)
-
-            var items = mainrecipe()
-            recipeInit(items)
+            viewModel.getMyMaterial("main")
         }
 
         topping_btn.setOnClickListener {
             viewModel.recipe_click(topping_btn, base_btn, main_btn, all_btn)
-
-            var items = toppingrecipe()
-            recipeInit(items)
+            viewModel.getMyMaterial("topping")
         }
 
         recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
@@ -88,14 +102,5 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
                 recipeDialog.show(supportFragmentManager, recipeDialog.tag)
             }
         })
-    }
-
-    fun recipeInit(items: ArrayList<recipe>){
-        recipeAdapter.clear()
-
-        for(i in 0..items.size-1){
-            recipeAdapter.addItem(items.get(i))
-        }
-        recipeAdapter.notifyDataSetChanged()
     }
 }
