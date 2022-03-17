@@ -26,6 +26,13 @@ import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
 import com.iame.qnnect.android.src.diary.model.PostLikeDataModel
 import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
 import com.iame.qnnect.android.src.diary.service.*
+import com.iame.qnnect.android.src.edit_drink.MyRecipeAdapter
+import com.iame.qnnect.android.src.edit_drink.model.GetCurrentDrinkDataModel
+import com.iame.qnnect.android.src.edit_drink.model.PostEditDrinkDataModel
+import com.iame.qnnect.android.src.edit_drink.service.GetCurrentDrinkAPI
+import com.iame.qnnect.android.src.edit_drink.service.GetCurrentDrinkImpl
+import com.iame.qnnect.android.src.edit_drink.service.PostEditDrinkAPI
+import com.iame.qnnect.android.src.edit_drink.service.PostEditDrinkImpl
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
 import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
@@ -79,6 +86,9 @@ import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
+import com.iame.qnnect.android.src.store.model.PostBuyMaterialDataModel
+import com.iame.qnnect.android.src.store.service.PostBuyMaterialAPI
+import com.iame.qnnect.android.src.store.service.PostBuyMaterialImpl
 import com.iame.qnnect.android.viewmodel.*
 import io.reactivex.Single
 import kotlinx.coroutines.runBlocking
@@ -362,6 +372,36 @@ var retrofitPart = module {
             .build()
             .create(EditReplyAPI::class.java)
     }
+    single<GetCurrentDrinkAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetCurrentDrinkAPI::class.java)
+    }
+    single<PostEditDrinkAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostEditDrinkAPI::class.java)
+    }
+    single<PostBuyMaterialAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostBuyMaterialAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -398,6 +438,9 @@ var adapterPart = module {
     factory {
         ImageAdapter()
     }
+    factory {
+    MyRecipeAdapter()
+}
 }
 
 var modelPart = module {
@@ -467,6 +510,15 @@ var modelPart = module {
     factory<EditReplyDataModel> {
         EditReplyDataImpl(get())
     }
+    factory<GetCurrentDrinkDataModel> {
+        GetCurrentDrinkImpl(get())
+    }
+    factory<PostEditDrinkDataModel> {
+        PostEditDrinkImpl(get())
+    }
+    factory<PostBuyMaterialDataModel> {
+        PostBuyMaterialImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -487,13 +539,13 @@ var viewModelPart = module {
     viewModel { QuestionListViewModel(get())}
     viewModel { ReplyViewModel(get(), get()) }
     viewModel { EditReplyViewModel(get()) }
+    viewModel { EditDrinkViewModel(get(), get()) }
+    viewModel { StoreViewModel(get() ) }
+    viewModel { StoreActivityViewModel(get() ) }
 
-    viewModel { StoreViewModel() }
-    viewModel { StoreActivityViewModel() }
     viewModel { MyMaterialViewModel() }
     viewModel { RecipeViewModel() }
     viewModel { DrinkViewModel() }
-    viewModel { EditDrinkViewModel() }
     viewModel { OnboardViewModel() }
     viewModel { EditQuestionViewModel() }
 }

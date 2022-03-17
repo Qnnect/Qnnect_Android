@@ -1,11 +1,16 @@
 package com.iame.qnnect.android.src.store
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.*
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
+import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.main.store.RecipeAdapter
 import com.iame.qnnect.android.src.main.store.RecipeDialog
 import com.iame.qnnect.android.util.*
@@ -39,6 +44,17 @@ class StoreActivity : BaseActivity<ActivityStoreBinding, StoreActivityViewModel>
     override fun initDataBinding() {
         recipe_list = allrecipe()
         recipeInit(recipe_list)
+
+        // 재료 구매 완료
+        viewModel.buymaterialResponse.observe(this, Observer {
+            Toast.makeText(this, "재료 구매에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+        })
+
+        // 재료 구매 실패
+        viewModel.error.observe(this, Observer {
+            val notBuyDialog: NotBuyDialog = NotBuyDialog()
+            notBuyDialog.show(supportFragmentManager, notBuyDialog.tag)
+        })
     }
 
     override fun initAfterBinding() {
@@ -86,8 +102,9 @@ class StoreActivity : BaseActivity<ActivityStoreBinding, StoreActivityViewModel>
 
                 val recipeDialog = RecipeDialog(request) {
                     when (it) {
+                        // 구매
                         1 -> {
-
+                            viewModel.postBuyMateial(request.index)
                         }
                     }
                 }

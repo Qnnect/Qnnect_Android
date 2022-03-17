@@ -99,7 +99,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/im_hyemin_bold"
-                android:textSize="14dp"
+                android:textSize="12dp"
                 android:layout_marginRight="12dp"
                 android:textColor="@color/gray_4"
                 android:text="2022.03.14">
