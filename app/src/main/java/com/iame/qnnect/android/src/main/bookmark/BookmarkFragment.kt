@@ -63,7 +63,6 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         viewModel.cafesResponse.observe(this, Observer {
             var all = Cafe(-1, "전체")
             groupnameAdapter.addItem(all)
-
             it.forEach { item ->
                 groupnameAdapter.addItem(item)
             }
@@ -71,10 +70,18 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         })
 
         viewModel.bookmarkResponse.observe(this, Observer {
-            it.forEach { item ->
-                questionListAdapter.addItem(item)
+            if(it.size != 0){
+                empty_img.visibility = View.GONE
+                empty_txt.visibility = View.GONE
+                it.forEach { item ->
+                    questionListAdapter.addItem(item)
+                    questionListAdapter.notifyDataSetChanged()
+                }
             }
-            questionListAdapter.notifyDataSetChanged()
+            else{
+                empty_img.visibility = View.VISIBLE
+                empty_txt.visibility = View.VISIBLE
+            }
             dismissLoadingDialog()
         })
     }

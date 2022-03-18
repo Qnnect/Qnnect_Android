@@ -26,6 +26,10 @@ import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
 import com.iame.qnnect.android.src.diary.model.PostLikeDataModel
 import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
 import com.iame.qnnect.android.src.diary.service.*
+import com.iame.qnnect.android.src.drink.DrinkUserAdapter
+import com.iame.qnnect.android.src.drink.model.GetUserDrinkDataModel
+import com.iame.qnnect.android.src.drink.service.GetUserDrinkAPI
+import com.iame.qnnect.android.src.drink.service.GetUserDrinkImpl
 import com.iame.qnnect.android.src.edit_drink.MyRecipeAdapter
 import com.iame.qnnect.android.src.edit_drink.model.GetCurrentDrinkDataModel
 import com.iame.qnnect.android.src.edit_drink.model.PostEditDrinkDataModel
@@ -423,6 +427,16 @@ var retrofitPart = module {
             .build()
             .create(GetMyMaterialAPI::class.java)
     }
+    single<GetUserDrinkAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetUserDrinkAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -461,6 +475,9 @@ var adapterPart = module {
     }
     factory { 
         MyRecipeAdapter() 
+    }
+    factory {
+        DrinkUserAdapter()
     }
 }
 
@@ -546,6 +563,9 @@ var modelPart = module {
     factory<GetMyMaterialDataModel> {
         GetMyMaterialImpl(get())
     }
+    factory<GetUserDrinkDataModel> {
+        GetUserDrinkImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -570,9 +590,9 @@ var viewModelPart = module {
     viewModel { StoreViewModel(get() ) }
     viewModel { StoreActivityViewModel(get() ) }
     viewModel { MyMaterialViewModel(get(), get()) }
+    viewModel { DrinkViewModel(get() ) }
 
     viewModel { RecipeViewModel() }
-    viewModel { DrinkViewModel() }
     viewModel { OnboardViewModel() }
     viewModel { EditQuestionViewModel() }
 }

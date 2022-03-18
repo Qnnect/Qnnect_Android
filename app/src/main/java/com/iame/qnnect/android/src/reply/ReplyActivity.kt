@@ -102,6 +102,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             imageAdapter.addItem(it.imageUrl5.toString())
 
             if(imageAdapter.itemCount == 1){
+                img_one.visibility = View.generateViewId()
                 Glide.with(this)
                     .load(imageAdapter.getItem(0))
                     .transform(CenterCrop(), RoundedCorners(50))
@@ -110,8 +111,10 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             }
             else if(imageAdapter.itemCount == 0){
                 image_recycler.visibility = View.GONE
+                img_one.visibility = View.GONE
             }
             else{
+                image_recycler.visibility = View.VISIBLE
                 img_one.visibility = View.GONE
             }
 

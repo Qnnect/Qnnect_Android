@@ -16,22 +16,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.src.main.home.model.group_item
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
-import com.iame.qnnect.android.base.HomeFragment_case
-import com.iame.qnnect.android.src.answer.AnswerActivity
-import com.iame.qnnect.android.src.diary.model.answer_item
+import com.iame.qnnect.android.src.drink.model.CafeUser
 import com.iame.qnnect.android.src.drink.model.drink_item
-import com.iame.qnnect.android.src.group.GroupFragment
-import com.iame.qnnect.android.src.group.model.CafeUser
-import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.src.group.question.GroupViewHolderPage
+import com.iame.qnnect.android.util.recipe
 import com.kakao.sdk.user.model.User
+import kotlinx.android.synthetic.main.activity_profile.*
 
 
 class DrinkUserAdapter() :
-    RecyclerView.Adapter<DrinkUserAdapter.ViewHolder>(){
-    var datas = ArrayList<drink_item>()
+    RecyclerView.Adapter<UserHolderPage>(){
+    var datas = ArrayList<CafeUser>()
 
-    private val itemList = ArrayList<com.iame.qnnect.android.src.group.model.User>()
+    private val itemList = ArrayList<CafeUser>()
+
+    fun setOnItemClickListener(a_listener: OnItemClickEventListener) {
+        mItemClickListener = a_listener
+    }
+
+    private var mItemClickListener: OnItemClickEventListener? = null
+    interface OnItemClickEventListener {
+        fun onItemClick(a_view: View?, a_position: Int)
+    }
 
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
@@ -39,16 +49,34 @@ class DrinkUserAdapter() :
         var user_name: TextView = itemView.findViewById(R.id.user_name)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.drink_group_item, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserHolderPage {
+        val context: Context = parent.context
+        val view: View =
+            LayoutInflater.from(context).inflate(R.layout.drink_group_item, parent, false)
+        return UserHolderPage(view, context, mItemClickListener!!)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+    override fun onBindViewHolder(holder: UserHolderPage, position: Int) {
+        if (holder is UserHolderPage) {
+            val viewHolder: UserHolderPage = holder as UserHolderPage
+            viewHolder.onBind(itemList[position])
+        }
     }
 
     override fun getItemCount(): Int {
         return itemList.size
+    }
+
+    fun addItem(item: CafeUser) {
+        itemList.add(item)
+    }
+
+    fun clear() {
+        itemList.clear()
+        this.notifyDataSetChanged()
+    }
+
+    fun getItem(position: Int): CafeUser {
+        return itemList.get(position)
     }
 }

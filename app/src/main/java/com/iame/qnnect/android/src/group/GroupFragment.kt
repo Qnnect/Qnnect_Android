@@ -44,6 +44,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     var drink_check = true
     var code = ""
 
+    var cafeId = 0
+    var userId = 0
+
     var home = HomeFragment_case()
 
 
@@ -83,6 +86,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             group_name_txt.text = it.title
             group_name_main.text = it.title
             code = it.code
+            cafeId = it.cafeId
+            userId = it.cafeUserId
 
             if(it.currentUser.userDrinkSelected == null){
                 drink_img.setImageResource(R.mipmap.img_drink_default_foreground)
@@ -131,6 +136,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         drink_img.setOnClickListener {
             if(drink_check){
                 var intent = Intent(context, DrinkActivity::class.java)
+                intent.putExtra("cafeId", cafeId)
+                intent.putExtra("userId", userId)
                 startActivity(intent)
             }
             else{
@@ -142,6 +149,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         select_text.setOnClickListener {
             if(drink_check){
                 var intent = Intent(context, DrinkActivity::class.java)
+                intent.putExtra("cafeId", cafeId)
+                intent.putExtra("userId", userId)
                 startActivity(intent)
             }
             else{

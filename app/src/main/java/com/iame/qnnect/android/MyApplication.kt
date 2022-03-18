@@ -66,7 +66,7 @@ class MyApplication : Application() {
 
             // Log and toast
             Log.d("response!", token!!)
-            Toast.makeText(baseContext, token!!, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(baseContext, token!!, Toast.LENGTH_SHORT).show()
         })
     }
 

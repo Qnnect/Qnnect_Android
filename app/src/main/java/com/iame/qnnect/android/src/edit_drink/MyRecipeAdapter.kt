@@ -78,6 +78,7 @@ class MyRecipeAdapter() :
 
     fun clear() {
         itemList.clear()
+        this.notifyDataSetChanged()
     }
 
     fun getItem(position: Int): recipe {

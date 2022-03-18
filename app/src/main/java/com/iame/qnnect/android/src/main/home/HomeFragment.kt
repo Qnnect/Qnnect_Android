@@ -80,8 +80,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 dots_indicator.visibility = View.INVISIBLE
             }
 
-            it.questionList.forEach { item ->
-                questionRecyclerViewAdapter.addItem(item)
+            if(it.questionList.size == 0){
+                empty_question.visibility = View.VISIBLE
+                dots_indicator.visibility = View.GONE
+                question_viewPager2.visibility = View.GONE
+            }
+            else{
+                empty_question.visibility = View.GONE
+                dots_indicator.visibility = View.VISIBLE
+                question_viewPager2.visibility = View.VISIBLE
+
+                it.questionList.forEach { item ->
+                    questionRecyclerViewAdapter.addItem(item)
+                }
             }
 
             it.groupList.forEach { item ->
@@ -123,7 +134,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             invitgroupBottomSheet.show(requireActivity().supportFragmentManager, invitgroupBottomSheet.tag)
         }
     }
-
     override fun onResume() {
         super.onResume()
 

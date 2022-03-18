@@ -10,12 +10,26 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityEditDrinkBinding
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
+import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.recipe.RecipeActivity
 import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.src.store.StoreActivity
 import com.iame.qnnect.android.util.recipe
 import com.iame.qnnect.android.viewmodel.EditDrinkViewModel
+import kotlinx.android.synthetic.main.activity_drink.*
 import kotlinx.android.synthetic.main.activity_edit_drink.*
+import kotlinx.android.synthetic.main.activity_edit_drink.back_btn
+import kotlinx.android.synthetic.main.activity_edit_drink.base_count
+import kotlinx.android.synthetic.main.activity_edit_drink.base_txt
+import kotlinx.android.synthetic.main.activity_edit_drink.drink_img
+import kotlinx.android.synthetic.main.activity_edit_drink.ice_count
+import kotlinx.android.synthetic.main.activity_edit_drink.ice_txt
+import kotlinx.android.synthetic.main.activity_edit_drink.main_count
+import kotlinx.android.synthetic.main.activity_edit_drink.main_txt
+import kotlinx.android.synthetic.main.activity_edit_drink.seekBar
+import kotlinx.android.synthetic.main.activity_edit_drink.store_btn
+import kotlinx.android.synthetic.main.activity_edit_drink.topping_count
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +45,9 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
     var userdrinkId = 0
 
     var cafeId = 0
+
+    var now = ""
+    var next = ""
 
     override fun initStartView() {
         // member recycler
@@ -54,9 +71,17 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             main_count.text = current.mainFilled.toString()+"/"+current.main.toString()
             topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
+            if(current.iceFilled < current.ice){
+                drink_img.setImageResource(R.mipmap.drink_default_foreground)
+                now = "음료 선택"
+                next = "얼음"
+            }
+
             if(current.iceFilled == current.ice){
                 drink_img.setImageResource(R.mipmap.drink_ice_foreground)
                 seekBar.setImageResource(R.drawable.img_drink_progress1)
+                now = "얼음"
+                next = "베이스"
             }
 
             if(current.baseFilled == current.base){
@@ -64,6 +89,8 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 seekBar.setImageResource(R.drawable.img_drink_progress2)
                 ice_txt.setTextColor(Color.parseColor("#828282"))
                 ice_count.setTextColor(Color.parseColor("#828282"))
+                now = "베이스"
+                next = "주재료"
             }
 
             if(current.mainFilled == current.main){
@@ -71,6 +98,8 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 seekBar.setImageResource(R.drawable.img_drink_progress3)
                 base_txt.setTextColor(Color.parseColor("#828282"))
                 base_count.setTextColor(Color.parseColor("#828282"))
+                now = "주재료"
+                next = "토핑"
             }
 
             if(current.toppingFilled == current.topping){
@@ -78,6 +107,8 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 seekBar.setImageResource(R.drawable.img_drink_progress4)
                 main_txt.setTextColor(Color.parseColor("#828282"))
                 main_count.setTextColor(Color.parseColor("#828282"))
+                now = "완료"
+                next = "완료"
             }
 
 
@@ -107,8 +138,9 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 viewModel.getCurrentDrink(cafeId!!)
             }
             else{
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
                 dismissLoadingDialog()
+                val errorDialog: PostMaterialErrorDialog = PostMaterialErrorDialog(now, next)
+                errorDialog.show(supportFragmentManager, errorDialog.tag)
             }
         })
     }
@@ -143,9 +175,16 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
         recipeAdapter.setOnItemClickListener(object : MyRecipeAdapter.OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 var request = recipeAdapter.getItem(position).index
-                recipeAdapter.notifyDataSetChanged()
-                viewModel.postEditDrink(userdrinkId, request)
-                showLoadingDialog(this@EditDrinkActivity)
+                val postMaterialDialog: PostMaterialDialog = PostMaterialDialog(recipeAdapter.getItem(position)) {
+                    when (it) {
+                        // 음료추가
+                        1 -> {
+                            viewModel.postEditDrink(userdrinkId, request)
+                            showLoadingDialog(this@EditDrinkActivity)
+                        }
+                    }
+                }
+                postMaterialDialog.show(supportFragmentManager, postMaterialDialog.tag)
             }
         })
     }
