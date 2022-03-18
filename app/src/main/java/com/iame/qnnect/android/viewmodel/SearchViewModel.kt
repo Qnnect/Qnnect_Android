@@ -9,12 +9,14 @@ import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 import com.iame.qnnect.android.src.search.model.SearchDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class SearchViewModel(private val model: SearchDataModel) : BaseViewModel() {
 
     private val TAG = "BookmarkViewModel"
 
-    // get user
+    // get search
     private val getBookmarkResponse = MutableLiveData<List<Bookmark>>()
     val bookmarkResponse: LiveData<List<Bookmark>>
         get() = getBookmarkResponse

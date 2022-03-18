@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/question"
-            app:layout_constraintBottom_toBottomOf="@id/question"
+            android:layout_marginTop="30dp"
             app:layout_constraintLeft_toLeftOf="@id/question"
             android:hint="답변을 수정하세요"
             android:background="@null"
