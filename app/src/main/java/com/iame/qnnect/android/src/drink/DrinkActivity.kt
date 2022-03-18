@@ -47,6 +47,13 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
     var drink_list = ArrayList<drink_item>()
 
     override fun initStartView() {
+        member_recycler.run {
+            adapter = DrinkUserAdapter()
+            layoutManager = LinearLayoutManager(context).apply {
+                orientation = LinearLayoutManager.HORIZONTAL
+            }
+            setHasFixedSize(true)
+        }
     }
 
     override fun initDataBinding() {
@@ -56,27 +63,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
         back_btn.setOnClickListener {
             finish()
         }
-
-        var item1 = drink_item("1", "두루두루")
-        drink_list.add(item1)
-        var item2 = drink_item("1", "제제로제제로")
-        drink_list.add(item2)
-        var item3 = drink_item("1", "슈테른슈테른")
-        drink_list.add(item3)
-        var item4 = drink_item("1", "모래모래")
-        drink_list.add(item4)
-        var item5 = drink_item("1", "조이조이")
-        drink_list.add(item5)
-
-
-        member_recycler.run {
-            adapter = DrinkUserAdapter(drink_list)
-            layoutManager = LinearLayoutManager(context).apply {
-                orientation = LinearLayoutManager.HORIZONTAL
-            }
-            setHasFixedSize(true)
-        }
-
         ok_btn.setOnClickListener {
             var intent = Intent(this, EditDrinkActivity::class.java)
             startActivity(intent)

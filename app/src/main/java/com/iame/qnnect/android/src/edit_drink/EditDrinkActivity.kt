@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.edit_drink
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -53,6 +54,32 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             main_count.text = current.mainFilled.toString()+"/"+current.main.toString()
             topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
+            if(current.iceFilled == current.ice){
+                drink_img.setImageResource(R.mipmap.drink_ice_foreground)
+                seekBar.setImageResource(R.drawable.img_drink_progress1)
+            }
+
+            if(current.baseFilled == current.base){
+                drink_img.setImageResource(R.mipmap.drink_base_foreground)
+                seekBar.setImageResource(R.drawable.img_drink_progress2)
+                ice_txt.setTextColor(Color.parseColor("#828282"))
+                ice_count.setTextColor(Color.parseColor("#828282"))
+            }
+
+            if(current.mainFilled == current.main){
+                drink_img.setImageResource(R.mipmap.drink_main_foreground)
+                seekBar.setImageResource(R.drawable.img_drink_progress3)
+                base_txt.setTextColor(Color.parseColor("#828282"))
+                base_count.setTextColor(Color.parseColor("#828282"))
+            }
+
+            if(current.toppingFilled == current.topping){
+                drink_img.setImageResource(R.mipmap.drink_topping_foreground)
+                seekBar.setImageResource(R.drawable.img_drink_progress4)
+                main_txt.setTextColor(Color.parseColor("#828282"))
+                main_count.setTextColor(Color.parseColor("#828282"))
+            }
+
 
             recipeAdapter.clear()
             if(it.myIngredient.size == 0){
@@ -73,12 +100,16 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
         // 재료 선택
         viewModel.editdrinkResponse.observe(this, Observer {
             viewModel.getCurrentDrink(cafeId!!)
-            dismissLoadingDialog()
         })
 
         viewModel.editdrinkError.observe(this, Observer {
-            dismissLoadingDialog()
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            if(it == ""){
+                viewModel.getCurrentDrink(cafeId!!)
+            }
+            else{
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                dismissLoadingDialog()
+            }
         })
     }
 

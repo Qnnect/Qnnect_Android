@@ -3,6 +3,7 @@ package com.iame.qnnect.android.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.iame.qnnect.android.base.BaseErrorResponse
 import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.model.response.ImageSearchResponse
 import com.iame.qnnect.android.src.edit_drink.model.GetCurrentDrinkDataModel
@@ -54,7 +55,14 @@ class EditDrinkViewModel(private val model: GetCurrentDrinkDataModel,
                     postEditDrinkResponse.postValue("200 OK")
                 }
             }, {
-                postEditDrinkError.postValue("해당 주재료의 단계가 아닙니다!")
+                var response = it
+                Log.d("error_response", response.localizedMessage.toString())
+                if(response.localizedMessage.toString() == "HTTP 406 "){
+                    postEditDrinkError.postValue("해당 주재료의 단계가 아닙니다!")
+                }
+                else{
+                    postEditDrinkError.postValue("")
+                }
             })
         )
     }

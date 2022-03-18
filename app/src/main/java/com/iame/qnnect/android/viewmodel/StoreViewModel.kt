@@ -19,6 +19,7 @@ class StoreViewModel(private val model: PostBuyMaterialDataModel) : BaseViewMode
 
     fun recipe_click(select: TextView, item1: TextView, item2: TextView, item3: TextView){
         select.setBackgroundResource(R.drawable.store_recipe_select_custom)
+        select.setTextColor(Color.parseColor("#FFFFFF"))
 
         item1.setBackgroundResource(R.drawable.store_recipe_custom)
         item1.setTextColor(Color.parseColor("#333333"))

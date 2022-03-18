@@ -22,14 +22,16 @@ import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.model.answer_item
 import com.iame.qnnect.android.src.drink.model.drink_item
 import com.iame.qnnect.android.src.group.GroupFragment
+import com.iame.qnnect.android.src.group.model.CafeUser
 import com.iame.qnnect.android.src.main.MainActivity
+import com.kakao.sdk.user.model.User
 
 
-class DrinkUserAdapter(
-    private val itemList: ArrayList<drink_item>
-) :
+class DrinkUserAdapter() :
     RecyclerView.Adapter<DrinkUserAdapter.ViewHolder>(){
     var datas = ArrayList<drink_item>()
+
+    private val itemList = ArrayList<com.iame.qnnect.android.src.group.model.User>()
 
     class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView){
@@ -43,9 +45,7 @@ class DrinkUserAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.user_img.
 
-        holder.user_name.setText(itemList.get(position).user_name)
     }
 
     override fun getItemCount(): Int {

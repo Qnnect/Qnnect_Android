@@ -75,11 +75,11 @@ class EditDrinkBottomSheet(var frag: GroupFragment) :
 
         drinkList.clear()
 
-        drinkList.add(drink(1, "딸기라떼", R.mipmap.img_fruit_straw_foreground))
-        drinkList.add(drink(2, "민트초코", R.mipmap.img_fruit_straw_foreground))
-        drinkList.add(drink(3, "썸머 라떼", R.mipmap.img_fruit_straw_foreground))
-        drinkList.add(drink(4, "초코라떼", R.mipmap.img_fruit_straw_foreground))
-        drinkList.add(drink(5, "레모네이드", R.mipmap.img_fruit_straw_foreground))
+        drinkList.add(drink(1, "딸기라떼", R.mipmap.drink_topping_foreground))
+        drinkList.add(drink(2, "민트초코", R.mipmap.drink_topping_foreground))
+        drinkList.add(drink(3, "썸머 라떼", R.mipmap.drink_topping_foreground))
+        drinkList.add(drink(4, "초코라떼", R.mipmap.drink_topping_foreground))
+        drinkList.add(drink(5, "레모네이드", R.mipmap.drink_topping_foreground))
 
         drinkAdapter = DrinkAdapter(drinkList)
         drinkRecyclerView = view!!.findViewById(R.id.drink_recycler)

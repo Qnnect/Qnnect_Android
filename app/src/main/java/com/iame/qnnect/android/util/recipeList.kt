@@ -20,10 +20,11 @@ fun recipe(num: Int): recipe {
         6 -> recipe(6, "민트 초코 파우더", R.mipmap.img_mint_foreground, 40)
         7 -> recipe(7, "초코 파우더", R.mipmap.img_cocoa_foreground, 40)
         8 -> recipe(8, "에스프레스 1샷", R.mipmap.img_espresso_foreground, 40)
-        9 -> recipe(9, "바닐라 아이스크림", R.mipmap.img_vanilla_foreground, 25)
-        10 -> recipe(10, "초콜렛", R.mipmap.img_chocolate_foreground, 15)
-        11 -> recipe(11, "딸기", R.mipmap.img_fruit_straw_foreground, 15)
-        else -> recipe(12, "레몬", R.mipmap.img_fruit_lemon_foreground, 15)
+        9 -> recipe(9, "딸기", R.mipmap.img_fruit_straw_foreground, 15)
+        10 -> recipe(10, "레몬", R.mipmap.img_fruit_lemon_foreground, 15)
+        11 -> recipe(11, "초코", R.mipmap.img_chocolate_foreground, 15)
+        else-> recipe(12, "바닐라 아이스크림", R.mipmap.img_vanilla_foreground, 25)
+
     }
     return recipelist!!
 }

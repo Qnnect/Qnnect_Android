@@ -20,7 +20,7 @@ class MyRecipeAdapter() :
 
     private val itemList = ArrayList<MyIngredient>()
 
-    var select_index = 0
+    var select_index = -1
 
     // item click listener
     interface OnItemClickListener {
@@ -66,12 +66,6 @@ class MyRecipeAdapter() :
                 notifyDataSetChanged()
             }
         })
-        if(select_index==position) {
-            holder.recipe_main.setBackgroundResource(R.drawable.recipe_material_select_custom)
-        }
-        else {
-            holder.recipe_main.setBackgroundResource(R.drawable.store_recipe_custom)
-        }
     }
 
     override fun getItemCount(): Int {
