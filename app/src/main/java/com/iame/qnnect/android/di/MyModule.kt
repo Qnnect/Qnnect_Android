@@ -124,40 +124,28 @@ class BearerInterceptor: Interceptor {
     //todo 조건 분기로 인터셉터 구조 변경
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        val errorResponse = chain.proceed(chain.request()).code
+        var accessToken = MyApplication.sSharedPreferences.getString("X-ACCESS-TOKEN", null)
+        var refreshToken = MyApplication.sSharedPreferences.getString("refresh-token", null)
+        val response = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RefreshAPI::class.java)
 
-        // 403 -> token over
-        if(errorResponse == 403){
-            var accessToken = MyApplication.sSharedPreferences.getString("X-ACCESS-TOKEN", null)
-            var refreshToken = MyApplication.sSharedPreferences.getString("refresh-token", null)
-            val response = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(RefreshAPI::class.java)
+        var request = PostRefreshRequest(accessToken!!, refreshToken!!)
+        var result = response.postRefresh(request)
 
-            var request = PostRefreshRequest(accessToken!!, refreshToken!!)
-            var result = response.postRefresh(request)
+        var editor = MyApplication.editor
+        editor.putString("X-ACCESS-TOKEN", result.blockingGet().accessToken)
+        editor.putString("refresh-token", result.blockingGet().refreshToken)
+        editor.commit()
 
-            var editor = MyApplication.editor
-            editor.putString("X-ACCESS-TOKEN", result.blockingGet().accessToken)
-            editor.putString("refresh-token", result.blockingGet().refreshToken)
-            editor.commit()
+        accessToken = result.blockingGet().accessToken
 
-            accessToken = result.blockingGet().accessToken
-
-            val newRequest = chain.request().newBuilder().addHeader("Authorization", "Bearer ${accessToken}")
-                .build()
-            return chain.proceed(newRequest)
-        }
-
-        else{
-            var accessToken = MyApplication.sSharedPreferences.getString("X-ACCESS-TOKEN", null)
-            val newRequest = chain.request().newBuilder().addHeader("Authorization", "Bearer ${accessToken}")
-                .build()
-            return chain.proceed(newRequest)
-        }
+        val newRequest = chain.request().newBuilder().addHeader("Authorization", "Bearer ${accessToken}")
+            .build()
+        return chain.proceed(newRequest)
     }
 }
 

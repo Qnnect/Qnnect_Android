@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.group
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -43,6 +44,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     private var activity: MainActivity? = null
     var drink_check = true
     var code = ""
+    var title = ""
 
     var cafeId = 0
     var userId = 0
@@ -85,6 +87,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             group_date_txt.text = it.createdAt
             group_name_txt.text = it.title
             group_name_main.text = it.title
+            title = it.title
+
             code = it.code
             cafeId = it.cafeId
             userId = it.cafeUserId
@@ -194,6 +198,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                         0 -> {
                             var intent = Intent(context, InviteActivity::class.java)
                             intent.putExtra("code", code)
+                            Log.d("intent_response", title)
+                            intent.putExtra("title", title)
                             startActivity(intent)
                         }
                         // 카페 수정
@@ -231,6 +237,18 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     }
                 }
                 groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
+            }
+            else{
+                val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
+                    when (it) {
+                        // 음료추가
+                        1 -> {
+                            val addDrinkBottomSheet = AddDrinkBottomSheet(this)
+                            addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
+                        }
+                    }
+                }
+                notquestionDialog.show(requireActivity().supportFragmentManager, notquestionDialog.tag)
             }
         }
     }

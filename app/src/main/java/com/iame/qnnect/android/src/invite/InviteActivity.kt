@@ -1,5 +1,8 @@
 package com.iame.qnnect.android.src.invite
 
+import android.content.ContentResolver
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -9,6 +12,10 @@ import com.kakao.sdk.link.LinkClient
 import com.kakao.sdk.template.model.*
 import kotlinx.android.synthetic.main.activity_invite.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.http.Url
+
+
+
 
 class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
 
@@ -17,12 +24,15 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
 
     override val viewModel: InviteViewModel by viewModel()
     var code = ""
+    var title = ""
 
     override fun initStartView() {
     }
 
     override fun initDataBinding() {
-//        code = intent.getStringExtra("code")!!
+        code = intent.getStringExtra("code")!!
+        title = intent.getStringExtra("title")!!
+        Log.d("intent_response", title)
     }
 
     override fun initAfterBinding() {
@@ -35,39 +45,52 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         }
     }
 
+    // Kotlin Extenstion Function (Int)
+    fun Int.getResourceUri(context: Context): String {
+        return context.resources.let {
+            Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(it.getResourcePackageName(this))		// it : resources, this : ResId(Int)
+                .appendPath(it.getResourceTypeName(this))		// it : resources, this : ResId(Int)
+                .appendPath(it.getResourceEntryName(this))		// it : resources, this : ResId(Int)
+                .build()
+                .toString()
+        }
+    }
+
     private fun sendKakaoLink() {
         // 메시지 템플릿 만들기 (피드형)
-        val defaultFeed = FeedTemplate(
-            content = Content(
-                title = "큐넥트",
-                description = "~~방에서 초대를 했어요!",
-                imageUrl = "R.mipmap.img_logo_name_foreground",
-                link = Link(
-                    mobileWebUrl = "https://play.google.com/store/apps/details?id=com.mtjin.nomoneytrip"
-                )
-            ), social = Social(
-                likeCount = 4
-            ),
-            buttons = listOf(
-                Button(
-                    "웹으로 보기",
-                    Link(
-                        webUrl = "https://developers.kakao.com",
-                        mobileWebUrl = "https://developers.kakao.com"
-                    )
-                ),
-                Button(
-                    "앱으로 보기",
-                    Link(
-                        androidExecutionParams = mapOf("key1" to "value1", "key2" to "value2"),
-                        iosExecutionParams = mapOf("key1" to "value1", "key2" to "value2")
-                    )
-                )
-            )
-        )
+//        var image = R.drawable.img_onboard1_svg.getResourceUri(this)
+//
+//        val defaultFeed = FeedTemplate(
+//            content = Content(
+//                title = title+"에서 초대를 했어요!",
+//                description = "참여코드 : "+code,
+//                imageUrl = image,
+//                link = Link(
+//                    mobileWebUrl = "https://play.google.com/store/apps/details?id=com.mtjin.nomoneytrip"
+//                )
+//            ),
+//            buttons = listOf(
+//                Button(
+//                    "앱으로 보기",
+//                    Link(
+//                        androidExecutionParams = mapOf("key1" to "value1", "key2" to "value2"),
+//                        iosExecutionParams = mapOf("key1" to "value1", "key2" to "value2")
+//                    )
+//                )
+//            )
+//        )
+
+        val templateId: Long = 73322
+
+        val templateArgs: MutableMap<String, String> = HashMap()
+        templateArgs["code"] = code
+        templateArgs["group_name"] = title
+
 
         // 피드 메시지 보내기
-        LinkClient.instance.defaultTemplate(this, defaultFeed) { linkResult, error ->
+        LinkClient.instance.customTemplate(this, templateId, templateArgs) { linkResult, error ->
             if (error != null) {
                 Log.e("invite_kakao", "카카오링크 보내기 실패", error)
             }
