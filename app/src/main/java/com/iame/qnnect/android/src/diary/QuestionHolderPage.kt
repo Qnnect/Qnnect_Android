@@ -19,10 +19,11 @@ import com.iame.qnnect.android.src.diary.model.Comments
 import com.iame.qnnect.android.src.group.model.CafeQuestion
 import com.iame.qnnect.android.src.group.model.group_question_item
 import com.iame.qnnect.android.src.reply.ReplyActivity
+import com.iame.qnnect.android.src.reply.ReplyAdapter
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
-class QuestionHolderPage internal constructor(itemView: View, var context: Context) : RecyclerView.ViewHolder(itemView) {
+class QuestionHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: AnswerAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val user_img :ImageView
     private val user_name: TextView
     private val answer_contents: TextView
@@ -65,17 +66,13 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
                 .into(answer_img)
         }
 
-        answer_btn.setOnClickListener {
-//            var intent = Intent(context, AnswerActivity::class.java)
-//            intent.putExtra("commentId", data.commentId)
-//            context.startActivity(intent)
-        }
 
-        itemView.setOnClickListener {
-            var intent = Intent(context, ReplyActivity::class.java)
-            intent.putExtra("commentId", data.commentId)
-            context.startActivity(intent)
-        }
+        itemView.setOnClickListener(View.OnClickListener { a_view ->
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                a_itemClickListener.onItemClick(a_view, position)
+            }
+        })
     }
 
     init {

@@ -23,6 +23,10 @@ import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
+import com.iame.qnnect.android.src.reply.ReplyActivity
+import com.iame.qnnect.android.src.reply.ReplyAdapter
+import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.viewmodel.DiaryViewModel
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
@@ -110,6 +114,11 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                 my_profile_img.visibility = View.GONE
                 answerAdapter.addItem(it.currentUserComment)
             }
+            else{
+                answer_main.visibility = View.VISIBLE
+                my_profile_name.visibility = View.VISIBLE
+                my_profile_img.visibility = View.VISIBLE
+            }
 
             it.comments.forEach { item ->
                 answerAdapter.addItem(item)
@@ -172,6 +181,20 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                 })
             }
         }
+
+        answerAdapter.setOnItemClickListener(object : AnswerAdapter.OnItemClickEventListener {
+            override fun onItemClick(a_view: View?, a_position: Int) {
+                var item = answerAdapter.getItem(a_position)
+                var intent = Intent(this@DiaryActivity, ReplyActivity::class.java)
+                intent.putExtra("commentId", item.commentId)
+                intent.putExtra("cafeQuestionId", cafeQuestionId)
+                intent.putExtra("date", date)
+                intent.putExtra("dday", dday)
+                intent.putExtra("questioner", questioner)
+                intent.putExtra("question", question)
+                startActivity(intent)
+            }
+        })
 
         like_btn.setOnClickListener {
             if(liked){

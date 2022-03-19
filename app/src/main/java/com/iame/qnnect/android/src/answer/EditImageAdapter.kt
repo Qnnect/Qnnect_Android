@@ -17,14 +17,15 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.MyConstant.Companion.radius
 import com.iame.qnnect.android.R
+import java.io.File
 
 
-class MultiImageAdapter internal constructor(
-    list: ArrayList<Uri>?,
+class EditImageAdapter internal constructor(
+    var list: ArrayList<File>?,
     context: Context?
 ) :
-    RecyclerView.Adapter<MultiImageAdapter.ViewHolder>() {
-    private var mData: ArrayList<Uri>? = null
+    RecyclerView.Adapter<EditImageAdapter.ViewHolder>() {
+    private var mData: ArrayList<File>? = null
     private var mContext: Context? = null
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
@@ -58,7 +59,7 @@ class MultiImageAdapter internal constructor(
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val image_uri: Uri = mData!![position]
+        val image_uri: File = mData!![position]
         Glide.with(mContext!!)
             .load(image_uri)
             .transform(CenterCrop(), RoundedCorners(30))

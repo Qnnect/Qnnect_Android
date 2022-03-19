@@ -6,11 +6,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
+import com.iame.qnnect.android.src.answer.model.PatchAnswerDataModel
 import com.iame.qnnect.android.src.answer.model.PostAnswerDataModel
 import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
+import com.iame.qnnect.android.src.reply.model.GetReplyDataModel
+import com.iame.qnnect.android.src.reply.model.GetReplyResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MultipartBody
@@ -18,13 +21,34 @@ import java.io.*
 import java.util.*
 
 class AnswerViewModel(private val model: PostAnswerDataModel,
-                      private val model2: UserDataModel) : BaseViewModel() {
+                      private val model2: UserDataModel,
+                      private val model3: GetReplyDataModel,
+                      private val model4: PatchAnswerDataModel) : BaseViewModel() {
 
     private val TAG = "AnswerViewModel"
 
     var path = ""
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
     private val BUFFER_SIZE = 1024 * 2
+
+    // get reply
+    private val getReplyResponse = MutableLiveData<GetReplyResponse>()
+    val replyResponse: LiveData<GetReplyResponse>
+        get() = getReplyResponse
+
+    fun getReply(commentId: Int) {
+        addDisposable(model3.getData(commentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    getReplyResponse.postValue(this)
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
 
     // get user
     private val getUserResponse = MutableLiveData<GetUserResponse>()
@@ -41,6 +65,32 @@ class AnswerViewModel(private val model: PostAnswerDataModel,
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
+
+    private val patchAnswereResponse = MutableLiveData<String>()
+    val pa_answerResponse: LiveData<String>
+        get() = patchAnswereResponse
+
+    fun patchAnswer(image5: MultipartBody.Part?,
+                   image4: MultipartBody.Part?,
+                   image3: MultipartBody.Part?,
+                   image2: MultipartBody.Part?,
+                   image1: MultipartBody.Part?,
+                   content: MultipartBody.Part?,
+                   commentId: Int) {
+        addDisposable(model4.getData(image5, image4, image3, image2, image1, content, commentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    patchAnswereResponse.postValue("200 OK")
+                }
+            }, {
+                BadResponse.postValue(it.toString())
+                Log.d(TAG, "response error, message : ${it.message}")
+
             })
         )
     }

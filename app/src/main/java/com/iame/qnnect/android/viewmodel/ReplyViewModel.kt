@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
+import com.iame.qnnect.android.src.reply.model.DeleteAnswerDataModel
 import com.iame.qnnect.android.src.reply.model.GetReplyDataModel
 import com.iame.qnnect.android.src.reply.model.GetReplyResponse
 import com.iame.qnnect.android.src.reply.model.PostReplyDataModel
@@ -14,9 +15,32 @@ import io.reactivex.schedulers.Schedulers
 class ReplyViewModel(
     private val model: GetReplyDataModel,
     private val model2: PostReplyDataModel,
+    private val model3: DeleteAnswerDataModel
 ) : BaseViewModel() {
 
     private val TAG = "ReplyViewModel"
+
+    // delete answer
+    private val deleteAnswerResponse = MutableLiveData<String>()
+    val answerResponse: LiveData<String>
+        get() = deleteAnswerResponse
+
+    fun deleteAnswer(commentId: Int) {
+        addDisposable(model3.getData(commentId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    deleteAnswerResponse.postValue("200 OK")
+                }
+            }, {
+                if(it.message.toString() == "null"){
+                    deleteAnswerResponse.postValue("200 OK")
+                }
+                Log.d(TAG, "response error, message : ${it.cause}")
+            })
+        )
+    }
 
     // get reply
     private val getReplyResponse = MutableLiveData<GetReplyResponse>()

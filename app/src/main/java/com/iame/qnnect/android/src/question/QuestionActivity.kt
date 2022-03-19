@@ -38,7 +38,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
-                if(len.length > 0){
+                if(len.length > 0 && len.length < 50){
                     save_btn.setTextColor(Color.parseColor("#FD774C"))
                     check = true
                 }

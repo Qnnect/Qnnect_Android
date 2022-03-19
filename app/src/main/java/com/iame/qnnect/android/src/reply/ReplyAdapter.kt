@@ -12,11 +12,6 @@ import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.ReplyAdapter.OnItemClickEventListener
 
 
-
-
-
-
-
 class ReplyAdapter() :
     RecyclerView.Adapter<ReplyHolderPage>(){
     var datas = ArrayList<Replies>()

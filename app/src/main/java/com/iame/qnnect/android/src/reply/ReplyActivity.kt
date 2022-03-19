@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityReplyBinding
+import com.iame.qnnect.android.src.answer.EditAnswerActivity
 import com.iame.qnnect.android.viewmodel.ReplyViewModel
 import kotlinx.android.synthetic.main.activity_reply.*
 import kotlinx.android.synthetic.main.activity_reply.image_recycler
@@ -29,6 +30,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.iame.qnnect.android.src.reply.ReplyAdapter.OnItemClickEventListener
 import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
+import kotlinx.android.synthetic.main.activity_answer.*
+import kotlinx.android.synthetic.main.activity_reply.back_btn
+import kotlinx.android.synthetic.main.activity_reply.my_profile_img
+import kotlinx.android.synthetic.main.activity_reply.my_profile_name
 import kotlinx.coroutines.*
 
 
@@ -39,6 +44,12 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
     var commentId = 0
     var check = false
+
+    var cafeQuestionId = 0
+    var date = ""
+    var dday = ""
+    var questioner = ""
+    var question = ""
 
     override val viewModel: ReplyViewModel by viewModel()
 
@@ -65,6 +76,11 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
         }
 
         commentId = intent.getIntExtra("commentId", 0)
+        cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
+        date = intent.getStringExtra("date")!!
+        dday = intent.getStringExtra("dday")!!
+        questioner = intent.getStringExtra("questioner")!!+"의 질문"
+        question = intent.getStringExtra("question")!!
     }
 
     override fun onResume() {
@@ -88,6 +104,9 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
             if(it.writer){
                 more_btn.visibility = View.VISIBLE
+            }
+            else{
+                more_btn.visibility = View.GONE
             }
 
             it.replies.forEach { item ->
@@ -149,6 +168,10 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             viewModel.getReply(commentId)
             showLoadingDialog(this)
         })
+        viewModel.answerResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            finish()
+        })
     }
 
     override fun initAfterBinding() {
@@ -156,12 +179,34 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             finish()
         }
 
+        more_btn.setOnClickListener {
+            val answerMoreBottomSheet: AnswerBottomSheet = AnswerBottomSheet {
+                when (it) {
+                    // 답변 수정
+                    0 -> {
+                        var intent = Intent(this, EditAnswerActivity::class.java)
+                        intent.putExtra("commentId", commentId)
+                        intent.putExtra("cafeQuestionId", cafeQuestionId)
+                        intent.putExtra("date", date)
+                        intent.putExtra("dday", dday)
+                        intent.putExtra("questioner", questioner)
+                        intent.putExtra("question", question)
+                        startActivity(intent)
+
+                    }
+                    // 답변 삭제
+                    1 -> {
+                        viewModel.deleteAnswer(commentId)
+                        showLoadingDialog(this)
+                    }
+                }
+            }
+            answerMoreBottomSheet.show(supportFragmentManager, answerMoreBottomSheet.tag)
+        }
+
         reply_edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = reply_edit.text.toString()
                 reply_check = len.length > 0 && len.length < 50
