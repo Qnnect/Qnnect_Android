@@ -3,34 +3,18 @@ package com.iame.qnnect.android.src.edit_drink
 import android.content.Intent
 import android.graphics.Color
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityEditDrinkBinding
-import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
-import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.recipe.RecipeActivity
 import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.src.store.StoreActivity
 import com.iame.qnnect.android.util.drink_img
-import com.iame.qnnect.android.util.recipe
 import com.iame.qnnect.android.viewmodel.EditDrinkViewModel
-import kotlinx.android.synthetic.main.activity_drink.*
 import kotlinx.android.synthetic.main.activity_edit_drink.*
-import kotlinx.android.synthetic.main.activity_edit_drink.back_btn
-import kotlinx.android.synthetic.main.activity_edit_drink.base_count
-import kotlinx.android.synthetic.main.activity_edit_drink.base_txt
-import kotlinx.android.synthetic.main.activity_edit_drink.drink_img
-import kotlinx.android.synthetic.main.activity_edit_drink.ice_count
-import kotlinx.android.synthetic.main.activity_edit_drink.ice_txt
-import kotlinx.android.synthetic.main.activity_edit_drink.main_count
-import kotlinx.android.synthetic.main.activity_edit_drink.main_txt
-import kotlinx.android.synthetic.main.activity_edit_drink.seekBar
-import kotlinx.android.synthetic.main.activity_edit_drink.store_btn
-import kotlinx.android.synthetic.main.activity_edit_drink.topping_count
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -77,6 +61,10 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 next = "얼음"
                 var img = drink_img(userdrinkId, now)
                 drink_img.setImageResource(img)
+
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
             }
 
             if(current.iceFilled == current.ice){
@@ -85,6 +73,10 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 next = "베이스"
                 var img = drink_img(userdrinkId, now)
                 drink_img.setImageResource(img)
+
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
             }
 
             if(current.baseFilled == current.base){
@@ -95,6 +87,10 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 next = "주재료"
                 var img = drink_img(userdrinkId, now)
                 drink_img.setImageResource(img)
+
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
             }
 
             if(current.mainFilled == current.main){
@@ -105,6 +101,17 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 next = "토핑"
                 var img = drink_img(userdrinkId, now)
                 drink_img.setImageResource(img)
+
+                if(userdrinkId == 2){
+                    complete_shadow.visibility = View.GONE
+                    lemon_shadow.visibility = View.VISIBLE
+                    shadow.visibility = View.GONE
+                }
+                else{
+                    complete_shadow.visibility = View.GONE
+                    lemon_shadow.visibility = View.GONE
+                    shadow.visibility = View.VISIBLE
+                }
             }
 
             if(current.toppingFilled == current.topping){
@@ -115,6 +122,17 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 next = "완료"
                 var img = drink_img(userdrinkId, now)
                 drink_img.setImageResource(img)
+
+                if(userdrinkId == 2){
+                    complete_shadow.visibility = View.GONE
+                    lemon_shadow.visibility = View.VISIBLE
+                    shadow.visibility = View.GONE
+                }
+                else{
+                    complete_shadow.visibility = View.GONE
+                    lemon_shadow.visibility = View.GONE
+                    shadow.visibility = View.VISIBLE
+                }
             }
 
 

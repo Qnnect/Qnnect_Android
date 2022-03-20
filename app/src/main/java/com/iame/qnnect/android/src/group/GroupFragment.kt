@@ -3,6 +3,7 @@ package com.iame.qnnect.android.src.group
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,8 @@ import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
 import com.iame.qnnect.android.src.question.QuestionActivity
+import com.iame.qnnect.android.util.drink_img
+import com.iame.qnnect.android.util.drink_imgName
 import com.iame.qnnect.android.viewmodel.GroupViewModel
 import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
@@ -48,6 +51,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
 
     var cafeId = 0
     var userId = 0
+    var userDrink = ""
+    var drink_editCheck = true
 
     var home = HomeFragment_case()
 
@@ -76,13 +81,12 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         super.onResume()
         groupMemberAdapter.clear()
         groupQuestionViewPagerAdapter.clear()
-        var id = home.getGroupname(context!!)
+        var id = home.getGroupname(requireContext())
         viewModel.getGroup(id!!)
-        showLoadingDialog(context!!)
+        showLoadingDialog(requireContext())
     }
 
     override fun initDataBinding() {
-
         viewModel.groupResponse.observe(this, Observer {
             group_date_txt.text = it.createdAt
             group_name_txt.text = it.title
@@ -94,27 +98,36 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             userId = it.cafeUserId
 
             if(it.currentUser.userDrinkSelected == null){
-                drink_img.setImageResource(R.mipmap.img_drink_default_foreground)
+                drink_img_default.visibility = View.VISIBLE
+                select_text.visibility = View.VISIBLE
+                drink_img.visibility = View.GONE
                 drink_check = false
+                drink_editCheck = false
             }
             else{
+                userDrink = it.currentUser.userDrinkSelected
+                drink_editCheck = it.currentUser.drinkIngredientsFilledResponseList.size == 0
+
+                drink_img_default.visibility = View.GONE
+                select_text.visibility = View.GONE
+                drink_img.visibility = View.VISIBLE
+
                 var list = it.currentUser.drinkIngredientsFilledResponseList
+                var last = list.size-1
                 if(list.size < 2){
-                    drink_img.setImageResource(R.mipmap.img_drink_basic_foreground)
-                }
-                else if(list.size < 5){
-
-                }
-                else if(list.size < 8){
-
-                }
-                else if(list.size < 10){
-
+                    var img = drink_imgName(userDrink, "빈잔")
+                    drink_img.setImageResource(img)
                 }
                 else{
-
+                    if(list.get(last).ingredientName == list.get(last-1).ingredientName){
+                        var img = drink_imgName(userDrink, list.get(last).ingredientName)
+                        drink_img.setImageResource(img)
+                    }
+                    else{
+                        var img = drink_imgName(userDrink, list.get(last-1).ingredientName)
+                        drink_img.setImageResource(img)
+                    }
                 }
-                select_text.visibility = View.GONE
                 drink_check = true
             }
 
@@ -150,17 +163,15 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
+        drink_img_default.setOnClickListener {
+            val addDrinkBottomSheet = AddDrinkBottomSheet(this)
+            addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
+        }
         drink_img.setOnClickListener {
-            if(drink_check){
-                var intent = Intent(context, DrinkActivity::class.java)
-                intent.putExtra("cafeId", cafeId)
-                intent.putExtra("userId", userId)
-                startActivity(intent)
-            }
-            else{
-                val addDrinkBottomSheet = AddDrinkBottomSheet(this)
-                addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
-            }
+            var intent = Intent(context, DrinkActivity::class.java)
+            intent.putExtra("cafeId", cafeId)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
         }
 
         select_text.setOnClickListener {
@@ -221,7 +232,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                                 when (it) {
                                     // 카페 수정
                                     0 -> {
-                                        initDataBinding()
+                                        onResume()
                                     }
                                 }
                             }
@@ -229,10 +240,14 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                         }
                         // 음료 수정
                         2 -> {
-                            val editDrinkBottomSheet = EditDrinkBottomSheet(this)
-                            editDrinkBottomSheet.show(requireActivity().supportFragmentManager, editDrinkBottomSheet.tag)
+                            if(drink_editCheck){
+                                val editDrinkBottomSheet = EditDrinkBottomSheet(this)
+                                editDrinkBottomSheet.show(requireActivity().supportFragmentManager, editDrinkBottomSheet.tag)
+                            }
+                            else{
+                                Toast.makeText(context, "음료가 빈잔일 때만 수정이 가능합니다!", Toast.LENGTH_SHORT).show()}
                         }
-                        // 카페 삭제
+                        // 카페 나가기
                         3 -> {
                             val deleteGroupDialog = DeleteGroupDialog {
                                 when (it) {

@@ -114,43 +114,67 @@
             android:layout_marginLeft="27dp">
         </TextView>
 
-        <ImageView
-            android:id="@+id/drink_img"
-            android:layout_width="72dp"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toTopOf="@id/group_date_txt"
-            android:src="@mipmap/img_drink_default_foreground"
-            android:scaleType="centerCrop"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="75dp">
-        </ImageView>
-
-        <TextView
-            android:id="@+id/select_text"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:textSize="12dp"
-            app:layout_constraintTop_toTopOf="@id/drink_img"
-            app:layout_constraintBottom_toBottomOf="@id/drink_img"
-            android:layout_marginTop="100dp"
-            android:text="음료 선택하기"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="27dp"
-            android:textColor="@color/gray_1"
-            android:background="@drawable/add_drink_btn_custom"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="14dp"
-            android:paddingRight="14dp">
-        </TextView>
+            android:id="@+id/drink_main"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintRight_toRightOf="parent">
+            <ImageView
+                android:id="@+id/drink_img"
+                android:layout_width="140dp"
+                android:layout_height="180dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/complete_drink_default_foreground"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="45dp">
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/drink_img_default"
+                android:layout_width="100dp"
+                android:layout_height="130dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@mipmap/img_drink_default_foreground"
+                android:scaleType="centerCrop"
+                android:visibility="visible"
+                android:layout_marginTop="35dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="75dp"
+                android:paddingBottom="20dp">
+            </ImageView>
+
+
+            <TextView
+                android:id="@+id/select_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="12dp"
+                app:layout_constraintTop_toTopOf="@id/drink_img_default"
+                android:layout_marginTop="85dp"
+                android:text="음료 선택하기"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="27dp"
+                android:textColor="@color/gray_1"
+                android:background="@drawable/add_drink_btn_custom"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp">
+            </TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/drink_list"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            app:layout_constraintTop_toBottomOf="@id/drink_img"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/drink_main"
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
             android:background="@drawable/group_drink_list_out_custom">

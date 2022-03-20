@@ -15,26 +15,11 @@ import com.iame.qnnect.android.databinding.ActivityDrinkBinding
 import com.iame.qnnect.android.src.drink.model.CafeUser
 import com.iame.qnnect.android.src.drink.model.drink_item
 import com.iame.qnnect.android.src.edit_drink.EditDrinkActivity
-import com.iame.qnnect.android.src.edit_drink.MyRecipeAdapter
-import com.iame.qnnect.android.src.reply.ReplyAdapter
-import com.iame.qnnect.android.src.reply.model.Replies
-import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.src.store.StoreActivity
+import com.iame.qnnect.android.util.Getdrink
 import com.iame.qnnect.android.util.drink_img
 import com.iame.qnnect.android.viewmodel.DrinkViewModel
 import kotlinx.android.synthetic.main.activity_drink.*
-import kotlinx.android.synthetic.main.activity_drink.back_btn
-import kotlinx.android.synthetic.main.activity_drink.base_count
-import kotlinx.android.synthetic.main.activity_drink.base_txt
-import kotlinx.android.synthetic.main.activity_drink.drink_img
-import kotlinx.android.synthetic.main.activity_drink.ice_count
-import kotlinx.android.synthetic.main.activity_drink.ice_txt
-import kotlinx.android.synthetic.main.activity_drink.main_count
-import kotlinx.android.synthetic.main.activity_drink.main_txt
-import kotlinx.android.synthetic.main.activity_drink.seekBar
-import kotlinx.android.synthetic.main.activity_drink.store_btn
-import kotlinx.android.synthetic.main.activity_drink.topping_count
-import kotlinx.android.synthetic.main.activity_edit_drink.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -85,18 +70,41 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
             main_count.text = current.mainFilled.toString()+"/"+current.main.toString()
             topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
+            complete_main.visibility = View.GONE
+            ok_btn.visibility = View.VISIBLE
+            seek_main.visibility = View.VISIBLE
+
+            if(it.currentUser){
+                ok_btn.visibility = View.VISIBLE
+            }
+            else{
+                ok_btn.visibility = View.GONE
+            }
+
             if(current.iceFilled < current.ice){
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
+
                 var img = drink_img(userdrinkId, "빈잔")
                 drink_img.setImageResource(img)
             }
 
             if(current.iceFilled == current.ice){
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
+
                 var img = drink_img(userdrinkId, "얼음")
                 drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress1)
             }
 
             if(current.baseFilled == current.base){
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
+
                 var img = drink_img(userdrinkId, "베이스")
                 drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress2)
@@ -105,6 +113,10 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
             }
 
             if(current.mainFilled == current.main){
+                complete_shadow.visibility = View.GONE
+                lemon_shadow.visibility = View.GONE
+                shadow.visibility = View.VISIBLE
+
                 var img = drink_img(userdrinkId, "메인")
                 drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress3)
@@ -113,18 +125,27 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
             }
 
             if(current.toppingFilled == current.topping){
-                var img = drink_img(userdrinkId, "토핑")
+                if(userdrinkId == 2){
+                    complete_shadow.visibility = View.GONE
+                    lemon_shadow.visibility = View.VISIBLE
+                    shadow.visibility = View.VISIBLE
+                }
+                else{
+                    complete_shadow.visibility = View.VISIBLE
+                    lemon_shadow.visibility = View.GONE
+                    shadow.visibility = View.GONE
+                }
+
+                var img = drink_img(userdrinkId, "완성")
+                complete_main.visibility = View.VISIBLE
+                ok_btn.visibility = View.GONE
+                seek_main.visibility = View.GONE
+
+                complete_name.text = Getdrink(userdrinkId).name+" 완성!"
                 drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress4)
                 main_txt.setTextColor(Color.parseColor("#828282"))
                 main_count.setTextColor(Color.parseColor("#828282"))
-            }
-
-            if(it.currentUser){
-                ok_btn.visibility = View.VISIBLE
-            }
-            else{
-                ok_btn.visibility = View.GONE
             }
             dismissLoadingDialog()
         })
