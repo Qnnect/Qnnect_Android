@@ -81,7 +81,7 @@ class AddDrinkBottomSheet(var frag: GroupFragment) :
 
         drinkList.clear()
 
-        for(i in 1..6){
+        for(i in 1..5){
             drinkList.add(Getdrink(i))
         }
 
