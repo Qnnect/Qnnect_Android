@@ -20,6 +20,7 @@ import com.iame.qnnect.android.src.add_drink.drink
 import com.iame.qnnect.android.src.add_drink.service.AddDrinkService
 import com.iame.qnnect.android.src.add_drink.service.AddDrinkView
 import com.iame.qnnect.android.src.group.GroupFragment
+import com.iame.qnnect.android.util.Getdrink
 
 class EditDrinkBottomSheet(var frag: GroupFragment) :
     BottomSheetDialogFragment(), AddDrinkView{
@@ -74,12 +75,9 @@ class EditDrinkBottomSheet(var frag: GroupFragment) :
         }
 
         drinkList.clear()
-
-        drinkList.add(drink(1, "딸기라떼", R.mipmap.drink_strawberry_latte_foreground))
-        drinkList.add(drink(2, "민트초코", R.mipmap.drink_mintchocolate_foreground))
-        drinkList.add(drink(3, "썸머 라떼", R.mipmap.drink_summer_latte_foreground))
-        drinkList.add(drink(4, "초코라떼", R.mipmap.drink_chocolate_latte_foreground))
-        drinkList.add(drink(5, "레모네이드", R.mipmap.drink_lemon_tea_foreground))
+        for(i in 1..6){
+            drinkList.add(Getdrink(i))
+        }
 
         drinkAdapter = DrinkAdapter(drinkList)
         drinkRecyclerView = requireView().findViewById(R.id.drink_recycler)

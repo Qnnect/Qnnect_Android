@@ -20,8 +20,21 @@ import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.src.store.StoreActivity
+import com.iame.qnnect.android.util.drink_img
 import com.iame.qnnect.android.viewmodel.DrinkViewModel
 import kotlinx.android.synthetic.main.activity_drink.*
+import kotlinx.android.synthetic.main.activity_drink.back_btn
+import kotlinx.android.synthetic.main.activity_drink.base_count
+import kotlinx.android.synthetic.main.activity_drink.base_txt
+import kotlinx.android.synthetic.main.activity_drink.drink_img
+import kotlinx.android.synthetic.main.activity_drink.ice_count
+import kotlinx.android.synthetic.main.activity_drink.ice_txt
+import kotlinx.android.synthetic.main.activity_drink.main_count
+import kotlinx.android.synthetic.main.activity_drink.main_txt
+import kotlinx.android.synthetic.main.activity_drink.seekBar
+import kotlinx.android.synthetic.main.activity_drink.store_btn
+import kotlinx.android.synthetic.main.activity_drink.topping_count
+import kotlinx.android.synthetic.main.activity_edit_drink.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,6 +50,8 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
     var drink_list = ArrayList<drink_item>()
     var cafeId = 0
     var userId = 0
+    var userdrinkId = 0
+
 
     override fun initStartView() {
         cafeId = intent.getIntExtra("cafeId", 0)
@@ -58,6 +73,8 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
 
             var current = it.currentDrinkInfo
 
+            userdrinkId = current.userDrinkSelectedId
+
             it.cafeUsers.forEach { item ->
                 userAdapter.addItem(item)
             }
@@ -69,30 +86,35 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
             topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
             if(current.iceFilled < current.ice){
-                drink_img.setImageResource(R.mipmap.drink_default_foreground)
+                var img = drink_img(userdrinkId, "빈잔")
+                drink_img.setImageResource(img)
             }
 
             if(current.iceFilled == current.ice){
-                drink_img.setImageResource(R.mipmap.drink_ice_foreground)
+                var img = drink_img(userdrinkId, "얼음")
+                drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress1)
             }
 
             if(current.baseFilled == current.base){
-                drink_img.setImageResource(R.mipmap.drink_base_foreground)
+                var img = drink_img(userdrinkId, "베이스")
+                drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress2)
                 ice_txt.setTextColor(Color.parseColor("#828282"))
                 ice_count.setTextColor(Color.parseColor("#828282"))
             }
 
             if(current.mainFilled == current.main){
-                drink_img.setImageResource(R.mipmap.drink_main_foreground)
+                var img = drink_img(userdrinkId, "메인")
+                drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress3)
                 base_txt.setTextColor(Color.parseColor("#828282"))
                 base_count.setTextColor(Color.parseColor("#828282"))
             }
 
             if(current.toppingFilled == current.topping){
-                drink_img.setImageResource(R.mipmap.drink_topping_foreground)
+                var img = drink_img(userdrinkId, "토핑")
+                drink_img.setImageResource(img)
                 seekBar.setImageResource(R.drawable.img_drink_progress4)
                 main_txt.setTextColor(Color.parseColor("#828282"))
                 main_count.setTextColor(Color.parseColor("#828282"))

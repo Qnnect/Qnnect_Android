@@ -15,6 +15,7 @@ import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.recipe.RecipeActivity
 import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.src.store.StoreActivity
+import com.iame.qnnect.android.util.drink_img
 import com.iame.qnnect.android.util.recipe
 import com.iame.qnnect.android.viewmodel.EditDrinkViewModel
 import kotlinx.android.synthetic.main.activity_drink.*
@@ -72,43 +73,48 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
             if(current.iceFilled < current.ice){
-                drink_img.setImageResource(R.mipmap.drink_default_foreground)
-                now = "음료 선택"
+                now = "빈잔"
                 next = "얼음"
+                var img = drink_img(userdrinkId, now)
+                drink_img.setImageResource(img)
             }
 
             if(current.iceFilled == current.ice){
-                drink_img.setImageResource(R.mipmap.drink_ice_foreground)
                 seekBar.setImageResource(R.drawable.img_drink_progress1)
                 now = "얼음"
                 next = "베이스"
+                var img = drink_img(userdrinkId, now)
+                drink_img.setImageResource(img)
             }
 
             if(current.baseFilled == current.base){
-                drink_img.setImageResource(R.mipmap.drink_base_foreground)
                 seekBar.setImageResource(R.drawable.img_drink_progress2)
                 ice_txt.setTextColor(Color.parseColor("#828282"))
                 ice_count.setTextColor(Color.parseColor("#828282"))
                 now = "베이스"
                 next = "주재료"
+                var img = drink_img(userdrinkId, now)
+                drink_img.setImageResource(img)
             }
 
             if(current.mainFilled == current.main){
-                drink_img.setImageResource(R.mipmap.drink_main_foreground)
                 seekBar.setImageResource(R.drawable.img_drink_progress3)
                 base_txt.setTextColor(Color.parseColor("#828282"))
                 base_count.setTextColor(Color.parseColor("#828282"))
                 now = "주재료"
                 next = "토핑"
+                var img = drink_img(userdrinkId, now)
+                drink_img.setImageResource(img)
             }
 
             if(current.toppingFilled == current.topping){
-                drink_img.setImageResource(R.mipmap.drink_topping_foreground)
                 seekBar.setImageResource(R.drawable.img_drink_progress4)
                 main_txt.setTextColor(Color.parseColor("#828282"))
                 main_count.setTextColor(Color.parseColor("#828282"))
                 now = "완료"
                 next = "완료"
+                var img = drink_img(userdrinkId, now)
+                drink_img.setImageResource(img)
             }
 
 
@@ -169,6 +175,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
 
         recipe_btn.setOnClickListener {
             var intent = Intent(this, RecipeActivity::class.java)
+            intent.putExtra("drinkId", userdrinkId)
             startActivity(intent)
         }
 
