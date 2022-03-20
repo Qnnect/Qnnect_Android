@@ -1,20 +1,15 @@
 package com.iame.qnnect.android.src.invite
 
-import android.content.ContentResolver
-import android.content.Context
-import android.net.Uri
 import android.util.Log
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityInviteBinding
 import com.iame.qnnect.android.viewmodel.InviteViewModel
 import com.kakao.sdk.link.LinkClient
-import com.kakao.sdk.template.model.*
 import kotlinx.android.synthetic.main.activity_invite.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import retrofit2.http.Url
-
-
+import android.content.ClipData
+import android.content.ClipboardManager
 
 
 class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
@@ -32,7 +27,8 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
     override fun initDataBinding() {
         code = intent.getStringExtra("code")!!
         title = intent.getStringExtra("title")!!
-        Log.d("intent_response", title)
+
+        text4.text = title+" 카페에\n초대합니다!"
     }
 
     override fun initAfterBinding() {
@@ -43,44 +39,16 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         kakao_btn.setOnClickListener {
             sendKakaoLink()
         }
-    }
 
-    // Kotlin Extenstion Function (Int)
-    fun Int.getResourceUri(context: Context): String {
-        return context.resources.let {
-            Uri.Builder()
-                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                .authority(it.getResourcePackageName(this))		// it : resources, this : ResId(Int)
-                .appendPath(it.getResourceTypeName(this))		// it : resources, this : ResId(Int)
-                .appendPath(it.getResourceEntryName(this))		// it : resources, this : ResId(Int)
-                .build()
-                .toString()
+        link_btn.setOnClickListener {
+            val clipboard: ClipboardManager =
+                getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", code)
+            clipboard.setPrimaryClip(clip)
         }
     }
 
     private fun sendKakaoLink() {
-        // 메시지 템플릿 만들기 (피드형)
-//        var image = R.drawable.img_onboard1_svg.getResourceUri(this)
-//
-//        val defaultFeed = FeedTemplate(
-//            content = Content(
-//                title = title+"에서 초대를 했어요!",
-//                description = "참여코드 : "+code,
-//                imageUrl = image,
-//                link = Link(
-//                    mobileWebUrl = "https://play.google.com/store/apps/details?id=com.mtjin.nomoneytrip"
-//                )
-//            ),
-//            buttons = listOf(
-//                Button(
-//                    "앱으로 보기",
-//                    Link(
-//                        androidExecutionParams = mapOf("key1" to "value1", "key2" to "value2"),
-//                        iosExecutionParams = mapOf("key1" to "value1", "key2" to "value2")
-//                    )
-//                )
-//            )
-//        )
 
         val templateId: Long = 73322
 

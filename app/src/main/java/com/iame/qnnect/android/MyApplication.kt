@@ -61,11 +61,13 @@ class MyApplication : Application() {
                 return@OnCompleteListener
             }
 
+//            Log.d("fcm_response!", )
+
             // Get new FCM registration token
             val token = task.result
 
             // Log and toast
-            Log.d("response!", token!!)
+            Log.d("fcm_response!", token!!)
 //            Toast.makeText(baseContext, token!!, Toast.LENGTH_SHORT).show()
         })
     }

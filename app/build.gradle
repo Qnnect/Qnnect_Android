@@ -133,10 +133,10 @@ dependencies {
     implementation("com.android.support:appcompat-v7:23.2.0")
 
     // firebase
-    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     // fcm
-    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
 
 
     // utf-8

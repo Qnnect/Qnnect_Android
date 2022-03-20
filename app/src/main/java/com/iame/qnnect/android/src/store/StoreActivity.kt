@@ -2,20 +2,31 @@ package com.iame.qnnect.android.src.store
 
 import android.content.Intent
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.*
-import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
-import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.main.store.RecipeAdapter
 import com.iame.qnnect.android.src.main.store.RecipeDialog
 import com.iame.qnnect.android.util.*
 import com.iame.qnnect.android.viewmodel.StoreActivityViewModel
 import kotlinx.android.synthetic.main.activity_store.*
+import kotlinx.android.synthetic.main.fragment_store.*
+import kotlinx.android.synthetic.main.fragment_store.all_btn
+import kotlinx.android.synthetic.main.fragment_store.base_btn
+import kotlinx.android.synthetic.main.fragment_store.main_btn
+import kotlinx.android.synthetic.main.fragment_store.material_btn
+import kotlinx.android.synthetic.main.fragment_store.recipe_recycler
+import kotlinx.android.synthetic.main.fragment_store.scrollto_btn
+import kotlinx.android.synthetic.main.fragment_store.topping_btn
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -58,6 +69,30 @@ class StoreActivity : BaseActivity<ActivityStoreBinding, StoreActivityViewModel>
     }
 
     override fun initAfterBinding() {
+        scrollto_btn.setOnClickListener {
+            val smoothScroller: RecyclerView.SmoothScroller by lazy {
+                object : LinearSmoothScroller(this) {
+                    override fun getVerticalSnapPreference() = SNAP_TO_START
+                }
+            }
+            smoothScroller.targetPosition = 0
+            recipe_recycler.layoutManager?.startSmoothScroll(smoothScroller)
+            recipe_recycler.scrollToPosition(ScrollView.FOCUS_UP)
+        }
+
+        recipe_recycler.setOnTouchListener(View.OnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_SCROLL, MotionEvent.ACTION_MOVE -> scrollto_btn.visibility =
+                    View.VISIBLE
+//                MotionEvent.ACTION_DOWN -> {
+//                    scrollto_btn.visibility = View.VISIBLE
+//                }
+                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> scrollto_btn.visibility =
+                    View.GONE
+            }
+            false
+        })
+
         back_btn.setOnClickListener {
             finish()
         }

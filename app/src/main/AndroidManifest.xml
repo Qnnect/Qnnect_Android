@@ -25,6 +25,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
+        <service
+            android:name=".base.MyFirebaseMessagingService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name="com.iame.qnnect.android.src.splash.SplashActivity"
             android:screenOrientation="portrait"
@@ -139,6 +147,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.iame.qnnect.android.src.answer.EditAnswerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.iame.qnnect.android.src.finish_drink.FinishDrinkActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

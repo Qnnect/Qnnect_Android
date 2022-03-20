@@ -2,6 +2,8 @@ package com.iame.qnnect.android.src.edit_drink
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +11,8 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityEditDrinkBinding
+import com.iame.qnnect.android.src.finish_drink.FinishDrinkActivity
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.recipe.RecipeActivity
 import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.src.store.StoreActivity
@@ -133,6 +137,13 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
                 }
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    var intent = Intent(this, FinishDrinkActivity::class.java)
+                    intent.putExtra("drinkId", userdrinkId)
+                    startActivity(intent)
+                    finish()
+                }, 500)
             }
 
 

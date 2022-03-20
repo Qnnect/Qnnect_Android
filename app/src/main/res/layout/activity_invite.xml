@@ -133,6 +133,16 @@
             android:textSize="18dp">
         </TextView>
 
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toBottomOf="@id/text5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/ic_group_1294"
+            android:layout_marginTop="30dp">
+        </ImageView>
+
 
         <LinearLayout
             android:id="@+id/btn_view"
@@ -149,7 +159,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="초대링크 복사"
+                android:text="초대코드 복사"
                 android:textSize="16dp"
                 android:gravity="center"
                 android:paddingTop="22dp"

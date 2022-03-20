@@ -165,6 +165,17 @@
             android:paddingBottom="140dp">
         </androidx.recyclerview.widget.RecyclerView>
 
+        <ImageView
+            android:id="@+id/scrollto_btn"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/ic_arrow_left_line_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="27dp"
+            android:layout_marginBottom="27dp">
+        </ImageView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
