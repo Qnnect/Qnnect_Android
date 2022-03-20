@@ -2,6 +2,8 @@ package com.iame.qnnect.android.src.main.store
 
 import android.content.Intent
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
@@ -14,6 +16,7 @@ import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.store.MyMaterialActivity
+import com.iame.qnnect.android.src.store.NotBuyDialog
 import com.iame.qnnect.android.util.*
 import com.iame.qnnect.android.viewmodel.StoreViewModel
 import kotlinx.android.synthetic.main.fragment_group.*
@@ -47,6 +50,17 @@ class StoreFragment : BaseFragment<FragmentStoreBinding, StoreViewModel>(R.layou
     override fun initDataBinding() {
         recipe_list = allrecipe()
         recipeInit(recipe_list)
+
+        // 재료 구매 완료
+        viewModel.buymaterialResponse.observe(this, Observer {
+            Toast.makeText(context, "재료 구매에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+        })
+
+        // 재료 구매 실패
+        viewModel.error.observe(this, Observer {
+            val notBuyDialog: NotBuyDialog = NotBuyDialog()
+            notBuyDialog.show(requireActivity().supportFragmentManager, notBuyDialog.tag)
+        })
     }
 
     override fun initAfterBinding() {
@@ -91,7 +105,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding, StoreViewModel>(R.layou
                 val recipeDialog = RecipeDialog(request) {
                     when (it) {
                         1 -> {
-
+                            viewModel.postBuyMateial(request.index)
                         }
                     }
                 }

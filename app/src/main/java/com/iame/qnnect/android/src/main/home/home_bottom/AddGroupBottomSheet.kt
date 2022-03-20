@@ -141,9 +141,9 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
         })
 
         // group check
-        var group_friend_btn = view!!.findViewById<TextView>(R.id.group_friend_btn)
-        var group_family_btn = view!!.findViewById<TextView>(R.id.group_family_btn)
-        var group_couple_btn = view!!.findViewById<TextView>(R.id.group_couple_btn)
+        var group_friend_btn = requireView().findViewById<TextView>(R.id.group_friend_btn)
+        var group_family_btn = requireView().findViewById<TextView>(R.id.group_family_btn)
+        var group_couple_btn = requireView().findViewById<TextView>(R.id.group_couple_btn)
         group_friend_btn.setOnClickListener {
             group_select(group_friend_btn, group_family_btn, group_couple_btn)
         }

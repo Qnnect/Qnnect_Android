@@ -49,7 +49,7 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
         })
 
         // 부분별 나의 재료
-        viewModel.mymaterialAllResponse.observe(this, Observer {
+        viewModel.mymaterialResponse.observe(this, Observer {
             recipeAdapter.clear()
 
             it.forEach { item ->

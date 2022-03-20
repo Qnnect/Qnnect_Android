@@ -28,9 +28,12 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityAnswerBinding
 import com.iame.qnnect.android.viewmodel.AnswerViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.internal.operators.flowable.FlowableFlatMap.subscribe
+import io.reactivex.rxjava3.internal.operators.flowable.FlowableFlattenIterable.subscribe
 import kotlinx.android.synthetic.main.activity_answer.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -122,6 +125,11 @@ class EditAnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>(
             recyclerView!!.adapter = adapter
             recyclerView!!.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+            val getFileSingles = uriList.forEach { it ->
+                var item = imageUrlToCacheFileAsync(this, it.toString())
+                Log.d("file_update_error", item!!.absolutePath)
+            }
+
             viewModel.getUser()
         })
 
@@ -277,32 +285,34 @@ class EditAnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>(
     }
 
     // image url to File
-//    fun imageUrlToCacheFileAsync(context: Context, url: String): File {
-//        var file: File? = null
-//        Glide.with(context)
-//            .asBitmap()
-//            .load(url)
-//            .diskCacheStrategy(DiskCacheStrategy.NONE)
-//            .into(object : CustomTarget<Bitmap>(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL, com.bumptech.glide.request.target.Target.SIZE_ORIGINAL) {
-//                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-//                    val newFile = File(
-//                        context.cacheDir.path,
-//                        Random(SystemClock.currentThreadTimeMillis()).nextLong().toString()
-//                    ).apply {
-//                        createNewFile()
-//                    }
-//                    var fos = FileOutputStream(newFile)
-//                    // Use the compress method on the BitMap object to write image to the OutputStream
-//                    resource.compress(Bitmap.CompressFormat.PNG, 100, fos)
-//                    bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
-//                    FileOutputStream(newFile).use {
-//                        resource.compress(Bitmap.CompressFormat.JPEG, 100, it)
-//                    }
-//                }
-//                override fun onLoadCleared(placeholder: Drawable?) {}
-//
-//                override fun onLoadFailed(errorDrawable: Drawable?) {}
-//            })
-//        return file!!
-//    }
+    fun imageUrlToCacheFileAsync(context: Context, url: String): File? {
+        var file: File? = null
+        Glide.with(context)
+            .asBitmap()
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(object : CustomTarget<Bitmap>(SIZE_ORIGINAL, SIZE_ORIGINAL) {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    try{
+                        val newFile = File(
+                            context.cacheDir.path,
+                            Random(SystemClock.currentThreadTimeMillis()).nextLong().toString()
+                        ).apply {
+                            createNewFile()
+                        }
+                        FileOutputStream(newFile).use {
+                            resource.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                        }
+                        file = newFile
+                    } catch(e: Exception){
+                        Log.d("file_update_error", e.toString())
+                    }
+
+                }
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {}
+            })
+        return file
+    }
 }

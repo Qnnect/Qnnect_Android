@@ -62,27 +62,27 @@ class EditDrinkBottomSheet(var frag: GroupFragment) :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
-        var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
+        var close_btn = requireView().findViewById<ImageView>(R.id.close_btn)
+        var ok_btn = requireView().findViewById<ConstraintLayout>(R.id.ok_btn)
 
         close_btn.setOnClickListener {
             dismiss()
         }
         ok_btn.setOnClickListener {
-            var cafeId = home.getGroupname(context!!)
+            var cafeId = home.getGroupname(requireContext())
             AddDrinkService(this).tryAddDrink(cafeId!!, drinkId)
         }
 
         drinkList.clear()
 
-        drinkList.add(drink(1, "딸기라떼", R.mipmap.drink_topping_foreground))
-        drinkList.add(drink(2, "민트초코", R.mipmap.drink_topping_foreground))
-        drinkList.add(drink(3, "썸머 라떼", R.mipmap.drink_topping_foreground))
-        drinkList.add(drink(4, "초코라떼", R.mipmap.drink_topping_foreground))
-        drinkList.add(drink(5, "레모네이드", R.mipmap.drink_topping_foreground))
+        drinkList.add(drink(1, "딸기라떼", R.mipmap.drink_strawberry_latte_foreground))
+        drinkList.add(drink(2, "민트초코", R.mipmap.drink_mintchocolate_foreground))
+        drinkList.add(drink(3, "썸머 라떼", R.mipmap.drink_summer_latte_foreground))
+        drinkList.add(drink(4, "초코라떼", R.mipmap.drink_chocolate_latte_foreground))
+        drinkList.add(drink(5, "레모네이드", R.mipmap.drink_lemon_tea_foreground))
 
         drinkAdapter = DrinkAdapter(drinkList)
-        drinkRecyclerView = view!!.findViewById(R.id.drink_recycler)
+        drinkRecyclerView = requireView().findViewById(R.id.drink_recycler)
         drinkRecyclerView.adapter = drinkAdapter
         drinkRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.HORIZONTAL, false)
 

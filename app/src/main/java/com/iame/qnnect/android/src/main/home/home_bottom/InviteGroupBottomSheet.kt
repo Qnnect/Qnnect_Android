@@ -17,10 +17,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.iame.qnnect.android.base.HomeFragment_case
+import com.iame.qnnect.android.src.group.model.GetGroupResponse
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupRequest
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupResponse
 import com.iame.qnnect.android.src.main.home.home_bottom.service.AddGroupService
 import com.iame.qnnect.android.src.main.home.home_bottom.service.AddGroupView
+import com.iame.qnnect.android.src.main.home.home_bottom.service.PostInviteService
+import com.iame.qnnect.android.src.main.home.home_bottom.service.PostInviteView
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
@@ -35,7 +38,7 @@ import java.util.concurrent.TimeUnit
 
 
 class InviteGroupBottomSheet(val itemClick: (Int) -> Unit) :
-    BottomSheetDialogFragment(){
+    BottomSheetDialogFragment(), PostInviteView{
     private lateinit var dlg : BottomSheetDialog
 
     var check = false
@@ -71,10 +74,10 @@ class InviteGroupBottomSheet(val itemClick: (Int) -> Unit) :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
-        var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
+        var close_btn = requireView().findViewById<ImageView>(R.id.close_btn)
+        var ok_btn = requireView().findViewById<ConstraintLayout>(R.id.ok_btn)
 
-        var code_txt = view!!.findViewById<EditText>(R.id.code_edit_txt)
+        var code_txt = requireView().findViewById<EditText>(R.id.code_edit_txt)
 
         close_btn.setOnClickListener {
             dismiss()
@@ -82,7 +85,7 @@ class InviteGroupBottomSheet(val itemClick: (Int) -> Unit) :
 
         ok_btn.setOnClickListener {
             if (check) {
-
+                PostInviteService(this).tryInvite(code_txt.text.toString())
             }
         }
 
@@ -105,10 +108,13 @@ class InviteGroupBottomSheet(val itemClick: (Int) -> Unit) :
         })
     }
 
-    // override fun onAddGroupSuccess(response: Int) {
-    //        Log.d("add_group_response", response.toString())
-    //        home.setHome(requireContext(), 1, response)
-    //        dismiss()
-    //        itemClick(0)
-    //    }
+    override fun onInviteSuccess(response: GetGroupResponse) {
+        home.setHome(requireContext(), 1, response.cafeId)
+        dismiss()
+        itemClick(0)
+    }
+
+    override fun onInviteFailure(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 }

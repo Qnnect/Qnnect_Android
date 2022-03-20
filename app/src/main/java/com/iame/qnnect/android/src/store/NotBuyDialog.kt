@@ -38,11 +38,10 @@ class NotBuyDialog() : DialogFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var ok_btn = view!!.findViewById<TextView>(R.id.delete_btn)
+        var ok_btn = requireView().findViewById<TextView>(R.id.ok_btn)
         ok_btn.setOnClickListener {
             dismiss()
         }
-
     }
     override fun onResume() {
         super.onResume()

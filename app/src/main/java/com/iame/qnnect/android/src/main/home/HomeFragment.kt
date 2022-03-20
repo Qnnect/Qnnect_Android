@@ -141,6 +141,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         questionRecyclerViewAdapter.clear()
 
         viewModel.getHome()
-        showLoadingDialog(context!!)
+        showLoadingDialog(requireContext())
     }
 }

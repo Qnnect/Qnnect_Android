@@ -98,8 +98,21 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 drink_check = false
             }
             else{
-                if(it.currentUser.drinkIngredientsFilledResponseList.size == 0){
+                var list = it.currentUser.drinkIngredientsFilledResponseList
+                if(list.size < 2){
                     drink_img.setImageResource(R.mipmap.img_drink_basic_foreground)
+                }
+                else if(list.size < 5){
+
+                }
+                else if(list.size < 8){
+
+                }
+                else if(list.size < 10){
+
+                }
+                else{
+
                 }
                 select_text.visibility = View.GONE
                 drink_check = true
