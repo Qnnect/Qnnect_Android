@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.main.store
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.ScrollView
 import android.widget.Toast
@@ -81,17 +82,31 @@ class StoreFragment : BaseFragment<FragmentStoreBinding, StoreViewModel>(R.layou
             recipe_recycler.layoutManager?.startSmoothScroll(smoothScroller)
             recipe_recycler.scrollToPosition(ScrollView.FOCUS_UP)
         }
-
-        recipe_recycler.setOnTouchListener(OnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_SCROLL, MotionEvent.ACTION_MOVE -> scrollto_btn.visibility = View.VISIBLE
-//                MotionEvent.ACTION_DOWN -> {
-//                    scrollto_btn.visibility = View.VISIBLE
-//                }
-                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> scrollto_btn.visibility = View.GONE
+        recipe_recycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                // 최하단
+                if (!recipe_recycler.canScrollVertically(-1)) {
+                    scrollto_btn.visibility = View.GONE
+                }
+                // 최상단
+                else if (!recipe_recycler.canScrollVertically(1)) {
+                    scrollto_btn.visibility = View.GONE
+                }
+                else {
+                    scrollto_btn.visibility = View.VISIBLE
+                }
             }
-            false
         })
+
+//        recipe_recycler.setOnTouchListener(OnTouchListener { v, event ->
+//            when (event.action) {
+//                MotionEvent.ACTION_SCROLL ->scrollto_btn.visibility = View.VISIBLE
+//                MotionEvent.ACTION_MOVE -> scrollto_btn.visibility = View.VISIBLE
+//                MotionEvent.ACTION_CANCEL ->scrollto_btn.visibility = View.GONE
+//                MotionEvent.ACTION_UP -> scrollto_btn.visibility = View.VISIBLE
+//            }
+//            false
+//        })
 
 
         material_btn.setOnClickListener {

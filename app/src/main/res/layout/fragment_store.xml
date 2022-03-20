@@ -169,10 +169,11 @@
             android:id="@+id/scrollto_btn"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:src="@drawable/ic_arrow_left_line_4"
+            android:src="@mipmap/ic_scroll_allow_foreground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="27dp"
+            android:visibility="gone"
             android:layout_marginBottom="27dp">
         </ImageView>
 

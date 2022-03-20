@@ -80,18 +80,37 @@ class StoreActivity : BaseActivity<ActivityStoreBinding, StoreActivityViewModel>
             recipe_recycler.scrollToPosition(ScrollView.FOCUS_UP)
         }
 
-        recipe_recycler.setOnTouchListener(View.OnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_SCROLL, MotionEvent.ACTION_MOVE -> scrollto_btn.visibility =
-                    View.VISIBLE
+        recipe_recycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                // 최하단
+                if (!recipe_recycler.canScrollVertically(-1)) {
+                    scrollto_btn.visibility = View.GONE
+                }
+                // 최상단
+                else if (!recipe_recycler.canScrollVertically(1)) {
+                    scrollto_btn.visibility = View.GONE
+                }
+                else {
+                    scrollto_btn.visibility = View.VISIBLE
+                }
+            }
+        })
+
+//        recipe_recycler.setOnTouchListener(View.OnTouchListener { v, event ->
+//            when (event.action) {
+//                MotionEvent.ACTION_SCROLL, MotionEvent.ACTION_MOVE -> scrollto_btn.visibility =
+//                    View.VISIBLE
+//                MotionEvent.ACTION_UP -> {
+//                    scrollto_btn.visibility = View.VISIBLE
+//                }
 //                MotionEvent.ACTION_DOWN -> {
 //                    scrollto_btn.visibility = View.VISIBLE
 //                }
-                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> scrollto_btn.visibility =
-                    View.GONE
-            }
-            false
-        })
+////                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> scrollto_btn.visibility =
+////                    View.GONE
+//            }
+//            false
+//        })
 
         back_btn.setOnClickListener {
             finish()

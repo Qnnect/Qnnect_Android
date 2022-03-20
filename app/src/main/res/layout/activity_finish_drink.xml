@@ -22,7 +22,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="90dp"
-            android:src="@mipmap/img_finish1_foreground"
+            android:src="@mipmap/img_finish_top_foreground"
             android:scaleType="centerCrop">
         </ImageView>
 
