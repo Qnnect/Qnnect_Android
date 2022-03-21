@@ -29,13 +29,28 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
     }
 
     override fun initDataBinding() {
+        viewModel.postquestionResponse.observe(this, Observer {
+            Log.d("question test", "질문 성공 "+it.toString()+"번째 질문")
+            val questionCompleteDialog = QuestionCompleteDialog {
+                when (it) {
+                    // 카페로 가기
+                    0 -> {
+                        finish()
+                    }
+                    // 카페별 질문 리스트로 이동
+                    1 -> {
+                        var intent = Intent(this, QuestionListActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
+            questionCompleteDialog.show(supportFragmentManager, questionCompleteDialog.tag)
+        })
     }
 
     override fun initAfterBinding() {
         contents.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
                 if(len.length > 0 && len.length < 50){
@@ -47,9 +62,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
                     check = false
                 }
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         save_btn.setOnClickListener {
@@ -57,23 +70,6 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
                 var cafeId = HomeFragment_case().getGroupname(this)
                 var request = PostQuestionRequest(contents.text.toString())
                 viewModel.postQuestion(cafeId!!, request)
-
-                viewModel.postquestionResponse.observe(this, Observer {
-                    Log.d("question test", "질문 성공 "+it.toString()+"번째 질문")
-                    val questionCompleteDialog = QuestionCompleteDialog {
-                        when (it) {
-                            // 카페로 가기
-                            0 -> {
-                                finish()
-                            }
-                            // 카페별 질문 리스트로 이동
-                            1 -> {
-                            var intent = Intent(this, QuestionListActivity::class.java)
-                                startActivity(intent)
-                            }
-                        }
-                    }
-                })
             }
         }
 
