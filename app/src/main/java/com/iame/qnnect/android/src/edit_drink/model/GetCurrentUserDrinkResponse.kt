@@ -3,13 +3,14 @@ package com.iame.qnnect.android.src.edit_drink.model
 import com.google.gson.annotations.SerializedName
 
 data class GetCurrentUserDrinkResponse(
-    @SerializedName("currentDrinkInfo") var currentDrinkInfo: CurrentDrinkInfo,
-    @SerializedName("myIngredient") var myIngredient: List<MyIngredient>
+    @SerializedName("currentDrinkInfo") val currentDrinkInfo: CurrentDrinkInfo,
+    @SerializedName("myIngredient") val myIngredient: List<MyIngredient>
     )
 
 // {
 //    "currentDrinkInfo": {
-//        "userDrinkSelectedId": 9,
+//        "userDrinkSelectedId": 46,
+//        "userDrinkName": "딸기라떼",
 //        "currentDrinkIngredientsFilled": [],
 //        "ice": 2,
 //        "iceFilled": 0,
@@ -20,5 +21,24 @@ data class GetCurrentUserDrinkResponse(
 //        "topping": 2,
 //        "toppingFilled": 0
 //    },
-//    "myIngredient": []
+//    "myIngredient": [
+//        {
+//            "ingredientId": 11,
+//            "name": "초코",
+//            "ingredientType": "topping",
+//            "count": 1
+//        },
+//        {
+//            "ingredientId": 12,
+//            "name": "바닐라 아이스크림",
+//            "ingredientType": "topping",
+//            "count": 1
+//        },
+//        {
+//            "ingredientId": 5,
+//            "name": "레몬청",
+//            "ingredientType": "main",
+//            "count": 3
+//        }
+//    ]
 //}

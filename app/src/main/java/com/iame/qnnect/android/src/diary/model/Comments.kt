@@ -5,16 +5,16 @@ import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.kakao.sdk.user.model.User
 
 data class Comments(
-    @SerializedName("commentId") var commentId: Int,
-    @SerializedName("createdAt") var createdAt: String,
-    @SerializedName("profileResponse") var profileResponse: PatchProfileResponse,
-    @SerializedName("content") var content: String,
-    @SerializedName("imageUrl1") var imageUrl1: String,
-    @SerializedName("imageUrl2") var imageUrl2: String,
-    @SerializedName("imageUrl3") var imageUrl3: String,
-    @SerializedName("imageUrl4") var imageUrl4: String,
-    @SerializedName("imageUrl5") var imageUrl5: String,
-    @SerializedName("replyCount") var replyCount: Int
+    @SerializedName("commentId") val commentId: Int,
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("profileResponse") val profileResponse: PatchProfileResponse,
+    @SerializedName("content") val content: String,
+    @SerializedName("imageUrl1") val imageUrl1: String,
+    @SerializedName("imageUrl2") val imageUrl2: String,
+    @SerializedName("imageUrl3") val imageUrl3: String,
+    @SerializedName("imageUrl4") val imageUrl4: String,
+    @SerializedName("imageUrl5") val imageUrl5: String,
+    @SerializedName("replyCount") val replyCount: Int
     )
 
 // //  {

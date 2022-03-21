@@ -5,20 +5,17 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="5dp">
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/member_drink"
-        android:layout_width="60dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_drink_default_foreground">
+        android:src="@mipmap/complete_drink_default_foreground">
     </ImageView>
 
     <TextView
@@ -29,7 +26,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="지민지민.."
-        android:layout_marginTop="10dp"
         android:textSize="12dp"
         android:gravity="center"
         android:lineSpacingExtra="8dp"

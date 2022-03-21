@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main.home.home_bottom.service
 
+import android.util.Log
 import com.iame.qnnect.android.MyApplication
 import com.iame.qnnect.android.src.group.model.GetGroupResponse
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupRequest
@@ -15,9 +16,9 @@ class PostInviteService(val view: PostInviteView) {
             Callback<GetGroupResponse> {
             override fun onResponse(call: Call<GetGroupResponse>, response: Response<GetGroupResponse>) {
                 try{
-                    view.onInviteSuccess(response as GetGroupResponse)
+                    view.onInviteSuccess(response.body() as GetGroupResponse)
                 } catch(e: Exception){
-                    view.onInviteFailure("해당 코드를 가진 카페를 찾을 수 없습니다.")
+
                 }
             }
             override fun onFailure(call: Call<GetGroupResponse>, t: Throwable) {

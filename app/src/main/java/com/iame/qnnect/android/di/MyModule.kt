@@ -660,6 +660,7 @@ var viewModelPart = module {
     viewModel { OnboardViewModel() }
     viewModel { EditQuestionViewModel() }
     viewModel { FinishDrinkViewModel() }
+    viewModel { AlarmViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

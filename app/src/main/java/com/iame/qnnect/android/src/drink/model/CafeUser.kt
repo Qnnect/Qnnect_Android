@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 import com.iame.qnnect.android.src.edit_drink.model.MyIngredient
 
 data class CafeUser(
-    @SerializedName("cafeUserId") var cafeUserId: Int,
-    @SerializedName("nickName") var nickName: String,
-    @SerializedName("profileImage") var profileImage: String
+    @SerializedName("cafeUserId") val cafeUserId: Int,
+    @SerializedName("nickName") val nickName: String,
+    @SerializedName("profileImage") val profileImage: String
     )
 
 // {

@@ -29,10 +29,17 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_add_group_bottom.*
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.color_orange_btn
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.color_pink_btn
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.color_sky_btn
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.group_family_btn
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.group_friend_btn
+import kotlinx.android.synthetic.main.fragment_add_group_bottom.name_edit_txt
+import kotlinx.android.synthetic.main.fragment_edit_group_bottom.*
 import java.util.concurrent.TimeUnit
 
 
-class EditGroupBottomSheet(val itemClick: (Int) -> Unit) :
+class EditGroupBottomSheet(var groupTitle: String, val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(), EditGroupView{
     private lateinit var dlg : BottomSheetDialog
     var cafeId: Int = 0
@@ -72,8 +79,10 @@ class EditGroupBottomSheet(val itemClick: (Int) -> Unit) :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
-        var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
+        var close_btn = requireView().findViewById<ImageView>(R.id.close_btn)
+        var ok_btn = requireView().findViewById<ConstraintLayout>(R.id.ok_btn)
+
+        name_edit_txt.setText(groupTitle)
 
         name_edit_txt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -94,7 +103,7 @@ class EditGroupBottomSheet(val itemClick: (Int) -> Unit) :
             }
         })
 
-        val seekBar = view!!.findViewById<SeekBar>(R.id.seekBar)
+        val seekBar = requireView().findViewById<SeekBar>(R.id.seekBar)
 
         seekBar.max = 3 // 시크바 최대값 설정
         seekBar.progress = 0 // 초기 시크바 값 설정
@@ -126,9 +135,9 @@ class EditGroupBottomSheet(val itemClick: (Int) -> Unit) :
         })
 
         // group check
-        var group_friend_btn = view!!.findViewById<TextView>(R.id.group_friend_btn)
-        var group_family_btn = view!!.findViewById<TextView>(R.id.group_family_btn)
-        var group_couple_btn = view!!.findViewById<TextView>(R.id.group_couple_btn)
+        var group_friend_btn = requireView().findViewById<TextView>(R.id.group_friend_btn)
+        var group_family_btn = requireView().findViewById<TextView>(R.id.group_family_btn)
+        var group_couple_btn = requireView().findViewById<TextView>(R.id.group_couple_btn)
         group_friend_btn.setOnClickListener {
             group_select(group_friend_btn, group_family_btn, group_couple_btn)
         }
@@ -140,10 +149,10 @@ class EditGroupBottomSheet(val itemClick: (Int) -> Unit) :
         }
 
         // color check
-        var color_orange_btn = view!!.findViewById<ImageView>(R.id.color_orange_btn)
-        var color_pink_btn = view!!.findViewById<ImageView>(R.id.color_pink_btn)
-        var color_sky_btn = view!!.findViewById<ImageView>(R.id.color_sky_btn)
-        var color_yellow_btn = view!!.findViewById<ImageView>(R.id.color_yellow_btn)
+        var color_orange_btn = requireView().findViewById<ImageView>(R.id.color_orange_btn)
+        var color_pink_btn = requireView().findViewById<ImageView>(R.id.color_pink_btn)
+        var color_sky_btn = requireView().findViewById<ImageView>(R.id.color_sky_btn)
+        var color_yellow_btn = requireView().findViewById<ImageView>(R.id.color_yellow_btn)
         color_orange_btn.setOnClickListener {
             color_select(color_orange_btn, color_yellow_btn, color_pink_btn, color_sky_btn)
         }
@@ -161,7 +170,7 @@ class EditGroupBottomSheet(val itemClick: (Int) -> Unit) :
             dismiss()
         }
         ok_btn.setOnClickListener {
-            var cafeId = HomeFragment_case().getGroupname(context!!)
+            var cafeId = HomeFragment_case().getGroupname(requireContext())
             if(check){
                 var request = PostAddGroupRequest(color, groupType, questionCycle, name_edit_txt.text.toString())
                 EditGroupService(this).tryEditGroup(cafeId!!, request)

@@ -16,7 +16,9 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.group.model.CafeUser
 import com.iame.qnnect.android.src.group.model.group_drink_item
 import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.util.drink_imgName
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_group.*
 import kotlinx.android.synthetic.main.group_member_item.view.*
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
@@ -39,16 +41,24 @@ class GroupMemberAdapter() : RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(itemList.get(position).userDrinkSelected == null){
-            holder.member_drink.setImageResource(R.mipmap.img_drink_default_foreground)
+        if(itemList.get(position).cafeDrinkCommonResponse.userDrinkName == null){
+            holder.member_drink.setImageResource(R.mipmap.drink_none_foreground)
 //            Glide.with(holder.itemView.getContext())
 //                .load(itemList.get(position).drink_img)
 //                .transform(CenterCrop())
 //                .into(holder.member_drink)
         }
         else{
-            if(itemList.get(position).drinkIngredientsFilledResponseList.size == 0){
-                holder.member_drink.setImageResource(R.mipmap.img_drink_basic_foreground)
+            if(itemList.get(position).cafeDrinkCommonResponse.currentDrinkIngredientsFilled.size < 2){
+                holder.member_drink.setImageResource(R.mipmap.complete_drink_default_foreground)
+            }
+            else{
+                var userDrink = itemList.get(position).cafeDrinkCommonResponse.userDrinkName
+                var list = itemList.get(position).cafeDrinkCommonResponse.currentDrinkIngredientsFilled
+                var last = itemList.get(position).cafeDrinkCommonResponse.currentDrinkIngredientsFilled.size-1
+                var img = drink_imgName(userDrink, list.get(last).ingredientName)
+
+                holder.member_drink.setImageResource(img)
             }
         }
 

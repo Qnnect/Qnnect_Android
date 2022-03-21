@@ -157,6 +157,10 @@
             android:name="com.iame.qnnect.android.src.question.SearchQuestionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.iame.qnnect.android.src.alarm.AlarmActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

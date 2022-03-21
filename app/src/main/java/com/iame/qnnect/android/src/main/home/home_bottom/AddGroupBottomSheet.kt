@@ -74,10 +74,10 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var close_btn = view!!.findViewById<ImageView>(R.id.close_btn)
-        var ok_btn = view!!.findViewById<ConstraintLayout>(R.id.ok_btn)
+        var close_btn = requireView().findViewById<ImageView>(R.id.close_btn)
+        var ok_btn = requireView().findViewById<ConstraintLayout>(R.id.ok_btn)
 
-        var name_edit_txt = view!!.findViewById<EditText>(R.id.name_edit_txt)
+        var name_edit_txt = requireView().findViewById<EditText>(R.id.name_edit_txt)
 
         close_btn.setOnClickListener {
             dismiss()
@@ -110,7 +110,7 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
             }
         })
 
-        val seekBar = view!!.findViewById<SeekBar>(R.id.seekBar)
+        val seekBar = requireView().findViewById<SeekBar>(R.id.seekBar)
         seekBar.max = 3 // 시크바 최대값 설정
         seekBar.progress = 0 // 초기 시크바 값 설정
 
@@ -155,10 +155,10 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
         }
 
         // color check
-        var color_orange_btn = view!!.findViewById<ImageView>(R.id.color_orange_btn)
-        var color_pink_btn = view!!.findViewById<ImageView>(R.id.color_pink_btn)
-        var color_sky_btn = view!!.findViewById<ImageView>(R.id.color_sky_btn)
-        var color_yellow_btn = view!!.findViewById<ImageView>(R.id.color_yellow_btn)
+        var color_orange_btn = requireView().findViewById<ImageView>(R.id.color_orange_btn)
+        var color_pink_btn = requireView().findViewById<ImageView>(R.id.color_pink_btn)
+        var color_sky_btn = requireView().findViewById<ImageView>(R.id.color_sky_btn)
+        var color_yellow_btn = requireView().findViewById<ImageView>(R.id.color_yellow_btn)
         color_orange_btn.setOnClickListener {
             color_select(color_orange_btn, color_yellow_btn, color_pink_btn, color_sky_btn)
         }
@@ -192,6 +192,7 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
             groupType = "커플"
         }
     }
+
     fun color_select(select: ImageView, item1: ImageView, item2: ImageView, item3: ImageView){
         select.setBackgroundResource(R.drawable.color_in_custom_select)
 
@@ -221,6 +222,6 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
     }
 
     override fun onAddGroupFailure(message: String) {
-        Log.d("add_group_response", message.toString())
+        Toast.makeText(context, "존재하는 않는 방의 코드입니다.", Toast.LENGTH_SHORT).show()
     }
 }

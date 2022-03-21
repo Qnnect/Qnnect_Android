@@ -46,6 +46,7 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         }
 
         link_btn.setOnClickListener {
+            Toast.makeText(this, "카페 코드 복사 완료", Toast.LENGTH_SHORT).show()
             val clipboard: ClipboardManager =
                 getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("label", code)
@@ -66,7 +67,7 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         LinkClient.instance.customTemplate(this, templateId, templateArgs) { linkResult, error ->
             if (error != null) {
                 Log.e("invite_kakao", "카카오링크 보내기 실패", error)
-                Toast.makeText(this, "카카오톡이 로그인 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "카카오톡 설치후 이용해주세요.", Toast.LENGTH_SHORT).show()
             }
             else if (linkResult != null) {
                 Log.d("invite_kakao", "카카오링크 보내기 성공 ${linkResult.intent}")

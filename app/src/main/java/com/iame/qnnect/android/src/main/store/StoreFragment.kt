@@ -73,14 +73,8 @@ class StoreFragment : BaseFragment<FragmentStoreBinding, StoreViewModel>(R.layou
 
     override fun initAfterBinding() {
         scrollto_btn.setOnClickListener {
-            val smoothScroller: RecyclerView.SmoothScroller by lazy {
-                object : LinearSmoothScroller(context) {
-                    override fun getVerticalSnapPreference() = SNAP_TO_START
-                }
-            }
-            smoothScroller.targetPosition = 0
-            recipe_recycler.layoutManager?.startSmoothScroll(smoothScroller)
-            recipe_recycler.scrollToPosition(ScrollView.FOCUS_UP)
+            recipe_recycler.scrollToPosition(0)
+            scrollto_btn.visibility = View.GONE
         }
         recipe_recycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {

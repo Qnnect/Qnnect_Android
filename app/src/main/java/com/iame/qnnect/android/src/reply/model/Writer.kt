@@ -5,9 +5,9 @@ import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.kakao.sdk.user.model.User
 
 data class Writer(
-    @SerializedName("nickName") var nickName: String,
-    @SerializedName("point") var point: Int,
-    @SerializedName("profileImage") var profileImage: String
+    @SerializedName("nickName") val nickName: String,
+    @SerializedName("point") val point: Int,
+    @SerializedName("profileImage") val profileImage: String
     )
 
 ////      "writer": {

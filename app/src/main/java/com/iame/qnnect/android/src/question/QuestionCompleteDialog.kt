@@ -38,15 +38,15 @@ class QuestionCompleteDialog(val itemClick: (Int) -> Unit) : DialogFragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var go_question_btn = view!!.findViewById<TextView>(R.id.go_question_btn)
+        var go_question_btn = requireView().findViewById<TextView>(R.id.go_question_btn)
         go_question_btn.setOnClickListener {
-            itemClick(0)
+            itemClick(1)
             dismiss()
         }
 
-        var go_cafe_btn = view!!.findViewById<TextView>(R.id.go_cafe_btn)
+        var go_cafe_btn = requireView().findViewById<TextView>(R.id.go_cafe_btn)
         go_cafe_btn.setOnClickListener {
-            itemClick(1)
+            itemClick(0)
         }
 
     }

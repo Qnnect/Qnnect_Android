@@ -3,21 +3,23 @@ package com.iame.qnnect.android.src.edit_drink.model
 import com.google.gson.annotations.SerializedName
 
 data class CurrentDrinkInfo(
-    @SerializedName("userDrinkSelectedId") var userDrinkSelectedId: Int,
-    @SerializedName("currentDrinkIngredientsFilled") var currentDrinkIngredientsFilled: List<CurrentDrinkFilled>,
-    @SerializedName("ice") var ice: Int,
-    @SerializedName("iceFilled") var iceFilled: Int,
-    @SerializedName("base") var base: Int,
-    @SerializedName("baseFilled") var baseFilled: Int,
-    @SerializedName("main") var main: Int,
-    @SerializedName("mainFilled") var mainFilled: Int,
-    @SerializedName("topping") var topping: Int,
-    @SerializedName("toppingFilled") var toppingFilled: Int,
+    @SerializedName("userDrinkSelectedId") val userDrinkSelectedId: Int,
+    @SerializedName("userDrinkName") val userDrinkName: String,
+    @SerializedName("currentDrinkIngredientsFilled") val currentDrinkIngredientsFilled: List<CurrentDrinkFilled>,
+    @SerializedName("ice") val ice: Int,
+    @SerializedName("iceFilled") val iceFilled: Int,
+    @SerializedName("base") val base: Int,
+    @SerializedName("baseFilled") val baseFilled: Int,
+    @SerializedName("main") val main: Int,
+    @SerializedName("mainFilled") val mainFilled: Int,
+    @SerializedName("topping") val topping: Int,
+    @SerializedName("toppingFilled") val toppingFilled: Int,
     )
 
 // {
 //    "currentDrinkInfo": {
-//        "userDrinkSelectedId": 9,
+//        "userDrinkSelectedId": 46,
+//        "userDrinkName": "딸기라떼",
 //        "currentDrinkIngredientsFilled": [],
 //        "ice": 2,
 //        "iceFilled": 0,
@@ -27,6 +29,5 @@ data class CurrentDrinkInfo(
 //        "mainFilled": 0,
 //        "topping": 2,
 //        "toppingFilled": 0
-//    },
-//    "myIngredient": []
+//    }
 //}

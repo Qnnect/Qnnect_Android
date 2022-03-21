@@ -9,15 +9,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
-import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
-import com.iame.qnnect.android.src.group.NotQuestionDialog
+import com.iame.qnnect.android.src.alarm.AlarmActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_my_page.*
-import kotlinx.android.synthetic.main.fragment_my_page.point_txt
-import kotlinx.android.synthetic.main.fragment_my_page.user_diary_name
-import kotlinx.android.synthetic.main.fragment_my_page.user_profile_img
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.layout.fragment_my_page) {
@@ -34,6 +29,12 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
     }
 
     override fun initAfterBinding() {
+
+        alarm_btn.setOnClickListener {
+            var intent = Intent(context, AlarmActivity::class.java)
+            startActivity(intent)
+        }
+
         user_profile_img.setOnClickListener {
             var intent = Intent(context, EditprofileActivity::class.java)
             startActivity(intent)

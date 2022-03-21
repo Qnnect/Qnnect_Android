@@ -98,7 +98,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             cafeId = it.cafeId
             userId = it.cafeUserId
 
-            if(it.currentUser.userDrinkSelected == null){
+            if(it.currentUser.cafeDrinkCommonResponse.userDrinkName == null){
                 drink_img_default.visibility = View.VISIBLE
                 select_text.visibility = View.VISIBLE
                 drink_img.visibility = View.GONE
@@ -106,20 +106,20 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 drink_editCheck = false
             }
             else{
-                userDrink = it.currentUser.userDrinkSelected
-                drink_editCheck = it.currentUser.drinkIngredientsFilledResponseList.size == 0
+                userDrink = it.currentUser.cafeDrinkCommonResponse.userDrinkName
+                drink_editCheck = it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled == null
 
                 drink_img_default.visibility = View.GONE
                 select_text.visibility = View.GONE
                 drink_img.visibility = View.VISIBLE
 
-                var list = it.currentUser.drinkIngredientsFilledResponseList
-                var last = list.size-1
-                if(list.size < 2){
+                if(drink_editCheck || it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled.size < 2){
                     var img = drink_imgName(userDrink, "빈잔")
                     drink_img.setImageResource(img)
                 }
                 else{
+                    var list = it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled
+                    var last = list.size-1
                     if(list.get(last).ingredientName == list.get(last-1).ingredientName){
                         var img = drink_imgName(userDrink, list.get(last).ingredientName)
                         drink_img.setImageResource(img)
@@ -234,7 +234,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                         }
                         // 카페 수정
                         1 -> {
-                            val editgroupBottomSheet: EditGroupBottomSheet = EditGroupBottomSheet {
+                            val editgroupBottomSheet: EditGroupBottomSheet = EditGroupBottomSheet(title) {
                                 when (it) {
                                     // 카페 수정
                                     0 -> {

@@ -3,8 +3,8 @@ package com.iame.qnnect.android.src.splash.model
 import com.google.gson.annotations.SerializedName
 
 data class PostRefreshResponse(
-    @SerializedName("accessToken") var accessToken: String,
-    @SerializedName("refreshToken") var refreshToken: String
+    @SerializedName("accessToken") val accessToken: String,
+    @SerializedName("refreshToken") val refreshToken: String
     )
 //{
 //    "accessToken": "string",

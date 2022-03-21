@@ -3,10 +3,10 @@ package com.iame.qnnect.android.src.main.bookmark.model
 import com.google.gson.annotations.SerializedName
 
 data class Bookmark(
-    @SerializedName("cafeQuestionId") var cafeQuestionId: Int,
-    @SerializedName("cafeTitle") var cafeTitle: String,
-    @SerializedName("createdAt") var createdAt: String,
-    @SerializedName("question") var question: String
+    @SerializedName("cafeQuestionId") val cafeQuestionId: Int,
+    @SerializedName("cafeTitle") val cafeTitle: String,
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("question") val question: String
     )
 
 //  {

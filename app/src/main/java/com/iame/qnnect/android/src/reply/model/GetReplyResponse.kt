@@ -5,17 +5,17 @@ import com.iame.qnnect.android.src.diary.model.Comments
 import com.iame.qnnect.android.src.diary.model.QuestionMain
 
 data class GetReplyResponse(
-    @SerializedName("commentId") var commentId: Int,
-    @SerializedName("createdAt") var createdAt: String,
-    @SerializedName("writerInfo") var writerInfo: Writer,
-    @SerializedName("content") var content: String,
-    @SerializedName("imageUrl1") var imageUrl1: String?,
-    @SerializedName("imageUrl2") var imageUrl2: String?,
-    @SerializedName("imageUrl3") var imageUrl3: String?,
-    @SerializedName("imageUrl4") var imageUrl4: String?,
-    @SerializedName("imageUrl5") var imageUrl5: String?,
-    @SerializedName("replies") var replies: List<Replies>,
-    @SerializedName("writer") var writer: Boolean
+    @SerializedName("commentId") val commentId: Int,
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("writerInfo") val writerInfo: Writer,
+    @SerializedName("content") val content: String,
+    @SerializedName("imageUrl1") val imageUrl1: String?,
+    @SerializedName("imageUrl2") val imageUrl2: String?,
+    @SerializedName("imageUrl3") val imageUrl3: String?,
+    @SerializedName("imageUrl4") val imageUrl4: String?,
+    @SerializedName("imageUrl5") val imageUrl5: String?,
+    @SerializedName("replies") val replies: List<Replies>,
+    @SerializedName("writer") val writer: Boolean
     )
 
 // {

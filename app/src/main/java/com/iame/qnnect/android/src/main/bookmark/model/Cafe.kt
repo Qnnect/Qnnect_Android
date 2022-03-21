@@ -3,8 +3,8 @@ package com.iame.qnnect.android.src.main.bookmark.model
 import com.google.gson.annotations.SerializedName
 
 data class Cafe(
-    @SerializedName("cafeId") var cafeId: Int,
-    @SerializedName("cafeTitle") var cafeTitle: String
+    @SerializedName("cafeId") val cafeId: Int,
+    @SerializedName("cafeTitle") val cafeTitle: String
     )
 
 // "cafeId": 12,

@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.main.home
 
+import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -14,6 +15,7 @@ import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
+import com.iame.qnnect.android.src.alarm.AlarmActivity
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.home_bottom.InviteGroupBottomSheet
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -95,8 +97,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 }
             }
 
-            it.groupList.forEach { item ->
-                groupAdapter.addItem(item)
+            if(it.groupList.size == 0){
+                empty_main.visibility = View.VISIBLE
+                not_empty_main.visibility = View.GONE
+            }
+            else{
+                not_empty_main.visibility = View.VISIBLE
+                empty_main.visibility = View.GONE
+                it.groupList.forEach { item ->
+                    groupAdapter.addItem(item)
+                }
             }
 
             questionRecyclerViewAdapter.notifyDataSetChanged()
@@ -132,6 +142,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 }
             }
             invitgroupBottomSheet.show(requireActivity().supportFragmentManager, invitgroupBottomSheet.tag)
+        }
+
+        empty_add_group_btn.setOnClickListener {
+            val maingroupBottomSheet: AddGroupBottomSheet = AddGroupBottomSheet {
+                when (it) {
+                    // 그룹페이지로 이동
+                    0 -> {
+                        activity = fragment_s.activity as MainActivity?
+                        //change_for_adapter는 mainactivity에 구현
+                        activity?.fragmentChange_for_adapter()
+                    }
+                }
+            }
+            maingroupBottomSheet.show(requireActivity().supportFragmentManager, maingroupBottomSheet.tag)
+        }
+
+        empty_invite_group_btn.setOnClickListener {
+            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet {
+                when (it) {
+                    // 그룹페이지로 이동
+                    0 -> {
+                        activity = fragment_s.activity as MainActivity?
+                        //change_for_adapter는 mainactivity에 구현
+                        activity?.fragmentChange_for_adapter()
+                    }
+                }
+            }
+            invitgroupBottomSheet.show(requireActivity().supportFragmentManager, invitgroupBottomSheet.tag)
+        }
+
+        alarm_btn.setOnClickListener {
+            var intent = Intent(context, AlarmActivity::class.java)
+            startActivity(intent)
         }
     }
     override fun onResume() {

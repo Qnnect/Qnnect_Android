@@ -25,9 +25,10 @@ import kotlinx.android.synthetic.main.item_main_image.view.*
 class UserHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: DrinkUserAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val user_img :ImageView
     private val user_name: TextView
+    private val img_main: ConstraintLayout
 
     var data: CafeUser? = null
-    fun onBind(data: CafeUser) {
+    fun onBind(data: CafeUser, select_index: Int) {
         this.data = data
 
         Glide.with(context)
@@ -39,6 +40,13 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
 
         itemView.setOnClickListener(View.OnClickListener { a_view ->
             val position = adapterPosition
+            if(select_index == position){
+                img_main.setBackgroundResource(R.drawable.drink_user_select_custom)
+                img_main.clipToOutline = true
+            }
+            else{
+                img_main.setBackgroundResource(R.drawable.drink_user_custom)
+            }
             if (position != RecyclerView.NO_POSITION) {
                 a_itemClickListener.onItemClick(a_view, position)
             }
@@ -49,5 +57,6 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
     init {
         user_img = itemView.findViewById(R.id.user_img)
         user_name = itemView.findViewById(R.id.user_name)
+        img_main = itemView.findViewById(R.id.img_main)
     }
 }

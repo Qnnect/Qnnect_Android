@@ -3,12 +3,12 @@ package com.iame.qnnect.android.src.group.model
 import com.google.gson.annotations.SerializedName
 
 data class CafeQuestion(
-    @SerializedName("createdAt") var createdAt: String,
-    @SerializedName("daysLeft") var daysLeft: Int,
-    @SerializedName("cafeQuestionId") var cafeQuestionId: Int,
-    @SerializedName("questioner") var questioner: String,
-    @SerializedName("question") var question: String,
-    @SerializedName("writer") var writer: Boolean
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("daysLeft") val daysLeft: Int,
+    @SerializedName("cafeQuestionId") val cafeQuestionId: Int,
+    @SerializedName("questioner") val questioner: String,
+    @SerializedName("question") val question: String,
+    @SerializedName("writer") val writer: Boolean
 )
 
 // {

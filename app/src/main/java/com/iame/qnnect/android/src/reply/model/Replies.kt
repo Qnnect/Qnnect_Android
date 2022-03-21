@@ -6,11 +6,11 @@ import com.iame.qnnect.android.src.profile.model.PatchProfileResponse
 import com.kakao.sdk.user.model.User
 
 data class Replies(
-    @SerializedName("replyId") var replyId: Int,
-    @SerializedName("writerInfo") var writerInfo: Writer,
-    @SerializedName("content") var content: String,
-    @SerializedName("createdAt") var createdAt: String,
-    @SerializedName("writer") var writer: Boolean
+    @SerializedName("replyId") val replyId: Int,
+    @SerializedName("writerInfo") val writerInfo: Writer,
+    @SerializedName("content") val content: String,
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("writer") val writer: Boolean
     )
 
 //  {
