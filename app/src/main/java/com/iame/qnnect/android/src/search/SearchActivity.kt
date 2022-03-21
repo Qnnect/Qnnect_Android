@@ -52,6 +52,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 empty_txt.visibility = View.VISIBLE
             }
             questionListAdapter.notifyDataSetChanged()
+            dismissLoadingDialog()
         })
     }
 

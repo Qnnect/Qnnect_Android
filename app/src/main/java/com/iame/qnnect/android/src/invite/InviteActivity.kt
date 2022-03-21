@@ -10,6 +10,11 @@ import kotlinx.android.synthetic.main.activity_invite.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.net.Uri
+import android.widget.Toast
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.link.WebSharerClient
+import kotlin.reflect.KParameter
 
 
 class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
@@ -61,6 +66,7 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         LinkClient.instance.customTemplate(this, templateId, templateArgs) { linkResult, error ->
             if (error != null) {
                 Log.e("invite_kakao", "카카오링크 보내기 실패", error)
+                Toast.makeText(this, "카카오톡이 로그인 되어있지 않습니다.", Toast.LENGTH_SHORT).show()
             }
             else if (linkResult != null) {
                 Log.d("invite_kakao", "카카오링크 보내기 성공 ${linkResult.intent}")

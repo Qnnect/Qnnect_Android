@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.main.mypage
 
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -8,6 +9,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
+import com.iame.qnnect.android.src.group.NotQuestionDialog
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -37,10 +40,23 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
         }
 
         setting_logout.setOnClickListener {
-            baseToken.setAccessToken(context!!, "", "")
-            var intent = Intent(context, LoginActivity::class.java)
-            intent.flags =
-                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+            val logoutDialog: LogoutDialog = LogoutDialog {
+                when (it) {
+                    // 로그아웃
+                    0 -> {
+                        baseToken.setAccessToken(requireContext(), "", "")
+                        var intent = Intent(context, LoginActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+                        startActivity(intent)
+                    }
+                }
+            }
+            logoutDialog.show(requireActivity().supportFragmentManager, logoutDialog.tag)
+        }
+
+        setting_instagram.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/qnnect.official/"))
             startActivity(intent)
         }
 

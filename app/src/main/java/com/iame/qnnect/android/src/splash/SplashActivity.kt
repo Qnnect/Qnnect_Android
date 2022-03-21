@@ -34,33 +34,37 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     }
 
     override fun initDataBinding() {
+        viewModel.refreshResponse.observe(this, Observer {
+            if(it.accessToken == "" || it.refreshToken == ""){
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }, 1500)
+            }
+            else{
+                Log.d("login_response", it.toString())
+                baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }, 1500)
+            }
+        })
     }
 
     override fun initAfterBinding() {
+
+        if(intent.action == Intent.ACTION_VIEW) {
+//            val boardId = intent.data!!.getQueryParameter(GotoDetailBoard.QUERY_BOARD_ID).toLong()
+//            GotoDetailBoard.go(this, boardId) // startActivity to DetailActivity
+        }
+
         val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
         val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
 
         if(jwtToken != null){
             var refreshRequest = PostRefreshRequest(jwtToken!!, refreshToken!!)
-
             viewModel.postRefresh(refreshRequest)
-
-            viewModel.refreshResponse.observe(this, Observer {
-                if(it.accessToken == "" || it.refreshToken == ""){
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, LoginActivity::class.java))
-                        finish()
-                    }, 1500)
-                }
-                else{
-                    Log.d("login_response", it.toString())
-                    baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }, 1500)
-                }
-            })
         }
         else{
             Handler(Looper.getMainLooper()).postDelayed({
