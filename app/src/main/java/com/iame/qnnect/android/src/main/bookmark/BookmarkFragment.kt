@@ -13,12 +13,16 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentBookmarkBinding
+import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.main.bookmark.model.*
 import com.iame.qnnect.android.src.main.home.GroupAdapter
 import com.iame.qnnect.android.src.main.home.QuestionRecyclerViewAdapter
 import com.iame.qnnect.android.src.main.home.ViewPagerAdapter
 import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.main.home.model.question_item
+import com.iame.qnnect.android.src.reply.ReplyAdapter
+import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.src.search.SearchActivity
 import com.iame.qnnect.android.viewmodel.BookmarkViewModel
 import kotlinx.android.synthetic.main.activity_diary.*
@@ -110,6 +114,16 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
             var intent = Intent(context, SearchActivity::class.java)
             startActivity(intent)
         }
+
+        questionListAdapter.setOnItemClickListener(object :
+            QuestionListAdapter.OnItemClickEventListener {
+            override fun onItemClick(a_view: View?, a_position: Int) {
+                val item: Bookmark = questionListAdapter.getItem(a_position)
+                var intent = Intent(context, DiaryActivity::class.java)
+                intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun onResume() {
@@ -120,6 +134,6 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         groupnameAdapter.clear()
         questionListAdapter.clear()
 
-        showLoadingDialog(context!!)
+        showLoadingDialog(requireContext())
     }
 }

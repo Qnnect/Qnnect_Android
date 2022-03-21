@@ -22,6 +22,7 @@ import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
 import com.iame.qnnect.android.src.question.QuestionActivity
+import com.iame.qnnect.android.src.question.QuestionListActivity
 import com.iame.qnnect.android.util.drink_img
 import com.iame.qnnect.android.util.drink_imgName
 import com.iame.qnnect.android.viewmodel.GroupViewModel
@@ -163,6 +164,11 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
+        question_list_btn.setOnClickListener {
+            var intent = Intent(context, QuestionListActivity::class.java)
+            startActivity(intent)
+        }
+
         drink_img_default.setOnClickListener {
             val addDrinkBottomSheet = AddDrinkBottomSheet(this)
             addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)

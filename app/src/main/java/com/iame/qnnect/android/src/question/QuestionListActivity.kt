@@ -10,7 +10,9 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityQuestionlistBinding
 import com.iame.qnnect.android.databinding.ActivitySearchBinding
+import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
+import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
 import com.iame.qnnect.android.src.search.SearchActivity
 import com.iame.qnnect.android.viewmodel.QuestionListViewModel
 import kotlinx.android.synthetic.main.activity_questionlist.*
@@ -39,9 +41,17 @@ class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
     }
 
     override fun initDataBinding() {
-        viewModel.bookmarkResponse.observe(this, Observer {
-            it.forEach { item ->
-                questionListAdapter.addItem(item)
+        viewModel.questionResponse.observe(this, Observer {
+            if(it.cafeQuestionList.size == 0){
+                empty_img.visibility = View.VISIBLE
+                empty_txt.visibility = View.VISIBLE
+            }
+            else{
+                empty_img.visibility = View.GONE
+                empty_txt.visibility = View.GONE
+                it.cafeQuestionList.forEach { item ->
+                    questionListAdapter.addItem(item)
+                }
             }
             questionListAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
@@ -53,7 +63,7 @@ class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
 
         var cafeId = home.getGroupname(this)
 
-        viewModel.getBookamrk(cafeId!!)
+        viewModel.getQuestion(cafeId!!)
         showLoadingDialog(this)
 
         back_btn.setOnClickListener {
@@ -61,8 +71,18 @@ class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
         }
 
         search_btn.setOnClickListener {
-            var intent = Intent(this, SearchActivity::class.java)
+            var intent = Intent(this, SearchQuestionActivity::class.java)
             startActivity(intent)
         }
+
+        questionListAdapter.setOnItemClickListener(object :
+            QuestionListAdapter.OnItemClickEventListener {
+            override fun onItemClick(a_view: View?, a_position: Int) {
+                val item: Bookmark = questionListAdapter.getItem(a_position)
+                var intent = Intent(this@QuestionListActivity, DiaryActivity::class.java)
+                intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+                startActivity(intent)
+            }
+        })
     }
 }

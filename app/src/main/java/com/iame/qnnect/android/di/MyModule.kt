@@ -72,8 +72,11 @@ import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
 import com.iame.qnnect.android.src.profile.service.ProfileDefaultAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDefaultDataImpl
 import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
+import com.iame.qnnect.android.src.question.model.SearchQuestionDataModel
 import com.iame.qnnect.android.src.question.service.PostQuestionAPI
 import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
+import com.iame.qnnect.android.src.question.service.SearchQuestionAPI
+import com.iame.qnnect.android.src.question.service.SearchQuestionDataImpl
 import com.iame.qnnect.android.src.reply.ImageAdapter
 import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.src.reply.model.DeleteAnswerDataModel
@@ -465,6 +468,26 @@ var retrofitPart = module {
             .build()
             .create(PatchAnswerAPI::class.java)
     }
+    single<com.iame.qnnect.android.src.question.service.GetQuestionAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(com.iame.qnnect.android.src.question.service.GetQuestionAPI::class.java)
+    }
+    single<SearchQuestionAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(SearchQuestionAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -600,6 +623,12 @@ var modelPart = module {
     factory<PatchAnswerDataModel> {
         PatchAnswerDataImpl(get())
     }
+    factory<com.iame.qnnect.android.src.question.model.GetQuestionDataModel> {
+        com.iame.qnnect.android.src.question.service.GetQuestionDataImpl(get())
+    }
+    factory<SearchQuestionDataModel> {
+        SearchQuestionDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -617,7 +646,6 @@ var viewModelPart = module {
     viewModel { SearchViewModel(get())}
     viewModel { DiaryViewModel(get(), get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get(), get(), get()) }
-    viewModel { QuestionListViewModel(get())}
     viewModel { ReplyViewModel(get(), get(), get()) }
     viewModel { EditReplyViewModel(get()) }
     viewModel { EditDrinkViewModel(get(), get()) }
@@ -625,6 +653,8 @@ var viewModelPart = module {
     viewModel { StoreActivityViewModel(get() ) }
     viewModel { MyMaterialViewModel(get(), get()) }
     viewModel { DrinkViewModel(get() ) }
+    viewModel { QuestionListViewModel(get())}
+    viewModel { SearchQuestionViewModel(get())}
 
     viewModel { RecipeViewModel() }
     viewModel { OnboardViewModel() }
