@@ -16,18 +16,45 @@ data class CurrentDrinkInfo(
     @SerializedName("toppingFilled") val toppingFilled: Int,
     )
 
-// {
-//    "currentDrinkInfo": {
-//        "userDrinkSelectedId": 46,
+//        "userDrinkSelectedId": 30,
 //        "userDrinkName": "딸기라떼",
-//        "currentDrinkIngredientsFilled": [],
+//        "currentDrinkIngredientsFilled": [
+//            {
+//                "ingredientName": "얼음"
+//            },
+//            {
+//                "ingredientName": "얼음"
+//            },
+//            {
+//                "ingredientName": "우유"
+//            },
+//            {
+//                "ingredientName": "우유"
+//            },
+//            {
+//                "ingredientName": "우유"
+//            },
+//            {
+//                "ingredientName": "딸기퓨레"
+//            },
+//            {
+//                "ingredientName": "딸기퓨레"
+//            },
+//            {
+//                "ingredientName": "딸기퓨레"
+//            },
+//            {
+//                "ingredientName": "딸기"
+//            },
+//            {
+//                "ingredientName": "딸기"
+//            }
+//        ],
 //        "ice": 2,
-//        "iceFilled": 0,
+//        "iceFilled": 2,
 //        "base": 3,
-//        "baseFilled": 0,
+//        "baseFilled": 3,
 //        "main": 3,
-//        "mainFilled": 0,
+//        "mainFilled": 3,
 //        "topping": 2,
-//        "toppingFilled": 0
-//    }
-//}
+//        "toppingFilled": 2

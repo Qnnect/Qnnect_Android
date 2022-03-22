@@ -180,6 +180,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
         }
         ok_btn.setOnClickListener {
             var intent = Intent(this, EditDrinkActivity::class.java)
+            intent.putExtra("cafeId", cafeId)
             startActivity(intent)
         }
 

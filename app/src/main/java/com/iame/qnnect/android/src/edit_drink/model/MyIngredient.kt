@@ -9,13 +9,9 @@ data class MyIngredient(
     @SerializedName("count") val count: Int
     )
 
-// {"ingredientId":1,"name":"얼음","ingredientType":"ice_base","count":1}
-
-//[
-//{
-//    "count": 30,
-//    "ingredientId": 1,
-//    "ingredientType": "토핑",
-//    "name": "녹차가루"
-//}
-//]
+//        {
+//            "ingredientId": 1,
+//            "name": "얼음",
+//            "ingredientType": "ice_base",
+//            "count": 2
+//        }

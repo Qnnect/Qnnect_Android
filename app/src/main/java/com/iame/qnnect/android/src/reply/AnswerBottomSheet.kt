@@ -54,14 +54,14 @@ class AnswerBottomSheet(val itemClick: (Int) -> Unit) :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var edit_btn = view!!.findViewById<TextView>(R.id.edit_reply)
+        var edit_btn = requireView().findViewById<TextView>(R.id.edit_reply)
         edit_btn.text = "댓글 수정"
         edit_btn.setOnClickListener {
             dismiss()
             itemClick(0)
         }
 
-        var delete_btn = view!!.findViewById<TextView>(R.id.delte_reply)
+        var delete_btn = requireView().findViewById<TextView>(R.id.delte_reply)
         delete_btn.text = "댓글 삭제"
         delete_btn.setOnClickListener {
             val deleteDialog: DeleteReplyDialog = DeleteReplyDialog {

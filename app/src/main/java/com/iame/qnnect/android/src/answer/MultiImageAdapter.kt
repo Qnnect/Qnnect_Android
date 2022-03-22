@@ -17,15 +17,31 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.MyConstant.Companion.radius
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.group.model.CafeUser
 
 
 class MultiImageAdapter internal constructor(
-    list: ArrayList<Uri>?,
+    var list: ArrayList<Uri>?,
     context: Context?
 ) :
     RecyclerView.Adapter<MultiImageAdapter.ViewHolder>() {
     private var mData: ArrayList<Uri>? = null
     private var mContext: Context? = null
+
+    var select_index = -1
+
+    // item click listener
+    interface OnItemClickListener {
+        fun onItemClick(v: View?, position: Int)
+    }
+
+    // 리스너 객체 참조를 저장하는 변수
+    private var mListener: OnItemClickListener? = null
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        mListener = listener
+    }
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     inner class ViewHolder internal constructor(itemView: View) :
@@ -64,7 +80,17 @@ class MultiImageAdapter internal constructor(
             .transform(CenterCrop(), RoundedCorners(30))
             .into(holder.image)
 
-        holder.delete_btn.setOnClickListener {
+
+        // // item click listener
+        holder.delete_btn.setOnClickListener(View.OnClickListener { v ->
+            val pos: Int = position
+            if (pos != RecyclerView.NO_POSITION) {
+                // 리스너 객체의 메서드 호출.
+                if (mListener != null) {
+                    mListener!!.onItemClick(v, pos)
+                }
+                select_index=position
+            }
             if(mData!!.size == 1){
                 clear()
                 this.notifyDataSetChanged()
@@ -72,7 +98,7 @@ class MultiImageAdapter internal constructor(
             else{
                 deleteItem(position)
             }
-        }
+        })
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
@@ -83,6 +109,14 @@ class MultiImageAdapter internal constructor(
     // getItemCount() - 전체 데이터 갯수 리턴.
     fun clear() {
         return mData!!.clear()
+    }
+
+    fun addItem(item: Uri) {
+        list!!.add(item)
+    }
+
+    fun getItem(item: Uri) {
+        list!!.add(item)
     }
 
     private fun deleteItem(position: Int) {

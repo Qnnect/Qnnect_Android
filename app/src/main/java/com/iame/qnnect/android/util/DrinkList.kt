@@ -15,6 +15,18 @@ fun Getdrink(num: Int): drink {
     return drink!!
 }
 
+fun GetdrinkName(name: String): drink {
+    var drink: drink? = null
+    drink = when (name) {
+        "딸기라떼" -> drink(1, "딸기라떼", R.mipmap.drink_strawberry_latte_foreground)
+        "레몬에이드" -> drink(2, "레몬에이드", R.mipmap.drink_lemon_tea_foreground)
+        "민트초코" -> drink(3, "민트초코", R.mipmap.drink_mintchocolate_foreground)
+        "초코라떼" -> drink(4, "초코라떼", R.mipmap.drink_chocolate_latte_foreground)
+        else -> drink(5, "썸머라떼", R.mipmap.drink_summer_latte_foreground)
+    }
+    return drink!!
+}
+
 fun drink_img(drinkId: Int, recipe_name: String): Int {
     var drink: Int? = null
     drink = when (drinkId) {

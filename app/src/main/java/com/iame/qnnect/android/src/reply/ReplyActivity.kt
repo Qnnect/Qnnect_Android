@@ -50,6 +50,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     var dday = ""
     var questioner = ""
     var question = ""
+    var content = ""
 
     override val viewModel: ReplyViewModel by viewModel()
 
@@ -99,6 +100,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 .into(my_profile_img)
             my_profile_name.text = it.writerInfo.nickName
             answer_txt.text = it.content
+            content = it.content
 
             date_txt.text = it.createdAt
 
@@ -185,6 +187,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                     // 답변 수정
                     0 -> {
                         var intent = Intent(this, EditAnswerActivity::class.java)
+                        intent.putExtra("content", content)
                         intent.putExtra("commentId", commentId)
                         intent.putExtra("cafeQuestionId", cafeQuestionId)
                         intent.putExtra("date", date)

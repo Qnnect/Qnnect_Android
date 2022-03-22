@@ -10,6 +10,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
 import com.iame.qnnect.android.src.alarm.AlarmActivity
+import com.iame.qnnect.android.src.alarm.EditAlarmActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -37,6 +38,11 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
 
         user_profile_img.setOnClickListener {
             var intent = Intent(context, EditprofileActivity::class.java)
+            startActivity(intent)
+        }
+
+        setting_alarm.setOnClickListener {
+            var intent = Intent(context, EditAlarmActivity::class.java)
             startActivity(intent)
         }
 

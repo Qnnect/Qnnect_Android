@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.util
 
 import com.iame.qnnect.android.R
+import com.iame.qnnect.android.src.add_drink.drink
 
 data class recipe(
     var index: Int,
@@ -28,6 +29,7 @@ fun recipe(num: Int): recipe {
     }
     return recipelist!!
 }
+
 
 fun allrecipe(): ArrayList<recipe> {
     var recipelist = ArrayList<recipe>()

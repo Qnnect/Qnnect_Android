@@ -1,11 +1,5 @@
 package com.iame.qnnect.android.di
 
-import android.content.Context
-import android.content.Intent
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import androidx.lifecycle.Observer
 import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.MyApplication
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
@@ -17,12 +11,9 @@ import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
-import com.iame.qnnect.android.src.answer.model.PatchAnswerDataModel
+import com.iame.qnnect.android.src.answer.EditImageAdapter
 import com.iame.qnnect.android.src.answer.model.PostAnswerDataModel
-import com.iame.qnnect.android.src.answer.service.PatchAnswerAPI
-import com.iame.qnnect.android.src.answer.service.PatchAnswerDataImpl
-import com.iame.qnnect.android.src.answer.service.PostAnswerAPI
-import com.iame.qnnect.android.src.answer.service.PostAnswerDataImpl
+import com.iame.qnnect.android.src.answer.service.*
 import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
 import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
@@ -45,11 +36,9 @@ import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
 import com.iame.qnnect.android.src.group.service.GroupAPI
 import com.iame.qnnect.android.src.group.service.GroupDataImpl
-import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.service.LoginAPI
 import com.iame.qnnect.android.src.login.service.LoginDataImpl
-import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.bookmark.GroupnameAdapter
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
 import com.iame.qnnect.android.src.main.bookmark.model.BookmarkAllDataModel
@@ -77,6 +66,10 @@ import com.iame.qnnect.android.src.question.service.PostQuestionAPI
 import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
 import com.iame.qnnect.android.src.question.service.SearchQuestionAPI
 import com.iame.qnnect.android.src.question.service.SearchQuestionDataImpl
+import com.iame.qnnect.android.src.recipe.model.GetRecipeDataModel
+import com.iame.qnnect.android.src.recipe.model.GetRecipeResponse
+import com.iame.qnnect.android.src.recipe.service.GetRecipeAPI
+import com.iame.qnnect.android.src.recipe.service.GetRecipeDataImpl
 import com.iame.qnnect.android.src.reply.ImageAdapter
 import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.src.reply.model.DeleteAnswerDataModel
@@ -90,7 +83,6 @@ import com.iame.qnnect.android.src.search.model.SearchDataModel
 import com.iame.qnnect.android.src.search.service.SearchAPI
 import com.iame.qnnect.android.src.search.service.SearchDataImpl
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
-import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
@@ -99,8 +91,6 @@ import com.iame.qnnect.android.src.store.model.GetMyMaterialDataModel
 import com.iame.qnnect.android.src.store.model.PostBuyMaterialDataModel
 import com.iame.qnnect.android.src.store.service.*
 import com.iame.qnnect.android.viewmodel.*
-import io.reactivex.Single
-import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -458,16 +448,6 @@ var retrofitPart = module {
             .build()
             .create(DeleteAnswerAPI::class.java)
     }
-    single<PatchAnswerAPI> {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(NullOnEmptyConverterFactory())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(PatchAnswerAPI::class.java)
-    }
     single<com.iame.qnnect.android.src.question.service.GetQuestionAPI> {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -487,6 +467,16 @@ var retrofitPart = module {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(SearchQuestionAPI::class.java)
+    }
+    single<GetRecipeAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetRecipeAPI::class.java)
     }
 }
 
@@ -529,6 +519,9 @@ var adapterPart = module {
     }
     factory {
         DrinkUserAdapter()
+    }
+    factory {
+        EditImageAdapter()
     }
 }
 
@@ -620,14 +613,14 @@ var modelPart = module {
     factory<DeleteAnswerDataModel> {
         DeleteAnswerDataImpl(get())
     }
-    factory<PatchAnswerDataModel> {
-        PatchAnswerDataImpl(get())
-    }
     factory<com.iame.qnnect.android.src.question.model.GetQuestionDataModel> {
         com.iame.qnnect.android.src.question.service.GetQuestionDataImpl(get())
     }
     factory<SearchQuestionDataModel> {
         SearchQuestionDataImpl(get())
+    }
+    factory<GetRecipeDataModel> {
+        GetRecipeDataImpl(get())
     }
 }
 
@@ -645,7 +638,7 @@ var viewModelPart = module {
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
     viewModel { DiaryViewModel(get(), get(), get(), get(), get())}
-    viewModel { AnswerViewModel(get(), get(), get(), get()) }
+    viewModel { AnswerViewModel(get(), get(), get()) }
     viewModel { ReplyViewModel(get(), get(), get()) }
     viewModel { EditReplyViewModel(get()) }
     viewModel { EditDrinkViewModel(get(), get()) }
@@ -655,12 +648,13 @@ var viewModelPart = module {
     viewModel { DrinkViewModel(get() ) }
     viewModel { QuestionListViewModel(get())}
     viewModel { SearchQuestionViewModel(get())}
+    viewModel { RecipeViewModel(get()) }
 
-    viewModel { RecipeViewModel() }
     viewModel { OnboardViewModel() }
     viewModel { EditQuestionViewModel() }
     viewModel { FinishDrinkViewModel() }
     viewModel { AlarmViewModel() }
+    viewModel { EditAlarmViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

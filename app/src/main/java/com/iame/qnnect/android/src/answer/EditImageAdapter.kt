@@ -17,16 +17,26 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.MyConstant.Companion.radius
 import com.iame.qnnect.android.R
-import java.io.File
+import com.iame.qnnect.android.src.group.model.CafeUser
 
 
-class EditImageAdapter internal constructor(
-    var list: ArrayList<File>?,
-    context: Context?
-) :
+class EditImageAdapter internal constructor() :
     RecyclerView.Adapter<EditImageAdapter.ViewHolder>() {
-    private var mData: ArrayList<File>? = null
-    private var mContext: Context? = null
+    private var list: ArrayList<Uri?> = ArrayList()
+    var select_index = -1
+
+    // item click listener
+    interface OnItemClickListener {
+        fun onItemClick(v: View?, position: Int)
+    }
+
+    // 리스너 객체 참조를 저장하는 변수
+    private var mListener: OnItemClickListener? = null
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        mListener = listener
+    }
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     inner class ViewHolder internal constructor(itemView: View) :
@@ -59,42 +69,60 @@ class EditImageAdapter internal constructor(
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val image_uri: File = mData!![position]
-        Glide.with(mContext!!)
-            .load(image_uri)
-            .transform(CenterCrop(), RoundedCorners(30))
-            .into(holder.image)
-
-        holder.delete_btn.setOnClickListener {
-            if(mData!!.size == 1){
-                clear()
-                this.notifyDataSetChanged()
-            }
-            else{
-                deleteItem(position)
-            }
+        if(list!!.get(position) == null){
+            holder.itemView.visibility = View.GONE
         }
-    }
+        else{
+            val image_uri: Uri = list!!.get(position)!!
+            Glide.with(holder.itemView.context)
+                .load(image_uri)
+                .transform(CenterCrop(), RoundedCorners(30))
+                .into(holder.image)
+        }
 
-    // getItemCount() - 전체 데이터 갯수 리턴.
-    override fun getItemCount(): Int {
-        return mData!!.size
+        // // item click listener
+        holder.delete_btn.setOnClickListener(View.OnClickListener { v ->
+            val pos: Int = position
+            if (pos != RecyclerView.NO_POSITION) {
+                // 리스너 객체의 메서드 호출.
+                if (mListener != null) {
+                    mListener!!.onItemClick(v, pos)
+                }
+                select_index=position
+            }
+        })
     }
-
     // getItemCount() - 전체 데이터 갯수 리턴.
     fun clear() {
-        return mData!!.clear()
+        return list!!.clear()
     }
 
-    private fun deleteItem(position: Int) {
-        mData!!.removeAt(position)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, mData!!.size)
+    fun addItem(item: Uri) {
+        list!!.add(item)
     }
 
-    // 생성자에서 데이터 리스트 객체, Context를 전달받음.
-    init {
-        mData = list
-        mContext = context
+    fun addPositionItem(position: Int, item: Uri) {
+        list!!.set(position, item)
+    }
+
+    fun getItem(item: Uri) {
+        list!!.add(item)
+    }
+
+    fun getCount(): Int {
+        var count = 0
+        for(i in 0..list!!.size){
+            if(list!!.get(i) != null){count = count+1}
+        }
+        return count
+    }
+
+    fun deleteItem(position: Int) {
+        list!!.set(position, null)
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
     }
 }

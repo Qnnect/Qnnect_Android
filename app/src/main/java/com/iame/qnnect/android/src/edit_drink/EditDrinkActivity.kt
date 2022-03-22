@@ -39,6 +39,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
     var next = ""
 
     override fun initStartView() {
+        cafeId = intent.getIntExtra("cafeId", 0)
         // member recycler
         material_recycler.run {
             adapter = recipeAdapter
@@ -205,6 +206,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
         recipe_btn.setOnClickListener {
             var intent = Intent(this, RecipeActivity::class.java)
             intent.putExtra("drinkId", userdrinkId)
+            intent.putExtra("cafeId", cafeId)
             startActivity(intent)
         }
 
