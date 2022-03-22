@@ -22,6 +22,10 @@ class DrinkViewModel(private val model: GetUserDrinkDataModel) : BaseViewModel()
     val userDrinkResponse: LiveData<GetUserDrinkResponse>
         get() = getuserdrinkResponse
 
+    private val geterrorResponse = MutableLiveData<Int>()
+    val errorResponse: LiveData<Int>
+        get() = geterrorResponse
+
     fun getUserDrink(cafeId: Int, cafeUserId: Int) {
         addDisposable(model.getData(cafeId, cafeUserId)
             .subscribeOn(Schedulers.io())
@@ -31,7 +35,7 @@ class DrinkViewModel(private val model: GetUserDrinkDataModel) : BaseViewModel()
                     getuserdrinkResponse.postValue(this)
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                geterrorResponse.postValue(500)
             })
         )
     }
