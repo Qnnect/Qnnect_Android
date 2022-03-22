@@ -59,7 +59,6 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
                 .load(img.img)
                 .transform(CenterCrop())
                 .into(ice_img)
-            ice_txt.text = ice.name
             recipe_ice_txt.text = ice.name
             recipe_ice_count.text = "X"+ice.count.toString()
 
@@ -69,7 +68,6 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
                 .load(img.img)
                 .transform(CenterCrop())
                 .into(base_img)
-            base_txt.text = base.name
             recipe_base_txt.text = base.name
             recipe_base_count.text = "X"+base.count.toString()
 
@@ -79,7 +77,6 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
                 .load(img.img)
                 .transform(CenterCrop())
                 .into(main_img)
-            main_txt.text = main.name
             recipe_main_txt.text = main.name
             recipe_main_count.text = "X"+main.count.toString()
 
@@ -89,7 +86,6 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
                 .load(img.img)
                 .transform(CenterCrop())
                 .into(topping_img)
-            topping_txt.text = topping.name
             recipe_topping_txt.text = topping.name
             recipe_topping_count.text = "X"+topping.count.toString()
         })

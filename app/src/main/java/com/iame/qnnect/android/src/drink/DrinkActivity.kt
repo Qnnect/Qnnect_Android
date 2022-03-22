@@ -167,7 +167,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
             dismissLoadingDialog()
         })
 
-        viewModel.userDrinkResponse.observe(this, Observer {
+        viewModel.errorResponse.observe(this, Observer {
             drink_img.setImageResource(R.mipmap.drink_none_foreground)
             complete_main.visibility = View.GONE
             ok_btn.visibility = View.GONE

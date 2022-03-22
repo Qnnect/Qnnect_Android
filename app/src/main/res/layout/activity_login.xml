@@ -15,6 +15,7 @@
         android:background="@color/p_ivory">
 
         <ImageView
+            android:id="@+id/logo_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,6 +35,19 @@
             android:src="@drawable/img_login_svg"
             tools:layout_editor_absoluteX="51dp"
             tools:layout_editor_absoluteY="140dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/logo_img"
+            android:text="공유 Q&amp;A 다이어리 서비스, 큐넥트"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/kotra_hopr_ttf"
+            android:textSize="23dp">
+        </TextView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/kakao_login_btn"
