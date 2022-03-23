@@ -17,7 +17,7 @@ class BaseToken {
     fun getAccessToken(context: Context): String? {
         // shared preference
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
-        var token = text.getString("", null)
+        var token = text.getString("X-ACCESS-TOKEN", null)
         return token
     }
 
@@ -40,5 +40,19 @@ class BaseToken {
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
         var token = text.getString("refresh-token", null)
         return "Bearer "+token
+    }
+
+    fun setCafeCode(context: Context, cafeCode: String?) {
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var editor = text.edit()
+        editor.putString("cafeCode", cafeCode)
+        editor.commit()
+    }
+
+    fun getCafeCode(context: Context): String? {
+        // shared preference
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var token = text.getString("cafeCode", null)
+        return token
     }
 }

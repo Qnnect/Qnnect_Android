@@ -26,6 +26,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override val viewModel: SplashViewModel by viewModel()
 
+    var cafeCode = "null"
+
     override fun initStartView() {
 //        var window = getWindow()
 //        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -45,7 +47,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                 Log.d("login_response", it.toString())
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(Intent(this, MainActivity::class.java))
+                    var intent =Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }, 1500)
             }
@@ -55,8 +58,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override fun initAfterBinding() {
 
         if(intent.action == Intent.ACTION_VIEW) {
-//            val boardId = intent.data!!.getQueryParameter(GotoDetailBoard.QUERY_BOARD_ID).toLong()
-//            GotoDetailBoard.go(this, boardId) // startActivity to DetailActivity
+            cafeCode = intent.data!!.getQueryParameter("code")!!
+            baseToken.setCafeCode(this, cafeCode)
         }
 
         val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)

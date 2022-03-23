@@ -65,6 +65,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     }
 
     override fun initDataBinding() {
+        var cafeCode = baseToken.getCafeCode(requireContext())
+        if(cafeCode != null){
+            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet(cafeCode) {
+                when (it) {
+                    // 그룹페이지로 이동
+                    0 -> {
+                        activity = fragment_s.activity as MainActivity?
+                        //change_for_adapter는 mainactivity에 구현
+                        activity?.fragmentChange_for_adapter()
+                    }
+                }
+            }
+            invitgroupBottomSheet.show(requireActivity().supportFragmentManager, invitgroupBottomSheet.tag)
+            baseToken.setCafeCode(requireContext(), null)
+        }
+
         viewModel.homeResponse.observe(this, Observer {
 //            dismissLoadingDialog()
             var image = it.user.profileImage
@@ -140,7 +156,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         }
 
         invite_group_btn.setOnClickListener {
-            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet {
+            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet(null) {
                 when (it) {
                     // 그룹페이지로 이동
                     0 -> {
@@ -168,7 +184,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
         }
 
         empty_invite_group_btn.setOnClickListener {
-            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet {
+            val invitgroupBottomSheet: InviteGroupBottomSheet = InviteGroupBottomSheet(null) {
                 when (it) {
                     // 그룹페이지로 이동
                     0 -> {

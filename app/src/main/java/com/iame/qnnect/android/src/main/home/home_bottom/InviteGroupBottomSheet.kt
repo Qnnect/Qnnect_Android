@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.fragment_invite_group_bottom.*
 import java.util.concurrent.TimeUnit
 
 
-class InviteGroupBottomSheet(val itemClick: (Int) -> Unit) :
+class InviteGroupBottomSheet(val cafeCode: String?, val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(), PostInviteView{
     private lateinit var dlg : BottomSheetDialog
 
@@ -73,6 +73,9 @@ class InviteGroupBottomSheet(val itemClick: (Int) -> Unit) :
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if(cafeCode != null){
+            PostInviteService(this).tryInvite(cafeCode)
+        }
 
         var close_btn = requireView().findViewById<ImageView>(R.id.close_btn)
         var ok_btn = requireView().findViewById<ConstraintLayout>(R.id.ok_btn)

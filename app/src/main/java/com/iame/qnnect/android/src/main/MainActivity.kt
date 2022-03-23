@@ -29,6 +29,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     var case_num = 0
     var home = HomeFragment_case()
 
+    var cafeCode = ""
+
     override fun initStartView() {
     }
 
@@ -36,6 +38,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initAfterBinding() {
+
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
         main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom_clicked_foreground)
 
