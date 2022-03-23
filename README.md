@@ -48,3 +48,4 @@
 - 6th Week
 1. 2022.03.21(MON) -> Search Question Api & Layout, Question List Api & Layout
 2. 2022.03.22(TUE) -> Recipe Layout Update
+3. 2022.03.23(WEN) -> Declare layout, Delete User Api, Empty Layout, Drink resize, Not input nickname user Throw, Use Kakao Link Like Deep Like (Join Cafe at Home)
