@@ -19,12 +19,15 @@
     <application
         android:name="com.iame.qnnect.android.MyApplication"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:label="qnnect"
+        android:icon="@mipmap/app_logo_foreground"
+        android:label="큐넥트"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup">
+        tools:ignore="AllowBackup"
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
         <service
             android:name=".base.MyFirebaseMessagingService"
             android:stopWithTask="false">
@@ -167,6 +170,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.iame.qnnect.android.src.empty.EmptyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.iame.qnnect.android.src.declare.UserDeclareActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

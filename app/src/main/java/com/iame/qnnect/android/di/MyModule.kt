@@ -14,6 +14,11 @@ import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
 import com.iame.qnnect.android.src.answer.EditImageAdapter
 import com.iame.qnnect.android.src.answer.model.PostAnswerDataModel
 import com.iame.qnnect.android.src.answer.service.*
+import com.iame.qnnect.android.src.declare.DeclareAdapter
+import com.iame.qnnect.android.src.declare.model.DeleteDeclareDataModel
+import com.iame.qnnect.android.src.declare.model.GetDeclareListDataModel
+import com.iame.qnnect.android.src.declare.model.PostDeclareDataModel
+import com.iame.qnnect.android.src.declare.service.*
 import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.*
 import com.iame.qnnect.android.src.diary.service.*
@@ -70,7 +75,6 @@ import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
 import com.iame.qnnect.android.src.question.service.SearchQuestionAPI
 import com.iame.qnnect.android.src.question.service.SearchQuestionDataImpl
 import com.iame.qnnect.android.src.recipe.model.GetRecipeDataModel
-import com.iame.qnnect.android.src.recipe.model.GetRecipeResponse
 import com.iame.qnnect.android.src.recipe.service.GetRecipeAPI
 import com.iame.qnnect.android.src.recipe.service.GetRecipeDataImpl
 import com.iame.qnnect.android.src.reply.ImageAdapter
@@ -513,6 +517,36 @@ var retrofitPart = module {
             .build()
             .create(DeleteUserAPI::class.java)
     }
+    single<PostDeclareAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostDeclareAPI::class.java)
+    }
+    single<GetDeclareListDrinkAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetDeclareListDrinkAPI::class.java)
+    }
+    single<DeleteDeclareAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(DeleteDeclareAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -557,6 +591,9 @@ var adapterPart = module {
     }
     factory {
         EditImageAdapter()
+    }
+    factory {
+        DeclareAdapter()
     }
 }
 
@@ -666,6 +703,15 @@ var modelPart = module {
     factory<DeleteUserDataModel> {
         DeleteUserDataImpl(get())
     }
+    factory<PostDeclareDataModel> {
+        PostDeclareDataImpl(get())
+    }
+    factory<GetDeclareListDataModel> {
+        GetDeclareListDataImpl(get())
+    }
+    factory<DeleteDeclareDataModel> {
+        DeleteDeclareDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -681,9 +727,9 @@ var viewModelPart = module {
     viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
-    viewModel { DiaryViewModel(get(), get(), get(), get(), get(), get())}
+    viewModel { DiaryViewModel(get(), get(), get(), get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get(), get()) }
-    viewModel { ReplyViewModel(get(), get(), get()) }
+    viewModel { ReplyViewModel(get(), get(), get(), get()) }
     viewModel { EditReplyViewModel(get()) }
     viewModel { EditDrinkViewModel(get(), get()) }
     viewModel { StoreViewModel(get() ) }
@@ -694,6 +740,7 @@ var viewModelPart = module {
     viewModel { SearchQuestionViewModel(get())}
     viewModel { RecipeViewModel(get()) }
     viewModel { EditQuestionViewModel(get()) }
+    viewModel { UserDeclareViewModel(get(), get()) }
 
     viewModel { OnboardViewModel() }
     viewModel { FinishDrinkViewModel() }

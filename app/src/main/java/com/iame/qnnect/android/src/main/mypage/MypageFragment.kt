@@ -11,6 +11,7 @@ import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
 import com.iame.qnnect.android.src.alarm.AlarmActivity
 import com.iame.qnnect.android.src.alarm.EditAlarmActivity
+import com.iame.qnnect.android.src.declare.UserDeclareActivity
 import com.iame.qnnect.android.src.empty.EmptyActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
@@ -131,6 +132,11 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
         // 인스타그램
         setting_instagram.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/qnnect.official/"))
+            startActivity(intent)
+        }
+
+        setting_declare.setOnClickListener {
+            val intent = Intent(context, UserDeclareActivity::class.java)
             startActivity(intent)
         }
 

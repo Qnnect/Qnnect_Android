@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class GetUserResponse(
     @SerializedName("nickName") var nickName: String,
     @SerializedName("point") var point: Int,
-    @SerializedName("profileImage") var profileImage: String
+    @SerializedName("profileImage") var profileImage: String,
+    @SerializedName("reportId") var reportId: Int
     )
 
 // {

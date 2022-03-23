@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
@@ -176,6 +177,15 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             dismissLoadingDialog()
             finish()
         })
+
+        viewModel.declareResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            onResume()
+        })
+
+        viewModel.erdeclareResponse.observe(this, Observer {
+            Toast.makeText(this, "본인은 신고할 수 없습니다.", Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun initAfterBinding() {
@@ -255,6 +265,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                     when (it) {
                         // 신고하기
                         0 -> {
+                            viewModel.declare(item.writerInfo.reportId)
                             val email = Intent(Intent.ACTION_SEND)
                             email.type = "plain/text"
                             val address = arrayOf("qnnect.app@gmail.com")
@@ -272,10 +283,12 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                                 )
                             )
                             startActivity(email)
+                            showLoadingDialog(this@ReplyActivity)
                         }
                         // 차단하기
                         1 ->{
-                            onResume()
+                            viewModel.declare(item.writerInfo.reportId)
+                            showLoadingDialog(this@ReplyActivity)
                         }
                     }
                 }

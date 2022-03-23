@@ -19,41 +19,32 @@ data class GetReplyResponse(
     )
 
 // {
-//    "commentId": 3,
-//    "createdAt": "2022-03-09",
+//    "commentId": 45,
+//    "createdAt": "2022-03-20",
 //    "writerInfo": {
 //        "profileImage": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png",
-//        "nickName": "슈테른",
-//        "point": 0
+//        "nickName": "제제로짱",
+//        "point": 8770,
+//        "reportId": 7
 //    },
-//    "content": "테스트 1",
-//    "imageUrl1": null,
+//    "content": "ㅇ어어어엉어유융유유옹ㄹㅇㄴㄹㅁㅇㄹ",
+//    "imageUrl1": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/2d1cc408-9670-4a13-8df1-d8e358631531_image1648015542",
 //    "imageUrl2": null,
-//    "imageUrl3": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/cc1166bc-425f-41fb-b77e-d084a010b5bb_art1131.jpg",
+//    "imageUrl3": null,
 //    "imageUrl4": null,
-//    "imageUrl5": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/cdf664d4-d0d4-4615-9bc8-b9704b0d78cb_art1132.jpg",
+//    "imageUrl5": null,
 //    "replies": [
 //        {
-//            "replyId": 8,
-//            "writerInfo": {
-//                "profileImage": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png",
-//                "nickName": "슈테른",
-//                "point": 0
-//            },
-//            "content": "가나다",
-//            "writer": false,
-//            "createdAt": "2022-03-14"
-//        },
-//        {
-//            "replyId": 13,
+//            "replyId": 122,
 //            "writerInfo": {
 //                "profileImage": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/703ecd40-04e4-4a23-b78f-5433674befcd_photo.jpg",
 //                "nickName": "두루",
-//                "point": 45
+//                "point": 10000,
+//                "reportId": 8
 //            },
-//            "content": "\"test\"",
+//            "content": "declare_test",
 //            "writer": true,
-//            "createdAt": "2022-03-14"
+//            "createdAt": "2022-03-23"
 //        }
 //    ],
 //    "writer": false

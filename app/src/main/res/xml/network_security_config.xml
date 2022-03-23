@@ -3,3 +3,8 @@
     <base-config cleartextTrafficPermitted="true" />
     <!--<base-config cleartextTrafficPermitted="false" />-->
 </network-security-config>
+<!--<network-security-config>-->
+<!--<domain-config cleartextTrafficPermitted="true">-->
+<!--    <domain includeSubdomains="true">13.209.172.157:8080</domain>-->
+<!--</domain-config>-->
+<!--</network-security-config>-->

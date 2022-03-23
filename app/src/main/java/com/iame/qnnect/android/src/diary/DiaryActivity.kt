@@ -175,6 +175,15 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             dismissLoadingDialog()
             finish()
         })
+
+        viewModel.declareResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            onResume()
+        })
+
+        viewModel.erdeclareResponse.observe(this, Observer {
+            Toast.makeText(this, "본인은 신고할 수 없습니다.", Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun initAfterBinding() {
@@ -227,6 +236,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                     when (it) {
                         // 신고하기
                         0 -> {
+                            viewModel.declare(item.profileResponse.reportId)
                             val email = Intent(Intent.ACTION_SEND)
                             email.type = "plain/text"
                             val address = arrayOf("qnnect.app@gmail.com")
@@ -244,10 +254,12 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                                 )
                             )
                             startActivity(email)
+                            showLoadingDialog(this@DiaryActivity)
                         }
                         // 차단하기
                         1 ->{
-                            onResume()
+                            viewModel.declare(item.profileResponse.reportId)
+                            showLoadingDialog(this@DiaryActivity)
                         }
                     }
                 }

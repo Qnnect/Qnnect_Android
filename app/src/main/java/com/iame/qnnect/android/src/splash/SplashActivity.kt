@@ -1,12 +1,20 @@
 package com.iame.qnnect.android.src.splash
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.tasks.Task
 import com.iame.qnnect.android.MyApplication.Companion.sSharedPreferences
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -18,7 +26,13 @@ import com.iame.qnnect.android.src.onboarding.OnboardActivity
 import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.viewmodel.SplashViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     override val layoutResourceId: Int
@@ -57,6 +71,29 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override fun initAfterBinding() {
 
+//        val appUpdateManager = AppUpdateManagerFactory.create(this)
+//
+//        CoroutineScope(Dispatchers.Main).launch{
+//            val appUpdateInfo = appUpdateManager.appUpdateInfo.await()
+//
+//            when(appUpdateInfo.updateAvailability()){
+//                UpdateAvailability.UPDATE_AVAILABLE ->{
+//                    //업데이트 가능한 상태
+//                    appUpdateManager.startUpdateFlowForResult(
+//                        appUpdateInfo,
+//                        AppUpdateType.IMMEDIATE , // or AppUpdateType.IMMEDIATE
+//                        this@SplashActivity,
+//                        REQUEST_CODE_UPDATE
+//                    )
+//                }
+//            }
+//        }
+//
+//        fun popupSnackbarForCompleteUpdate() {
+//            Toast.makeText(this, "업데이트 버전 다운로드 완료", Toast.LENGTH_SHORT).show()
+//            appUpdateManager?.completeUpdate()
+//        }
+
         if(intent.action == Intent.ACTION_VIEW) {
             cafeCode = intent.data!!.getQueryParameter("code")!!
             baseToken.setCafeCode(this, cafeCode)
@@ -77,4 +114,26 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         }
 
     }
+
+    suspend fun Task<AppUpdateInfo>.await(): AppUpdateInfo {
+        return suspendCoroutine { continuation ->
+            addOnCompleteListener { result ->
+                if (result.isSuccessful) {
+                    continuation.resume(result.result)
+                } else {
+                    continuation.resumeWithException(result.exception)
+                }
+            }
+        }
+    }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == REQUEST_CODE_UPDATE) {
+//            if (resultCode != Activity.RESULT_OK) {
+//                Toast.makeText(this, "업데이트 다운로드 취소", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//    }
 }

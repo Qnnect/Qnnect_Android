@@ -243,6 +243,22 @@
         </TextView>
 
         <TextView
+            android:id="@+id/setting_declare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="신고/차단친구 관리"
+            android:textSize="16dp"
+            android:padding="10dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="21dp"
+            app:layout_constraintTop_toBottomOf="@id/setting_notify"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textColor="@color/gray_1"
+            android:layout_marginRight="21dp">
+        </TextView>
+
+        <TextView
             android:id="@+id/setting_instagram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -251,7 +267,7 @@
             android:padding="10dp"
             android:layout_marginTop="18dp"
             android:layout_marginLeft="21dp"
-            app:layout_constraintTop_toBottomOf="@id/setting_notify"
+            app:layout_constraintTop_toBottomOf="@id/setting_declare"
             app:layout_constraintLeft_toLeftOf="parent"
             android:fontFamily="@font/im_hyemin_bold"
             android:textColor="@color/gray_1"

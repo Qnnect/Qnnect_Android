@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.model.response.ImageSearchResponse
+import com.iame.qnnect.android.src.declare.model.PostDeclareDataModel
 import com.iame.qnnect.android.src.diary.model.*
 import com.iame.qnnect.android.src.login.model.LoginDataModel
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
@@ -19,9 +20,39 @@ class DiaryViewModel(private var model: PostScrapDataModel,
                      private var model3: GetQuestionDataModel,
                      private var model4: UserDataModel,
                      private var model5: PostLikeDataModel,
-                     private var model6: DeleteQuestionDataModel) : BaseViewModel() {
+                     private var model6: DeleteQuestionDataModel,
+                     private var model7: PostDeclareDataModel) : BaseViewModel() {
 
     private val TAG = "DiaryViewModel"
+
+    // declare answer
+    private val postDeclareResponse = MutableLiveData<String>()
+    val declareResponse: LiveData<String>
+        get() = postDeclareResponse
+
+    private val errorDeclareResponse = MutableLiveData<String>()
+    val erdeclareResponse: LiveData<String>
+        get() = errorDeclareResponse
+
+    fun declare(reportId: Int) {
+        addDisposable(model7.getData(reportId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    postDeclareResponse.postValue("200 OK")
+                }
+            }, {
+                if(it.message.toString() == "null"){
+                    errorDeclareResponse.postValue("본인은 신고할 수 없습니다!")
+                }
+                else{
+
+                }
+                Log.d(TAG, "response error, message : ${it.cause}")
+            })
+        )
+    }
 
     private val postLikeResponse = MutableLiveData<String>()
     val likeResponse: LiveData<String>

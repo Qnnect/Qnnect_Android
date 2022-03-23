@@ -13,14 +13,15 @@ data class Replies(
     @SerializedName("writer") val writer: Boolean
     )
 
-//  {
-////            "replyId": 6,
-////            "writerInfo": {
-////                "profileImage": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/profileDefault.png",
-////                "nickName": "슈테른",
-////                "point": 0
-////            },
-////            "content": "{}나도 모르겠다아",
-////            "writer": false,
-////            "createdAt": "2022-03-11"
-////        },
+//{
+//            "replyId": 122,
+//            "writerInfo": {
+//                "profileImage": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/703ecd40-04e4-4a23-b78f-5433674befcd_photo.jpg",
+//                "nickName": "두루",
+//                "point": 10000,
+//                "reportId": 8
+//            },
+//            "content": "declare_test",
+//            "writer": true,
+//            "createdAt": "2022-03-23"
+//        }

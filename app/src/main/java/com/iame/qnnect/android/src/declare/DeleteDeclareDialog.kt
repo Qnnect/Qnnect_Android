@@ -1,4 +1,4 @@
-package com.iame.qnnect.android.src.reply.reply_more
+package com.iame.qnnect.android.src.declare
 
 import android.content.Context
 import android.graphics.Color
@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.iame.qnnect.android.R
 
-class DeleteReplyDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
+class DeleteDeclareDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //false로 설정해 주면 화면밖 혹은 뒤로가기 버튼시 다이얼로그라 dismiss 되지 않는다.
@@ -36,6 +36,9 @@ class DeleteReplyDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        var text1 = requireView().findViewById<TextView>(R.id.text1)
+        text1.text = "차단을 해제 하시겠습니까?"
+
         var close_btn = requireView().findViewById<TextView>(R.id.close_btn)
         close_btn.setOnClickListener {
             dismiss()
@@ -44,7 +47,6 @@ class DeleteReplyDialog(val itemClick: (Int) -> Unit) : DialogFragment() {
         var ok_btn = requireView().findViewById<TextView>(R.id.ok_btn)
         ok_btn.setOnClickListener {
             itemClick(1)
-            Log.d("response!!!", "11111")
             dismiss()
 
         }

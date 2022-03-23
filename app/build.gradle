@@ -142,6 +142,9 @@ dependencies {
 
     // utf-8
     compile  'com.squareup.retrofit2:converter-scalars:2.1.0'
+
+    // 자동 업데이트 처리
+    implementation 'com.google.android.play:core:1.6.1'
 }
 //가장 밑에 한줄을 추가하자!!
 apply plugin: 'com.google.gms.google-services'

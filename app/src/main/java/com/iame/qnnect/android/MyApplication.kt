@@ -2,10 +2,17 @@ package com.iame.qnnect.android
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.test.core.app.ActivityScenario.launch
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.android.play.core.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
 import com.iame.qnnect.android.base.NullOnEmptyConverterFactory
@@ -14,6 +21,10 @@ import com.iame.qnnect.android.di.BearerInterceptor
 import com.iame.qnnect.android.di.myDiModule
 import com.iame.qnnect.android.src.reply.service.PostReplyAPI
 import com.kakao.sdk.common.KakaoSdk
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.android.startKoin
@@ -21,6 +32,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class MyApplication : Application() {
 
@@ -74,6 +88,25 @@ class MyApplication : Application() {
             Log.d("fcm_response!", token!!)
 //            Toast.makeText(baseContext, token!!, Toast.LENGTH_SHORT).show()
         })
+
+        // 자동 업데이트
+//        val appUpdateManager = AppUpdateManagerFactory.create(this)
+//
+//        appUpdateManager?.let {
+//            it.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+//
+//                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+//                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+//                    // or AppUpdateType.FLEXIBLE
+//                    appUpdateManager?.startUpdateFlowForResult(
+//                        appUpdateInfo,
+//                        AppUpdateType.IMMEDIATE, // or AppUpdateType.FLEXIBLE
+//                        this,
+//                        REQUEST_CODE_UPDATE
+//                    )
+//                }
+//            }
+//        }
     }
 
     // 레트로핏 인스턴스를 생성하고, 레트로핏에 각종 설정값들을 지정해줍니다.
@@ -98,4 +131,17 @@ class MyApplication : Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    // auto update
+//    suspend fun Task<AppUpdateInfo>.await(): AppUpdateInfo {
+//        return suspendCoroutine { continuation ->
+//            addOnCompleteListener { result ->
+//                if (result.isSuccessful) {
+//                    continuation.resume(result.result)
+//                } else {
+//                    continuation.resumeWithException(result.exception)
+//                }
+//            }
+//        }
+//    }
 }

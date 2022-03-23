@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.iame.qnnect.android.base.BaseViewModel
+import com.iame.qnnect.android.src.declare.model.PostDeclareDataModel
 import com.iame.qnnect.android.src.reply.model.DeleteAnswerDataModel
 import com.iame.qnnect.android.src.reply.model.GetReplyDataModel
 import com.iame.qnnect.android.src.reply.model.GetReplyResponse
@@ -15,10 +16,40 @@ import io.reactivex.schedulers.Schedulers
 class ReplyViewModel(
     private val model: GetReplyDataModel,
     private val model2: PostReplyDataModel,
-    private val model3: DeleteAnswerDataModel
+    private val model3: DeleteAnswerDataModel,
+    private val model4: PostDeclareDataModel
 ) : BaseViewModel() {
 
     private val TAG = "ReplyViewModel"
+
+    // delete answer
+    private val postDeclareResponse = MutableLiveData<String>()
+    val declareResponse: LiveData<String>
+        get() = postDeclareResponse
+
+    private val errorDeclareResponse = MutableLiveData<String>()
+    val erdeclareResponse: LiveData<String>
+        get() = errorDeclareResponse
+
+    fun declare(reportId: Int) {
+        addDisposable(model4.getData(reportId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    postDeclareResponse.postValue("200 OK")
+                }
+            }, {
+                if(it.message.toString() == "null"){
+                    errorDeclareResponse.postValue("본인은 신고할 수 없습니다!")
+                }
+                else{
+
+                }
+                Log.d(TAG, "response error, message : ${it.cause}")
+            })
+        )
+    }
 
     // delete answer
     private val deleteAnswerResponse = MutableLiveData<String>()

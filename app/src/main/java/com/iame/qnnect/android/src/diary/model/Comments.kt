@@ -17,19 +17,14 @@ data class Comments(
     @SerializedName("replyCount") val replyCount: Int
     )
 
-// //  {
-////            "commentId": 2,
-////            "createdAt": "2022-03-09",
-////            "profileResponse": {
-////                "profileImage": "http://k.kakaocdn.net/dn/bixrOh/btrtYVKqr0n/wEtDnraXxBzeUO42WvBGVk/img_640x640.jpg",
-////                "nickName": "슈테른",
-////                "point": 10
-////            },
-////            "content": "가나다라",
-////            "imageUrl1": null,
-////            "imageUrl2": null,
-////            "imageUrl3": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/52ace56d-28b1-4fe1-aa4d-958db97916ee_art1132.jpg",
-////            "imageUrl4": null,
-////            "imageUrl5": "https://dev-qnnect-profile.s3.ap-northeast-2.amazonaws.com/999fd635-ce01-4ed7-9e51-2bb9594d269e_art1131.jpg",
-////            "replyCount": 2
-////        }
+//"currentUserComment": {
+//        "commentId": 94,
+//        "createdAt": "2022-03-22"
+//        "content": "test",
+//        "imageUrl1": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/82037cb0-3f56-4589-b683-cdeae6af9b12_image1.jpg",
+//        "imageUrl2": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/649eb48d-97ab-43ac-bc8e-0e542ba92afd_image2.jpg",
+//        "imageUrl3": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/93d1662c-ee29-4265-8deb-2d8ae031bd39_image3.jpg",
+//        "imageUrl4": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/a8559ee9-ae55-43db-8cb8-6932dba37bae_image4.jpg",
+//        "imageUrl5": "https://dev-qnnect-comment.s3.ap-northeast-2.amazonaws.com/71b3a573-5da8-4df6-8a98-5a786c41bb6d_image5.jpg",
+//        "replyCount": 0
+//    }
