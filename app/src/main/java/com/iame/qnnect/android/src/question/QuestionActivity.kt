@@ -68,8 +68,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
         save_btn.setOnClickListener {
             if(check){
                 var cafeId = HomeFragment_case().getGroupname(this)
-                var request = PostQuestionRequest(contents.text.toString())
-                viewModel.postQuestion(cafeId!!, request)
+                viewModel.postQuestion(cafeId!!, contents.text.toString())
             }
         }
 

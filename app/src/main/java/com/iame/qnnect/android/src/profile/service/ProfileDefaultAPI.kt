@@ -9,7 +9,7 @@ import retrofit2.http.Part
 
 interface ProfileDefaultAPI {
     @PATCH("/api/v1/user/profile/default_image")
-    fun defaultProfile() : Single<String?>
+    fun defaultProfile() : Single<Unit>
 }
 
 // // data class PatchProfileRequest(

@@ -16,8 +16,10 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.src.alarm.AlarmActivity
+import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.home_bottom.InviteGroupBottomSheet
+import com.iame.qnnect.android.src.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.dots_indicator
 import kotlinx.android.synthetic.main.fragment_home.point_txt
@@ -72,6 +74,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 .load(image)
                 .transform(CenterCrop(), RoundedCorners(200))
                 .into(user_profile_img)
+
+            if(it.user.nickName == null){
+                var intent = Intent(context, ProfileActivity::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+                startActivity(intent)
+            }
 
             // User Name
             user_diary_name.text = it.user.nickName+"님의 다이어리"

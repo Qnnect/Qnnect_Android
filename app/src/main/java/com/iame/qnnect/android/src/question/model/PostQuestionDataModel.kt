@@ -6,5 +6,5 @@ import okhttp3.MultipartBody
 import retrofit2.http.Part
 
 interface PostQuestionDataModel {
-    fun getData(cafeId: Int, postQuestionRequest: PostQuestionRequest): Single<Int>
+    fun getData(cafeId: Int, content: String): Single<Unit>
 }

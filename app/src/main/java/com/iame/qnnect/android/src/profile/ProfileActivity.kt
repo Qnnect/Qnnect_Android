@@ -16,6 +16,7 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityProfileBinding
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.viewmodel.ProfileViewModel
+import com.kakao.sdk.talk.TalkApiClient
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.core.ObservableOnSubscribe
@@ -49,6 +50,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     var check = false
     var default_img_check = true
 
+    var userProfile = ""
+
     override fun initStartView() {
         Glide.with(this)
             .load(R.mipmap.img_profile_dafault_foreground)
@@ -57,6 +60,21 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     }
 
     override fun initDataBinding() {
+        viewModel.profileResponse.observe(this, Observer {
+            var intent = Intent(this, MainActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+            startActivity(intent)
+            finish()
+            dismissLoadingDialog()
+        })
+        viewModel.profileDefaultResponse.observe(this, Observer {
+            // nickname
+            val nickname = nick_name_edit.text.toString()
+            val nicknamePart: MultipartBody.Part = MultipartBody.Part.createFormData("nickName", nickname)
+
+            viewModel.patchProfile(null , nicknamePart)
+        })
     }
 
     override fun initAfterBinding() {
@@ -83,7 +101,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
         }
 
 
-
         nick_name_edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
 
@@ -103,25 +120,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
                 // 이미지
                 if(path == ""){
                     if(default_img_check){
+                        showLoadingDialog(this)
                         viewModel.patchDefaultProfile()
                     }
-                    viewModel.patchProfile(null , nicknamePart)
                 }
                 else{
                     val file = File(path)
                     val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaType())
                     val fileToUpload: MultipartBody.Part = MultipartBody.Part.createFormData("profilePicture", "photo.jpg", requestBody)
 
+                    showLoadingDialog(this)
                     viewModel.patchProfile(fileToUpload , nicknamePart)
                 }
-
-                viewModel.profileResponse.observe(this, Observer {
-                    var intent = Intent(this, MainActivity::class.java)
-                    intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
-                    startActivity(intent)
-                    finish()
-                })
             }
         }
     }

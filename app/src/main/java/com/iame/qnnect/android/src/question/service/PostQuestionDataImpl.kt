@@ -12,7 +12,7 @@ import io.reactivex.Single
 import okhttp3.MultipartBody
 
 class PostQuestionDataImpl(private val service: PostQuestionAPI) : PostQuestionDataModel {
-    override fun getData(cafeId: Int, contents: PostQuestionRequest): Single<Int> {
-        return service.postQuestion(cafeId, contents)
+    override fun getData(cafeId: Int, content: String): Single<Unit> {
+        return service.postQuestion(cafeId, content)
     }
 }

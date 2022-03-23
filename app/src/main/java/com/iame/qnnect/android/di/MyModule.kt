@@ -267,12 +267,14 @@ var retrofitPart = module {
             .build()
             .create(BookmarkListAPI::class.java)
     }
+    // text/plain 방식
     single<PostQuestionAPI> {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PostQuestionAPI::class.java)

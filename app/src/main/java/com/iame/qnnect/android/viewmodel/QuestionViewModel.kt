@@ -17,18 +17,18 @@ class QuestionViewModel(private val model: PostQuestionDataModel) : BaseViewMode
 
     private val TAG = "QuestionViewModel"
 
-    private val postQuestionResponse = MutableLiveData<Int>()
-    val postquestionResponse: LiveData<Int>
+    private val postQuestionResponse = MutableLiveData<String>()
+    val postquestionResponse: LiveData<String>
         get() = postQuestionResponse
 
 
-    fun postQuestion(cafeId: Int, contents: PostQuestionRequest) {
+    fun postQuestion(cafeId: Int, contents: String) {
         addDisposable(model.getData(cafeId, contents)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.run {
-                    postQuestionResponse.postValue(this)
+                    postQuestionResponse.postValue("200 OK")
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")

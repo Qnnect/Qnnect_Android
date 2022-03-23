@@ -10,7 +10,7 @@ import io.reactivex.Single
 import okhttp3.MultipartBody
 
 class ProfileDefaultDataImpl(private val service: ProfileDefaultAPI) : ProfileDefaultDataModel {
-    override fun getData(): Single<String?> {
+    override fun getData(): Single<Unit> {
         return service.defaultProfile()
     }
 }

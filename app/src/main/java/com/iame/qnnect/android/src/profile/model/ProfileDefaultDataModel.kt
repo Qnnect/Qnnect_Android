@@ -5,7 +5,7 @@ import okhttp3.MultipartBody
 import retrofit2.http.Part
 
 interface ProfileDefaultDataModel {
-    fun getData(): Single<String?>
+    fun getData(): Single<Unit>
 }
 
 // data class PatchProfileRequest(

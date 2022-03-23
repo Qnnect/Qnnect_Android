@@ -1,9 +1,7 @@
 package com.iame.qnnect.android.src.login
 
 import android.content.Intent
-import android.graphics.Color
 import android.util.Log
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
@@ -15,6 +13,8 @@ import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
+import com.kakao.sdk.talk.TalkApiClient
+import com.kakao.sdk.talk.model.TalkProfile
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,11 +26,25 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     override val viewModel: LoginViewModel by viewModel()
 
+
     override fun initStartView() {
-//        var window = getWindow()
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        window.statusBarColor = Color.parseColor(R.d)
-//        window.decorView.systemUiVisibility = 0
+    }
+
+    override fun initDataBinding() {
+        viewModel.loginResponse.observe(this, Observer {
+            Log.d("login_response ", it.toString())
+            baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
+            dismissLoadingDialog()
+
+            if(!it.userSettingDone){
+                val intent = Intent(this, AllowActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        })
 
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -41,10 +55,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
         }
     }
 
-    override fun initDataBinding() {
-    }
-
     override fun initAfterBinding() {
+
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 Log.e("response!!", error.toString())
@@ -83,24 +95,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 var accesstoken = token.accessToken
                 var loginType = "kakao"
                 var loginRequest = PostLoginRequest(accesstoken, loginType)
-                Log.d("login_response2 ", token.accessToken)
+                var result: OAuthToken = token
+                Log.d("login_response2 ", result.scopes!![0].toString())
                 viewModel.postLogin(loginRequest)
                 showLoadingDialog(this)
-
-                viewModel.loginResponse.observe(this, Observer {
-                    Log.d("login_response ", it.toString())
-                    baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
-                    dismissLoadingDialog()
-
-                    if(!it.userSettingDone){
-                        val intent = Intent(this, AllowActivity::class.java)
-                        startActivity(intent)
-                    }
-                    else{
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                })
             }
         }
 

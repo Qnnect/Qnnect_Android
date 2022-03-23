@@ -9,5 +9,5 @@ import retrofit2.http.*
 
 interface PostQuestionAPI {
     @POST("/api/v1/cafes/{cafeId}/question/")
-    fun postQuestion(@Path("cafeId") cafeId: Int, @Body params: PostQuestionRequest) : Single<Int>
+    fun postQuestion(@Path("cafeId") cafeId: Int, @Body content: String) : Single<Unit>
 }

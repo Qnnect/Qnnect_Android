@@ -27,6 +27,17 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
     }
 
     override fun initDataBinding() {
+        viewModel.alarmCheckResponse.observe(this, Observer {
+            if(it.response == null){
+                Log.d("allow_log", "null")
+                var intent = Intent(this, ProfileActivity::class.java)
+                startActivity(intent)
+            }
+            var response = PatchAlarmCheckResponse(it.response)
+            Log.d("allow_log", response.toString())
+            var intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        })
     }
 
     override fun initAfterBinding() {
@@ -46,17 +57,6 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
             if(viewModel.checkNext(allow_radio1, allow_radio2)){
                 if(allow_radio3.isChecked){
                     viewModel.patchAlarmCheck(allow_radio3.isChecked)
-                    viewModel.alarmCheckResponse.observe(this, Observer {
-                        if(it.response == null){
-                            Log.d("allow_log", "null")
-                            var intent = Intent(this, ProfileActivity::class.java)
-                            startActivity(intent)
-                        }
-                        var response = PatchAlarmCheckResponse(it.response)
-                        Log.d("allow_log", response.toString())
-                        var intent = Intent(this, ProfileActivity::class.java)
-                        startActivity(intent)
-                    })
 //                    var intent = Intent(this, ProfileActivity::class.java)
 //                    startActivity(intent)
                 }
