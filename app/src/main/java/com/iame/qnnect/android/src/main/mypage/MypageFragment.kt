@@ -11,9 +11,11 @@ import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
 import com.iame.qnnect.android.src.alarm.AlarmActivity
 import com.iame.qnnect.android.src.alarm.EditAlarmActivity
+import com.iame.qnnect.android.src.empty.EmptyActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
 import kotlinx.android.synthetic.main.fragment_my_page.*
+import kotlinx.android.synthetic.main.fragment_my_page.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.layout.fragment_my_page) {
@@ -52,16 +54,33 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
 
     override fun initAfterBinding() {
 
+        // empty
+        drink_btn.setOnClickListener {
+            var intent = Intent(context, EmptyActivity::class.java)
+            startActivity(intent)
+        }
+        my_question_btn.setOnClickListener {
+            var intent = Intent(context, EmptyActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 알림
         alarm_btn.setOnClickListener {
             var intent = Intent(context, AlarmActivity::class.java)
             startActivity(intent)
         }
 
+        // user profile edit
         user_profile_img.setOnClickListener {
             var intent = Intent(context, EditprofileActivity::class.java)
             startActivity(intent)
         }
+        edit_profile.setOnClickListener {
+            var intent = Intent(context, EditprofileActivity::class.java)
+            startActivity(intent)
+        }
 
+        // 알림 설정
         setting_alarm.setOnClickListener {
             var intent = Intent(context, EditAlarmActivity::class.java)
             startActivity(intent)
@@ -109,6 +128,7 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             deleteUserDialog.show(requireActivity().supportFragmentManager, deleteUserDialog.tag)
         }
 
+        // 인스타그램
         setting_instagram.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/qnnect.official/"))
             startActivity(intent)

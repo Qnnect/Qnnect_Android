@@ -71,6 +71,7 @@
         </ImageView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/user_profile_img"
