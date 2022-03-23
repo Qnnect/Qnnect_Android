@@ -165,6 +165,17 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             }
             dismissLoadingDialog()
         })
+
+        viewModel.errorResponse.observe(this, Observer {
+            Log.d("error_response", it.toString())
+            home_case.setHome(requireContext(), 0, -1)
+
+            activity = fragment_s.activity as MainActivity?
+            //change_for_adapter는 mainactivity에 구현
+            activity?.fragmentChange_for_adapter()
+            Toast.makeText(context, "신고를 받은 방입니다.", Toast.LENGTH_SHORT).show()
+            dismissLoadingDialog()
+        })
     }
 
     override fun initAfterBinding() {

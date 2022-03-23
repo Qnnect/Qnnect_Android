@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     override fun initDataBinding() {
         viewModel.loginResponse.observe(this, Observer {
-            Log.d("login_response ", it.toString())
+//            Log.d("login_response ", it.toString())
             baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
             dismissLoadingDialog()
 
@@ -96,7 +96,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 var loginType = "kakao"
                 var loginRequest = PostLoginRequest(accesstoken, loginType)
                 var result: OAuthToken = token
-                Log.d("login_response2 ", result.scopes!![0].toString())
                 viewModel.postLogin(loginRequest)
                 showLoadingDialog(this)
             }

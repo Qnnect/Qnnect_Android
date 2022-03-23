@@ -18,6 +18,10 @@ class GroupViewModel(var model: GroupDataModel) : BaseViewModel() {
     val groupResponse: LiveData<GetGroupResponse>
         get() = getGroupResponse
 
+    private val getErrorResponse = MutableLiveData<String>()
+    val errorResponse: LiveData<String>
+        get() = getErrorResponse
+
 
     fun getGroup(cafeId: Int) {
         addDisposable(model.getData(cafeId)
@@ -28,7 +32,7 @@ class GroupViewModel(var model: GroupDataModel) : BaseViewModel() {
                     getGroupResponse.postValue(this)
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                getErrorResponse.postValue(it.message)
             })
         )
     }

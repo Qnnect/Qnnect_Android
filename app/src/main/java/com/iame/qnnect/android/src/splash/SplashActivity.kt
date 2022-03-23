@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
@@ -30,6 +32,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -42,26 +45,26 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     var cafeCode = "null"
 
+    var REQUEST_CODE_UPDATE = 366
+
+    // 앱 업데이트 매니저 초기화
+    private lateinit var appUpdateManager: AppUpdateManager
+
     override fun initStartView() {
-//        var window = getWindow()
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        window.statusBarColor = Color.parseColor("#554338")
-//        window.decorView.systemUiVisibility = 0
     }
 
     override fun initDataBinding() {
         viewModel.refreshResponse.observe(this, Observer {
-            if(it.accessToken == "" || it.refreshToken == ""){
+            if (it.accessToken == "" || it.refreshToken == "") {
                 Handler(Looper.getMainLooper()).postDelayed({
                     startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 }, 1500)
-            }
-            else{
+            } else {
                 Log.d("login_response", it.toString())
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    var intent =Intent(this, MainActivity::class.java)
+                    var intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 }, 1500)
@@ -70,31 +73,43 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     }
 
     override fun initAfterBinding() {
-
-//        val appUpdateManager = AppUpdateManagerFactory.create(this)
+//        appUpdateManager = AppUpdateManagerFactory.create(this)
 //
-//        CoroutineScope(Dispatchers.Main).launch{
+//        CoroutineScope(Dispatchers.Main).launch {
+//            // 업데이트를 체크하는데 사용되는 인텐트를 리턴한다.
 //            val appUpdateInfo = appUpdateManager.appUpdateInfo.await()
 //
-//            when(appUpdateInfo.updateAvailability()){
-//                UpdateAvailability.UPDATE_AVAILABLE ->{
+//            when (appUpdateInfo.updateAvailability()) {
+//                UpdateAvailability.UPDATE_AVAILABLE -> {
 //                    //업데이트 가능한 상태
-//                    appUpdateManager.startUpdateFlowForResult(
-//                        appUpdateInfo,
-//                        AppUpdateType.IMMEDIATE , // or AppUpdateType.IMMEDIATE
-//                        this@SplashActivity,
-//                        REQUEST_CODE_UPDATE
-//                    )
+//                    requestUpdate(appUpdateInfo)
 //                }
 //            }
 //        }
-//
-//        fun popupSnackbarForCompleteUpdate() {
-//            Toast.makeText(this, "업데이트 버전 다운로드 완료", Toast.LENGTH_SHORT).show()
-//            appUpdateManager?.completeUpdate()
-//        }
+    }
 
-        if(intent.action == Intent.ACTION_VIEW) {
+    override fun onResume() {
+        super.onResume()
+//        appUpdateManager
+//            .appUpdateInfo
+//            .addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
+//                if (appUpdateInfo.updateAvailability()
+//                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+//                ) {
+//                    // If an in-app update is already running, resume the update.
+//                    try {
+//                        appUpdateManager.startUpdateFlowForResult(
+//                            appUpdateInfo,
+//                            AppUpdateType.IMMEDIATE,
+//                            this,
+//                            REQUEST_CODE_UPDATE)
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
+//                }
+//            }
+
+        if (intent.action == Intent.ACTION_VIEW) {
             cafeCode = intent.data!!.getQueryParameter("code")!!
             baseToken.setCafeCode(this, cafeCode)
         }
@@ -102,17 +117,28 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
         val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
 
-        if(jwtToken != null){
-            var refreshRequest = PostRefreshRequest(jwtToken!!, refreshToken!!)
+        if (jwtToken != null) {
+            var refreshRequest = PostRefreshRequest(jwtToken, refreshToken!!)
             viewModel.postRefresh(refreshRequest)
-        }
-        else{
+        } else {
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, OnboardActivity::class.java))
                 finish()
             }, 1500)
         }
+    }
 
+    private fun requestUpdate(appUpdateInfo: AppUpdateInfo) {
+        try {
+            appUpdateManager.startUpdateFlowForResult( // 'getAppUpdateInfo()' 에 의해 리턴된 인텐트
+                appUpdateInfo,  // 'AppUpdateType.FLEXIBLE': 사용자에게 업데이트 여부를 물은 후 업데이트 실행 가능
+                // 'AppUpdateType.IMMEDIATE': 사용자가 수락해야만 하는 업데이트 창을 보여줌
+                AppUpdateType.IMMEDIATE,  // 현재 업데이트 요청을 만든 액티비티, 여기선 MainActivity.
+                this,  // onActivityResult 에서 사용될 REQUEST_CODE.
+                REQUEST_CODE_UPDATE)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     suspend fun Task<AppUpdateInfo>.await(): AppUpdateInfo {
@@ -127,13 +153,36 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == REQUEST_CODE_UPDATE) {
-//            if (resultCode != Activity.RESULT_OK) {
-//                Toast.makeText(this, "업데이트 다운로드 취소", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
+    // 업데이트 결과
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_UPDATE) {
+            if (resultCode != Activity.RESULT_OK) {
+                Toast.makeText(this, "업데이트 다운로드 취소", Toast.LENGTH_SHORT).show()
+
+                val appUpdateManager = AppUpdateManagerFactory.create(applicationContext)
+                val appUpdateInfoTask: Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
+                appUpdateInfoTask.addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE // flexible한 업데이트를 위해서는 AppUpdateType.FLEXIBLE을 사용한다.
+                        && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                    ) {
+                        // 업데이트를 체크하는데 사용되는 인텐트를 리턴한다.
+                        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+                        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
+                            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE // flexible한 업데이트를 위해서는 AppUpdateType.FLEXIBLE을 사용한다.
+                                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                            ) {
+                                // 업데이트를 다시 요청한다.
+                                requestUpdate(appUpdateInfo)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
+
