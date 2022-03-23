@@ -86,7 +86,12 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
                 .load(img.img)
                 .transform(CenterCrop())
                 .into(topping_img)
-            recipe_topping_txt.text = topping.name
+            if(topping.name == "바닐라 아이스크림"){
+                recipe_topping_txt.text = "바닐라\n아이스크림"
+            }
+            else{
+                recipe_topping_txt.text = topping.name
+            }
             recipe_topping_count.text = "X"+topping.count.toString()
         })
     }

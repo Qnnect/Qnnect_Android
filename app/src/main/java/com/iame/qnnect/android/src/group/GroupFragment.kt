@@ -55,6 +55,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     var userDrink = ""
     var drink_editCheck = true
 
+    var memberCount = 0
+
     var home = HomeFragment_case()
 
 
@@ -93,6 +95,8 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             group_name_txt.text = it.title
             group_name_main.text = it.title
             title = it.title
+
+            memberCount = it.cafeUserList.size+1
 
             code = it.code
             cafeId = it.cafeId
@@ -226,11 +230,17 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     when (it) {
                         // 초대하기
                         0 -> {
-                            var intent = Intent(context, InviteActivity::class.java)
-                            intent.putExtra("code", code)
-                            Log.d("intent_response", title)
-                            intent.putExtra("title", title)
-                            startActivity(intent)
+                            if(memberCount >= 5){
+                                val overGroupDialog: OverGroupDialog = OverGroupDialog()
+                                overGroupDialog.show(requireActivity().supportFragmentManager, overGroupDialog.tag)
+                            }
+                            else{
+                                var intent = Intent(context, InviteActivity::class.java)
+                                intent.putExtra("code", code)
+                                Log.d("intent_response", title)
+                                intent.putExtra("title", title)
+                                startActivity(intent)
+                            }
                         }
                         // 카페 수정
                         1 -> {

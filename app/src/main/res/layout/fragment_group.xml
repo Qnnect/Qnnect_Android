@@ -122,14 +122,15 @@
             app:layout_constraintRight_toRightOf="parent">
             <ImageView
                 android:id="@+id/drink_img"
-                android:layout_width="140dp"
-                android:layout_height="180dp"
+                android:layout_width="100dp"
+                android:layout_height="140dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@mipmap/complete_drink_default_foreground"
                 android:scaleType="centerCrop"
                 android:visibility="gone"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="45dp">
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp">
             </ImageView>
 
             <ImageView
@@ -139,7 +140,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:src="@mipmap/img_drink_default_foreground"
                 android:scaleType="centerCrop"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginTop="35dp"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginRight="75dp"
