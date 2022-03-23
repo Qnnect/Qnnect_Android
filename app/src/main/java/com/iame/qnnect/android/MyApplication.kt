@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
@@ -42,6 +43,9 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin(applicationContext, myDiModule)
+
+        // 다크모드 비활성화
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Kakao Sdk 초기화
         KakaoSdk.init(this, "80ae4d5ffffa5528fd8dbf7c29b8a015")
