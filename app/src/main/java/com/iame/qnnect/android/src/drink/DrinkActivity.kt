@@ -90,6 +90,10 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 ok_btn.visibility = View.VISIBLE
                 seek_main.visibility = View.VISIBLE
 
+                var list = it.currentDrinkInfo.currentDrinkIngredientsFilled
+                var last = list.size-1
+                var item = list.get(last).ingredientName
+
                 if(it.currentUser){
                     ok_btn.visibility = View.VISIBLE
                 }
@@ -102,6 +106,16 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
 
+                    ice_txt.setTextColor(Color.parseColor("#FD774C"))
+                    ice_count.setTextColor(Color.parseColor("#FD774C"))
+                    base_txt.setTextColor(Color.parseColor("#000000"))
+                    base_count.setTextColor(Color.parseColor("#000000"))
+                    main_txt.setTextColor(Color.parseColor("#000000"))
+                    main_count.setTextColor(Color.parseColor("#000000"))
+                    topping_txt.setTextColor(Color.parseColor("#000000"))
+                    topping_count.setTextColor(Color.parseColor("#000000"))
+                    seekBar.setImageResource(R.drawable.img_drink_progress1)
+
                     var img = drink_imgName(userDrink, "빈잔")
                     drink_img.setImageResource(img)
                 }
@@ -113,7 +127,17 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
 
                     var img = drink_imgName(userDrink, "얼음")
                     drink_img.setImageResource(img)
-                    seekBar.setImageResource(R.drawable.img_drink_progress1)
+
+                    ice_txt.setTextColor(Color.parseColor("#828282"))
+                    ice_count.setTextColor(Color.parseColor("#828282"))
+                    base_txt.setTextColor(Color.parseColor("#FD774C"))
+                    base_count.setTextColor(Color.parseColor("#FD774C"))
+                    main_txt.setTextColor(Color.parseColor("#000000"))
+                    main_count.setTextColor(Color.parseColor("#000000"))
+                    topping_txt.setTextColor(Color.parseColor("#000000"))
+                    topping_count.setTextColor(Color.parseColor("#000000"))
+
+                    seekBar.setImageResource(R.drawable.img_drink_progress2)
                 }
 
                 if(current.baseFilled == current.base){
@@ -121,11 +145,18 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
 
-                    var img = drink_imgName(userDrink, "베이스")
+                    var img = drink_imgName(userDrink, item)
                     drink_img.setImageResource(img)
-                    seekBar.setImageResource(R.drawable.img_drink_progress2)
+                    seekBar.setImageResource(R.drawable.img_drink_progress3)
+
                     ice_txt.setTextColor(Color.parseColor("#828282"))
                     ice_count.setTextColor(Color.parseColor("#828282"))
+                    base_txt.setTextColor(Color.parseColor("#828282"))
+                    base_count.setTextColor(Color.parseColor("#828282"))
+                    main_txt.setTextColor(Color.parseColor("#FD774C"))
+                    main_count.setTextColor(Color.parseColor("#FD774C"))
+                    topping_txt.setTextColor(Color.parseColor("#000000"))
+                    topping_count.setTextColor(Color.parseColor("#000000"))
                 }
 
                 if(current.mainFilled == current.main){
@@ -133,11 +164,18 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
 
-                    var img = drink_imgName(userDrink, "메인")
+                    var img = drink_imgName(userDrink, item)
                     drink_img.setImageResource(img)
-                    seekBar.setImageResource(R.drawable.img_drink_progress3)
+                    seekBar.setImageResource(R.drawable.img_drink_progress4)
+
+                    ice_txt.setTextColor(Color.parseColor("#828282"))
+                    ice_count.setTextColor(Color.parseColor("#828282"))
                     base_txt.setTextColor(Color.parseColor("#828282"))
                     base_count.setTextColor(Color.parseColor("#828282"))
+                    main_txt.setTextColor(Color.parseColor("#828282"))
+                    main_count.setTextColor(Color.parseColor("#828282"))
+                    topping_txt.setTextColor(Color.parseColor("#FD774C"))
+                    topping_count.setTextColor(Color.parseColor("#FD774C"))
                 }
 
                 if(current.toppingFilled == current.topping){
@@ -160,8 +198,15 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     complete_name.text = userDrink+" 완성!"
                     drink_img.setImageResource(img)
                     seekBar.setImageResource(R.drawable.img_drink_progress4)
+
+                    ice_txt.setTextColor(Color.parseColor("#828282"))
+                    ice_count.setTextColor(Color.parseColor("#828282"))
+                    base_txt.setTextColor(Color.parseColor("#828282"))
+                    base_count.setTextColor(Color.parseColor("#828282"))
                     main_txt.setTextColor(Color.parseColor("#828282"))
                     main_count.setTextColor(Color.parseColor("#828282"))
+                    topping_txt.setTextColor(Color.parseColor("#828282"))
+                    topping_count.setTextColor(Color.parseColor("#828282"))
                 }
             }
             dismissLoadingDialog()
