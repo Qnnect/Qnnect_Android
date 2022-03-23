@@ -15,10 +15,7 @@ import com.iame.qnnect.android.src.answer.EditImageAdapter
 import com.iame.qnnect.android.src.answer.model.PostAnswerDataModel
 import com.iame.qnnect.android.src.answer.service.*
 import com.iame.qnnect.android.src.diary.AnswerAdapter
-import com.iame.qnnect.android.src.diary.model.DeleteScrapDataModel
-import com.iame.qnnect.android.src.diary.model.GetQuestionDataModel
-import com.iame.qnnect.android.src.diary.model.PostLikeDataModel
-import com.iame.qnnect.android.src.diary.model.PostScrapDataModel
+import com.iame.qnnect.android.src.diary.model.*
 import com.iame.qnnect.android.src.diary.service.*
 import com.iame.qnnect.android.src.drink.DrinkUserAdapter
 import com.iame.qnnect.android.src.drink.model.GetUserDrinkDataModel
@@ -31,6 +28,9 @@ import com.iame.qnnect.android.src.edit_drink.service.GetCurrentDrinkAPI
 import com.iame.qnnect.android.src.edit_drink.service.GetCurrentDrinkImpl
 import com.iame.qnnect.android.src.edit_drink.service.PostEditDrinkAPI
 import com.iame.qnnect.android.src.edit_drink.service.PostEditDrinkImpl
+import com.iame.qnnect.android.src.edit_question.model.EditQuestionDataModel
+import com.iame.qnnect.android.src.edit_question.service.EditQuestionAPI
+import com.iame.qnnect.android.src.edit_question.service.EditQuestionImpl
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
 import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
@@ -478,6 +478,26 @@ var retrofitPart = module {
             .build()
             .create(GetRecipeAPI::class.java)
     }
+    single<EditQuestionAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(EditQuestionAPI::class.java)
+    }
+    single<DeleteQuestionAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(DeleteQuestionAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -622,6 +642,12 @@ var modelPart = module {
     factory<GetRecipeDataModel> {
         GetRecipeDataImpl(get())
     }
+    factory<EditQuestionDataModel> {
+        EditQuestionImpl(get())
+    }
+    factory<DeleteQuestionDataModel> {
+        DeleteQuestionDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -637,7 +663,7 @@ var viewModelPart = module {
     viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}
     viewModel { SearchViewModel(get())}
-    viewModel { DiaryViewModel(get(), get(), get(), get(), get())}
+    viewModel { DiaryViewModel(get(), get(), get(), get(), get(), get())}
     viewModel { AnswerViewModel(get(), get(), get()) }
     viewModel { ReplyViewModel(get(), get(), get()) }
     viewModel { EditReplyViewModel(get()) }
@@ -649,9 +675,9 @@ var viewModelPart = module {
     viewModel { QuestionListViewModel(get())}
     viewModel { SearchQuestionViewModel(get())}
     viewModel { RecipeViewModel(get()) }
+    viewModel { EditQuestionViewModel(get()) }
 
     viewModel { OnboardViewModel() }
-    viewModel { EditQuestionViewModel() }
     viewModel { FinishDrinkViewModel() }
     viewModel { AlarmViewModel() }
     viewModel { EditAlarmViewModel() }

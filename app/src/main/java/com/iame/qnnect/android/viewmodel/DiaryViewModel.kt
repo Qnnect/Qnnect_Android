@@ -18,7 +18,8 @@ class DiaryViewModel(private var model: PostScrapDataModel,
                      private var model2: DeleteScrapDataModel,
                      private var model3: GetQuestionDataModel,
                      private var model4: UserDataModel,
-                     private var model5: PostLikeDataModel) : BaseViewModel() {
+                     private var model5: PostLikeDataModel,
+                     private var model6: DeleteQuestionDataModel) : BaseViewModel() {
 
     private val TAG = "DiaryViewModel"
 
@@ -37,6 +38,28 @@ class DiaryViewModel(private var model: PostScrapDataModel,
                     postLikeResponse.postValue(response)
                 }
             }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
+
+    private val deleteQuestionResponse = MutableLiveData<String>()
+    val deQuestionResponse: LiveData<String>
+        get() = deleteQuestionResponse
+
+
+    fun deleteQuestion(cafeQuestionId: Int) {
+        addDisposable(model6.getData(cafeQuestionId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    var response = "200 OK"
+                    postLikeResponse.postValue(response)
+                }
+            }, {
+                var response = "204 OK"
+                postLikeResponse.postValue(response)
                 Log.d(TAG, "response error, message : ${it.message}")
             })
         )

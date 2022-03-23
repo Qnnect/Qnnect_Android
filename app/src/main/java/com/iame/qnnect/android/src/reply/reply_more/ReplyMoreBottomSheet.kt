@@ -58,7 +58,7 @@ class ReplyMoreBottomSheet(commentId: Int, replyId: Int, content: String, val it
         super.onActivityCreated(savedInstanceState)
 
         Log.d("response!!!", commentId.toString()+" , "+replyId.toString())
-        var edit_btn = view!!.findViewById<TextView>(R.id.edit_reply)
+        var edit_btn = requireView().findViewById<TextView>(R.id.edit_reply)
         edit_btn.setOnClickListener {
             var intent = Intent(context, EditReplyActivity::class.java)
             intent.putExtra("commentId", commentId)
@@ -68,7 +68,7 @@ class ReplyMoreBottomSheet(commentId: Int, replyId: Int, content: String, val it
             dismiss()
         }
 
-        var delete_btn = view!!.findViewById<TextView>(R.id.delte_reply)
+        var delete_btn = requireView().findViewById<TextView>(R.id.delte_reply)
         delete_btn.setOnClickListener {
             val deleteDialog: DeleteReplyDialog = DeleteReplyDialog {
                 when (it) {

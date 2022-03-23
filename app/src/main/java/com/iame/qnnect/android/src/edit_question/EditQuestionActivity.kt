@@ -5,29 +5,14 @@ import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
-import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityEditQuestionBinding
-import com.iame.qnnect.android.databinding.ActivityQuestionBinding
-import com.iame.qnnect.android.src.group.DeleteGroupDialog
-import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.question.QuestionCompleteDialog
 import com.iame.qnnect.android.src.question.QuestionListActivity
-import com.iame.qnnect.android.src.question.model.PostQuestionRequest
 import com.iame.qnnect.android.viewmodel.EditQuestionViewModel
-import com.iame.qnnect.android.viewmodel.QuestionViewModel
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableEmitter
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_question.*
+import kotlinx.android.synthetic.main.activity_edit_question.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -40,10 +25,20 @@ class EditQuestionActivity : BaseActivity<ActivityEditQuestionBinding, EditQuest
 
     var check = false
 
+    var cafeQuestionId = 0
+    var content = ""
+
     override fun initStartView() {
+        cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
+        content = intent.getStringExtra("content")!!
     }
 
     override fun initDataBinding() {
+        contents.setText(content)
+        viewModel.editquestionResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            finish()
+        })
     }
 
     override fun initAfterBinding() {
@@ -53,7 +48,7 @@ class EditQuestionActivity : BaseActivity<ActivityEditQuestionBinding, EditQuest
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
-                if(len.length > 0){
+                if(len.length > 0 && contents.text.toString() != content){
                     save_btn.setTextColor(Color.parseColor("#FD774C"))
                     check = true
                 }
@@ -70,6 +65,8 @@ class EditQuestionActivity : BaseActivity<ActivityEditQuestionBinding, EditQuest
 
         save_btn.setOnClickListener {
             if(check){
+                viewModel.patchEditQuesiton(cafeQuestionId, contents.text.toString())
+                showLoadingDialog(this)
             }
         }
 

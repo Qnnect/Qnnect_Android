@@ -69,12 +69,16 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 complete_shadow.visibility = View.GONE
                 shadow.visibility = View.VISIBLE
 
+                compseekBar.visibility = View.GONE
+
                 null_txt.visibility = View.VISIBLE
                 null_txt.text = item!!.nickName+"님은 아직\n음료를 고르지 않았어요."
             }
             else{
                 null_txt.visibility = View.GONE
                 userDrink = current.userDrinkName
+
+                compseekBar.visibility = View.GONE
 
                 it.cafeUsers.forEach { item ->
                     userAdapter.addItem(item)

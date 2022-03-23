@@ -19,6 +19,7 @@ import com.iame.qnnect.android.databinding.ActivityLoginBinding
 import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.model.answer_item
+import com.iame.qnnect.android.src.edit_question.EditQuestionActivity
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.GroupAdapter
@@ -26,7 +27,9 @@ import com.iame.qnnect.android.src.main.home.model.group_item
 import com.iame.qnnect.android.src.reply.ReplyActivity
 import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.DeleteReplyDialog
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
+import com.iame.qnnect.android.src.reply.reply_more.service.DeleteReplyService
 import com.iame.qnnect.android.viewmodel.DiaryViewModel
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
@@ -139,6 +142,35 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             // User Name
             my_profile_name.text = it.nickName
         })
+
+        viewModel.likeResponse.observe(this, Observer {
+            liked = true
+            like_btn.setImageResource(R.mipmap.ic_like_select_btn_foreground)
+            dismissLoadingDialog()
+        })
+
+        viewModel.likeResponse.observe(this, Observer {
+            liked = false
+            like_btn.setImageResource(R.mipmap.ic_like_btn_foreground)
+            dismissLoadingDialog()
+        })
+
+        viewModel.scrapResponse.observe(this, Observer {
+            scraped = false
+            bookmark_btn.setImageResource(R.mipmap.ic_bookmark_bottom_foreground)
+            dismissLoadingDialog()
+        })
+
+        viewModel.scrapResponse.observe(this, Observer {
+            scraped = true
+            bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
+            dismissLoadingDialog()
+        })
+
+        viewModel.deQuestionResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            finish()
+        })
     }
 
     override fun initAfterBinding() {
@@ -160,25 +192,12 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
 
         bookmark_btn.setOnClickListener {
             if(scraped){
-                bookmark_btn.setImageResource(R.mipmap.ic_bookmark_bottom_foreground)
                 viewModel.deleteScrap(cafeQuestionId)
                 showLoadingDialog(this)
-
-                viewModel.scrapResponse.observe(this, Observer {
-                    dismissLoadingDialog()
-                    scraped = false
-                })
-
             }
             else{
-                bookmark_btn.setImageResource(R.mipmap.ic_bookmark_select_foreground)
                 viewModel.postScrap(cafeQuestionId)
                 showLoadingDialog(this)
-
-                viewModel.scrapResponse.observe(this, Observer {
-                    dismissLoadingDialog()
-                    scraped = true
-                })
             }
         }
 
@@ -200,22 +219,32 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             if(liked){
                 viewModel.postLike(cafeQuestionId, !liked)
                 showLoadingDialog(this)
-
-                viewModel.likeResponse.observe(this, Observer {
-                    dismissLoadingDialog()
-                    liked = false
-                    like_btn.setImageResource(R.mipmap.ic_like_btn_foreground)
-                })
             }
             else{
                 viewModel.postLike(cafeQuestionId, !liked)
                 showLoadingDialog(this)
+            }
+        }
 
-                viewModel.likeResponse.observe(this, Observer {
-                    dismissLoadingDialog()
-                    liked = true
-                    like_btn.setImageResource(R.mipmap.ic_like_select_btn_foreground)
-                })
+        edit_btn.setOnClickListener {
+            var intent = Intent(this, EditQuestionActivity::class.java)
+            intent.putExtra("cafeQuestionId", cafeQuestionId)
+            intent.putExtra("content", question)
+            startActivity(intent)
+        }
+
+        delete_btn.setOnClickListener {
+            delete_btn.setOnClickListener {
+                val deleteDialog: DeleteReplyDialog = DeleteReplyDialog {
+                    when (it) {
+                        // 삭제하기
+                        1 -> {
+                            viewModel.deleteScrap(cafeQuestionId)
+                            showLoadingDialog(this)
+                        }
+                    }
+                }
+                deleteDialog.show(supportFragmentManager, deleteDialog.tag)
             }
         }
     }
