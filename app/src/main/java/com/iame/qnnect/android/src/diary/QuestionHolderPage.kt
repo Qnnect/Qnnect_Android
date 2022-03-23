@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -23,12 +24,15 @@ import com.iame.qnnect.android.src.reply.ReplyAdapter
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
-class QuestionHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: AnswerAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
+class QuestionHolderPage internal constructor(itemView: View, var context: Context,
+                                              var a_itemClickListener: AnswerAdapter.OnItemClickEventListener,
+                                              var d_itemClickListener: AnswerAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val user_img :ImageView
     private val user_name: TextView
     private val answer_contents: TextView
     private val answer_img: ImageView
     private val answer_btn: ImageView
+    private val btn_view: LinearLayout
 
     var data: Comments? = null
     fun onBind(data: Comments) {
@@ -46,6 +50,19 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
                 .into(user_img)
         }
         user_name.setText(profile.nickName)
+
+        user_img.setOnClickListener(View.OnClickListener { a_view ->
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                d_itemClickListener.onItemClick(a_view, position)
+            }
+        })
+        user_name.setOnClickListener(View.OnClickListener { a_view ->
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                d_itemClickListener.onItemClick(a_view, position)
+            }
+        })
 
         answer_contents.setText(data.content)
 
@@ -67,7 +84,14 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
         }
 
 
-        itemView.setOnClickListener(View.OnClickListener { a_view ->
+        answer_btn.setOnClickListener(View.OnClickListener { a_view ->
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                a_itemClickListener.onItemClick(a_view, position)
+            }
+        })
+
+        btn_view.setOnClickListener(View.OnClickListener { a_view ->
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 a_itemClickListener.onItemClick(a_view, position)
@@ -81,5 +105,6 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
         answer_contents = itemView.findViewById(R.id.answer_contents)
         answer_img = itemView.findViewById(R.id.answer_img)
         answer_btn = itemView.findViewById(R.id.answer_btn)
+        btn_view = itemView.findViewById(R.id.btn_view)
     }
 }

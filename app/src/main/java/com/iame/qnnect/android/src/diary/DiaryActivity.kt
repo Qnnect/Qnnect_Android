@@ -2,6 +2,7 @@ package com.iame.qnnect.android.src.diary
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -12,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.iame.qnnect.android.BuildConfig
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityDiaryBinding
 import com.iame.qnnect.android.databinding.ActivityLoginBinding
 import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.answer.AnswerActivity
+import com.iame.qnnect.android.src.declare.DeclareBottomSheet
 import com.iame.qnnect.android.src.diary.model.answer_item
 import com.iame.qnnect.android.src.edit_question.EditQuestionActivity
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
@@ -40,6 +43,7 @@ import kotlinx.android.synthetic.main.activity_diary.back_btn
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.String
 
 class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
 
@@ -212,6 +216,42 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                 intent.putExtra("questioner", questioner)
                 intent.putExtra("question", question)
                 startActivity(intent)
+            }
+        })
+
+        answerAdapter.setOnItemClickListener2(object : AnswerAdapter.OnItemClickEventListener {
+            override fun onItemClick(a_view: View?, a_position: Int) {
+                var item = answerAdapter.getItem(a_position)
+
+                val declareBottomSheet: DeclareBottomSheet = DeclareBottomSheet() {
+                    when (it) {
+                        // 신고하기
+                        0 -> {
+                            val email = Intent(Intent.ACTION_SEND)
+                            email.type = "plain/text"
+                            val address = arrayOf("qnnect.app@gmail.com")
+                            email.putExtra(Intent.EXTRA_EMAIL, address)
+                            email.putExtra(Intent.EXTRA_SUBJECT, "큐넥트 글및 유저 신고")
+                            email.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)")
+                            email.putExtra(
+                                Intent.EXTRA_TEXT,
+                                String.format(
+                                    "App Version : %s\nAndroid(SDK) : %d(%s)\n 유저 닉네임 : %s\n내용 : ",
+                                    BuildConfig.VERSION_NAME,
+                                    Build.VERSION.SDK_INT,
+                                    Build.VERSION.RELEASE,
+                                    item.profileResponse.nickName
+                                )
+                            )
+                            startActivity(email)
+                        }
+                        // 차단하기
+                        1 ->{
+                            onResume()
+                        }
+                    }
+                }
+                declareBottomSheet.show(supportFragmentManager, declareBottomSheet.tag)
             }
         })
 

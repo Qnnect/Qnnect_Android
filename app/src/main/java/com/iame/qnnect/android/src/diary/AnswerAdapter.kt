@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.diary.model.Comments
 import com.iame.qnnect.android.src.diary.model.answer_item
+import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.src.reply.model.Replies
 
 class AnswerAdapter() :
@@ -20,7 +21,12 @@ class AnswerAdapter() :
         mItemClickListener = a_listener
     }
 
+    fun setOnItemClickListener2(d_listener: OnItemClickEventListener) {
+        dItemClickListener = d_listener
+    }
+
     private var mItemClickListener: OnItemClickEventListener? = null
+    private var dItemClickListener: OnItemClickEventListener? = null
     interface OnItemClickEventListener {
         fun onItemClick(a_view: View?, a_position: Int)
     }
@@ -29,7 +35,7 @@ class AnswerAdapter() :
         val context: Context = parent.context
         val view: View =
             LayoutInflater.from(context).inflate(R.layout.diary_answer_item, parent, false)
-        return QuestionHolderPage(view, context, mItemClickListener!!)
+        return QuestionHolderPage(view, context, mItemClickListener!!, dItemClickListener!!)
     }
 
     override fun onBindViewHolder(holder: QuestionHolderPage, position: Int) {
