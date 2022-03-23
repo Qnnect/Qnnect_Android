@@ -234,18 +234,16 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         }
 
         delete_btn.setOnClickListener {
-            delete_btn.setOnClickListener {
-                val deleteDialog: DeleteReplyDialog = DeleteReplyDialog {
-                    when (it) {
-                        // 삭제하기
-                        1 -> {
-                            viewModel.deleteScrap(cafeQuestionId)
-                            showLoadingDialog(this)
-                        }
+            val deleteDialog: DeleteReplyDialog = DeleteReplyDialog {
+                when (it) {
+                    // 삭제하기
+                    1 -> {
+                        viewModel.deleteScrap(cafeQuestionId)
+                        showLoadingDialog(this)
                     }
                 }
-                deleteDialog.show(supportFragmentManager, deleteDialog.tag)
             }
+            deleteDialog.show(supportFragmentManager, deleteDialog.tag)
         }
     }
 }

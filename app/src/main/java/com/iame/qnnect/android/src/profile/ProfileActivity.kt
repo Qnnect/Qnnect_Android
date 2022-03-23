@@ -47,7 +47,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     private val GET_GALLERY_IMAGE = 200
     var path = ""
     var check = false
-    var default_img_check = false
+    var default_img_check = true
 
     override fun initStartView() {
         Glide.with(this)

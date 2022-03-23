@@ -25,7 +25,9 @@ import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
-class ReplyHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: ReplyAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
+class ReplyHolderPage internal constructor(itemView: View, var context: Context,
+                                           var a_itemClickListener: ReplyAdapter.OnItemClickEventListener,
+                                           var d_itemClickListener: ReplyAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val writer_img :ImageView
     private val writer_name: TextView
     private val answer_text: TextView
@@ -62,6 +64,12 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context,
             }
         })
 
+        writer_img.setOnClickListener(View.OnClickListener { a_view ->
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                d_itemClickListener.onItemClick(a_view, position)
+            }
+        })
     }
 
     init {

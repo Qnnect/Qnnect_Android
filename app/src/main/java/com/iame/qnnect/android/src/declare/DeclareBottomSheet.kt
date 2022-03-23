@@ -1,4 +1,4 @@
-package com.iame.qnnect.android.src.reply
+package com.iame.qnnect.android.src.declare
 
 import android.app.Dialog
 import android.content.Intent
@@ -19,7 +19,7 @@ import com.iame.qnnect.android.src.reply.reply_more.service.DeleteReplyService
 import com.iame.qnnect.android.src.reply.reply_more.service.DeleteReplyView
 
 
-class AnswerBottomSheet(val itemClick: (Int) -> Unit) :
+class DeclareBottomSheet(val itemClick: (Int) -> Unit) :
     BottomSheetDialogFragment(){
     private lateinit var dlg : BottomSheetDialog
 
@@ -49,36 +49,22 @@ class AnswerBottomSheet(val itemClick: (Int) -> Unit) :
         savedInstanceState: Bundle?,
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_reply_more_bottom, container, false)
+        return inflater.inflate(R.layout.fragment_declare_bottom, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var edit_btn = requireView().findViewById<TextView>(R.id.edit_reply)
-        edit_btn.text = "댓글 수정"
-        edit_btn.visibility = View.GONE
-        edit_btn.setOnClickListener {
-            dismiss()
+
+        // 신고하기
+        var declare_btn = requireView().findViewById<TextView>(R.id.declare_btn)
+        declare_btn.setOnClickListener {
             itemClick(0)
         }
 
-        var delete_btn = requireView().findViewById<TextView>(R.id.delte_reply)
-        delete_btn.text = "댓글 삭제"
-        delete_btn.setOnClickListener {
-            val deleteDialog: DeleteReplyDialog = DeleteReplyDialog {
-                when (it) {
-                    // 취소하기
-                    0 -> {
-                        dismiss()
-                    }
-                    // 삭제하기
-                    1 -> {
-                        dismiss()
-                        itemClick(1)
-                    }
-                }
-            }
-            deleteDialog.show(requireActivity().supportFragmentManager, deleteDialog.tag)
+        // 차단하기
+        var block_btn = requireView().findViewById<TextView>(R.id.block_btn)
+        block_btn.setOnClickListener {
+            itemClick(1)
         }
     }
 }

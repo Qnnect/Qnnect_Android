@@ -53,6 +53,9 @@ import com.iame.qnnect.android.src.main.home.home_service.HomeDataImpl
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.main.home.service.UserAPI
 import com.iame.qnnect.android.src.main.home.service.UserDataImpl
+import com.iame.qnnect.android.src.main.mypage.model.DeleteUserDataModel
+import com.iame.qnnect.android.src.main.mypage.service.DeleteUserAPI
+import com.iame.qnnect.android.src.main.mypage.service.DeleteUserDataImpl
 import com.iame.qnnect.android.src.main.store.RecipeAdapter
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import com.iame.qnnect.android.src.profile.model.ProfileDefaultDataModel
@@ -498,6 +501,16 @@ var retrofitPart = module {
             .build()
             .create(DeleteQuestionAPI::class.java)
     }
+    single<DeleteUserAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(DeleteUserAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -648,6 +661,9 @@ var modelPart = module {
     factory<DeleteQuestionDataModel> {
         DeleteQuestionDataImpl(get())
     }
+    factory<DeleteUserDataModel> {
+        DeleteUserDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -658,7 +674,7 @@ var viewModelPart = module {
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { EditProfileViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get()) }
-    viewModel { MypageViewModel(get()) }
+    viewModel { MypageViewModel(get(), get()) }
     viewModel { GroupViewModel(get()) }
     viewModel { BookmarkViewModel(get(), get(), get())}
     viewModel { QuestionViewModel(get())}

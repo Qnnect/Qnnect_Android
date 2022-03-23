@@ -27,6 +27,27 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
     }
 
     override fun initDataBinding() {
+        viewModel.userResponse.observe(this, Observer {
+            var image = it.profileImage
+
+            // Profile Url
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_profile_img)
+            // User Name
+            user_diary_name.text = it.nickName+"님의 다이어리"
+            // User Point
+            point_txt.text = it.point.toString()+"P"
+        })
+
+        viewModel.deuserResponse.observe(this, Observer {
+            baseToken.setAccessToken(requireContext(), "", "")
+            var intent = Intent(context, LoginActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+            startActivity(intent)
+        })
     }
 
     override fun initAfterBinding() {
@@ -46,6 +67,19 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             startActivity(intent)
         }
 
+        // 개인정보 처리
+        setting_txt1.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/5a8dd6542fcf4ed9bd90e9f69d7a2e90"))
+            startActivity(intent)
+        }
+
+        // 서비스 이용약관
+        setting_txt2.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/c5609c94300b42caae2610c3f3dc0d4b"))
+            startActivity(intent)
+        }
+
+        // 로그 아웃
         setting_logout.setOnClickListener {
             val logoutDialog: LogoutDialog = LogoutDialog {
                 when (it) {
@@ -62,6 +96,19 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             logoutDialog.show(requireActivity().supportFragmentManager, logoutDialog.tag)
         }
 
+        // 회원 탈퇴
+        setting_delete.setOnClickListener {
+            val deleteUserDialog: DeleteUserDialog = DeleteUserDialog {
+                when (it) {
+                    // 삭제
+                    0 -> {
+                        viewModel.deleteUser()
+                    }
+                }
+            }
+            deleteUserDialog.show(requireActivity().supportFragmentManager, deleteUserDialog.tag)
+        }
+
         setting_instagram.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/qnnect.official/"))
             startActivity(intent)
@@ -72,20 +119,6 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
     override fun onResume() {
         super.onResume()
         viewModel.getUser()
-
-        viewModel.userResponse.observe(this, Observer {
-            var image = it.profileImage
-
-            // Profile Url
-            Glide.with(this)
-                .load(image)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(user_profile_img)
-            // User Name
-            user_diary_name.text = it.nickName+"님의 다이어리"
-            // User Point
-            point_txt.text = it.point.toString()+"P"
-        })
     }
 
 }

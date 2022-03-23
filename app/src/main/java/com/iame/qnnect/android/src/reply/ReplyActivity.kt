@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.iame.qnnect.android.BuildConfig
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityReplyBinding
 import com.iame.qnnect.android.src.answer.EditAnswerActivity
+import com.iame.qnnect.android.src.declare.DeclareBottomSheet
 import com.iame.qnnect.android.viewmodel.ReplyViewModel
 import kotlinx.android.synthetic.main.activity_reply.*
 import kotlinx.android.synthetic.main.activity_reply.image_recycler
@@ -123,7 +125,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             imageAdapter.addItem(it.imageUrl5.toString())
 
             if(imageAdapter.itemCount == 1){
-                img_one.visibility = View.generateViewId()
+                img_one.visibility = View.VISIBLE
                 Glide.with(this)
                     .load(imageAdapter.getItem(0))
                     .transform(CenterCrop(), RoundedCorners(50))
@@ -225,6 +227,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             }
         }
 
+        // more
         replyAdapter.setOnItemClickListener(object : OnItemClickEventListener {
             override fun onItemClick(a_view: View?, a_position: Int) {
                 val item: Replies = replyAdapter.getItem(a_position)
@@ -240,6 +243,43 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                     }
                 }
                 replyMoreBottomSheet.show(supportFragmentManager, replyMoreBottomSheet.tag)
+            }
+        })
+
+        // declare
+        replyAdapter.setOnItemClickListener2(object : OnItemClickEventListener {
+            override fun onItemClick(a_view: View?, a_position: Int) {
+                val item: Replies = replyAdapter.getItem(a_position)
+
+                val declareBottomSheet: DeclareBottomSheet = DeclareBottomSheet() {
+                    when (it) {
+                        // 신고하기
+                        0 -> {
+                            val email = Intent(Intent.ACTION_SEND)
+                            email.type = "plain/text"
+                            val address = arrayOf("qnnect.app@gmail.com")
+                            email.putExtra(Intent.EXTRA_EMAIL, address)
+                            email.putExtra(Intent.EXTRA_SUBJECT, "큐넥트 글및 유저 신고")
+                            email.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)")
+                            email.putExtra(
+                                Intent.EXTRA_TEXT,
+                                java.lang.String.format(
+                                    "App Version : %s\nAndroid(SDK) : %d(%s)\n 유저 닉네임 : %s\n내용 : ",
+                                    BuildConfig.VERSION_NAME,
+                                    Build.VERSION.SDK_INT,
+                                    Build.VERSION.RELEASE,
+                                    item.writerInfo.nickName
+                                )
+                            )
+                            startActivity(email)
+                        }
+                        // 차단하기
+                        1 ->{
+                            onResume()
+                        }
+                    }
+                }
+                declareBottomSheet.show(supportFragmentManager, declareBottomSheet.tag)
             }
         })
     }

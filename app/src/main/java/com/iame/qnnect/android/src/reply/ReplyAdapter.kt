@@ -22,7 +22,12 @@ class ReplyAdapter() :
         mItemClickListener = a_listener
     }
 
+    fun setOnItemClickListener2(d_listener: OnItemClickEventListener) {
+        dItemClickListener = d_listener
+    }
+
     private var mItemClickListener: OnItemClickEventListener? = null
+    private var dItemClickListener: OnItemClickEventListener? = null
     interface OnItemClickEventListener {
         fun onItemClick(a_view: View?, a_position: Int)
     }
@@ -31,7 +36,7 @@ class ReplyAdapter() :
         val context: Context = parent.context
         val view: View =
             LayoutInflater.from(context).inflate(R.layout.reply_item, parent, false)
-        return ReplyHolderPage(view, context, mItemClickListener!!)
+        return ReplyHolderPage(view, context, mItemClickListener!!, dItemClickListener!!)
     }
 
     override fun onBindViewHolder(holder: ReplyHolderPage, position: Int) {
