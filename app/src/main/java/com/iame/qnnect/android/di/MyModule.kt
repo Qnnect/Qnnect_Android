@@ -93,6 +93,7 @@ import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
+import com.iame.qnnect.android.src.store.MaterialAdapter
 import com.iame.qnnect.android.src.store.model.GetMyMaterialAllDataModel
 import com.iame.qnnect.android.src.store.model.GetMyMaterialDataModel
 import com.iame.qnnect.android.src.store.model.PostBuyMaterialDataModel
@@ -604,6 +605,9 @@ var adapterPart = module {
     }
     factory {
         DeclareAdapter()
+    }
+    factory {
+        MaterialAdapter()
     }
 }
 

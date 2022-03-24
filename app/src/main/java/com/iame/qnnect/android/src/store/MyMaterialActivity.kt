@@ -22,7 +22,7 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
 
     override val viewModel: MyMaterialViewModel by viewModel()
 
-    private val recipeAdapter: RecipeAdapter by inject()
+    private val recipeAdapter: MaterialAdapter by inject()
 
     var recipe_list = ArrayList<recipe>()
 
@@ -43,7 +43,7 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
             recipeAdapter.clear()
 
             it.forEach { item ->
-                recipeAdapter.addItem(recipe(item.ingredientId))
+                recipeAdapter.addItem(item)
             }
             recipeAdapter.notifyDataSetChanged()
         })
@@ -53,7 +53,7 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
             recipeAdapter.clear()
 
             it.forEach { item ->
-                recipeAdapter.addItem(recipe(item.ingredientId))
+                recipeAdapter.addItem(item)
             }
             recipeAdapter.notifyDataSetChanged()
         })
@@ -87,20 +87,11 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
             viewModel.getMyMaterial("topping")
         }
 
-        recipeAdapter.setOnItemClickListener(object : RecipeAdapter.OnItemClickListener {
-            override fun onItemClick(v: View?, position: Int) {
-                var request = recipeAdapter.getItem(position)
-                recipeAdapter.notifyDataSetChanged()
-
-                val recipeDialog = RecipeDialog(request) {
-                    when (it) {
-                        1 -> {
-
-                        }
-                    }
-                }
-                recipeDialog.show(supportFragmentManager, recipeDialog.tag)
-            }
-        })
+//        recipeAdapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
+//            override fun onItemClick(v: View?, position: Int) {
+//                var request = recipeAdapter.getItem(position)
+//                recipeAdapter.notifyDataSetChanged()
+//            }
+//        })
     }
 }

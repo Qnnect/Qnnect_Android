@@ -187,7 +187,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     if(userDrink == "레몬에이드"){
                         complete_shadow.visibility = View.GONE
                         lemon_shadow.visibility = View.VISIBLE
-                        shadow.visibility = View.VISIBLE
+                        shadow.visibility = View.GONE
                     }
                     else{
                         complete_shadow.visibility = View.VISIBLE

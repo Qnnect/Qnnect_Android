@@ -70,6 +70,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
             if(check){
                 var cafeId = HomeFragment_case().getGroupname(this)
                 viewModel.postQuestion(cafeId!!, contents.text.toString())
+                Log.d("question test", "질문 성공 "+contents.text.toString())
             }
         }
 
