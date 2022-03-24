@@ -119,7 +119,7 @@
             android:id="@+id/empty_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="아직 북마크한 질문이 없어요."
+            android:text="아직 질문이 없어요."
             android:textColor="@color/black"
             android:textSize="18dp"
             android:fontFamily="@font/im_hyemin_bold"

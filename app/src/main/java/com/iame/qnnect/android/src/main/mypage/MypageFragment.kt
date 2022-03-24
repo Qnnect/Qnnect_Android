@@ -14,6 +14,7 @@ import com.iame.qnnect.android.src.alarm.EditAlarmActivity
 import com.iame.qnnect.android.src.declare.UserDeclareActivity
 import com.iame.qnnect.android.src.empty.EmptyActivity
 import com.iame.qnnect.android.src.login.LoginActivity
+import com.iame.qnnect.android.src.question.UserQuestionActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.view.*
@@ -60,8 +61,10 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             var intent = Intent(context, EmptyActivity::class.java)
             startActivity(intent)
         }
+
+        // 내가 한 질문
         my_question_btn.setOnClickListener {
-            var intent = Intent(context, EmptyActivity::class.java)
+            var intent = Intent(context, UserQuestionActivity::class.java)
             startActivity(intent)
         }
 

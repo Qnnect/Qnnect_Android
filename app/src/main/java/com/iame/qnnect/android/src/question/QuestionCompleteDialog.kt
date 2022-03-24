@@ -47,6 +47,7 @@ class QuestionCompleteDialog(val itemClick: (Int) -> Unit) : DialogFragment(){
         var go_cafe_btn = requireView().findViewById<TextView>(R.id.go_cafe_btn)
         go_cafe_btn.setOnClickListener {
             itemClick(0)
+            dismiss()
         }
 
     }

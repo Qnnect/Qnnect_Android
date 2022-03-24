@@ -41,6 +41,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
                     1 -> {
                         var intent = Intent(this, QuestionListActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                 }
             }

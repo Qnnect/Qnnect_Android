@@ -22,6 +22,8 @@ import com.iame.qnnect.android.src.declare.service.*
 import com.iame.qnnect.android.src.diary.AnswerAdapter
 import com.iame.qnnect.android.src.diary.model.*
 import com.iame.qnnect.android.src.diary.service.*
+import com.iame.qnnect.android.src.diary.service.GetQuestionAPI
+import com.iame.qnnect.android.src.diary.service.GetQuestionDataImpl
 import com.iame.qnnect.android.src.drink.DrinkUserAdapter
 import com.iame.qnnect.android.src.drink.model.GetUserDrinkDataModel
 import com.iame.qnnect.android.src.drink.service.GetUserDrinkAPI
@@ -68,12 +70,10 @@ import com.iame.qnnect.android.src.profile.service.ProfileAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
 import com.iame.qnnect.android.src.profile.service.ProfileDefaultAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDefaultDataImpl
+import com.iame.qnnect.android.src.question.model.GetUserQuestionDataModel
 import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
 import com.iame.qnnect.android.src.question.model.SearchQuestionDataModel
-import com.iame.qnnect.android.src.question.service.PostQuestionAPI
-import com.iame.qnnect.android.src.question.service.PostQuestionDataImpl
-import com.iame.qnnect.android.src.question.service.SearchQuestionAPI
-import com.iame.qnnect.android.src.question.service.SearchQuestionDataImpl
+import com.iame.qnnect.android.src.question.service.*
 import com.iame.qnnect.android.src.recipe.model.GetRecipeDataModel
 import com.iame.qnnect.android.src.recipe.service.GetRecipeAPI
 import com.iame.qnnect.android.src.recipe.service.GetRecipeDataImpl
@@ -547,6 +547,16 @@ var retrofitPart = module {
             .build()
             .create(DeleteDeclareAPI::class.java)
     }
+    single<UserQuestionAllAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(UserQuestionAllAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -712,6 +722,9 @@ var modelPart = module {
     factory<DeleteDeclareDataModel> {
         DeleteDeclareDataImpl(get())
     }
+    factory<GetUserQuestionDataModel> {
+        UserQuestionDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -736,7 +749,7 @@ var viewModelPart = module {
     viewModel { StoreActivityViewModel(get() ) }
     viewModel { MyMaterialViewModel(get(), get()) }
     viewModel { DrinkViewModel(get() ) }
-    viewModel { QuestionListViewModel(get())}
+    viewModel { QuestionListViewModel(get(), get())}
     viewModel { SearchQuestionViewModel(get())}
     viewModel { RecipeViewModel(get()) }
     viewModel { EditQuestionViewModel(get()) }
