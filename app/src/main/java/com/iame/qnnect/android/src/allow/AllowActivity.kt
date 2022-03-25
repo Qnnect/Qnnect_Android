@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.allow
 
 import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
@@ -51,6 +52,26 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
 
         allow_radio2.setOnClickListener {
             viewModel.radio_select(allow_radio2, allow_radio1, ok_btn)
+        }
+
+        // 개인정보 처리
+        txt2.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/5a8dd6542fcf4ed9bd90e9f69d7a2e90"))
+            startActivity(intent)
+        }
+        more_btn1.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/5a8dd6542fcf4ed9bd90e9f69d7a2e90"))
+            startActivity(intent)
+        }
+
+        // 서비스 이용
+        txt3.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/c5609c94300b42caae2610c3f3dc0d4b"))
+            startActivity(intent)
+        }
+        more_btn2.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/c5609c94300b42caae2610c3f3dc0d4b"))
+            startActivity(intent)
         }
 
         ok_btn.setOnClickListener {
