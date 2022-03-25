@@ -184,6 +184,12 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
         viewModel.erdeclareResponse.observe(this, Observer {
             Toast.makeText(this, "본인은 신고할 수 없습니다.", Toast.LENGTH_SHORT).show()
         })
+
+        viewModel.questionerrorResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            finish()
+        })
     }
 
     override fun initAfterBinding() {

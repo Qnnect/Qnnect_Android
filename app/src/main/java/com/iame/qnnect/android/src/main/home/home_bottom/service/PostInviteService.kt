@@ -17,8 +17,8 @@ class PostInviteService(val view: PostInviteView) {
             override fun onResponse(call: Call<GetGroupResponse>, response: Response<GetGroupResponse>) {
                 try{
                     view.onInviteSuccess(response.body() as GetGroupResponse)
-                } catch(e: Exception){
-
+                }catch (e: Exception){
+                    view.onInviteFailure("이미 입장해있는 카페 입니다.")
                 }
             }
             override fun onFailure(call: Call<GetGroupResponse>, t: Throwable) {

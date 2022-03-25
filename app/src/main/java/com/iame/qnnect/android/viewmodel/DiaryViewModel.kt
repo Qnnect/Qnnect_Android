@@ -132,10 +132,15 @@ class DiaryViewModel(private var model: PostScrapDataModel,
         )
     }
 
+    // get Question
     private val getQuestionResponse = MutableLiveData<GetQuestionResponse>()
     val questionResponse: LiveData<GetQuestionResponse>
         get() = getQuestionResponse
 
+    // getQuestion Error
+    private val getErrorResponse = MutableLiveData<String>()
+    val questionerrorResponse: LiveData<String>
+        get() = getErrorResponse
 
     fun getQuestion(cafeQuestionId: Int) {
         addDisposable(model3.getData(cafeQuestionId)
@@ -146,7 +151,7 @@ class DiaryViewModel(private var model: PostScrapDataModel,
                     getQuestionResponse.postValue(this)
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                getErrorResponse.postValue("아직 카페에 전달되지 않은 질문입니다.")
             })
         )
     }

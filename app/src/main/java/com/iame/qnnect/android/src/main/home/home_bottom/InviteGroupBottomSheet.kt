@@ -119,5 +119,6 @@ class InviteGroupBottomSheet(val cafeCode: String?, val itemClick: (Int) -> Unit
 
     override fun onInviteFailure(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        dismiss()
     }
 }
