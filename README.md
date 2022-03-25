@@ -50,4 +50,4 @@
 2. 2022.03.22(TUE) -> Recipe Layout Update
 3. 2022.03.23(WEN) -> Declare layout, Delete User Api, Empty Layout, Drink resize, Not input nickname user Throw, Use Kakao Link Like Deep Like (Join Cafe at Home)
 4. 2022.03.24(THU) -> Declare Api, User Declare List Api & Layout Complete, In App Auto Update Complete (Not yet Test), Group 500 Error Throwable, My Material Count Update, Versio1 release
-5. 2022.03.24(FRI) -> Edit Group Error Update, Edit Question text/plain Update, Delete Question Error Update
+5. 2022.03.24(FRI) -> Edit Group Error Update, Edit Question text/plain Update, Delete Question Error Update, Error Throwable Invite Cafe 
