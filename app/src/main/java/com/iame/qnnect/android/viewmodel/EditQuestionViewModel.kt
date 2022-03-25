@@ -32,7 +32,7 @@ class EditQuestionViewModel(private  val model: EditQuestionDataModel) : BaseVie
                     patchEditQuestionResponse.postValue("200 OK")
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                patchEditQuestionResponse.postValue("204 OK")
             })
         )
     }

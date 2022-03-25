@@ -290,7 +290,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
                 when (it) {
                     // 삭제하기
                     1 -> {
-                        viewModel.deleteScrap(cafeQuestionId)
+                        viewModel.deleteQuestion(cafeQuestionId)
                         showLoadingDialog(this)
                     }
                 }

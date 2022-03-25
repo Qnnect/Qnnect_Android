@@ -45,7 +45,7 @@ class EditGroupBottomSheet(var groupTitle: String, val itemClick: (Int) -> Unit)
     var cafeId: Int = 0
     var color = "red"
     var groupType = "친구"
-    var check = false
+    var check = true
     var title: String = ""
     var questionCycle: String = "everyDay"
 
@@ -83,6 +83,7 @@ class EditGroupBottomSheet(var groupTitle: String, val itemClick: (Int) -> Unit)
         var ok_btn = requireView().findViewById<ConstraintLayout>(R.id.ok_btn)
 
         name_edit_txt.setText(groupTitle)
+        ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
 
         name_edit_txt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
