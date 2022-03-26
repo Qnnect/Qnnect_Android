@@ -40,6 +40,10 @@ class QuestionListViewModel(private val model: GetQuestionDataModel,
     val userquestionResponse: LiveData<List<Bookmark>>
         get() = getUserQuestionResponse
 
+    private val errorQuestionResponse = MutableLiveData<String>()
+    val errorResponse: LiveData<String>
+        get() = errorQuestionResponse
+
     fun getUserQuestion() {
         addDisposable(model2.getData()
             .subscribeOn(Schedulers.io())
@@ -49,7 +53,7 @@ class QuestionListViewModel(private val model: GetQuestionDataModel,
                     getUserQuestionResponse.postValue(this)
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                errorQuestionResponse.postValue("error")
             })
         )
     }

@@ -55,6 +55,12 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
             questionListAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
         })
+
+        viewModel.errorResponse.observe(this, Observer {
+            empty_img.visibility = View.VISIBLE
+            empty_txt.visibility = View.VISIBLE
+            dismissLoadingDialog()
+        })
     }
 
     override fun initAfterBinding() {
