@@ -18,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.group.model.GetGroupResponse
+import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupRequest
 import com.iame.qnnect.android.src.main.home.home_bottom.model.PostAddGroupResponse
 import com.iame.qnnect.android.src.main.home.home_bottom.service.AddGroupService
@@ -118,7 +119,8 @@ class InviteGroupBottomSheet(val cafeCode: String?, val itemClick: (Int) -> Unit
     }
 
     override fun onInviteFailure(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        val notCodeDialog: NotCodeDialog = NotCodeDialog()
+        notCodeDialog.show(requireActivity().supportFragmentManager, notCodeDialog.tag)
         dismiss()
     }
 }

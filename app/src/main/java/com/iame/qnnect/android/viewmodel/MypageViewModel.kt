@@ -7,12 +7,14 @@ import com.iame.qnnect.android.base.BaseViewModel
 import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 import com.iame.qnnect.android.src.main.home.model.UserDataModel
 import com.iame.qnnect.android.src.main.mypage.model.DeleteUserDataModel
+import com.iame.qnnect.android.src.main.mypage.model.LogoutUserDataModel
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MypageViewModel(private val model: UserDataModel,
-                      private val model2: DeleteUserDataModel) : BaseViewModel() {
+                      private val model2: DeleteUserDataModel,
+                      private val model3: LogoutUserDataModel) : BaseViewModel() {
 
     private val TAG = "MypageViewModel"
 
@@ -47,6 +49,25 @@ class MypageViewModel(private val model: UserDataModel,
             .subscribe({
                 it.run {
                     deleteUserResponse.postValue("200 OK")
+                }
+            }, {
+                Log.d(TAG, "response error, message : ${it.message}")
+            })
+        )
+    }
+
+    // delete user
+    private val logoutUserResponse = MutableLiveData<String>()
+    val outuserResponse: LiveData<String>
+        get() = logoutUserResponse
+
+    fun logoutUser() {
+        addDisposable(model3.getData()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    logoutUserResponse.postValue("200 OK")
                 }
             }, {
                 Log.d(TAG, "response error, message : ${it.message}")

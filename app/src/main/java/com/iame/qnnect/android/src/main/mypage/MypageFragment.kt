@@ -52,6 +52,14 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
             startActivity(intent)
         })
+
+        viewModel.outuserResponse.observe(this, Observer {
+            baseToken.setAccessToken(requireContext(), "", "")
+            var intent = Intent(context, LoginActivity::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
+            startActivity(intent)
+        })
     }
 
     override fun initAfterBinding() {
@@ -108,11 +116,7 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
                 when (it) {
                     // 로그아웃
                     0 -> {
-                        baseToken.setAccessToken(requireContext(), "", "")
-                        var intent = Intent(context, LoginActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP //액티비티 스택제거
-                        startActivity(intent)
+                        viewModel.logoutUser()
                     }
                 }
             }
