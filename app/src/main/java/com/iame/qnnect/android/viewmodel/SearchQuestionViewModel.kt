@@ -16,12 +16,16 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class SearchQuestionViewModel(private val model: SearchQuestionDataModel) : BaseViewModel() {
 
-    private val TAG = "BookmarkViewModel"
+    private val TAG = "SearchQuestionViewModel"
 
     // get search
     private val getQuestionResponse = MutableLiveData<GetQuestionResponse>()
     val questionResponse: LiveData<GetQuestionResponse>
         get() = getQuestionResponse
+
+    private val getErrorResponse = MutableLiveData<String>()
+    val errorResponse: LiveData<String>
+        get() = getErrorResponse
 
     fun getBookamrk(cafeId: Int, searchWord: String) {
         addDisposable(model.getData(cafeId, searchWord)
@@ -32,9 +36,8 @@ class SearchQuestionViewModel(private val model: SearchQuestionDataModel) : Base
                     getQuestionResponse.postValue(this)
                 }
             }, {
-                Log.d(TAG, "response error, message : ${it.message}")
+                getErrorResponse.postValue("Empty Response")
             })
         )
     }
-
 }

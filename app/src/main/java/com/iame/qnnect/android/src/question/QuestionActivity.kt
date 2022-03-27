@@ -39,7 +39,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
                     }
                     // 카페별 질문 리스트로 이동
                     1 -> {
-                        var intent = Intent(this, QuestionListActivity::class.java)
+                        var intent = Intent(this, UserQuestionActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

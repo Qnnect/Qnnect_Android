@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.*
@@ -87,11 +88,20 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
             viewModel.getMyMaterial("topping")
         }
 
-//        recipeAdapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
-//            override fun onItemClick(v: View?, position: Int) {
-//                var request = recipeAdapter.getItem(position)
-//                recipeAdapter.notifyDataSetChanged()
-//            }
-//        })
+        recipe_recycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                // 최하단
+                if (!recipe_recycler.canScrollVertically(-1)) {
+                    scrollto_btn.visibility = View.GONE
+                }
+                // 최상단
+                else if (!recipe_recycler.canScrollVertically(1)) {
+                    scrollto_btn.visibility = View.GONE
+                }
+                else {
+                    scrollto_btn.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 }

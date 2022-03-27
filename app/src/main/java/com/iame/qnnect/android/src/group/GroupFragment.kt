@@ -294,7 +294,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 groupSettingBottomSheet.show(requireActivity().supportFragmentManager, groupSettingBottomSheet.tag)
             }
             else{
-                val notquestionDialog: NotQuestionDialog = NotQuestionDialog {
+                val notquestionDialog: NotGroupMoreDialog = NotGroupMoreDialog {
                     when (it) {
                         // 음료추가
                         1 -> {

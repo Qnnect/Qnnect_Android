@@ -48,6 +48,7 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
             if(it.cafeQuestionList.size != 0 ){
                 empty_img.visibility = View.GONE
                 empty_txt.visibility = View.GONE
+
                 it.cafeQuestionList.forEach { item ->
                     questionListAdapter.addItem(item)
                 }
@@ -56,6 +57,15 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
                 empty_img.visibility = View.VISIBLE
                 empty_txt.visibility = View.VISIBLE
             }
+            questionListAdapter.notifyDataSetChanged()
+            dismissLoadingDialog()
+        })
+
+        viewModel.errorResponse.observe(this, Observer {
+            empty_img.visibility = View.VISIBLE
+            empty_txt.visibility = View.VISIBLE
+
+            questionListAdapter.clear()
             questionListAdapter.notifyDataSetChanged()
             dismissLoadingDialog()
         })
@@ -96,7 +106,6 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
                     if (searchText != searchFor)
                         return@launch
 
-                    Log.d("coroutin_reponse", "Success")
                     questionListAdapter.clear()
                     viewModel.getBookamrk(cafeId!!, searchFor)
                     showLoadingDialog(this@SearchQuestionActivity)
