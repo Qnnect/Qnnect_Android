@@ -90,7 +90,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 ok_btn.visibility = View.VISIBLE
                 seek_main.visibility = View.VISIBLE
 
-
                 var list = it.currentDrinkInfo.currentDrinkIngredientsFilled
                 var last = 0
                 var item = "빈잔"

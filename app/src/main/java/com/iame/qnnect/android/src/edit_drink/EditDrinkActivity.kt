@@ -73,7 +73,9 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             }
 
             if(current.iceFilled == current.ice){
-                seekBar.setImageResource(R.drawable.img_drink_progress1)
+                seekBar.setImageResource(R.drawable.img_drink_progress2)
+                ice_txt.setTextColor(Color.parseColor("#828282"))
+                ice_count.setTextColor(Color.parseColor("#828282"))
                 now = "얼음"
                 next = "베이스"
                 var img = drink_img(userdrinkId, now)
@@ -85,9 +87,9 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             }
 
             if(current.baseFilled == current.base){
-                seekBar.setImageResource(R.drawable.img_drink_progress2)
-                ice_txt.setTextColor(Color.parseColor("#828282"))
-                ice_count.setTextColor(Color.parseColor("#828282"))
+                seekBar.setImageResource(R.drawable.img_drink_progress3)
+                base_txt.setTextColor(Color.parseColor("#828282"))
+                base_count.setTextColor(Color.parseColor("#828282"))
                 now = "베이스"
                 next = "주재료"
                 var img = drink_img(userdrinkId, now)
@@ -99,9 +101,9 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             }
 
             if(current.mainFilled == current.main){
-                seekBar.setImageResource(R.drawable.img_drink_progress3)
-                base_txt.setTextColor(Color.parseColor("#828282"))
-                base_count.setTextColor(Color.parseColor("#828282"))
+                seekBar.setImageResource(R.drawable.img_drink_progress4)
+                main_txt.setTextColor(Color.parseColor("#828282"))
+                main_count.setTextColor(Color.parseColor("#828282"))
                 now = "주재료"
                 next = "토핑"
                 var img = drink_img(userdrinkId, now)
