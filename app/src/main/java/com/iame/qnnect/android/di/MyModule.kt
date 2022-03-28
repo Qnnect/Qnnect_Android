@@ -8,6 +8,7 @@ import com.iame.qnnect.android.base.XAccessTokenInterceptor
 import com.iame.qnnect.android.model.DataModel
 import com.iame.qnnect.android.model.DataModelImpl
 import com.iame.qnnect.android.model.service.KakaoSearchService
+import com.iame.qnnect.android.src.alarm.AlarmAdapter
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
@@ -623,6 +624,9 @@ var adapterPart = module {
     }
     factory {
         MaterialAdapter()
+    }
+    factory {
+        AlarmAdapter()
     }
 }
 
