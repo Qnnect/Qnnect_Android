@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.alarm.model.Alarm
+import com.iame.qnnect.android.src.alarm.model.GetAlarmListResponse
 import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.ReplyAdapter.OnItemClickEventListener
 import com.iame.qnnect.android.src.reply.ReplyHolderPage
@@ -16,9 +17,9 @@ import com.iame.qnnect.android.src.reply.ReplyHolderPage
 
 class AlarmAdapter() :
     RecyclerView.Adapter<AlarmHolderPage>(){
-    var datas = ArrayList<Alarm>()
+    var datas = ArrayList<GetAlarmListResponse>()
 
-    private val itemList = ArrayList<Alarm>()
+    private val itemList = ArrayList<GetAlarmListResponse>()
 
     fun setOnItemClickListener(a_listener: OnItemClickEventListener) {
         mItemClickListener = a_listener
@@ -47,11 +48,11 @@ class AlarmAdapter() :
         return itemList.size
     }
 
-    fun addItem(item: Alarm) {
+    fun addItem(item: GetAlarmListResponse) {
         itemList.add(item)
     }
 
-    fun getItem(position: Int): Alarm {
+    fun getItem(position: Int): GetAlarmListResponse {
         return itemList.get(position)
     }
 

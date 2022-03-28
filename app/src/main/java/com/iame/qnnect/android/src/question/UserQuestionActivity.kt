@@ -39,7 +39,7 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
 
     override fun initDataBinding() {
         viewModel.userquestionResponse.observe(this, Observer {
-            if(it.size == 0){
+            if(it.isEmpty()){
                 empty_img.visibility = View.VISIBLE
                 empty_txt.visibility = View.VISIBLE
             }

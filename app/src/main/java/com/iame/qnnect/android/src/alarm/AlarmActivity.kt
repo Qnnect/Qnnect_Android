@@ -1,6 +1,8 @@
 package com.iame.qnnect.android.src.alarm
 
+import android.util.Log
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -31,54 +33,30 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
     }
 
     override fun initDataBinding() {
-        var item1= Alarm(false,1, "신사고 5인방",
-            "질문이 도착했습니다: 함께 가장 가고싶은 여행지는 어디인가요?ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ...", "22.12.22")
-        var item2= Alarm(false,2, "신사고 5인방",
-            "내 질문에 000님이 답글을 남겼습니다: 함께 가장 가고싶은 여행지는 어디인가요?ㅇㅇㅇ...", "22.12.22")
-        var item3= Alarm(false,3, "신사고 5인방",
-            "내 질문에 000님이 답글을 남겼습니다: 함께 가장 가고싶은 여행지는 어디인가요?ㅇㅇㅇ...", "22.12.22")
-        var item4= Alarm(true,1, "신사고 5인방",
-            "질문이 도착했습니다: 함께 가장 가고싶은 여행지는 어디인가요?ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ...", "22.12.22")
-        var item5= Alarm(true,2, "신사고 5인방",
-            "질문이 도착했습니다: 함께 가장 가고싶은 여행지는 어디인가요?ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ...", "22.12.22")
-        var item6= Alarm(true,3, "신사고 5인방",
-            "내 답변에 000님이 댓글을 달았습니다: 함께 가장 가고싶은 여행지는 어디인가요?ㅇㅇㅇ...", "22.12.22")
-        alarmAdapter.addItem(item1)
-        alarmAdapter.addItem(item2)
-        alarmAdapter.addItem(item3)
-        alarmAdapter.addItem(item4)
-        alarmAdapter.addItem(item5)
-        alarmAdapter.addItem(item6)
-        alarmAdapter.addItem(item1)
-        alarmAdapter.addItem(item2)
-        alarmAdapter.addItem(item3)
-        alarmAdapter.addItem(item4)
-        alarmAdapter.addItem(item5)
-        alarmAdapter.addItem(item6)
-        alarmAdapter.notifyDataSetChanged()
 
         if(alarmAdapter.itemCount != 0){
-            empty_img.visibility = View.GONE
-            empty_txt.visibility = View.GONE
-        }
-        else{
             empty_img.visibility = View.VISIBLE
             empty_txt.visibility = View.VISIBLE
         }
+        else{
+            empty_img.visibility = View.GONE
+            empty_txt.visibility = View.GONE
+        }
 
-//        viewModel.alarmResponse.observe(this, Observer {
-//            alarmAdapter.clear()
-//            it.forEach { item ->
-//                Log.d("reply_response_count", item.toString())
-//                alarmAdapter.addItem(item)
-//            }
-//        })
+        viewModel.alarmResponse.observe(this, Observer {
+            alarmAdapter.clear()
+            it.forEach { item ->
+                Log.d("reply_response_count", item.toString())
+                alarmAdapter.addItem(item)
+            }
+            alarmAdapter.notifyDataSetChanged()
+        })
 
     }
 
     override fun onResume() {
         super.onResume()
-//        viewModel.getAlarm()
+        viewModel.getAlarm()
     }
 
     override fun initAfterBinding() {
@@ -89,7 +67,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
         // more
         alarmAdapter.setOnItemClickListener(object : AlarmAdapter.OnItemClickEventListener {
             override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: Alarm = alarmAdapter.getItem(a_position)
+//                val item: Alarm = alarmAdapter.getItem(a_position)
             }
         })
     }

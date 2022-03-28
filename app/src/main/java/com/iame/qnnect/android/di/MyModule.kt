@@ -141,6 +141,7 @@ class BearerInterceptor: Interceptor {
         if(Baseresponse.method == "HTTP 403 "){
             var accessToken = MyApplication.sSharedPreferences.getString("X-ACCESS-TOKEN", null)
             var refreshToken = MyApplication.sSharedPreferences.getString("refresh-token", null)
+
             val response = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

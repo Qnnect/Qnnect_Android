@@ -18,6 +18,8 @@ data class Alarm(
 //    "content": "string",
 //    "createdAt": "2022-03-28",
 //    "groupName": "string",
-//    "notificationType": "comment"
+//    "notificationId": 0,
+//    "notificationType": "comment",
+//    "userRead": true
 //  }
 //]

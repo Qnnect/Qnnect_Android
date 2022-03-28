@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.alarm.model.Alarm
+import com.iame.qnnect.android.src.alarm.model.GetAlarmListResponse
 import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.diary.model.Comments
@@ -36,20 +37,20 @@ class AlarmHolderPage internal constructor(itemView: View, var context: Context,
     private val alarm_date: TextView
     private val alarm_back: ImageView
 
-    var data: Alarm? = null
-    fun onBind(data: Alarm) {
+    var data: GetAlarmListResponse? = null
+    fun onBind(data: GetAlarmListResponse) {
         this.data = data
-        if(data.questionType == 1){
+        if(data.notificationType == "question"){
             alarm_img.setImageResource(R.drawable.question)
         }
-        else if(data.questionType == 2){
+        else if(data.notificationType == "reply"){
             alarm_img.setImageResource(R.drawable.reply)
         }
         else{
             alarm_img.setImageResource(R.drawable.answer)
         }
 
-        if(data.checked){
+        if(data.userRead){
             alarm_back.setImageResource(R.drawable.alarm_back_checked)
             group_name.setTextColor(Color.parseColor("#828282"))
             alarm_contents.setTextColor(Color.parseColor("#828282"))
@@ -61,7 +62,7 @@ class AlarmHolderPage internal constructor(itemView: View, var context: Context,
         }
 
         group_name.text = data.groupName
-        alarm_contents.text = data.contents
+        alarm_contents.text = data.content
         alarm_date.text = data.createdAt
 
         itemView.setOnClickListener(View.OnClickListener { a_view ->
