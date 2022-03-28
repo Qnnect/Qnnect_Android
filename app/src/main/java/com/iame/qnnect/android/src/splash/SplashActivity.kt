@@ -114,6 +114,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             baseToken.setCafeCode(this, cafeCode)
         }
 
+        // model 쪽으로 넘겨야 함
         val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
         val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
 

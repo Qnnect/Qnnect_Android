@@ -27,10 +27,11 @@ class ReplyViewModel(
     val declareResponse: LiveData<String>
         get() = postDeclareResponse
 
-    private val errorDeclareResponse = MutableLiveData<String>()
+    private val errorDeclareResponse = MutableLiveData<String>()    // mutable 한것을 가리고 immutable 한것을 가져다 쓰려고
     val erdeclareResponse: LiveData<String>
-        get() = errorDeclareResponse
+        get() = errorDeclareResponse    // 왜 get() 을 썼는지에 대한 원리 및 -> get()을 쓰면 호출시 마다 초기화시켜주는 목적으로
 
+    // addDisposable 등등 왜 사용하는지
     fun declare(reportId: Int) {
         addDisposable(model4.getData(reportId)
             .subscribeOn(Schedulers.io())

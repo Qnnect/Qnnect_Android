@@ -17,10 +17,9 @@ class QuestionViewModel(private val model: PostQuestionDataModel) : BaseViewMode
 
     private val TAG = "QuestionViewModel"
 
-    private val postQuestionResponse = MutableLiveData<String>()
+    private val postQuestionResponse = MutableLiveData<String>()    // view 에서 보여줄 만한 변수명으로
     val postquestionResponse: LiveData<String>
         get() = postQuestionResponse
-
 
     fun postQuestion(cafeId: Int, contents: String) {
         addDisposable(model.getData(cafeId, contents)

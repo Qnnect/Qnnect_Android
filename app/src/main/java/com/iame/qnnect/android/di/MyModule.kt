@@ -148,10 +148,10 @@ class BearerInterceptor: Interceptor {
                 .build()
                 .create(RefreshAPI::class.java)
 
-            var request = PostRefreshRequest(accessToken!!, refreshToken!!)
-            var result = response.postRefresh(request)
+            val request = PostRefreshRequest(accessToken!!, refreshToken!!)
+            val result = response.postRefresh(request)
 
-            var editor = MyApplication.editor
+            val editor = MyApplication.editor
             editor.putString("X-ACCESS-TOKEN", result.blockingGet().accessToken)
             editor.putString("refresh-token", result.blockingGet().refreshToken)
             editor.commit()

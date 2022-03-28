@@ -62,6 +62,12 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
     var reply_check = false
 
+    val smoothScroller: RecyclerView.SmoothScroller by lazy {
+        object : LinearSmoothScroller(this@ReplyActivity) {
+            override fun getVerticalSnapPreference() = SNAP_TO_START
+        }
+    }
+
     override fun initStartView() {
         reply_recycler.run {
             adapter = replyAdapter
@@ -151,14 +157,10 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 // coroutine 써보려고 -> coroutine 안쓰면 제대로 안넘어감
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(100)
-                    val smoothScroller: RecyclerView.SmoothScroller by lazy {
-                        object : LinearSmoothScroller(this@ReplyActivity) {
-                            override fun getVerticalSnapPreference() = SNAP_TO_START
-                        }
-                    }
                     smoothScroller.targetPosition = replyAdapter.itemCount-1
                     reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
                     group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
+//                    group_scroll.postDelayed() // <- coroutine delay 보다는 이게 권장 큐에 들어갈때 딜레이를 줘서
                 }
                 check = false
             }
@@ -238,13 +240,13 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
         }
 
         // more
-        replyAdapter.setOnItemClickListener(object : OnItemClickEventListener {
-            override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: Replies = replyAdapter.getItem(a_position)
+        replyAdapter.setOnItemClickListener { a_view, a_position ->
+            val item: Replies = replyAdapter.getItem(a_position)
 
-                val replyMoreBottomSheet: ReplyMoreBottomSheet = ReplyMoreBottomSheet(commentId, item.replyId, item.content) {
+            val replyMoreBottomSheet: ReplyMoreBottomSheet =
+                ReplyMoreBottomSheet(commentId, item.replyId, item.content) {
                     when (it) {
-                        0-> {
+                        0 -> {
                             replyAdapter.clear()
                             imageAdapter.clear()
                             viewModel.getReply(commentId)
@@ -252,48 +254,45 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                         }
                     }
                 }
-                replyMoreBottomSheet.show(supportFragmentManager, replyMoreBottomSheet.tag)
-            }
-        })
+            replyMoreBottomSheet.show(supportFragmentManager, replyMoreBottomSheet.tag)
+        }
 
         // declare
-        replyAdapter.setOnItemClickListener2(object : OnItemClickEventListener {
-            override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: Replies = replyAdapter.getItem(a_position)
+        replyAdapter.setOnItemClickListener2 { a_view, a_position ->
+            val item: Replies = replyAdapter.getItem(a_position)
 
-                val declareBottomSheet: DeclareBottomSheet = DeclareBottomSheet() {
-                    when (it) {
-                        // 신고하기
-                        0 -> {
-                            viewModel.declare(item.writerInfo.reportId)
-                            val email = Intent(Intent.ACTION_SEND)
-                            email.type = "plain/text"
-                            val address = arrayOf("qnnect.app@gmail.com")
-                            email.putExtra(Intent.EXTRA_EMAIL, address)
-                            email.putExtra(Intent.EXTRA_SUBJECT, "큐넥트 글및 유저 신고")
-                            email.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)")
-                            email.putExtra(
-                                Intent.EXTRA_TEXT,
-                                java.lang.String.format(
-                                    "App Version : %s\nAndroid(SDK) : %d(%s)\n 유저 닉네임 : %s\n내용 : ",
-                                    BuildConfig.VERSION_NAME,
-                                    Build.VERSION.SDK_INT,
-                                    Build.VERSION.RELEASE,
-                                    item.writerInfo.nickName
-                                )
+            val declareBottomSheet: DeclareBottomSheet = DeclareBottomSheet() {
+                when (it) {
+                    // 신고하기
+                    0 -> {
+                        viewModel.declare(item.writerInfo.reportId)
+                        val email = Intent(Intent.ACTION_SEND)
+                        email.type = "plain/text"
+                        val address = arrayOf("qnnect.app@gmail.com")
+                        email.putExtra(Intent.EXTRA_EMAIL, address)
+                        email.putExtra(Intent.EXTRA_SUBJECT, "큐넥트 글및 유저 신고")
+                        email.putExtra(Intent.EXTRA_TEXT, "내용 미리보기 (미리적을 수 있음)")
+                        email.putExtra(
+                            Intent.EXTRA_TEXT,
+                            java.lang.String.format(
+                                "App Version : %s\nAndroid(SDK) : %d(%s)\n 유저 닉네임 : %s\n내용 : ",
+                                BuildConfig.VERSION_NAME,
+                                Build.VERSION.SDK_INT,
+                                Build.VERSION.RELEASE,
+                                item.writerInfo.nickName
                             )
-                            startActivity(email)
-                            showLoadingDialog(this@ReplyActivity)
-                        }
-                        // 차단하기
-                        1 ->{
-                            viewModel.declare(item.writerInfo.reportId)
-                            showLoadingDialog(this@ReplyActivity)
-                        }
+                        )
+                        startActivity(email)
+                        showLoadingDialog(this@ReplyActivity)
+                    }
+                    // 차단하기
+                    1 -> {
+                        viewModel.declare(item.writerInfo.reportId)
+                        showLoadingDialog(this@ReplyActivity)
                     }
                 }
-                declareBottomSheet.show(supportFragmentManager, declareBottomSheet.tag)
             }
-        })
+            declareBottomSheet.show(supportFragmentManager, declareBottomSheet.tag)
+        }
     }
 }

@@ -160,6 +160,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 when (it) {
                     // 그룹페이지로 이동
                     0 -> {
+                        // 코드를 좀 더 변환해보기
                         activity = fragment_s.activity as MainActivity?
                         //change_for_adapter는 mainactivity에 구현
                         activity?.fragmentChange_for_adapter()
