@@ -184,6 +184,10 @@
             android:name="com.iame.qnnect.android.src.edit_question.EditQuestionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.iame.qnnect.android.src.stamp.StampActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -131,3 +131,15 @@ fun drink_imgName(drinkName: String, recipe_name: String): Int {
     return drink!!
 }
 
+fun GetStamp(name: String): Int {
+    var drink: Int? = null
+    drink = when (name) {
+        "딸기라떼" -> R.mipmap.stamp_straw1_foreground
+        "레몬에이드" -> R.mipmap.stamp_lemon1_foreground
+        "민트초코" -> R.mipmap.stamp_mint1_foreground
+        "초코라떼" -> R.mipmap.stamp_choco1_foreground
+        else -> R.mipmap.stamp_summer2_foreground
+    }
+    return drink!!
+}
+

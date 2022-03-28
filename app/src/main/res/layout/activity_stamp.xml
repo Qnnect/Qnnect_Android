@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.iame.qnnect.android.viewmodel.StampViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/p_ivory">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/store_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerCrop"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="17dp"
+                android:src="@mipmap/ic_back_btn_foreground">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/bookmark_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/back_btn"
+                android:layout_marginLeft="10dp"
+                android:text="내 음료 스탬프"
+                android:fontFamily="@font/im_hyemin_bold"
+                android:textSize="20dp"
+                android:textColor="@color/black">
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/store_top"
+            android:background="@color/gray_4">
+        </View>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="35dp"
+            android:text="아아메님의\n적립 스탬프"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="24dp"
+            android:textColor="@color/black">
+        </TextView>
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_complete_svg"
+            app:layout_constraintTop_toTopOf="@id/text1"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="27dp">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="10dp"
+            android:text="카페에서 음료를 완성하면\n스탬프가 채워져요!"
+            android:fontFamily="@font/im_hyemin_bold"
+            android:textSize="14dp"
+            android:textColor="@color/brown80">
+        </TextView>
+
+        <androidx.core.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:id="@+id/group_scroll">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/alarm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/stamp_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
+                    android:layout_marginTop="10dp">
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

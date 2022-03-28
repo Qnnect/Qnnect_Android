@@ -100,6 +100,10 @@ import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
+import com.iame.qnnect.android.src.stamp.StampAdapter
+import com.iame.qnnect.android.src.stamp.model.StampDataModel
+import com.iame.qnnect.android.src.stamp.service.StampAPI
+import com.iame.qnnect.android.src.stamp.service.StampDataImpl
 import com.iame.qnnect.android.src.store.MaterialAdapter
 import com.iame.qnnect.android.src.store.model.GetMyMaterialAllDataModel
 import com.iame.qnnect.android.src.store.model.GetMyMaterialDataModel
@@ -587,6 +591,16 @@ var retrofitPart = module {
             .build()
             .create(GetAlarmAPI::class.java)
     }
+    single<StampAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(StampAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -640,6 +654,9 @@ var adapterPart = module {
     }
     factory {
         AlarmAdapter()
+    }
+    factory {
+        StampAdapter()
     }
 }
 
@@ -767,6 +784,9 @@ var modelPart = module {
     factory<GetAlarmDataModel> {
         GetAlarmDataImpl(get())
     }
+    factory<StampDataModel> {
+        StampDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -797,6 +817,7 @@ var viewModelPart = module {
     viewModel { EditQuestionViewModel(get()) }
     viewModel { UserDeclareViewModel(get(), get()) }
     viewModel { AlarmViewModel(get()) }
+    viewModel { StampViewModel(get()) }
 
     viewModel { OnboardViewModel() }
     viewModel { FinishDrinkViewModel() }

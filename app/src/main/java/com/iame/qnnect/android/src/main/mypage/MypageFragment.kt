@@ -15,6 +15,7 @@ import com.iame.qnnect.android.src.declare.UserDeclareActivity
 import com.iame.qnnect.android.src.empty.EmptyActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.question.UserQuestionActivity
+import com.iame.qnnect.android.src.stamp.StampActivity
 import com.iame.qnnect.android.viewmodel.MypageViewModel
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import kotlinx.android.synthetic.main.fragment_my_page.view.*
@@ -66,7 +67,7 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
 
         // empty
         drink_btn.setOnClickListener {
-            var intent = Intent(context, EmptyActivity::class.java)
+            var intent = Intent(context, StampActivity::class.java)
             startActivity(intent)
         }
 
