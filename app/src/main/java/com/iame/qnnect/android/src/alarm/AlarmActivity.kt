@@ -6,14 +6,10 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityAlarmBinding
 import com.iame.qnnect.android.src.alarm.model.Alarm
-import com.iame.qnnect.android.src.reply.ReplyAdapter
-import com.iame.qnnect.android.src.reply.model.Replies
-import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.viewmodel.AlarmViewModel
 import kotlinx.android.synthetic.main.activity_alarm.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.concurrent.TimeUnit
 
 class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
 
@@ -69,6 +65,20 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
             empty_img.visibility = View.VISIBLE
             empty_txt.visibility = View.VISIBLE
         }
+
+//        viewModel.alarmResponse.observe(this, Observer {
+//            alarmAdapter.clear()
+//            it.forEach { item ->
+//                Log.d("reply_response_count", item.toString())
+//                alarmAdapter.addItem(item)
+//            }
+//        })
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        viewModel.getAlarm()
     }
 
     override fun initAfterBinding() {

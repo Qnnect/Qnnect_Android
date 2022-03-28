@@ -12,3 +12,12 @@ data class Alarm(
     @SerializedName("contents") val contents: String,
     @SerializedName("createdAt") val createdAt: String
     )
+
+// [
+//  {
+//    "content": "string",
+//    "createdAt": "2022-03-28",
+//    "groupName": "string",
+//    "notificationType": "comment"
+//  }
+//]

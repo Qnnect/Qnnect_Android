@@ -9,6 +9,9 @@ import com.iame.qnnect.android.model.DataModel
 import com.iame.qnnect.android.model.DataModelImpl
 import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.alarm.AlarmAdapter
+import com.iame.qnnect.android.src.alarm.model.GetAlarmDataModel
+import com.iame.qnnect.android.src.alarm.service.GetAlarmAPI
+import com.iame.qnnect.android.src.alarm.service.GetAlarmDataImpl
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
@@ -574,6 +577,16 @@ var retrofitPart = module {
             .build()
             .create(LogoutUserAPI::class.java)
     }
+    single<GetAlarmAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetAlarmAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -751,6 +764,9 @@ var modelPart = module {
     factory<LogoutUserDataModel> {
         LogoutUserDataImpl(get())
     }
+    factory<GetAlarmDataModel> {
+        GetAlarmDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -780,10 +796,10 @@ var viewModelPart = module {
     viewModel { RecipeViewModel(get()) }
     viewModel { EditQuestionViewModel(get()) }
     viewModel { UserDeclareViewModel(get(), get()) }
+    viewModel { AlarmViewModel(get()) }
 
     viewModel { OnboardViewModel() }
     viewModel { FinishDrinkViewModel() }
-    viewModel { AlarmViewModel() }
     viewModel { EditAlarmViewModel() }
     viewModel { EmptyViewModel() }
 }
