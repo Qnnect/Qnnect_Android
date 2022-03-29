@@ -56,3 +56,4 @@
 
 - 7th Week
 1. 2022.03.27(MON) -> Alarm Activity & Alarm Api, Stamp Activity & Stamp Api Complete
+2. 2022.03.28(TUE) -> Applying Verision3 Release
