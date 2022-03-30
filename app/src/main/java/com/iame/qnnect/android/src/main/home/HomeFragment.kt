@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.main.home
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,7 +17,6 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.FragmentHomeBinding
 import com.iame.qnnect.android.src.alarm.AlarmActivity
-import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.home.home_bottom.AddGroupBottomSheet
 import com.iame.qnnect.android.src.main.home.home_bottom.InviteGroupBottomSheet
 import com.iame.qnnect.android.src.profile.ProfileActivity
@@ -46,6 +46,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     private var activity: MainActivity? = null
 
     override fun initStartView() {
+        var link = baseToken.getLink(requireContext())
+        Log.d("response!!", link.toString())
+        if(link!!){
+            baseToken.setLink(requireContext(), false)
+            var intent = Intent(context, AlarmActivity::class.java)
+            startActivity(intent)
+        }
+
         // group recycler
         group_recycler.run {
             adapter = groupAdapter

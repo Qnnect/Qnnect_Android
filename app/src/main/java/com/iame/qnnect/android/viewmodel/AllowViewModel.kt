@@ -39,32 +39,4 @@ class AllowViewModel(private val model: AlarmCheckDataModel) : BaseViewModel() {
             })
         )
     }
-
-    fun radioSelectAll(select_item: CheckBox,
-                       item1: CheckBox, item2: CheckBox, item3: CheckBox
-                       , nextBtn: ConstraintLayout){
-        var check = select_item.isChecked
-        if(check){
-            nextBtn.setBackgroundResource(R.drawable.allow_btn_ok)
-        }
-        else{
-            nextBtn.setBackgroundResource(R.drawable.allow_btn_fail)
-        }
-        item1.isChecked = check
-        item2.isChecked = check
-        item3.isChecked = check
-    }
-
-    fun radio_select(select_item: CheckBox, item: CheckBox, nextBtn: ConstraintLayout){
-        if(select_item.isChecked && item.isChecked){
-            nextBtn.setBackgroundResource(R.drawable.allow_btn_ok)
-        }
-        else{
-            nextBtn.setBackgroundResource(R.drawable.allow_btn_fail)
-        }
-    }
-
-    fun checkNext(item1: CheckBox, item2: CheckBox): Boolean{
-        return item1.isChecked && item2.isChecked
-    }
 }

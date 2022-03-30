@@ -1,14 +1,20 @@
 package com.iame.qnnect.android.src.splash
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
@@ -17,10 +23,18 @@ import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData
+import com.google.firebase.dynamiclinks.ShortDynamicLink
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.ktx.Firebase
 import com.iame.qnnect.android.MyApplication.Companion.sSharedPreferences
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
+import com.iame.qnnect.android.base.BaseToken
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
+import com.iame.qnnect.android.src.alarm.AlarmActivity
 import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.MainActivity
@@ -43,9 +57,16 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
     override val viewModel: SplashViewModel by viewModel()
 
+    // kakao_link
     var cafeCode = "null"
 
+    // in-app update
     var REQUEST_CODE_UPDATE = 366
+
+    var SCHEME_MAIN = "main"
+
+    var link = false
+
 
     // 앱 업데이트 매니저 초기화
 //    private lateinit var appUpdateManager: AppUpdateManager
@@ -64,6 +85,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                 Log.d("login_response", it.toString())
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
                 Handler(Looper.getMainLooper()).postDelayed({
+                    baseToken.setLink(this, link)
+                    Log.d("response!!", link.toString())
                     var intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -108,24 +131,26 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 //                    }
 //                }
 //            }
-
-        if (intent.action == Intent.ACTION_VIEW) {
-            cafeCode = intent.data!!.getQueryParameter("code")!!
-            baseToken.setCafeCode(this, cafeCode)
-        }
+//
+//        if (intent.action == Intent.ACTION_VIEW) {
+//            cafeCode = intent.data!!.getQueryParameter("code")!!
+//            baseToken.setCafeCode(this, cafeCode)
+//        }
 
         // model 쪽으로 넘겨야 함
-        val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
-        val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
+        if(!handleDynamicLinks()){
+            val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
+            val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
 
-        if (jwtToken != null) {
-            var refreshRequest = PostRefreshRequest(jwtToken, refreshToken!!)
-            viewModel.postRefresh(refreshRequest)
-        } else {
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, OnboardActivity::class.java))
-                finish()
-            }, 1500)
+            if (jwtToken != null) {
+                var refreshRequest = PostRefreshRequest(jwtToken, refreshToken!!)
+                viewModel.postRefresh(refreshRequest)
+            } else {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startActivity(Intent(this, OnboardActivity::class.java))
+                    finish()
+                }, 1500)
+            }
         }
     }
 
@@ -141,20 +166,20 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 //            e.printStackTrace()
 //        }
 //    }
-
+//
 //    suspend fun Task<AppUpdateInfo>.await(): AppUpdateInfo {
 //        return suspendCoroutine { continuation ->
 //            addOnCompleteListener { result ->
 //                if (result.isSuccessful) {
 //                    continuation.resume(result.result)
 //                } else {
-//                    continuation.resumeWithException(result.exception)
+//                    continuation.resumeWithException(result.exception!!)
 //                }
 //            }
 //        }
 //    }
-
-    // 업데이트 결과
+//
+//    // 업데이트 결과
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
 //
@@ -184,6 +209,42 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 //            }
 //        }
 //    }
+
+    // dynamick link handler
+    private fun handleDynamicLinks(): Boolean{
+        Firebase.dynamicLinks
+            .getDynamicLink(intent)
+            .addOnSuccessListener(this) { pendingDynamicLinkData ->
+                var deeplink: Uri? = null
+                if(pendingDynamicLinkData != null) {
+                    deeplink = pendingDynamicLinkData.link
+                }
+                else{
+                    link = false
+                }
+                if(deeplink != null) {
+                    link = true
+                    val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
+                    val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
+
+                    if (jwtToken != null) {
+                        var refreshRequest = PostRefreshRequest(jwtToken, refreshToken!!)
+                        viewModel.postRefresh(refreshRequest)
+                    } else {
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            startActivity(Intent(this, OnboardActivity::class.java))
+                            finish()
+                        }, 1500)
+                    }
+                }
+                else {
+                    link = false
+                    Log.d("response!!", "getDynamicLink: no link found")
+                }
+            }
+            .addOnFailureListener(this) { e -> Log.w("response!!", "getDynamicLink:onFailure", e) }
+        return link
+    }
 }
 
 
