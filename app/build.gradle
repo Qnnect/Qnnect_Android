@@ -24,8 +24,8 @@ android {
         applicationId "com.iame.qnnect.android"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 4   // 출시시 5로 바꾸기
-        versionName "1.4"
+        versionCode 5   // 출시시 5로 바꾸기
+        versionName "1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -146,8 +146,6 @@ dependencies {
 
     // 자동 업데이트 처리
     implementation 'com.google.android.play:core:1.10.3'
-
-
 }
 //가장 밑에 한줄을 추가하자!!
 apply plugin: 'com.google.gms.google-services'
