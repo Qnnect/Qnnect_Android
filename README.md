@@ -58,3 +58,4 @@
 1. 2022.03.27(MON) -> Alarm Activity & Alarm Api, Stamp Activity & Stamp Api Complete
 2. 2022.03.28(TUE) -> Applying Verision3 Release
 3. 2022.03.29(WEN) -> Allow Activity Logic Update, Logo Resize, Splash Dynamic Link Complete
+4. 2022.03.30(THU) -> Alarm Api & Read Alarm Api, Layout Update, Not yet Arrived Question Logic
