@@ -42,7 +42,14 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
         // 전체 나의 재료
         viewModel.mymaterialAllResponse.observe(this, Observer {
             recipeAdapter.clear()
-
+            if(it.isEmpty()){
+                empty_img.visibility = View.VISIBLE
+                empty_txt.visibility = View.VISIBLE
+            }
+            else{
+                empty_img.visibility = View.GONE
+                empty_txt.visibility = View.GONE
+            }
             it.forEach { item ->
                 recipeAdapter.addItem(item)
             }
@@ -53,6 +60,14 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
         viewModel.mymaterialResponse.observe(this, Observer {
             recipeAdapter.clear()
 
+            if(it.isEmpty()){
+                empty_img.visibility = View.VISIBLE
+                empty_txt.visibility = View.VISIBLE
+            }
+            else{
+                empty_img.visibility = View.GONE
+                empty_txt.visibility = View.GONE
+            }
             it.forEach { item ->
                 recipeAdapter.addItem(item)
             }

@@ -56,7 +56,7 @@ class MaterialAdapter() :
         holder.recipe_img.setImageResource(item.img)
         holder.point.setText("X"+itemList.get(position).count)
 
-        // // item click listener
+        // item click listener
         holder.itemView.setOnClickListener(View.OnClickListener { v ->
             val pos: Int = position
             if (pos != RecyclerView.NO_POSITION) {
