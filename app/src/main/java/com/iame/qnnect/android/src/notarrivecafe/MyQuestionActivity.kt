@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.notarrivecafe
 
 import android.content.Intent
+import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityMyQuestionBinding
@@ -28,6 +29,11 @@ class MyQuestionActivity : BaseActivity<ActivityMyQuestionBinding, MyQuestionVie
 
     override fun initDataBinding() {
         contents.text = content
+        // 삭제하기
+        viewModel.deleteResponse.observe(this, Observer {
+            dismissLoadingDialog()
+            finish()
+        })
     }
 
     override fun initAfterBinding() {
@@ -46,6 +52,8 @@ class MyQuestionActivity : BaseActivity<ActivityMyQuestionBinding, MyQuestionVie
                         }
                         // 삭제 하기
                         1 -> {
+                            viewModel.deleteQuestion(questionId)
+                            showLoadingDialog(this)
                         }
                     }
                 }

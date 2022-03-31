@@ -56,7 +56,6 @@ class MyQuestionEditBottomSheet(val itemClick: (Int) -> Unit) :
         super.onActivityCreated(savedInstanceState)
         var edit_btn = requireView().findViewById<TextView>(R.id.edit_reply)
         edit_btn.text = "질문 수정"
-        edit_btn.visibility = View.GONE
         edit_btn.setOnClickListener {
             dismiss()
             itemClick(0)

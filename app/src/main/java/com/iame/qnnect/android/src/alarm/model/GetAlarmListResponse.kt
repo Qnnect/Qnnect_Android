@@ -4,12 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class GetAlarmListResponse(
     @SerializedName("content") val content: String,
+    @SerializedName("contentId") val contentId: Int,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("groupName") val groupName: String,
+    @SerializedName("notificationId") val notificationId: Int,
     @SerializedName("notificationType") val notificationType: String,
     @SerializedName("userRead") val userRead: Boolean
-//    @SerializedName("notificationType") val notificationType: String
-    )
+)
 
 // [
 //  {

@@ -1,11 +1,16 @@
 package com.iame.qnnect.android.src.notarrivecafe
 
+import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityNotArriveEditBinding
+import com.iame.qnnect.android.src.allow.AllowActivity
+import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.src.notarrivecafe.model.NotArriveEditRequest
 import com.iame.qnnect.android.viewmodel.NotArriveEditViewModel
 import kotlinx.android.synthetic.main.activity_not_arrive_edit.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +34,9 @@ class NotArriveEditActivity : BaseActivity<ActivityNotArriveEditBinding, NotArri
 
     override fun initDataBinding() {
         contents.setText(content)
+        viewModel.editResponse.observe(this, Observer {
+            finish()
+        })
     }
 
     override fun initAfterBinding() {
@@ -50,9 +58,10 @@ class NotArriveEditActivity : BaseActivity<ActivityNotArriveEditBinding, NotArri
             }
         })
 
-
         save_btn.setOnClickListener {
             if(check){
+                val request = NotArriveEditRequest(contents.text.toString())
+                viewModel.patchEdit(questionId, request)
                 showLoadingDialog(this)
             }
         }

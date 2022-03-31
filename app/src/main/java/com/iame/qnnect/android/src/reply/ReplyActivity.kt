@@ -48,12 +48,12 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     var commentId = 0
     var check = false
 
-    var cafeQuestionId = 0
-    var date = ""
-    var dday = ""
-    var questioner = ""
-    var question = ""
-    var content = ""
+//    var cafeQuestionId = 0
+//    var date = ""
+//    var dday = ""
+//    var questioner = ""
+//    var question = ""
+//    var content = ""
 
     override val viewModel: ReplyViewModel by viewModel()
 
@@ -86,11 +86,11 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
         }
 
         commentId = intent.getIntExtra("commentId", 0)
-        cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
-        date = intent.getStringExtra("date")!!
-        dday = intent.getStringExtra("dday")!!
-        questioner = intent.getStringExtra("questioner")!!+"의 질문"
-        question = intent.getStringExtra("question")!!
+//        cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
+//        date = intent.getStringExtra("date")!!
+//        dday = intent.getStringExtra("dday")!!
+//        questioner = intent.getStringExtra("questioner")!!+"의 질문"
+//        question = intent.getStringExtra("question")!!
     }
 
     override fun onResume() {
@@ -109,7 +109,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 .into(my_profile_img)
             my_profile_name.text = it.writerInfo.nickName
             answer_txt.text = it.content
-            content = it.content
+//            content = it.content
 
             date_txt.text = it.createdAt
 
@@ -200,16 +200,15 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 when (it) {
                     // 답변 수정
                     0 -> {
-                        var intent = Intent(this, EditAnswerActivity::class.java)
-                        intent.putExtra("content", content)
-                        intent.putExtra("commentId", commentId)
-                        intent.putExtra("cafeQuestionId", cafeQuestionId)
-                        intent.putExtra("date", date)
-                        intent.putExtra("dday", dday)
-                        intent.putExtra("questioner", questioner)
-                        intent.putExtra("question", question)
-                        startActivity(intent)
-
+//                        var intent = Intent(this, EditAnswerActivity::class.java)
+//                        intent.putExtra("content", content)
+//                        intent.putExtra("commentId", commentId)
+//                        intent.putExtra("cafeQuestionId", cafeQuestionId)
+//                        intent.putExtra("date", date)
+//                        intent.putExtra("dday", dday)
+//                        intent.putExtra("questioner", questioner)
+//                        intent.putExtra("question", question)
+//                        startActivity(intent)
                     }
                     // 답변 삭제
                     1 -> {

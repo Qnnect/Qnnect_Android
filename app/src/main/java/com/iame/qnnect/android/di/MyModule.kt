@@ -10,8 +10,11 @@ import com.iame.qnnect.android.model.DataModelImpl
 import com.iame.qnnect.android.model.service.KakaoSearchService
 import com.iame.qnnect.android.src.alarm.AlarmAdapter
 import com.iame.qnnect.android.src.alarm.model.GetAlarmDataModel
+import com.iame.qnnect.android.src.alarm.model.ReadAlarmDataModel
 import com.iame.qnnect.android.src.alarm.service.GetAlarmAPI
 import com.iame.qnnect.android.src.alarm.service.GetAlarmDataImpl
+import com.iame.qnnect.android.src.alarm.service.ReadAlarmAPI
+import com.iame.qnnect.android.src.alarm.service.ReadAlarmDataImpl
 import com.iame.qnnect.android.src.allow.model.AlarmCheckDataModel
 import com.iame.qnnect.android.src.allow.service.AlarmCheckAPI
 import com.iame.qnnect.android.src.allow.service.AlarmCheckDataImpl
@@ -71,12 +74,19 @@ import com.iame.qnnect.android.src.main.mypage.service.DeleteUserDataImpl
 import com.iame.qnnect.android.src.main.mypage.service.LogoutUserAPI
 import com.iame.qnnect.android.src.main.mypage.service.LogoutUserDataImpl
 import com.iame.qnnect.android.src.main.store.RecipeAdapter
+import com.iame.qnnect.android.src.notarrivecafe.model.NotArriveDeleteDataModel
+import com.iame.qnnect.android.src.notarrivecafe.model.NotArriveEditDataModel
+import com.iame.qnnect.android.src.notarrivecafe.service.NotArriveDeleteAPI
+import com.iame.qnnect.android.src.notarrivecafe.service.NotArriveDeleteDataImpl
+import com.iame.qnnect.android.src.notarrivecafe.service.NotArriveEditAPI
+import com.iame.qnnect.android.src.notarrivecafe.service.NotArriveEditDataImpl
 import com.iame.qnnect.android.src.profile.model.ProfileDataModel
 import com.iame.qnnect.android.src.profile.model.ProfileDefaultDataModel
 import com.iame.qnnect.android.src.profile.service.ProfileAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDataImpl
 import com.iame.qnnect.android.src.profile.service.ProfileDefaultAPI
 import com.iame.qnnect.android.src.profile.service.ProfileDefaultDataImpl
+import com.iame.qnnect.android.src.question.UserQuestionListAdapter
 import com.iame.qnnect.android.src.question.model.GetUserQuestionDataModel
 import com.iame.qnnect.android.src.question.model.PostQuestionDataModel
 import com.iame.qnnect.android.src.question.model.SearchQuestionDataModel
@@ -602,6 +612,36 @@ var retrofitPart = module {
             .build()
             .create(StampAPI::class.java)
     }
+    single<NotArriveDeleteAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(NotArriveDeleteAPI::class.java)
+    }
+    single<NotArriveEditAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(NotArriveEditAPI::class.java)
+    }
+    single<ReadAlarmAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ReadAlarmAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -658,6 +698,9 @@ var adapterPart = module {
     }
     factory {
         StampAdapter()
+    }
+    factory {
+        UserQuestionListAdapter()
     }
 }
 
@@ -788,6 +831,15 @@ var modelPart = module {
     factory<StampDataModel> {
         StampDataImpl(get())
     }
+    factory<NotArriveDeleteDataModel> {
+        NotArriveDeleteDataImpl(get())
+    }
+    factory<NotArriveEditDataModel> {
+        NotArriveEditDataImpl(get())
+    }
+    factory<ReadAlarmDataModel> {
+        ReadAlarmDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
@@ -817,15 +869,15 @@ var viewModelPart = module {
     viewModel { RecipeViewModel(get()) }
     viewModel { EditQuestionViewModel(get()) }
     viewModel { UserDeclareViewModel(get(), get()) }
-    viewModel { AlarmViewModel(get()) }
+    viewModel { AlarmViewModel(get(), get()) }
     viewModel { StampViewModel(get()) }
+    viewModel { NotArriveEditViewModel(get()) }
+    viewModel { MyQuestionViewModel(get()) }
 
     viewModel { OnboardViewModel() }
     viewModel { FinishDrinkViewModel() }
     viewModel { EditAlarmViewModel() }
     viewModel { EmptyViewModel() }
-    viewModel { NotArriveEditViewModel() }
-    viewModel { MyQuestionViewModel() }
 }
 
 var myDiModule = listOf(retrofitPart, adapterPart, modelPart, viewModelPart)

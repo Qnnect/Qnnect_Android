@@ -8,7 +8,7 @@ import okhttp3.MultipartBody
 import retrofit2.http.Part
 
 interface GetUserQuestionDataModel {
-    fun getData(): Single<List<Bookmark>>
+    fun getData(): Single<List<GetUserQuestionListResponse>>
 }
 
 // [

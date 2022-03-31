@@ -97,6 +97,7 @@
             android:background="@null"
             android:fontFamily="@font/im_hyemin_bold"
             android:textSize="16dp"
+            android:gravity="center"
             android:textColor="@color/black"
             android:textColorHint="@color/gray_3"
             android:paddingLeft="80dp"

@@ -8,6 +8,7 @@ import com.iame.qnnect.android.src.main.bookmark.model.*
 import com.iame.qnnect.android.src.question.model.GetQuestionDataModel
 import com.iame.qnnect.android.src.question.model.GetQuestionResponse
 import com.iame.qnnect.android.src.question.model.GetUserQuestionDataModel
+import com.iame.qnnect.android.src.question.model.GetUserQuestionListResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -36,8 +37,8 @@ class QuestionListViewModel(private val model: GetQuestionDataModel,
     }
 
     // get userQuestion all
-    private val getUserQuestionResponse = MutableLiveData<List<Bookmark>>()
-    val userquestionResponse: LiveData<List<Bookmark>>
+    private val getUserQuestionResponse = MutableLiveData<List<GetUserQuestionListResponse>>()
+    val userquestionResponse: LiveData<List<GetUserQuestionListResponse>>
         get() = getUserQuestionResponse
 
     private val errorQuestionResponse = MutableLiveData<String>()

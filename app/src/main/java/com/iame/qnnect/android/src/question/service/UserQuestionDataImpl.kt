@@ -12,7 +12,7 @@ import io.reactivex.Single
 import okhttp3.MultipartBody
 
 class UserQuestionDataImpl(private val service: UserQuestionAllAPI) : GetUserQuestionDataModel {
-    override fun getData(): Single<List<Bookmark>> {
+    override fun getData(): Single<List<GetUserQuestionListResponse>> {
         return service.getQuestion()
     }
 }

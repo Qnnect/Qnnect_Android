@@ -10,6 +10,8 @@ import com.iame.qnnect.android.databinding.ActivityQuestionlistBinding
 import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
 import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
+import com.iame.qnnect.android.src.notarrivecafe.MyQuestionActivity
+import com.iame.qnnect.android.src.question.model.GetUserQuestionListResponse
 import com.iame.qnnect.android.viewmodel.QuestionListViewModel
 import kotlinx.android.synthetic.main.activity_questionlist.*
 import org.koin.android.ext.android.inject
@@ -21,7 +23,7 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
         get() = R.layout.activity_questionlist // get() : 커스텀 접근자, 코틀린 문법
 
     override val viewModel: QuestionListViewModel by viewModel()
-    private val questionListAdapter: QuestionListAdapter by inject()
+    private val questionListAdapter: UserQuestionListAdapter by inject()
 
     override fun initStartView() {
         // question list recycler
@@ -64,11 +66,6 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
     }
 
     override fun initAfterBinding() {
-        questionListAdapter.clear()
-
-        viewModel.getUserQuestion()
-        showLoadingDialog(this)
-
         back_btn.setOnClickListener {
             finish()
         }
@@ -79,13 +76,29 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
         }
 
         questionListAdapter.setOnItemClickListener(object :
-            QuestionListAdapter.OnItemClickEventListener {
+            UserQuestionListAdapter.OnItemClickEventListener {
             override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: Bookmark = questionListAdapter.getItem(a_position)
-                var intent = Intent(this@UserQuestionActivity, DiaryActivity::class.java)
-                intent.putExtra("cafeQuestionId", item.cafeQuestionId)
-                startActivity(intent)
+                val item: GetUserQuestionListResponse = questionListAdapter.getItem(a_position)
+                if(item.waitingList){
+                    var intent = Intent(this@UserQuestionActivity, MyQuestionActivity::class.java)
+                    intent.putExtra("content", item.question)
+                    intent.putExtra("questionId", item.cafeQuestionId)
+                    startActivity(intent)
+                }
+                else{
+                    var intent = Intent(this@UserQuestionActivity, DiaryActivity::class.java)
+                    intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+                    startActivity(intent)
+                }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        questionListAdapter.clear()
+
+        viewModel.getUserQuestion()
+        showLoadingDialog(this)
     }
 }
