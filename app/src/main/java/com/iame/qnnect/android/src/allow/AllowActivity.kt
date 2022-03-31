@@ -32,12 +32,9 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
     override fun initDataBinding() {
         viewModel.alarmCheckResponse.observe(this, Observer {
             if(it.response == null){
-//                Log.d("allow_log", "null")
                 var intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
             }
-//            var response = PatchAlarmCheckResponse(it.response)
-//            Log.d("allow_log", response.toString())
             var intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         })
@@ -50,10 +47,16 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
 
         allow_radio1.setOnClickListener {
             radio_select(allow_radio1, allow_radio2, ok_btn)
+            allow_radio_all.isChecked = allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked
         }
 
         allow_radio2.setOnClickListener {
             radio_select(allow_radio2, allow_radio1, ok_btn)
+            allow_radio_all.isChecked = allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked
+        }
+
+        allow_radio3.setOnClickListener {
+            allow_radio_all.isChecked = allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked
         }
 
         // 개인정보 처리

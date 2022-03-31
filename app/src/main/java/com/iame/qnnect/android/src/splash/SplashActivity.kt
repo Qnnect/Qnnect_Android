@@ -35,6 +35,7 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.BaseToken
 import com.iame.qnnect.android.databinding.ActivitySplashBinding
 import com.iame.qnnect.android.src.alarm.AlarmActivity
+import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.invite.InviteActivity
 import com.iame.qnnect.android.src.login.LoginActivity
 import com.iame.qnnect.android.src.main.MainActivity

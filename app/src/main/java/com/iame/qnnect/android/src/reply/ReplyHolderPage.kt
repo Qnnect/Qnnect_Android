@@ -22,7 +22,9 @@ import com.iame.qnnect.android.src.reply.ReplyActivity
 import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.reply_more.DeleteReplyDialog
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
+import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.item_main_image.view.*
+import java.lang.Exception
 
 
 class ReplyHolderPage internal constructor(itemView: View, var context: Context,
@@ -48,10 +50,18 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context,
             writer_img.setImageResource(R.mipmap.img_profile_dafault_foreground)
         }
         else{
-            Glide.with(context)
-                .load(profile.profileImage)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(writer_img)
+            try{
+                Glide.with(context)
+                    .load(profile.profileImage)
+                    .transform(CenterCrop(), RoundedCorners(200))
+                    .into(writer_img)
+            }catch (e: Exception){
+                Glide.with(context)
+                    .load(R.mipmap.img_profile_dafault_foreground)
+                    .transform(CenterCrop(), RoundedCorners(200))
+                    .into(writer_img)
+            }
+
         }
         writer_name.text = profile.nickName
         answer_text.text = data.content

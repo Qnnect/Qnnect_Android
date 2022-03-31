@@ -94,10 +94,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             var image = it.user.profileImage
 
             // Profile Url
-            Glide.with(this)
-                .load(image)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(user_profile_img)
+            try{
+                Glide.with(this)
+                    .load(image)
+                    .transform(CenterCrop(), RoundedCorners(200))
+                    .into(user_profile_img)
+            }catch (e: Exception){
+                Glide.with(this)
+                    .load(R.mipmap.img_profile_dafault_foreground)
+                    .transform(CenterCrop(), RoundedCorners(200))
+                    .into(user_profile_img)
+            }
 
             if(it.user.nickName == null){
                 var intent = Intent(context, ProfileActivity::class.java)

@@ -99,13 +99,12 @@ class AddGroupBottomSheet(val itemClick: (Int) -> Unit) :
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = name_edit_txt.text.toString()
-                if(len.length > 0 && len.length < 11){
+                check = if(len.length in 2..10){
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
-                    check = true
-                }
-                else{
+                    true
+                } else{
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
-                    check = false
+                    false
                 }
             }
         })

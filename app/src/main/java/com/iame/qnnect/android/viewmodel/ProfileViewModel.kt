@@ -43,19 +43,18 @@ class ProfileViewModel(private val model: ProfileDataModel,
     // nickname check
     fun nickname_check(nick_name_edit: EditText, ok_btn: ConstraintLayout, check_txt: TextView, len_check: TextView): Boolean{
         var str = nick_name_edit.text.toString()
-        if(str.length > 0 && str.length < 9 && str != "null"){
+        return if(str.length in 2..8 && str != "null"){
             ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
             nick_name_edit.setBackgroundResource(R.drawable.nickname_edit_ok)
             check_txt.visibility = View.INVISIBLE
             len_check.text = str.length.toString()+"/8"
-            return true
-        }
-        else{
+            true
+        } else{
             check_txt.visibility = View.VISIBLE
             nick_name_edit.setBackgroundResource(R.drawable.nickname_edit)
             ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
             len_check.text = str.length.toString()+"/8"
-            return false
+            false
         }
     }
 

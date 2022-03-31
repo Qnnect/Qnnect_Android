@@ -44,10 +44,17 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
             user_img.setImageResource(R.mipmap.img_profile_dafault_foreground)
         }
         else{
-            Glide.with(context)
-                .load(profile.profileImage)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(user_img)
+            try{
+                Glide.with(context)
+                    .load(profile.profileImage)
+                    .transform(CenterCrop(), RoundedCorners(200))
+                    .into(user_img)
+            }catch (e: Exception){
+                Glide.with(context)
+                    .load(R.mipmap.img_profile_dafault_foreground)
+                    .transform(CenterCrop(), RoundedCorners(200))
+                    .into(user_img)
+            }
         }
         user_name.setText(profile.nickName)
 

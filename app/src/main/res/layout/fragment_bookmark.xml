@@ -71,7 +71,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bookmark"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingBottom="80dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/boomark_group_recycler"

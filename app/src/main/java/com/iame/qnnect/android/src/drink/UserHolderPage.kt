@@ -20,6 +20,7 @@ import com.iame.qnnect.android.src.group.model.group_question_item
 import com.iame.qnnect.android.src.reply.ReplyAdapter
 import com.iame.qnnect.android.util.recipe
 import kotlinx.android.synthetic.main.item_main_image.view.*
+import java.lang.Exception
 
 
 class UserHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: DrinkUserAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
@@ -31,10 +32,17 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
     fun onBind(data: CafeUser, select_index: Int) {
         this.data = data
 
-        Glide.with(context)
-            .load(data.profileImage)
-            .transform(CenterCrop(), RoundedCorners(200))
-            .into(user_img)
+        try{
+            Glide.with(context)
+                .load(data.profileImage)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_img)
+        }catch (e: Exception){
+            Glide.with(context)
+                .load(R.mipmap.img_profile_dafault_foreground)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .into(user_img)
+        }
 
         user_name.text = data.nickName
 

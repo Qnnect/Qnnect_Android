@@ -93,13 +93,12 @@ class EditGroupBottomSheet(var groupTitle: String, val itemClick: (Int) -> Unit)
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = name_edit_txt.text.toString()
-                if(len.length > 0 && len.length < 11){
+                check = if(len.length in 2..10){
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
-                    check = true
-                }
-                else{
+                    true
+                } else{
                     ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
-                    check = false
+                    false
                 }
             }
         })
@@ -120,17 +119,14 @@ class EditGroupBottomSheet(var groupTitle: String, val itemClick: (Int) -> Unit)
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 // onStopTrackingTouch - SeekBar 값 변경 끝나고 드래그 떼면 호출
-                if(seekBar.progress == 0){
-                    questionCycle = "everyDay"
-                }
-                else if(seekBar.progress == 1){
-                    questionCycle = "threeDay"
-                }
-                else if(seekBar.progress == 2){
-                    questionCycle = "fiveDay"
-                }
-                else{
-                    questionCycle = "sevenDay"
+                questionCycle = if(seekBar.progress == 0){
+                    "everyDay"
+                } else if(seekBar.progress == 1){
+                    "threeDay"
+                } else if(seekBar.progress == 2){
+                    "fiveDay"
+                } else{
+                    "sevenDay"
                 }
             }
         })
@@ -229,6 +225,6 @@ class EditGroupBottomSheet(var groupTitle: String, val itemClick: (Int) -> Unit)
     }
 
     override fun onEditGroupFailure(message: String) {
-        TODO("Not yet implemented")
+        dismiss()
     }
 }
