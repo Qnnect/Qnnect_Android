@@ -78,7 +78,8 @@
         <ImageView
             android:id="@+id/img_in"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.6"
             android:scaleType="centerCrop"
             android:paddingLeft="35dp"
             android:paddingRight="35dp"
@@ -134,8 +135,11 @@
         </TextView>
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="200dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.7"
+            app:layout_constraintHeight_percent="0.23"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toBottomOf="@id/text5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
