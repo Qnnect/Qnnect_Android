@@ -22,7 +22,6 @@ import com.iame.qnnect.android.util.recipe
 import kotlinx.android.synthetic.main.item_main_image.view.*
 import java.lang.Exception
 
-
 class UserHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: DrinkUserAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val user_img :ImageView
     private val user_name: TextView
