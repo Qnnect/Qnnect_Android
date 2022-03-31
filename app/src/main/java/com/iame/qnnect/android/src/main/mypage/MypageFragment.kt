@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseFragment
 import com.iame.qnnect.android.databinding.FragmentMyPageBinding
@@ -39,7 +40,10 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
             Glide.with(this)
                 .load(image)
                 .transform(CenterCrop(), RoundedCorners(200))
+                .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
+                    .error(R.mipmap.profile_default_foreground))
                 .into(user_profile_img)
+
             // User Name
             user_diary_name.text = it.nickName+"님의 다이어리"
             // User Point

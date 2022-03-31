@@ -54,13 +54,12 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
-                if(len.length > 0 && len.length < 50){
+                check = if(len.length in 10..49){
                     save_btn.setTextColor(Color.parseColor("#FD774C"))
-                    check = true
-                }
-                else{
+                    true
+                } else{
                     save_btn.setTextColor(Color.parseColor("#BDBDBD"))
-                    check = false
+                    false
                 }
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.iame.qnnect.android.BuildConfig
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -106,7 +107,10 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             Glide.with(this)
                 .load(it.writerInfo.profileImage)
                 .transform(CenterCrop(), RoundedCorners(200))
+                .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
+                    .error(R.mipmap.profile_default_foreground))
                 .into(my_profile_img)
+
             my_profile_name.text = it.writerInfo.nickName
             answer_txt.text = it.content
 //            content = it.content
@@ -225,7 +229,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = reply_edit.text.toString()
-                reply_check = len.length > 0 && len.length < 50
+                reply_check = len.length in 10..49
             }
         })
 

@@ -33,14 +33,21 @@ class StampActivity : BaseActivity<ActivityStampBinding, StampViewModel>() {
 
     override fun initDataBinding() {
         viewModel.stampResponse.observe(this, Observer {
-            var count = it.size/9+1
+            var count = it.size/3+1 // 4
             it.forEach { item ->
                 stampAdapter.addItem(item)
             }
-
-            for(i in stampAdapter.itemCount..9*count-1){
-                var item = Stamp(" ", "빈잔")
-                stampAdapter.addItem(item)
+            if(stampAdapter.itemCount < 9){
+                for(i in stampAdapter.itemCount+1..9){
+                    var item = Stamp(" ", "빈잔")
+                    stampAdapter.addItem(item)
+                }
+            }
+            else{
+                for(i in stampAdapter.itemCount+1..3*count){
+                    var item = Stamp(" ", "빈잔")
+                    stampAdapter.addItem(item)
+                }
             }
             stampAdapter.notifyDataSetChanged()
             dismissLoadingDialog()

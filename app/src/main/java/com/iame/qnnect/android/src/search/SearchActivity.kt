@@ -63,10 +63,12 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     var search = search_keyword.text.toString()
 
-                    questionListAdapter.clear()
+                    if(search != null){
+                        questionListAdapter.clear()
 
-                    viewModel.getBookamrk(search)
-                    showLoadingDialog(this@SearchActivity)
+                        viewModel.getBookamrk(search)
+                        showLoadingDialog(this@SearchActivity)
+                    }
                     return true
                 }
                 return false

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.answer.AnswerActivity
 import com.iame.qnnect.android.src.diary.DiaryActivity
@@ -40,22 +41,13 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
 
         var profile = data.profileResponse
 
-        if(profile.profileImage == null){
-            user_img.setImageResource(R.mipmap.img_profile_dafault_foreground)
-        }
-        else{
-            try{
-                Glide.with(context)
-                    .load(profile.profileImage)
-                    .transform(CenterCrop(), RoundedCorners(200))
-                    .into(user_img)
-            }catch (e: Exception){
-                Glide.with(context)
-                    .load(R.mipmap.img_profile_dafault_foreground)
-                    .transform(CenterCrop(), RoundedCorners(200))
-                    .into(user_img)
-            }
-        }
+        Glide.with(context)
+            .load(profile.profileImage)
+            .transform(CenterCrop(), RoundedCorners(200))
+            .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
+                .error(R.mipmap.profile_default_foreground))
+            .into(user_img)
+
         user_name.setText(profile.nickName)
 
         user_img.setOnClickListener(View.OnClickListener { a_view ->

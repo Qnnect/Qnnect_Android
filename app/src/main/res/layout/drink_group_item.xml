@@ -19,7 +19,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/img_profile_dafault_foreground"
+            android:src="@mipmap/profile_default_foreground"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

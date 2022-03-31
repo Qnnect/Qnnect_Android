@@ -1,8 +1,6 @@
 package com.iame.qnnect.android.src.drink
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,14 +11,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.iame.qnnect.android.R
-import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.drink.model.CafeUser
-import com.iame.qnnect.android.src.group.model.CafeQuestion
-import com.iame.qnnect.android.src.group.model.group_question_item
-import com.iame.qnnect.android.src.reply.ReplyAdapter
-import com.iame.qnnect.android.util.recipe
 import kotlinx.android.synthetic.main.item_main_image.view.*
-import java.lang.Exception
+import android.graphics.drawable.Drawable
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
+
+
+
 
 class UserHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: DrinkUserAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val user_img :ImageView
@@ -31,17 +29,12 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
     fun onBind(data: CafeUser, select_index: Int) {
         this.data = data
 
-        try{
-            Glide.with(context)
-                .load(data.profileImage)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(user_img)
-        }catch (e: Exception){
-            Glide.with(context)
-                .load(R.mipmap.img_profile_dafault_foreground)
-                .transform(CenterCrop(), RoundedCorners(200))
-                .into(user_img)
-        }
+        Glide.with(context)
+            .load(data.profileImage)
+            .transform(CenterCrop(), RoundedCorners(200))
+            .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
+                .error(R.mipmap.profile_default_foreground))
+            .into(user_img)
 
         user_name.text = data.nickName
 

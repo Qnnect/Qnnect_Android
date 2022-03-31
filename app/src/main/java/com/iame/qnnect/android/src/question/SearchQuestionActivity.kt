@@ -79,12 +79,13 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
                 //Enter key Action
                 if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     var search = search_keyword.text.toString()
+                    if(search != null){
+                        questionListAdapter.clear()
 
-                    questionListAdapter.clear()
-
-                    viewModel.getBookamrk(cafeId!!, search)
-                    showLoadingDialog(this@SearchQuestionActivity)
-                    return true
+                        viewModel.getBookamrk(cafeId!!, search)
+                        showLoadingDialog(this@SearchQuestionActivity)
+                        return true
+                    }
                 }
                 return false
             }

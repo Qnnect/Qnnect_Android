@@ -176,7 +176,7 @@ class EditAnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>(
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = answer_edit.text.toString()
-                check = if(len.length in 10..49){
+                check = if(len.length in 10..99){
                     save_btn.setTextColor(Color.parseColor("#FD774C"))
                     true
                 } else{

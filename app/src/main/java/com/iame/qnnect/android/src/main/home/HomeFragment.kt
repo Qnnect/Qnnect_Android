@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
@@ -94,17 +95,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             var image = it.user.profileImage
 
             // Profile Url
-            try{
-                Glide.with(this)
-                    .load(image)
-                    .transform(CenterCrop(), RoundedCorners(200))
-                    .into(user_profile_img)
-            }catch (e: Exception){
-                Glide.with(this)
-                    .load(R.mipmap.img_profile_dafault_foreground)
-                    .transform(CenterCrop(), RoundedCorners(200))
-                    .into(user_profile_img)
-            }
+            Glide.with(this)
+                .load(image)
+                .transform(CenterCrop(), RoundedCorners(200))
+                .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
+                    .error(R.mipmap.profile_default_foreground))
+                .into(user_profile_img)
 
             if(it.user.nickName == null){
                 var intent = Intent(context, ProfileActivity::class.java)
