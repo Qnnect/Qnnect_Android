@@ -29,6 +29,8 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
 
     override val viewModel: MypageViewModel by viewModel()
 
+    var userName = ""
+
     override fun initStartView() {
     }
 
@@ -43,6 +45,8 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
                 .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
                     .error(R.mipmap.profile_default_foreground))
                 .into(user_profile_img)
+
+            userName = it.nickName
 
             // User Name
             user_diary_name.text = it.nickName+"님의 다이어리"
@@ -69,9 +73,10 @@ class MypageFragment : BaseFragment<FragmentMyPageBinding, MypageViewModel>(R.la
 
     override fun initAfterBinding() {
 
-        // empty
+        // stamp
         drink_btn.setOnClickListener {
             var intent = Intent(context, StampActivity::class.java)
+            intent.putExtra("userName", userName)
             startActivity(intent)
         }
 

@@ -22,6 +22,7 @@ class StampActivity : BaseActivity<ActivityStampBinding, StampViewModel>() {
 
 
     override fun initStartView() {
+        text1.text = intent.getStringExtra("userName")+"님의\n적립 스탬프"
         stamp_recycler.run {
             adapter = stampAdapter
             layoutManager = GridLayoutManager(context,3).apply {

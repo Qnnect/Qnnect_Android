@@ -24,8 +24,8 @@ android {
         applicationId "com.iame.qnnect.android"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 5   // 출시시 5로 바꾸기
-        versionName "1.5"
+        versionCode 6   // 출시시 5로 바꾸기
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
