@@ -259,5 +259,10 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 showLoadingDialog(this@DrinkActivity)
             }
         })
+
+        // 새음료 추가하기
+        new_drink_btn.setOnClickListener {
+
+        }
     }
 }
