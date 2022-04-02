@@ -108,8 +108,11 @@ import com.iame.qnnect.android.src.search.service.SearchAPI
 import com.iame.qnnect.android.src.search.service.SearchDataImpl
 import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
+import com.iame.qnnect.android.src.splash.model.VersionCheckDataModel
 import com.iame.qnnect.android.src.splash.service.RefreshAPI
 import com.iame.qnnect.android.src.splash.service.RefreshDataImpl
+import com.iame.qnnect.android.src.splash.service.VersionCheckAPI
+import com.iame.qnnect.android.src.splash.service.VersionCheckDataImpl
 import com.iame.qnnect.android.src.stamp.StampAdapter
 import com.iame.qnnect.android.src.stamp.model.StampDataModel
 import com.iame.qnnect.android.src.stamp.service.StampAPI
@@ -642,6 +645,14 @@ var retrofitPart = module {
             .build()
             .create(ReadAlarmAPI::class.java)
     }
+    single<VersionCheckAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(VersionCheckAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -840,12 +851,15 @@ var modelPart = module {
     factory<ReadAlarmDataModel> {
         ReadAlarmDataImpl(get())
     }
+    factory<VersionCheckDataModel> {
+        VersionCheckDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
     viewModel { MainViewModel(get()) }
     viewModel { LoginViewModel(get()) }
-    viewModel { SplashViewModel(get()) }
+    viewModel { SplashViewModel(get(), get()) }
     viewModel { AllowViewModel(get()) }
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { EditProfileViewModel(get(), get(), get()) }

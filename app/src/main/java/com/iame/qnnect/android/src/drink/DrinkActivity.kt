@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityDrinkBinding
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
+import com.iame.qnnect.android.src.add_drink.service.AddDrinkService
 import com.iame.qnnect.android.src.drink.model.CafeUser
 import com.iame.qnnect.android.src.drink.model.drink_item
 import com.iame.qnnect.android.src.edit_drink.EditDrinkActivity
@@ -262,7 +264,13 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
 
         // 새음료 추가하기
         new_drink_btn.setOnClickListener {
-
+            val newaddDrinkBottomSheet = NewAddDrinkBottomSheet{
+                when (it) {
+                    // 새로 음료 추가
+                    0 -> { onResume() }
+                }
+            }
+            newaddDrinkBottomSheet.show(supportFragmentManager, newaddDrinkBottomSheet.tag)
         }
     }
 }

@@ -10,9 +10,15 @@ import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
 import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import android.content.pm.PackageInfo
+import com.google.android.material.internal.ContextUtils.getActivity
+import com.iame.qnnect.android.MyApplication
+import com.iame.qnnect.android.src.splash.model.VersionCheckDataModel
+import java.lang.Exception
 
 
-class SplashViewModel(private val model: RefreshDataModel) : BaseViewModel() {
+class SplashViewModel(private val model: RefreshDataModel,
+                      private val model2: VersionCheckDataModel) : BaseViewModel() {
 
     private val TAG = "SplashViewModel"
 
@@ -33,6 +39,29 @@ class SplashViewModel(private val model: RefreshDataModel) : BaseViewModel() {
                 Log.d(TAG, "response error, message : ${it.message}")
                 var response = PostRefreshResponse("", "")
                 postRefreshResponse.postValue(response)
+            })
+        )
+    }
+
+    private val getVersionCheckResponse = MutableLiveData<Boolean>()
+    val versioncheckResponse: LiveData<Boolean>
+        get() = getVersionCheckResponse
+
+    private val errorVersionCheckResponse = MutableLiveData<String>()
+    val errorversioncheckResponse: LiveData<String>
+        get() = errorVersionCheckResponse
+
+
+    fun getVersionCheck(currentVersion: String, osType: String) {
+        addDisposable(model2.getVersionCheck(currentVersion, osType)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    getVersionCheckResponse.postValue(this)
+                }
+            }, {
+                errorVersionCheckResponse.postValue("네트워크가 원활하지 않습니다.")
             })
         )
     }
