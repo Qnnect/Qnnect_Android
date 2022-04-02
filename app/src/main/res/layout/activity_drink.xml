@@ -152,8 +152,7 @@
                     android:scaleType="centerCrop"
                     app:layout_constraintTop_toBottomOf="@id/text1"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:src="@mipmap/complete_drink_lemon_foreground">
+                    app:layout_constraintRight_toRightOf="parent">
                 </ImageView>
 
                 <TextView
@@ -342,7 +341,7 @@
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:background="@drawable/invite_btn_custom"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/ok_btn_txt"
@@ -366,7 +365,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/drink_img"
                     android:layout_marginTop="10dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/complete_name"

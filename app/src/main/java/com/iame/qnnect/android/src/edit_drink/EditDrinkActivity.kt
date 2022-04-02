@@ -12,7 +12,6 @@ import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityEditDrinkBinding
 import com.iame.qnnect.android.src.finish_drink.FinishDrinkActivity
-import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.recipe.RecipeActivity
 import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.src.store.StoreActivity

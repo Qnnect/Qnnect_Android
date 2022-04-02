@@ -52,7 +52,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 empty_txt.visibility = View.VISIBLE
             }
             questionListAdapter.notifyDataSetChanged()
-            dismissLoadingDialog()
         })
     }
 
@@ -67,7 +66,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                         questionListAdapter.clear()
 
                         viewModel.getBookamrk(search)
-                        showLoadingDialog(this@SearchActivity)
                     }
                     return true
                 }

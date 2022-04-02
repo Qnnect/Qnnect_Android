@@ -58,7 +58,6 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
                 empty_txt.visibility = View.VISIBLE
             }
             questionListAdapter.notifyDataSetChanged()
-            dismissLoadingDialog()
         })
 
         viewModel.errorResponse.observe(this, Observer {
@@ -67,7 +66,6 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 
             questionListAdapter.clear()
             questionListAdapter.notifyDataSetChanged()
-            dismissLoadingDialog()
         })
     }
 
@@ -83,7 +81,6 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
                         questionListAdapter.clear()
 
                         viewModel.getBookamrk(cafeId!!, search)
-                        showLoadingDialog(this@SearchQuestionActivity)
                         return true
                     }
                 }
@@ -109,7 +106,6 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 
                     questionListAdapter.clear()
                     viewModel.getBookamrk(cafeId!!, searchFor)
-                    showLoadingDialog(this@SearchQuestionActivity)
                 }
             }
         })
