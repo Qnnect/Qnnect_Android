@@ -179,7 +179,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.iame.qnnect.android.src.alarm.EditAlarmActivity"
+            android:name="com.iame.qnnect.android.src.edit_alarm.EditAlarmActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

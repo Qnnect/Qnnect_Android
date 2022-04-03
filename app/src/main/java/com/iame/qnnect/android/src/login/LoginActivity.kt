@@ -10,6 +10,7 @@ import com.iame.qnnect.android.databinding.ActivityLoginBinding
 import com.iame.qnnect.android.src.allow.AllowActivity
 import com.iame.qnnect.android.src.login.model.PostLoginRequest
 import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.src.profile.ProfileActivity
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
@@ -40,9 +41,24 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 startActivity(intent)
             }
             else{
+                val fcmToken = baseToken.getFCM(this)
+                if(fcmToken != null){
+                    viewModel.postFcmToken(fcmToken)
+                }
+                else{
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            viewModel.fcmtokenResponse.observe(this, Observer {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-            }
+            })
+
+            viewModel.errorResponse.observe(this, Observer {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            })
         })
 
         // 로그인 정보 확인

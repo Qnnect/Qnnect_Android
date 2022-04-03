@@ -58,7 +58,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     }
 
     override fun initDataBinding() {
-        viewModel.refreshResponse.observe(this, Observer {
+        viewModel.refreshResponse.observe(this, Observer { it ->
             if (it.accessToken == "" || it.refreshToken == "") {
                 Handler(Looper.getMainLooper()).postDelayed({
                     startActivity(Intent(this, LoginActivity::class.java))
@@ -67,14 +67,28 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             } else {
                 Log.d("login_response", it.toString())
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    baseToken.setLink(this, link)
-                    Log.d("response!!", link.toString())
-                    var intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }, 1500)
+                baseToken.setLink(this, link)
+
+                val fcmtoken = baseToken.getFCM(this)
+                if(fcmtoken != null){
+                    viewModel.postFcmToken(fcmtoken)
+                }
+                else{
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        var intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }, 1500)
+                }
             }
+        })
+
+        viewModel.fcmtokenResponse.observe(this, Observer {
+            Handler(Looper.getMainLooper()).postDelayed({
+                var intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 1500)
         })
 
         viewModel.versioncheckResponse.observe(this, Observer {
@@ -112,7 +126,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                 updateDialog.show(supportFragmentManager, updateDialog.tag)
             }
         })
-
         viewModel.errorversioncheckResponse.observe(this, Observer {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })

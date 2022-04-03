@@ -93,6 +93,8 @@ class MyApplication : Application() {
             Log.d("fcm_response", "MyApplication "+baseToken.getAlarm(this))
         })
 
+        // Toast.makeText(this, "본인은 신고할 수 없습니다.", Toast.LENGTH_SHORT).show()
+
         // 자동 업데이트
 //        val appUpdateManager = AppUpdateManagerFactory.create(this)
 //

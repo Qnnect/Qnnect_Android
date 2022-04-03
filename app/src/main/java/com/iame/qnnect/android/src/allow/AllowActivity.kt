@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.CheckBox
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
@@ -31,12 +32,23 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
 
     override fun initDataBinding() {
         viewModel.alarmCheckResponse.observe(this, Observer {
-            if(it.response == null){
+            val fcmtoken = baseToken.getFCM(this)
+            if(fcmtoken != null){
+                viewModel.postFcmToken(fcmtoken)
+            }
+            else{
                 var intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
             }
+        })
+
+        viewModel.fcmtokenResponse.observe(this, Observer {
             var intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
+        })
+
+        viewModel.errorResponse.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
     }
 

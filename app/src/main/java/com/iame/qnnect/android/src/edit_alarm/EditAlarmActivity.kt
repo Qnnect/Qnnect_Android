@@ -1,11 +1,9 @@
-package com.iame.qnnect.android.src.alarm
+package com.iame.qnnect.android.src.edit_alarm
 
-import android.widget.CompoundButton
+import androidx.lifecycle.Observer
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
-import com.iame.qnnect.android.databinding.ActivityAlarmBinding
 import com.iame.qnnect.android.databinding.ActivityEditAlarmBinding
-import com.iame.qnnect.android.viewmodel.AlarmViewModel
 import com.iame.qnnect.android.viewmodel.EditAlarmViewModel
 import kotlinx.android.synthetic.main.activity_edit_alarm.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,22 +19,31 @@ class EditAlarmActivity : BaseActivity<ActivityEditAlarmBinding, EditAlarmViewMo
     }
 
     override fun initDataBinding() {
+        viewModel.alarmstatusResponse.observe(this, Observer {
+            alarm_switch.isChecked = it
+        })
+        viewModel.alarmCheckResponse.observe(this, Observer {
+            dismissLoadingDialog()
+        })
     }
 
     override fun initAfterBinding() {
+        viewModel.getUserAlarmStatus()
+
         back_btn.setOnClickListener {
             finish()
         }
 
-        alarm_switch.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener{
-            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-                if(isChecked) {
-                    //체크된 상태 취소 시 코드
-                } else {
-                    //체크된 상태로 만들 시 코드
-                }
+        alarm_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                // 체크시
+                viewModel.patchAlarmCheck(true)
+                showLoadingDialog(this@EditAlarmActivity)
+            } else {
+                // 체크 취소
+                viewModel.patchAlarmCheck(false)
+                showLoadingDialog(this@EditAlarmActivity)
             }
-
-        })
+        }
     }
 }

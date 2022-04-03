@@ -13,12 +13,15 @@ import io.reactivex.schedulers.Schedulers
 import android.content.pm.PackageInfo
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.iame.qnnect.android.MyApplication
+import com.iame.qnnect.android.src.edit_alarm.model.GetUserAlarmStatusDataModel
+import com.iame.qnnect.android.src.fcm.model.PostFcmTokenDataModel
 import com.iame.qnnect.android.src.splash.model.VersionCheckDataModel
 import java.lang.Exception
 
 
 class SplashViewModel(private val model: RefreshDataModel,
-                      private val model2: VersionCheckDataModel) : BaseViewModel() {
+                      private val model2: VersionCheckDataModel,
+                      private val model3: PostFcmTokenDataModel) : BaseViewModel() {
 
     private val TAG = "SplashViewModel"
 
@@ -59,6 +62,24 @@ class SplashViewModel(private val model: RefreshDataModel,
             .subscribe({
                 it.run {
                     getVersionCheckResponse.postValue(this)
+                }
+            }, {
+                errorVersionCheckResponse.postValue("네트워크가 원활하지 않습니다.")
+            })
+        )
+    }
+
+    private val postFcmTokenResponse = MutableLiveData<String>()
+    val fcmtokenResponse: LiveData<String>
+        get() = postFcmTokenResponse
+
+    fun postFcmToken(fcmToken: String) {
+        addDisposable(model3.postFcmToken(fcmToken)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                it.run {
+                    postFcmTokenResponse.postValue("200 OK")
                 }
             }, {
                 errorVersionCheckResponse.postValue("네트워크가 원활하지 않습니다.")

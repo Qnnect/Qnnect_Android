@@ -35,6 +35,9 @@ import com.iame.qnnect.android.src.drink.DrinkUserAdapter
 import com.iame.qnnect.android.src.drink.model.GetUserDrinkDataModel
 import com.iame.qnnect.android.src.drink.service.GetUserDrinkAPI
 import com.iame.qnnect.android.src.drink.service.GetUserDrinkImpl
+import com.iame.qnnect.android.src.edit_alarm.model.GetUserAlarmStatusDataModel
+import com.iame.qnnect.android.src.edit_alarm.service.GetUserAlarmStatusAPI
+import com.iame.qnnect.android.src.edit_alarm.service.GetUserAlarmStatusDataImpl
 import com.iame.qnnect.android.src.edit_drink.MyRecipeAdapter
 import com.iame.qnnect.android.src.edit_drink.model.GetCurrentDrinkDataModel
 import com.iame.qnnect.android.src.edit_drink.model.PostEditDrinkDataModel
@@ -45,6 +48,9 @@ import com.iame.qnnect.android.src.edit_drink.service.PostEditDrinkImpl
 import com.iame.qnnect.android.src.edit_question.model.EditQuestionDataModel
 import com.iame.qnnect.android.src.edit_question.service.EditQuestionAPI
 import com.iame.qnnect.android.src.edit_question.service.EditQuestionImpl
+import com.iame.qnnect.android.src.fcm.model.PostFcmTokenDataModel
+import com.iame.qnnect.android.src.fcm.service.PostFcmTokenAPI
+import com.iame.qnnect.android.src.fcm.service.PostFcmTokenDataImpl
 import com.iame.qnnect.android.src.group.member.GroupMemberAdapter
 import com.iame.qnnect.android.src.group.model.GroupDataModel
 import com.iame.qnnect.android.src.group.question.GroupQuestionViewPagerAdapter
@@ -653,6 +659,26 @@ var retrofitPart = module {
             .build()
             .create(VersionCheckAPI::class.java)
     }
+    single<GetUserAlarmStatusAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(GetUserAlarmStatusAPI::class.java)
+    }
+    single<PostFcmTokenAPI> {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(NullOnEmptyConverterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PostFcmTokenAPI::class.java)
+    }
 }
 
 var adapterPart = module {
@@ -854,13 +880,19 @@ var modelPart = module {
     factory<VersionCheckDataModel> {
         VersionCheckDataImpl(get())
     }
+    factory<GetUserAlarmStatusDataModel> {
+        GetUserAlarmStatusDataImpl(get())
+    }
+    factory<PostFcmTokenDataModel> {
+        PostFcmTokenDataImpl(get())
+    }
 }
 
 var viewModelPart = module {
     viewModel { MainViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
-    viewModel { SplashViewModel(get(), get()) }
-    viewModel { AllowViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
+    viewModel { SplashViewModel(get(), get(), get()) }
+    viewModel { AllowViewModel(get(), get()) }
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { EditProfileViewModel(get(), get(), get()) }
     viewModel { HomeViewModel(get()) }
@@ -887,10 +919,10 @@ var viewModelPart = module {
     viewModel { StampViewModel(get()) }
     viewModel { NotArriveEditViewModel(get()) }
     viewModel { MyQuestionViewModel(get()) }
+    viewModel { EditAlarmViewModel(get(), get()) }
 
     viewModel { OnboardViewModel() }
     viewModel { FinishDrinkViewModel() }
-    viewModel { EditAlarmViewModel() }
     viewModel { EmptyViewModel() }
 }
 
