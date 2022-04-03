@@ -42,10 +42,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     var version = getAppVersion()
     var check = false
 
+    var alarm = false
+
     // 앱 업데이트 매니저 초기화
 //    private lateinit var appUpdateManager: AppUpdateManager
 
     override fun initStartView() {
+        alarm = intent.getBooleanExtra("alarm", false)
     }
 
     override fun initDataBinding() {
@@ -70,7 +73,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 
         viewModel.versioncheckResponse.observe(this, Observer {
             if(it){
-                if(!handleDynamicLinks()){
+                if(!handleDynamicLinks() || alarm){
                     // model 쪽으로 넘겨야 함 데이터 이므로
                     val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)
                     val refreshToken: String? = sSharedPreferences.getString("refresh-token", null)
@@ -118,30 +121,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
         // version check
         version = getAppVersion()
         viewModel.getVersionCheck(version!!, "android")
-
-//        appUpdateManager
-//            .appUpdateInfo
-//            .addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
-//                if (appUpdateInfo.updateAvailability()
-//                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
-//                ) {
-//                    // If an in-app update is already running, resume the update.
-//                    try {
-//                        appUpdateManager.startUpdateFlowForResult(
-//                            appUpdateInfo,
-//                            AppUpdateType.IMMEDIATE,
-//                            this,
-//                            REQUEST_CODE_UPDATE)
-//                    } catch (e: Exception) {
-//                        e.printStackTrace()
-//                    }
-//                }
-//            }
-//
-//        if (intent.action == Intent.ACTION_VIEW) {
-//            cafeCode = intent.data!!.getQueryParameter("code")!!
-//            baseToken.setCafeCode(this, cafeCode)
-//        }
     }
 
     // dynamick link handler

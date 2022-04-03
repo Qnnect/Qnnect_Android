@@ -15,6 +15,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
+import com.iame.qnnect.android.base.BaseToken
 import com.iame.qnnect.android.base.NullOnEmptyConverterFactory
 import com.iame.qnnect.android.base.XAccessTokenInterceptor
 import com.iame.qnnect.android.di.BearerInterceptor
@@ -79,14 +80,12 @@ class MyApplication : Application() {
                 return@OnCompleteListener
             }
 
-//            Log.d("fcm_response!", )
-
             // Get new FCM registration token
             val token = task.result
 
-            // Log and toast
             Log.d("fcm_response!", token!!)
-//            Toast.makeText(baseContext, token!!, Toast.LENGTH_SHORT).show()
+            var baseToken = BaseToken()
+            baseToken.setFCM(this, token)
         })
 
         // 자동 업데이트

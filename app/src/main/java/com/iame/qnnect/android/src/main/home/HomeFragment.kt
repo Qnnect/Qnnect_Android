@@ -48,9 +48,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
     override fun initStartView() {
         var link = baseToken.getLink(requireContext())
-        Log.d("response!!", link.toString())
-        if(link!!){
+
+        var alarm = baseToken.getAlarm(requireContext())
+
+        if(link!! || alarm){
             baseToken.setLink(requireContext(), false)
+            baseToken.setAlarm(requireContext(), false)
             var intent = Intent(context, AlarmActivity::class.java)
             startActivity(intent)
         }

@@ -62,7 +62,6 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         templateArgs["code"] = code
         templateArgs["group_name"] = title
 
-
         // 피드 메시지 보내기
         LinkClient.instance.customTemplate(this, templateId, templateArgs) { linkResult, error ->
             if (error != null) {

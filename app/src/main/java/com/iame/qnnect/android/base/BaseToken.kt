@@ -69,4 +69,32 @@ class BaseToken {
         var token = text.getBoolean("link", false)
         return token
     }
+
+    fun setFCM(context: Context, token: String?) {
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var editor = text.edit()
+        editor.putString("FCM", token!!)
+        editor.commit()
+    }
+
+    fun getFCM(context: Context): String? {
+        // shared preference
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var token = text.getString("FCM", null)
+        return token
+    }
+
+    fun setAlarm(context: Context, alarm: Boolean) {
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var editor = text.edit()
+        editor.putBoolean("alarm", alarm!!)
+        editor.commit()
+    }
+
+    fun getAlarm(context: Context): Boolean {
+        // shared preference
+        var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
+        var token = text.getBoolean("alarm", false)
+        return token
+    }
 }

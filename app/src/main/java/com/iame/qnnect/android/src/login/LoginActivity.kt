@@ -26,7 +26,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     override val viewModel: LoginViewModel by viewModel()
 
-
     override fun initStartView() {
     }
 
