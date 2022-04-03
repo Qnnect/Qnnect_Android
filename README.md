@@ -61,3 +61,4 @@
 4. 2022.03.30(THU) -> Alarm Api & Read Alarm Api, Layout Update, Not yet Arrived Question Logic
 5. 2022.04.01(FRI) -> Version5 Release, Layout update, Answer & Reply length check update, logo size update, Default Profile Error throwable
 6. 2022.04.02(SAT) -> Version 7 Release, Version Check Api Update, Layout Update
+7. 2022.04.03(SUN) -> FCM forground & background
