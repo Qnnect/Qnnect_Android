@@ -48,7 +48,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 //    private lateinit var appUpdateManager: AppUpdateManager
 
     override fun initStartView() {
-        alarm = intent.getBooleanExtra("alarm", false)
+        if(intent.extras != null){
+            alarm = true
+        }
+        else{
+            alarm = intent.getBooleanExtra("alarm", false)
+        }
+        baseToken.setAlarm(this, alarm)
     }
 
     override fun initDataBinding() {

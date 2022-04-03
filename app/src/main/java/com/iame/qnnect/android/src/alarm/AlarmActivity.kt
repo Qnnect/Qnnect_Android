@@ -29,6 +29,8 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
     var notificationType = ""
 
     override fun initStartView() {
+        baseToken.setAlarm(this, false)
+        Log.d("fcm_response", "Alarm "+baseToken.getAlarm(this))
         // alarm recycler
         alarm_recycler.run {
             adapter = alarmAdapter
@@ -78,6 +80,10 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
     override fun onResume() {
         super.onResume()
         viewModel.getAlarm()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun initAfterBinding() {

@@ -51,12 +51,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
 
         var alarm = baseToken.getAlarm(requireContext())
 
-        if(link!! || alarm){
-            baseToken.setLink(requireContext(), false)
-            baseToken.setAlarm(requireContext(), false)
+        if(alarm){
             var intent = Intent(context, AlarmActivity::class.java)
             startActivity(intent)
         }
+
+//        if(link!!){
+//            baseToken.setLink(requireContext(), false)
+//            var intent = Intent(context, AlarmActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // group recycler
         group_recycler.run {

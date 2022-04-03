@@ -1,6 +1,7 @@
 package com.iame.qnnect.android
 
 import android.app.Application
+import android.content.Intent
 import android.content.SharedPreferences
 import android.provider.Settings
 import android.util.Log
@@ -20,6 +21,7 @@ import com.iame.qnnect.android.base.NullOnEmptyConverterFactory
 import com.iame.qnnect.android.base.XAccessTokenInterceptor
 import com.iame.qnnect.android.di.BearerInterceptor
 import com.iame.qnnect.android.di.myDiModule
+import com.iame.qnnect.android.src.alarm.AlarmActivity
 import com.iame.qnnect.android.src.reply.service.PostReplyAPI
 import com.kakao.sdk.common.KakaoSdk
 import kotlinx.coroutines.CoroutineScope
@@ -82,10 +84,13 @@ class MyApplication : Application() {
 
             // Get new FCM registration token
             val token = task.result
+            task.result
 
             Log.d("fcm_response!", token!!)
             var baseToken = BaseToken()
             baseToken.setFCM(this, token)
+
+            Log.d("fcm_response", "MyApplication "+baseToken.getAlarm(this))
         })
 
         // 자동 업데이트
