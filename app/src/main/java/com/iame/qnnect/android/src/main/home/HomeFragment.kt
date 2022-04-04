@@ -56,11 +56,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             startActivity(intent)
         }
 
-//        if(link!!){
-//            baseToken.setLink(requireContext(), false)
-//            var intent = Intent(context, AlarmActivity::class.java)
-//            startActivity(intent)
-//        }
+        // dynamick link
+        if(link){
+            baseToken.setLink(requireContext(), false)
+            var intent = Intent(context, AlarmActivity::class.java)
+            startActivity(intent)
+        }
 
         // group recycler
         group_recycler.run {
@@ -120,6 +121,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
             user_diary_name.text = it.user.nickName+"님의 다이어리"
             // User Point
             point_txt.text = it.user.point.toString()+"P"
+
+            // 확인안 한 alarm이 있는지
+            if(it.hasUnreadNotification){
+                find_alarm.visibility = View.VISIBLE
+            }
+            else{
+                find_alarm.visibility = View.GONE
+            }
 
             if(it.questionList.size == 1){
                 dots_indicator.visibility = View.INVISIBLE

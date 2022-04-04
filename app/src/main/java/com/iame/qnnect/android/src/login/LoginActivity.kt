@@ -43,7 +43,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             else{
                 val fcmToken = baseToken.getFCM(this)
                 if(fcmToken != null){
-                    viewModel.postFcmToken(fcmToken)
+//                    viewModel.postFcmToken(fcmToken)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
                 else{
                     val intent = Intent(this, MainActivity::class.java)
@@ -71,7 +73,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     }
 
     override fun initAfterBinding() {
-
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 Log.e("response!!", error.toString())

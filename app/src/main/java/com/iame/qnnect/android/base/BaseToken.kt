@@ -56,14 +56,14 @@ class BaseToken {
         return token
     }
 
-    fun setLink(context: Context, link: Boolean?) {
+    fun setLink(context: Context, link: Boolean) {
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
         var editor = text.edit()
         editor.putBoolean("link", link!!)
         editor.commit()
     }
 
-    fun getLink(context: Context): Boolean? {
+    fun getLink(context: Context): Boolean {
         // shared preference
         var text = context.getSharedPreferences("Qnnect", MODE_PRIVATE)
         var token = text.getBoolean("link", false)

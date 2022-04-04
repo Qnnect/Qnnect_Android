@@ -69,8 +69,22 @@
         android:padding="9dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toBottomOf="@id/btn_view"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/reply_count"
         android:src="@mipmap/ic_answer_btn_foreground">
     </ImageView>
+
+    <TextView
+        android:id="@+id/reply_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/im_hyemin_bold"
+        app:layout_constraintTop_toTopOf="@id/answer_btn"
+        app:layout_constraintBottom_toBottomOf="@id/answer_btn"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="15dp"
+        android:textColor="#FD774C"
+        android:textStyle="bold"
+        android:text="1">
+    </TextView>
     
 </androidx.constraintlayout.widget.ConstraintLayout>

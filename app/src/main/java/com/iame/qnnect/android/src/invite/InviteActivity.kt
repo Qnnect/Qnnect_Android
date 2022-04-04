@@ -12,6 +12,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.net.Uri
 import android.widget.Toast
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.internal.FirebaseDynamicLinkRegistrar
+import com.google.firebase.dynamiclinks.ktx.androidParameters
+import com.google.firebase.dynamiclinks.ktx.dynamicLinks
+import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
+import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.link.WebSharerClient
 import kotlin.reflect.KParameter

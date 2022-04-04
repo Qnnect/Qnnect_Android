@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
 import com.iame.qnnect.android.MyApplication.Companion.sSharedPreferences
@@ -48,6 +49,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
 //    private lateinit var appUpdateManager: AppUpdateManager
 
     override fun initStartView() {
+        // fcm link
         if(intent.extras != null){
             alarm = true
         }
@@ -55,6 +57,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             alarm = intent.getBooleanExtra("alarm", false)
         }
         baseToken.setAlarm(this, alarm)
+
+        // kakao deep link
+        if(intent.action == Intent.ACTION_VIEW) {
+            cafeCode = intent.data!!.getQueryParameter("cafecode")!!
+            baseToken.setCafeCode(this, cafeCode)
+        }
     }
 
     override fun initDataBinding() {
@@ -64,14 +72,18 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                     startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 }, 1500)
-            } else {
+            }
+            else {
                 Log.d("login_response", it.toString())
                 baseToken.setAccessToken(this, it.accessToken, it.refreshToken)
                 baseToken.setLink(this, link)
 
                 val fcmtoken = baseToken.getFCM(this)
                 if(fcmtoken != null){
-                    viewModel.postFcmToken(fcmtoken)
+//                    viewModel.postFcmToken(fcmtoken)
+                    var intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
                 else{
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -148,12 +160,17 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             .getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
                 var deeplink: Uri? = null
+
                 if(pendingDynamicLinkData != null) {
                     deeplink = pendingDynamicLinkData.link
+
+                    // cafe code deep link not yet
+//                    cafeCode = pendingDynamicLinkData.utmParameters.get("cafeCode").toString()
                 }
                 else{
                     link = false
                 }
+
                 if(deeplink != null) {
                     link = true
                     val jwtToken: String? = sSharedPreferences.getString("X-ACCESS-TOKEN", null)

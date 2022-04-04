@@ -7,5 +7,8 @@ import com.iame.qnnect.android.src.main.home.model.GetUserResponse
 data class GetHomeResponse(
     @SerializedName("user") var user: GetUserResponse,
     @SerializedName("questionTodayList") var questionList: List<HomeQuestion>,
-    @SerializedName("cafeMainResponseList") var groupList: List<HomeCafes>
+    @SerializedName("cafeMainResponseList") var groupList: List<HomeCafes>,
+    @SerializedName("hasUnreadNotification") var hasUnreadNotification: Boolean
     )
+
+// hasUnreadNotification

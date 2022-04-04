@@ -34,6 +34,7 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
     private val answer_img: ImageView
     private val answer_btn: ImageView
     private val btn_view: LinearLayout
+    private val reply_count: TextView
 
     var data: Comments? = null
     fun onBind(data: Comments) {
@@ -82,6 +83,14 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
                 .into(answer_img)
         }
 
+        if(data.replyCount > 0){
+            reply_count.visibility = View.VISIBLE
+            reply_count.text = data.replyCount.toString()
+        }
+        else{
+            reply_count.visibility = View.GONE
+        }
+
 
         answer_btn.setOnClickListener(View.OnClickListener { a_view ->
             val position = adapterPosition
@@ -96,6 +105,8 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
                 a_itemClickListener.onItemClick(a_view, position)
             }
         })
+
+
     }
 
     init {
@@ -105,5 +116,6 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
         answer_img = itemView.findViewById(R.id.answer_img)
         answer_btn = itemView.findViewById(R.id.answer_btn)
         btn_view = itemView.findViewById(R.id.btn_view)
+        reply_count = itemView.findViewById(R.id.reply_count)
     }
 }
