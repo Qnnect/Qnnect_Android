@@ -64,6 +64,7 @@
                 <!-- "kakao{YOUR_NATIVE_APP_KEY}://kakaolink" 형식의 앱 실행 스킴을 설정하는데 사용 -->
                 <data android:host="kakaolink"
                     android:scheme="kakao80ae4d5ffffa5528fd8dbf7c29b8a015" />
+
                 <data android:host="qnnect.shop.alarm" android:scheme="http" />
                 <data android:host="qnnect.shop.alarm" android:scheme="https" />
 

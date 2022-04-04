@@ -43,9 +43,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             else{
                 val fcmToken = baseToken.getFCM(this)
                 if(fcmToken != null){
-//                    viewModel.postFcmToken(fcmToken)
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    viewModel.postFcmToken(fcmToken)
+//                    val intent = Intent(this, MainActivity::class.java)
+//                    startActivity(intent)
                 }
                 else{
                     val intent = Intent(this, MainActivity::class.java)
@@ -56,6 +56,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             viewModel.fcmtokenResponse.observe(this, Observer {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             })
 
             viewModel.errorResponse.observe(this, Observer {

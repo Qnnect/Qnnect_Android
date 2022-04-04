@@ -64,6 +64,7 @@ class InviteBottomSheet(val itemClick: (Int) -> Unit) :
         var delete_btn = requireView().findViewById<TextView>(R.id.delte_reply)
         delete_btn.text = "초대 코드 복사"
         delete_btn.setOnClickListener {
+            dismiss()
             itemClick(1)
         }
     }

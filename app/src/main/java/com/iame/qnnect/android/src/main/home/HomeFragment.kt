@@ -47,21 +47,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
     private var activity: MainActivity? = null
 
     override fun initStartView() {
-        var link = baseToken.getLink(requireContext())
+//        var link = baseToken.getLink(requireContext())
 
         var alarm = baseToken.getAlarm(requireContext())
-
         if(alarm){
             var intent = Intent(context, AlarmActivity::class.java)
             startActivity(intent)
         }
 
         // dynamick link
-        if(link){
-            baseToken.setLink(requireContext(), false)
-            var intent = Intent(context, AlarmActivity::class.java)
-            startActivity(intent)
-        }
+//        if(link){
+//            baseToken.setLink(requireContext(), false)
+//            var intent = Intent(context, AlarmActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // group recycler
         group_recycler.run {
@@ -88,9 +87,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(R.layout.f
                 when (it) {
                     // 그룹페이지로 이동
                     0 -> {
+                        baseToken.setCafeCode(requireContext(), null)
                         activity = fragment_s.activity as MainActivity?
                         //change_for_adapter는 mainactivity에 구현
                         activity?.fragmentChange_for_adapter()
+                        dismissLoadingDialog()
                     }
                 }
             }

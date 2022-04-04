@@ -40,6 +40,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
+        Log.d("fcm_response!!", remoteMessage.toString())
+
         // 화면 깨우기
         val pm = getSystemService(POWER_SERVICE) as PowerManager
         val wakeLock = pm.newWakeLock(FLAG_KEEP_SCREEN_ON, TAG)
@@ -61,7 +63,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             val messageTitle = remoteMessage.notification!!.title
             sendMessage(messageTitle!!, messageBody!!)
         }
-
     }
 
     private fun sendMessage(messageTitle: String, messageBody: String) {
@@ -98,7 +99,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
         notificationManager.notify(0, notificationBuilder.build())
-
     }
 }
 
