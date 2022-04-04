@@ -91,7 +91,6 @@ class QuestionHolderPage internal constructor(itemView: View, var context: Conte
             reply_count.visibility = View.GONE
         }
 
-
         answer_btn.setOnClickListener(View.OnClickListener { a_view ->
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {

@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.activity_invite.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.firebase.dynamiclinks.internal.FirebaseDynamicLinkRegistrar
@@ -18,6 +20,8 @@ import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
+import com.iame.qnnect.android.BuildConfig
+import com.iame.qnnect.android.src.declare.DeclareBottomSheet
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
 import com.kakao.sdk.link.WebSharerClient
 import kotlin.reflect.KParameter
@@ -52,11 +56,30 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         }
 
         link_btn.setOnClickListener {
-            Toast.makeText(this, "카페 코드 복사 완료", Toast.LENGTH_SHORT).show()
-            val clipboard: ClipboardManager =
-                getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("label", code)
-            clipboard.setPrimaryClip(clip)
+            val inviteBottomSheet: InviteBottomSheet = InviteBottomSheet {
+                when (it) {
+                    // 초대 링크 복사
+                    0 -> {
+                        val sendIntent: Intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, "https://iame.page.link/Fc4u")
+                            type = "text/plain"
+                        }
+
+                        val shareIntent = Intent.createChooser(sendIntent, title+"의 초대!")
+                        startActivity(shareIntent)
+                    }
+                    // 초대 코드 복사
+                    1 -> {
+                        Toast.makeText(this, "카페 코드 복사 완료", Toast.LENGTH_SHORT).show()
+                        val clipboard: ClipboardManager =
+                            getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText("label", code)
+                        clipboard.setPrimaryClip(clip)
+                    }
+                }
+            }
+            inviteBottomSheet.show(supportFragmentManager, inviteBottomSheet.tag)
         }
     }
 
