@@ -65,4 +65,4 @@
 
 - 8th Week
 1.2022.04.04(MON) -> Deep link & Fcm push, layout update
-2.2022.04.05(TUE) -> Search Error Throwable, Deep Link Complete, Search Keyboard
+2.2022.04.05(TUE) -> Search Error Throwable, Deep Link Complete, Search Keyboard, Drink Img Update
