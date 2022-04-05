@@ -44,7 +44,6 @@ class ReplyHolderPage internal constructor(itemView: View, var context: Context,
         if(data.writer){
             more_btn.visibility = View.VISIBLE
         }
-
         var profile = data.writerInfo
 
         Glide.with(context)

@@ -41,6 +41,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
 
         Log.d("fcm_response!!", remoteMessage.toString())
+        Log.d("fcm_response!!", remoteMessage.data.toString())
+        Log.d("fcm_response!!", remoteMessage.notification.toString())
 
         // 화면 깨우기
         val pm = getSystemService(POWER_SERVICE) as PowerManager
@@ -49,6 +51,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // Data 항목이 있을때.
         // background 처리시
+        // {
+        //      body=아아아아아아아아아아,
+        //      link=https://iame.page.link/Fc4u,
+        //      image=,
+        //      title=📮내 답변에 댓글이 달렸어요! 댓글을 보러 가볼까요?
+        // }
+
         if(remoteMessage.data.isNotEmpty()){
             val data = remoteMessage.data
             val messageTitle = data["title"]

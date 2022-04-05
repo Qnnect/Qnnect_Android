@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.invite
 
+import android.app.Activity
 import android.util.Log
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
@@ -79,15 +80,16 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
                     // 초대 링크 복사
                     0 -> {
                         try {
-                            val sendIntent: Intent = Intent().apply {
-                                action = Intent.ACTION_SEND
-                                val shortLink = getCheckDeepLink()
-                                val request = title+"카페에서 초대를 보냈습니다!\n초대링크 : "+ shortLink.toString()
-                                putExtra(Intent.EXTRA_TEXT, request)
-                                type = "text/plain"
-                            }
-                            val shareIntent = Intent.createChooser(sendIntent, title+"의 초대!")
-                            startActivity(shareIntent)
+//                            val sendIntent: Intent = Intent().apply {
+//                                action = Intent.ACTION_SEND
+//                                val shortLink = getCheckDeepLink()
+//                                val request = title+"카페에서 초대를 보냈습니다!\n초대링크 : "+ shortLink.toString()
+//                                putExtra(Intent.EXTRA_TEXT, request)
+//                                type = "text/plain"
+//                            }
+//                            val shareIntent = Intent.createChooser(sendIntent, title+"의 초대!")
+//                            startActivity(shareIntent)
+                            onDynamicLinkClick()
                         } catch (ignored: ActivityNotFoundException) {
                         }
                     }
@@ -134,5 +136,36 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         // http://qnnect.shop.alarm/cafecode?code=카페코드
         return Uri.parse("http://qnnect.shop.alarm/$SEGMENT_PROMOTION?$KEY_CODE=$code")
 //        return Uri.parse("http://qnnect.shop.alarm")
+    }
+
+    // 딥링크 객체 생성
+    fun onDynamicLinkClick() {
+        FirebaseDynamicLinks.getInstance().createDynamicLink()
+            .setLink(getCheckDeepLink()!!)
+            .setDomainUriPrefix("https://iame.page.link")
+            .setAndroidParameters(
+                DynamicLink.AndroidParameters.Builder(packageName)
+                    .setMinimumVersion(1)
+                    .build()
+            )
+            .buildShortDynamicLink()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val shortLink: Uri = task.result.shortLink!!
+                    try {
+                        val sendIntent: Intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            val request = title+"카페에서 초대를 보냈습니다!\n초대링크 : "+ shortLink.toString()
+                            putExtra(Intent.EXTRA_TEXT, request)
+                            type = "text/plain"
+                        }
+                        val shareIntent = Intent.createChooser(sendIntent, title+"의 초대!")
+                        startActivity(shareIntent)
+                    } catch (ignored: ActivityNotFoundException) {
+                    }
+                } else {
+                    Log.i(TAG, task.toString())
+                }
+            }
     }
 }
