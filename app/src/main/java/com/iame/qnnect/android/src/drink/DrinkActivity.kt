@@ -19,6 +19,7 @@ import com.iame.qnnect.android.src.drink.model.drink_item
 import com.iame.qnnect.android.src.edit_drink.EditDrinkActivity
 import com.iame.qnnect.android.src.store.StoreActivity
 import com.iame.qnnect.android.util.Getdrink
+import com.iame.qnnect.android.util.drinkName
 import com.iame.qnnect.android.util.drink_img
 import com.iame.qnnect.android.util.drink_imgName
 import com.iame.qnnect.android.viewmodel.DrinkViewModel
@@ -100,13 +101,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 ok_btn.visibility = View.VISIBLE
                 seek_main.visibility = View.VISIBLE
 
-                var list = it.currentDrinkInfo.currentDrinkIngredientsFilled
-                var last = 0
                 var item = "빈잔"
-                if(list.size > 1){
-                    last = list.size-1
-                    item = list.get(last).ingredientName
-                }
 
                 if(it.currentUser){
                     ok_btn.visibility = View.VISIBLE
@@ -130,7 +125,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     topping_count.setTextColor(Color.parseColor("#000000"))
                     seekBar.setImageResource(R.drawable.img_drink_progress1)
 
-                    var img = drink_imgName(userDrink, "빈잔")
+                    var img = drinkName(userDrink, "빈잔")
                     drink_img.setImageResource(img)
                 }
 
@@ -139,7 +134,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
 
-                    var img = drink_imgName(userDrink, "얼음")
+                    var img = drinkName(userDrink, "얼음")
                     drink_img.setImageResource(img)
 
                     ice_txt.setTextColor(Color.parseColor("#828282"))
@@ -159,7 +154,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
 
-                    var img = drink_imgName(userDrink, item)
+                    var img = drinkName(userDrink, "베이스")
                     drink_img.setImageResource(img)
                     seekBar.setImageResource(R.drawable.img_drink_progress3)
 
@@ -178,7 +173,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                     lemon_shadow.visibility = View.GONE
                     shadow.visibility = View.VISIBLE
 
-                    var img = drink_imgName(userDrink, item)
+                    var img = drinkName(userDrink, "메인")
                     drink_img.setImageResource(img)
                     seekBar.setImageResource(R.drawable.img_drink_progress4)
 
@@ -204,7 +199,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                         shadow.visibility = View.GONE
                     }
 
-                    var img = drink_imgName(userDrink, "완성")
+                    var img = drinkName(userDrink, "완성")
                     complete_main.visibility = View.VISIBLE
                     ok_btn.visibility = View.GONE
                     seek_main.visibility = View.GONE

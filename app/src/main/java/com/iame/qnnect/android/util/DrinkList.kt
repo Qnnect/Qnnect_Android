@@ -79,6 +79,59 @@ fun drink_img(drinkId: Int, recipe_name: String): Int {
     return drink!!
 }
 
+fun drinkName(drinkName: String, recipe_name: String): Int {
+    var drink: Int? = null
+    drink = when (drinkName) {
+        // 딸기 라떼
+        "딸기라떼" -> {
+            if(recipe_name == "빈잔"){R.mipmap.complete_drink_default_foreground}
+            else if(recipe_name == "얼음"){R.mipmap.complete_drink_ice_foreground}
+            else if(recipe_name == "베이스"){R.mipmap.complete_drink_base_foreground}
+            else if(recipe_name == "메인"){R.mipmap.complete_drink_main_straw_foreground}
+            else if(recipe_name == "토핑"){R.mipmap.complete_drink_topping_straw_foreground}
+            else{R.mipmap.complete_drink_straw_foreground}
+        }
+        // 민트 초코
+        "레몬에이드" -> {
+            if(recipe_name == "빈잔"){R.mipmap.complete_drink_default_foreground}
+            else if(recipe_name == "얼음"){R.mipmap.complete_drink_ice_foreground}
+            else if(recipe_name == "베이스"){R.mipmap.complete_drink_base_lemon_foreground}
+            else if(recipe_name == "메인"){R.mipmap.complete_drink_main_lemon_foreground}
+            else if(recipe_name == "토핑"){R.mipmap.complete_drink_topping_lemon_foreground}
+            else{R.mipmap.complete_drink_lemon_foreground}
+        }
+        // 썸머 라떼
+        "민트초코" -> {
+            if(recipe_name == "빈잔"){R.mipmap.complete_drink_default_foreground}
+            else if(recipe_name == "얼음"){R.mipmap.complete_drink_ice_foreground}
+            else if(recipe_name == "베이스"){R.mipmap.complete_drink_base_foreground}
+            else if(recipe_name == "메인"){R.mipmap.complete_drink_main_mint_foreground}
+            else if(recipe_name == "토핑"){R.mipmap.complete_drink_topping_mint_foreground}
+            else{R.mipmap.complete_drink_mint_foreground}
+        }
+        // 초코 라떼
+        "초코라떼" -> {
+            if(recipe_name == "빈잔"){R.mipmap.complete_drink_default_foreground}
+            else if(recipe_name == "얼음"){R.mipmap.complete_drink_ice_foreground}
+            else if(recipe_name == "베이스"){R.mipmap.complete_drink_base_foreground}
+            else if(recipe_name == "메인"){R.mipmap.complete_drink_main_choco_foreground}
+            else if(recipe_name == "토핑"){R.mipmap.complete_drink_topping_choco_foreground}
+            else{R.mipmap.complete_drink_choco_foreground}
+        }
+        // 레몬 에이드
+        else -> {
+            if(recipe_name == "빈잔"){R.mipmap.complete_drink_default_foreground}
+            else if(recipe_name == "얼음"){R.mipmap.complete_drink_ice_foreground}
+            else if(recipe_name == "베이스"){R.mipmap.complete_drink_base_foreground}
+            else if(recipe_name == "메인"){R.mipmap.complete_drink_main_summer_foreground}
+            else if(recipe_name == "토핑"){R.mipmap.complete_drink_topping_summer_foreground}
+            else{R.mipmap.complete_drink_summer_foreground}
+        }
+    }
+    return drink!!
+}
+
+
 fun drink_imgName(drinkName: String, recipe_name: String): Int {
     var drink: Int? = null
     drink = when (drinkName) {

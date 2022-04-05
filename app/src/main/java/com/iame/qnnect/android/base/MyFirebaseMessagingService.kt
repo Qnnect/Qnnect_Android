@@ -60,8 +60,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         if(remoteMessage.data.isNotEmpty()){
             val data = remoteMessage.data
-            val messageTitle = data["title"]
-            val messageBody = data["body"]
+            val messageTitle = data.getValue("title")
+            val messageBody = data.getValue("body")
+            Log.d("fcm_response!!", "$messageTitle $messageBody")
             sendMessage(messageTitle!!, messageBody!!)
         }
 
@@ -70,6 +71,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.notification != null) {
             val messageBody = remoteMessage.notification!!.body
             val messageTitle = remoteMessage.notification!!.title
+            Log.d("fcm_response!!", "$messageTitle $messageBody")
             sendMessage(messageTitle!!, messageBody!!)
         }
     }

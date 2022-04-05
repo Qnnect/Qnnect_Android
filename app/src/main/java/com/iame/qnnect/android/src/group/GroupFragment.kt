@@ -23,6 +23,7 @@ import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
 import com.iame.qnnect.android.src.question.QuestionActivity
 import com.iame.qnnect.android.src.question.QuestionListActivity
+import com.iame.qnnect.android.util.drinkName
 import com.iame.qnnect.android.util.drink_img
 import com.iame.qnnect.android.util.drink_imgName
 import com.iame.qnnect.android.viewmodel.GroupViewModel
@@ -121,23 +122,26 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                     drink_editCheck = true
                 }
 
+                var img = drinkName(userDrink, "빈잔")
                 if(drink_editCheck || it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled.size < 2){
-                    var img = drink_imgName(userDrink, "빈잔")
-                    drink_img.setImageResource(img)
+                    img = drinkName(userDrink, "빈잔")
                 }
                 else{
-                    var list = it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled
-                    var last = list.size-1
-                    if(list.get(last).ingredientName == list.get(last-1).ingredientName){
-                        var img = drink_imgName(userDrink, list.get(last).ingredientName)
-                        drink_img.setImageResource(img)
+                    var current = it.currentUser.cafeDrinkCommonResponse
+                    if(current.ice == current.iceFilled){
+                        img = drinkName(userDrink, "얼음")
                     }
-                    else{
-                        var img = drink_imgName(userDrink, list.get(last-1).ingredientName)
-                        drink_img.setImageResource(img)
+                    if(current.base == current.baseFilled){
+                        img = drinkName(userDrink, "베이스")
+                    }
+                    if(current.main == current.mainFilled){
+                        img = drinkName(userDrink, "메인")
+                    }
+                    if(current.topping == current.toppingFilled){
+                        img = drinkName(userDrink, "토핑")
                     }
                 }
-
+                drink_img.setImageResource(img)
             }
 
             if(it.cafeUserList.size == 0){

@@ -6,6 +6,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityFinishDrinkBinding
 import com.iame.qnnect.android.util.Getdrink
+import com.iame.qnnect.android.util.drink_imgName
 import com.iame.qnnect.android.viewmodel.FinishDrinkViewModel
 import kotlinx.android.synthetic.main.activity_finish_drink.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,7 +18,7 @@ class FinishDrinkActivity : BaseActivity<ActivityFinishDrinkBinding, FinishDrink
 
     override val viewModel: FinishDrinkViewModel by viewModel()
 
-    var drinkId = 0
+    var drinkId = ""
 
     override fun initStartView() {
         var window = getWindow()
@@ -27,10 +28,10 @@ class FinishDrinkActivity : BaseActivity<ActivityFinishDrinkBinding, FinishDrink
     }
 
     override fun initDataBinding() {
-        drinkId = intent.getIntExtra("drinkId", 0)
-        var drink = Getdrink(drinkId)
-        drink_img.setImageResource(drink.img)
-        complete_name.text = drink.name+" 완성!"
+        drinkId = intent.getStringExtra("drinkId")!!
+        var drink = drink_imgName(drinkId, "완성")
+        drink_img.setImageResource(drink)
+        complete_name.text = drinkId+" 완성!"
     }
 
     override fun initAfterBinding() {

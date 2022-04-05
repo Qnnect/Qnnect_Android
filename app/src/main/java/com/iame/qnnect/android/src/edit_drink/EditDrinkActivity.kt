@@ -15,7 +15,9 @@ import com.iame.qnnect.android.src.finish_drink.FinishDrinkActivity
 import com.iame.qnnect.android.src.recipe.RecipeActivity
 import com.iame.qnnect.android.src.store.MyMaterialActivity
 import com.iame.qnnect.android.src.store.StoreActivity
+import com.iame.qnnect.android.util.drinkName
 import com.iame.qnnect.android.util.drink_img
+import com.iame.qnnect.android.util.drink_imgName
 import com.iame.qnnect.android.viewmodel.EditDrinkViewModel
 import kotlinx.android.synthetic.main.activity_edit_drink.*
 import org.koin.android.ext.android.inject
@@ -36,6 +38,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
 
     var now = ""
     var next = ""
+    var userDrink = ""
 
     override fun initStartView() {
         cafeId = intent.getIntExtra("cafeId", 0)
@@ -54,16 +57,18 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
         viewModel.currentUserDrinkResponse.observe(this, Observer {
             var current = it.currentDrinkInfo
             userdrinkId = current.userDrinkSelectedId
+            userDrink = current.userDrinkName
 
             ice_count.text = current.iceFilled.toString()+"/"+current.ice.toString()
             base_count.text = current.baseFilled.toString()+"/"+current.base.toString()
             main_count.text = current.mainFilled.toString()+"/"+current.main.toString()
             topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
+
             if(current.iceFilled < current.ice){
                 now = "빈잔"
                 next = "얼음"
-                var img = drink_img(userdrinkId, now)
+                var img = drinkName(userDrink, "빈잔")
                 drink_img.setImageResource(img)
 
                 complete_shadow.visibility = View.GONE
@@ -77,7 +82,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 ice_count.setTextColor(Color.parseColor("#828282"))
                 now = "얼음"
                 next = "베이스"
-                var img = drink_img(userdrinkId, now)
+                var img = drinkName(userDrink, "얼음")
                 drink_img.setImageResource(img)
 
                 complete_shadow.visibility = View.GONE
@@ -91,7 +96,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 base_count.setTextColor(Color.parseColor("#828282"))
                 now = "베이스"
                 next = "주재료"
-                var img = drink_img(userdrinkId, now)
+                var img = drinkName(userDrink, "베이스")
                 drink_img.setImageResource(img)
 
                 complete_shadow.visibility = View.GONE
@@ -105,7 +110,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 main_count.setTextColor(Color.parseColor("#828282"))
                 now = "주재료"
                 next = "토핑"
-                var img = drink_img(userdrinkId, now)
+                var img = drinkName(userDrink, "메인")
                 drink_img.setImageResource(img)
 
                 if(userdrinkId == 2){
@@ -126,10 +131,10 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 main_count.setTextColor(Color.parseColor("#828282"))
                 now = "완료"
                 next = "완료"
-                var img = drink_img(userdrinkId, now)
+                var img = drinkName(userDrink, "토핑")
                 drink_img.setImageResource(img)
 
-                if(userdrinkId == 2){
+                if(userDrink == "레몬에이드"){
                     complete_shadow.visibility = View.GONE
                     lemon_shadow.visibility = View.VISIBLE
                     shadow.visibility = View.GONE
@@ -142,7 +147,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     var intent = Intent(this, FinishDrinkActivity::class.java)
-                    intent.putExtra("drinkId", userdrinkId)
+                    intent.putExtra("drinkId", userDrink)
                     startActivity(intent)
                     finish()
                 }, 500)
