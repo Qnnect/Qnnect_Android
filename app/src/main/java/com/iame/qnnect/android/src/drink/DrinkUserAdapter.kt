@@ -31,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_profile.*
 class DrinkUserAdapter() :
     RecyclerView.Adapter<UserHolderPage>(){
     var datas = ArrayList<CafeUser>()
-    var select_index = 0
 
     private val itemList = ArrayList<CafeUser>()
 
@@ -60,7 +59,7 @@ class DrinkUserAdapter() :
     override fun onBindViewHolder(holder: UserHolderPage, position: Int) {
         if (holder is UserHolderPage) {
             val viewHolder: UserHolderPage = holder as UserHolderPage
-            viewHolder.onBind(itemList[position], select_index)
+            viewHolder.onBind(itemList[position])
         }
     }
 
@@ -79,9 +78,5 @@ class DrinkUserAdapter() :
 
     fun getItem(position: Int): CafeUser {
         return itemList.get(position)
-    }
-
-    fun setBackground(position: Int){
-        select_index = position
     }
 }

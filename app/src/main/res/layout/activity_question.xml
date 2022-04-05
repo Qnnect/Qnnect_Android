@@ -104,7 +104,7 @@
             app:layout_constraintBottom_toBottomOf="@id/question"
             app:layout_constraintLeft_toLeftOf="@id/question"
             app:layout_constraintRight_toRightOf="@id/question"
-            android:hint="답변을 입력하세요"
+            android:hint="질문을 입력하세요"
             android:background="@null"
             android:fontFamily="@font/im_hyemin_bold"
             android:textSize="16dp"

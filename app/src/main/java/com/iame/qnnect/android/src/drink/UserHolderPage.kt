@@ -27,7 +27,7 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
     private val img_main: ConstraintLayout
 
     var data: CafeUser? = null
-    fun onBind(data: CafeUser, select_index: Int) {
+    fun onBind(data: CafeUser) {
         this.data = data
 
         Glide.with(context)
@@ -41,21 +41,20 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
 
         itemView.setOnClickListener(View.OnClickListener { a_view ->
             val position = adapterPosition
-            if(select_index == position){
-                img_main.setBackgroundResource(R.drawable.drink_user_select_custom)
-                img_main.clipToOutline = true
-                user_name.setTextColor(Color.parseColor("#000000"))
-            }
-            else{
-                img_main.setBackgroundResource(R.drawable.drink_user_custom)
-                user_name.setTextColor(Color.parseColor("#828282"))
-            }
+//            if(select_index == position){
+//                img_main.setBackgroundResource(R.drawable.drink_user_select_custom)
+//                img_main.clipToOutline = true
+//                user_name.setTextColor(Color.parseColor("#000000"))
+//            }
+//            else{
+//                img_main.setBackgroundResource(R.drawable.drink_user_custom)
+//                user_name.setTextColor(Color.parseColor("#828282"))
+//            }
             if (position != RecyclerView.NO_POSITION) {
                 a_itemClickListener.onItemClick(a_view, position)
             }
         })
     }
-
 
     init {
         user_img = itemView.findViewById(R.id.user_img)

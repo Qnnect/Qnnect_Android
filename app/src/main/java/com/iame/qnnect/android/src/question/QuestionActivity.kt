@@ -10,7 +10,6 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityQuestionBinding
-import com.iame.qnnect.android.src.question.model.PostQuestionRequest
 import com.iame.qnnect.android.viewmodel.QuestionViewModel
 import kotlinx.android.synthetic.main.activity_question.*
 import org.koin.androidx.viewmodel.ext.android.viewModel

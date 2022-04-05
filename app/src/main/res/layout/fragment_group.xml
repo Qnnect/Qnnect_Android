@@ -14,297 +14,305 @@
         android:layout_height="match_parent"
         android:background="@color/p_ivory">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/group_top"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/back_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="centerCrop"
-                android:padding="14dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="17dp"
-                android:src="@mipmap/ic_back_btn_foreground">
-            </ImageView>
-
-            <TextView
-                android:id="@+id/group_name_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/back_btn"
-                app:layout_constraintBottom_toBottomOf="@id/back_btn"
-                android:fontFamily="@font/im_hyemin_bold"
-                app:layout_constraintLeft_toRightOf="@id/back_btn"
-                android:textSize="18dp"
-                android:textColor="@color/gray_1"
-                android:text="신사고 5인방"
-                android:layout_marginLeft="5dp">
-            </TextView>
-
-            <ImageView
-                android:id="@+id/question_list_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="centerCrop"
-                android:padding="12dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/more_btn"
-                android:layout_marginRight="3dp"
-                android:src="@mipmap/ic_question_list_foreground">
-            </ImageView>
-
-            <ImageView
-                android:id="@+id/more_btn"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="centerCrop"
-                android:padding="12dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:src="@mipmap/ic_more_btn_foreground"
-                android:layout_marginRight="17dp">
-            </ImageView>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/line1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/group_top"
-            android:background="@color/gray_4">
-        </View>
-
-        <TextView
-            android:id="@+id/group_date_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2022.1.22~"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:textColor="@color/gray_3"
-            android:textSize="16dp"
-            app:layout_constraintTop_toBottomOf="@id/line1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="35dp">
-        </TextView>
-
-        <TextView
-            android:id="@+id/group_name_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="신사고 5인방"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:textColor="@color/black"
-            android:textSize="24dp"
-            android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@id/group_date_txt"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="27dp">
-        </TextView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/drink_main"
-            app:layout_constraintTop_toBottomOf="@id/line1"
-            app:layout_constraintRight_toRightOf="parent">
-            <ImageView
-                android:id="@+id/drink_img"
-                android:layout_width="100dp"
-                android:layout_height="140dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@mipmap/complete_drink_default_foreground"
-                android:scaleType="centerCrop"
-                android:visibility="gone"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="10dp">
-            </ImageView>
-
-            <ImageView
-                android:id="@+id/drink_img_default"
-                android:layout_width="100dp"
-                android:layout_height="130dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@mipmap/img_drink_default_foreground"
-                android:scaleType="centerCrop"
-                android:visibility="gone"
-                android:layout_marginTop="35dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="75dp"
-                android:paddingBottom="20dp">
-            </ImageView>
-
-
-            <TextView
-                android:id="@+id/select_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/im_hyemin_bold"
-                android:textSize="12dp"
-                app:layout_constraintTop_toTopOf="@id/drink_img_default"
-                android:layout_marginTop="85dp"
-                android:text="음료 선택하기"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="27dp"
-                android:textColor="@color/gray_1"
-                android:background="@drawable/add_drink_btn_custom"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="14dp"
-                android:paddingRight="14dp">
-            </TextView>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/drink_list"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/drink_main"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"
-            android:background="@drawable/group_drink_list_out_custom">
-
-            <TextView
-                android:id="@+id/empty_drink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="아직 참여한 인원이 없습니다"
-                android:textColor="@color/gray_3"
-                android:fontFamily="@font/im_hyemin_regular"
-                android:textSize="14dp">
-            </TextView>
-
-            <androidx.core.widget.NestedScrollView
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fillViewport="true"
-                android:id="@+id/group_scroll">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/drink"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/member_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never">
-                    </androidx.recyclerview.widget.RecyclerView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.core.widget.NestedScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/question_main"
-            android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@id/drink_list">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_main"
                 android:layout_width="match_parent"
-                android:layout_height="235dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="27dp"
-                android:layout_marginRight="27dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/nnect_question_custom">
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/group_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/back_btn"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="centerCrop"
+                        android:padding="14dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginLeft="17dp"
+                        android:src="@mipmap/ic_back_btn_foreground">
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/group_name_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@id/back_btn"
+                        app:layout_constraintBottom_toBottomOf="@id/back_btn"
+                        android:fontFamily="@font/im_hyemin_bold"
+                        app:layout_constraintLeft_toRightOf="@id/back_btn"
+                        android:textSize="18dp"
+                        android:textColor="@color/gray_1"
+                        android:text="신사고 5인방"
+                        android:layout_marginLeft="5dp">
+                    </TextView>
+
+                    <ImageView
+                        android:id="@+id/question_list_btn"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="centerCrop"
+                        android:padding="12dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/more_btn"
+                        android:layout_marginRight="3dp"
+                        android:src="@mipmap/ic_question_list_foreground">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/more_btn"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="centerCrop"
+                        android:padding="12dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:src="@mipmap/ic_more_btn_foreground"
+                        android:layout_marginRight="17dp">
+                    </ImageView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/group_top"
+                    android:background="@color/gray_4">
+                </View>
 
                 <TextView
-                    android:id="@+id/question_txt"
+                    android:id="@+id/group_date_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="2022.1.22~"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:textColor="@color/gray_3"
+                    android:textSize="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/line1"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="아직 질문이 없습니다"
-                    android:gravity="center"
-                    android:textSize="18dp"
-                    android:lineSpacingExtra="10dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/im_hyemin_regular"
-                    android:layout_marginTop="18dp">
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginTop="35dp">
                 </TextView>
+
+                <TextView
+                    android:id="@+id/group_name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="신사고 5인방"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    android:layout_marginTop="7dp"
+                    app:layout_constraintTop_toBottomOf="@id/group_date_txt"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="27dp">
+                </TextView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/drink_main"
+                    app:layout_constraintTop_toBottomOf="@id/line1"
+                    app:layout_constraintRight_toRightOf="parent">
+                    <ImageView
+                        android:id="@+id/drink_img"
+                        android:layout_width="100dp"
+                        android:layout_height="140dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:src="@mipmap/complete_drink_default_foreground"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginTop="10dp">
+                    </ImageView>
+
+                    <ImageView
+                        android:id="@+id/drink_img_default"
+                        android:layout_width="100dp"
+                        android:layout_height="130dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:src="@mipmap/img_drink_default_foreground"
+                        android:scaleType="centerCrop"
+                        android:visibility="gone"
+                        android:layout_marginTop="35dp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginRight="75dp"
+                        android:paddingBottom="20dp">
+                    </ImageView>
+
+
+                    <TextView
+                        android:id="@+id/select_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/im_hyemin_bold"
+                        android:textSize="12dp"
+                        app:layout_constraintTop_toTopOf="@id/drink_img_default"
+                        android:layout_marginTop="85dp"
+                        android:text="음료 선택하기"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginRight="27dp"
+                        android:textColor="@color/gray_1"
+                        android:background="@drawable/add_drink_btn_custom"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp">
+                    </TextView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/drink_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/drink_main"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginRight="27dp"
+                    android:background="@drawable/group_drink_list_out_custom">
+
+                    <TextView
+                        android:id="@+id/empty_drink"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:text="아직 참여한 인원이 없습니다"
+                        android:textColor="@color/gray_3"
+                        android:fontFamily="@font/im_hyemin_regular"
+                        android:textSize="14dp">
+                    </TextView>
+
+                    <androidx.core.widget.NestedScrollView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+                        android:id="@+id/group_scroll">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/drink"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/member_recycler"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:nestedScrollingEnabled="false"
+                                android:overScrollMode="never">
+                            </androidx.recyclerview.widget.RecyclerView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.core.widget.NestedScrollView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/question_main"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintTop_toBottomOf="@id/drink_list">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="235dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginRight="27dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/nnect_question_custom">
+
+                        <TextView
+                            android:id="@+id/question_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="아직 질문이 없습니다"
+                            android:gravity="center"
+                            android:textSize="18dp"
+                            android:lineSpacingExtra="10dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/im_hyemin_regular"
+                            android:layout_marginTop="18dp">
+                        </TextView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:layout_weight="1"
+                        android:id="@+id/question_viewPager2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:orientation="horizontal"/>
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/dots_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/question_viewPager2"
+                        app:dotsColor="#C4C4C4"
+                        app:dotsCornerRadius="8dp"
+                        app:dotsSize="8dp"
+                        app:dotsSpacing="4dp"
+                        app:dotsWidthFactor="1.0"
+                        app:selectedDotColor="#736055"
+                        app:progressMode="false"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/question_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/add_group_btn_custom"
+                    android:fontFamily="@font/im_hyemin_bold"
+                    android:gravity="center"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="11dp"
+                    android:text="내가 질문하기"
+                    android:textColor="@color/gray_3"
+                    android:textSize="16dp"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintTop_toBottomOf="@id/question_main"
+                    app:layout_constraintVertical_bias="0.504"
+                    tools:layout_editor_absoluteX="24dp"
+                    android:layout_marginLeft="27dp"
+                    android:layout_marginRight="27dp"></TextView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:layout_weight="1"
-                android:id="@+id/question_viewPager2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                android:orientation="horizontal"/>
-
-            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                android:id="@+id/dots_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/question_viewPager2"
-                app:dotsColor="#C4C4C4"
-                app:dotsCornerRadius="8dp"
-                app:dotsSize="8dp"
-                app:dotsSpacing="4dp"
-                app:dotsWidthFactor="1.0"
-                app:selectedDotColor="#736055"
-                app:progressMode="false"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/question_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/add_group_btn_custom"
-            android:fontFamily="@font/im_hyemin_bold"
-            android:gravity="center"
-            android:paddingTop="11dp"
-            android:paddingBottom="11dp"
-            android:text="내가 질문하기"
-            android:textColor="@color/gray_3"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/question_main"
-            app:layout_constraintVertical_bias="0.504"
-            tools:layout_editor_absoluteX="24dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginRight="27dp"></TextView>
-
-
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
 
