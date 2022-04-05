@@ -38,10 +38,12 @@
 
                 <EditText
                     android:id="@+id/search_keyword"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="8"
-                    android:hint="북마크에서 질문 검색"
+                    android:hint="카페에서 질문 검색"
                     android:fontFamily="@font/im_hyemin_bold"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray_4"

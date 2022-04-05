@@ -5,12 +5,17 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySearchBinding
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
+import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
+import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_search.*
@@ -40,6 +45,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override fun initDataBinding() {
         viewModel.bookmarkResponse.observe(this, Observer {
+            questionListAdapter.clear()
+
             if(it.size != 0 ){
                 empty_img.visibility = View.GONE
                 empty_txt.visibility = View.GONE
@@ -56,22 +63,37 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
     }
 
     override fun initAfterBinding() {
-        search_keyword.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                //Enter key Action
-                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    var search = search_keyword.text.toString()
 
-                    if(search != null){
-                        questionListAdapter.clear()
+        questionListAdapter.setOnItemClickListener { a_view, a_position ->
+            val item: Bookmark = questionListAdapter.getItem(a_position)
 
-                        viewModel.getBookamrk(search)
-                    }
-                    return true
+
+        }
+
+        search_keyword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                var search = search_keyword.text.toString()
+                if(search != null){
+                    viewModel.getBookamrk(search)
+                    return@OnEditorActionListener true
                 }
-                return false
             }
+            false
         })
+//        search_keyword.setOnKeyListener(object : View.OnKeyListener {
+//            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+//                //Enter key Action
+//                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    var search = search_keyword.text.toString()
+//
+//                    if(search != null){
+//                        viewModel.getBookamrk(search)
+//                    }
+//                    return true
+//                }
+//                return false
+//            }
+//        })
 
         // coroutine search
         search_keyword.addTextChangedListener(object : TextWatcher {
@@ -90,7 +112,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                         return@launch
 
                     Log.d("coroutin_reponse", "Success")
-                    questionListAdapter.clear()
                     viewModel.getBookamrk(searchFor)
                 }
             }

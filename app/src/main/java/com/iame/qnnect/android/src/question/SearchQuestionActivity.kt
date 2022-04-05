@@ -1,5 +1,7 @@
 package com.iame.qnnect.android.src.question
 
+import android.content.Intent
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -7,12 +9,17 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.iame.qnnect.android.BuildConfig
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivitySearchBinding
 import com.iame.qnnect.android.databinding.ActivitySearchQuestionBinding
+import com.iame.qnnect.android.src.declare.DeclareBottomSheet
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
+import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
+import com.iame.qnnect.android.src.reply.model.Replies
+import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.viewmodel.SearchQuestionViewModel
 import com.iame.qnnect.android.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -20,7 +27,13 @@ import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.String
 import kotlin.coroutines.CoroutineContext
+import android.view.inputmethod.EditorInfo
+
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
+
 
 class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, SearchQuestionViewModel>() {
 
@@ -72,21 +85,37 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
     override fun initAfterBinding() {
         var cafeId = home.getGroupname(this)
 
-        search_keyword.setOnKeyListener(object : View.OnKeyListener {
-            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                //Enter key Action
-                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    var search = search_keyword.text.toString()
-                    if(search != null){
-                        questionListAdapter.clear()
+        questionListAdapter.setOnItemClickListener { a_view, a_position ->
+            val item: Bookmark = questionListAdapter.getItem(a_position)
 
-                        viewModel.getBookamrk(cafeId!!, search)
-                        return true
-                    }
+
+        }
+
+        search_keyword.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                var search = search_keyword.text.toString()
+                if(search != null){
+                    questionListAdapter.clear()
+
+                    viewModel.getBookamrk(cafeId!!, search)
+                    return@OnEditorActionListener true
                 }
-                return false
             }
+            false
         })
+
+//        search_keyword.setOnKeyListener(object : View.OnKeyListener {
+//            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+//                //Enter key Action
+//                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+//                    var search = search_keyword.text.toString()
+//                    if(search != null){
+//
+//                    }
+//                }
+//                return false
+//            }
+//        })
 
         // coroutine search
         search_keyword.addTextChangedListener(object : TextWatcher {
@@ -109,6 +138,8 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
                 }
             }
         })
+
+        // search click
 
         back_btn.setOnClickListener {
             finish()

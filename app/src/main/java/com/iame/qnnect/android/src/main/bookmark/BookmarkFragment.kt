@@ -74,13 +74,15 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         })
 
         viewModel.bookmarkResponse.observe(this, Observer {
+            questionListAdapter.clear()
+
             if(it.size != 0){
                 empty_img.visibility = View.GONE
                 empty_txt.visibility = View.GONE
                 it.forEach { item ->
                     questionListAdapter.addItem(item)
-                    questionListAdapter.notifyDataSetChanged()
                 }
+                questionListAdapter.notifyDataSetChanged()
             }
             else{
                 empty_img.visibility = View.VISIBLE
@@ -95,9 +97,6 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
         groupnameAdapter.setOnItemClickListener(object : GroupnameAdapter.OnItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 var request = groupnameAdapter.getItem(position)
-
-                questionListAdapter.clear()
-                questionListAdapter.notifyDataSetChanged()
 
                 if(position == 0){
                     viewModel.getAllBookamrk()

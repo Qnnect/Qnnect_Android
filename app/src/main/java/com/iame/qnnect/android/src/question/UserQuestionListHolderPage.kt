@@ -33,6 +33,7 @@ class UserQuestionListHolderPage internal constructor(itemView: View, var contex
     private val question_group: TextView
     private val question_contents: TextView
     private val date: TextView
+    private val bookmark_main: ConstraintLayout
 
     var data: GetUserQuestionListResponse? = null
     fun onBind(data: GetUserQuestionListResponse) {
@@ -42,8 +43,8 @@ class UserQuestionListHolderPage internal constructor(itemView: View, var contex
         question_contents.text = data.question
         date.text = data.createdAt
 
-        itemView.setOnClickListener(View.OnClickListener { a_view ->
-            val position = adapterPosition
+        bookmark_main.setOnClickListener(View.OnClickListener { a_view ->
+            val position = bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 a_itemClickListener.onItemClick(a_view, position)
             }
@@ -54,5 +55,6 @@ class UserQuestionListHolderPage internal constructor(itemView: View, var contex
         question_group = itemView.findViewById(R.id.question_group)
         question_contents = itemView.findViewById(R.id.question_contents)
         date = itemView.findViewById(R.id.question_date)
+        bookmark_main = itemView.findViewById(R.id.bookmark_main)
     }
 }

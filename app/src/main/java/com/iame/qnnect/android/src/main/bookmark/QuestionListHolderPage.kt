@@ -27,10 +27,12 @@ import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
-class QuestionListHolderPage internal constructor(itemView: View, var context: Context, var a_itemClickListener: QuestionListAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
+class QuestionListHolderPage internal constructor(itemView: View, var context: Context,
+                                                  var a_itemClickListener: QuestionListAdapter.OnItemClickEventListener) : RecyclerView.ViewHolder(itemView) {
     private val question_group: TextView
     private val question_contents: TextView
     private val date: TextView
+    private val bookmark_main: ConstraintLayout
 
     var data: Bookmark? = null
     fun onBind(data: Bookmark) {
@@ -40,18 +42,18 @@ class QuestionListHolderPage internal constructor(itemView: View, var context: C
         question_contents.text = data.question
         date.text = data.createdAt
 
-        itemView.setOnClickListener(View.OnClickListener { a_view ->
+        bookmark_main.setOnClickListener (View.OnClickListener { a_view ->
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 a_itemClickListener.onItemClick(a_view, position)
             }
         })
-
     }
 
     init {
         question_group = itemView.findViewById(R.id.question_group)
         question_contents = itemView.findViewById(R.id.question_contents)
         date = itemView.findViewById(R.id.question_date)
+        bookmark_main = itemView.findViewById(R.id.bookmark_main)
     }
 }
