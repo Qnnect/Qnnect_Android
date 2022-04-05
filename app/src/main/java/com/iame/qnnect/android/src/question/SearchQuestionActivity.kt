@@ -33,6 +33,7 @@ import android.view.inputmethod.EditorInfo
 
 import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
+import com.iame.qnnect.android.src.diary.DiaryActivity
 
 
 class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, SearchQuestionViewModel>() {
@@ -87,8 +88,9 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 
         questionListAdapter.setOnItemClickListener { a_view, a_position ->
             val item: Bookmark = questionListAdapter.getItem(a_position)
-
-
+            var intent = Intent(this, DiaryActivity::class.java)
+            intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+            startActivity(intent)
         }
 
         search_keyword.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->

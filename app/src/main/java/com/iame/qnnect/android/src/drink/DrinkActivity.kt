@@ -62,6 +62,13 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
 
             var current = it.currentDrinkInfo
 
+            if(item != null){
+                text1.text = item!!.nickName+"님의 음료"
+            }
+            else{
+                text1.text = "내 음료"
+            }
+
             if(current.userDrinkName == null){
                 drink_img.setImageResource(R.mipmap.drink_none_foreground)
                 complete_main.visibility = View.GONE
@@ -72,6 +79,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 shadow.visibility = View.VISIBLE
 
                 null_txt.visibility = View.VISIBLE
+
                 null_txt.text = item!!.nickName+"님은 아직\n음료를 고르지 않았어요."
             }
             else{

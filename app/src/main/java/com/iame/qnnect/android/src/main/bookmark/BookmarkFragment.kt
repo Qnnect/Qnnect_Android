@@ -114,15 +114,12 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding, BookmarkViewModel
             startActivity(intent)
         }
 
-        questionListAdapter.setOnItemClickListener(object :
-            QuestionListAdapter.OnItemClickEventListener {
-            override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: Bookmark = questionListAdapter.getItem(a_position)
-                var intent = Intent(context, DiaryActivity::class.java)
-                intent.putExtra("cafeQuestionId", item.cafeQuestionId)
-                startActivity(intent)
-            }
-        })
+        questionListAdapter.setOnItemClickListener { a_view, a_position ->
+            val item: Bookmark = questionListAdapter.getItem(a_position)
+            var intent = Intent(context, DiaryActivity::class.java)
+            intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

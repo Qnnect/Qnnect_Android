@@ -1,5 +1,6 @@
 package com.iame.qnnect.android.src.search
 
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySearchBinding
+import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.main.bookmark.QuestionListAdapter
 import com.iame.qnnect.android.src.main.bookmark.model.Bookmark
 import com.iame.qnnect.android.src.reply.model.Replies
@@ -66,9 +68,12 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
         questionListAdapter.setOnItemClickListener { a_view, a_position ->
             val item: Bookmark = questionListAdapter.getItem(a_position)
-
-
+            var intent = Intent(this, DiaryActivity::class.java)
+            intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+            startActivity(intent)
         }
+
+
 
         search_keyword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

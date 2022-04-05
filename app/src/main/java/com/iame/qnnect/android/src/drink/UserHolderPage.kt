@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.drink
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -43,9 +44,11 @@ class UserHolderPage internal constructor(itemView: View, var context: Context, 
             if(select_index == position){
                 img_main.setBackgroundResource(R.drawable.drink_user_select_custom)
                 img_main.clipToOutline = true
+                user_name.setTextColor(Color.parseColor("#000000"))
             }
             else{
                 img_main.setBackgroundResource(R.drawable.drink_user_custom)
+                user_name.setTextColor(Color.parseColor("#828282"))
             }
             if (position != RecyclerView.NO_POSITION) {
                 a_itemClickListener.onItemClick(a_view, position)

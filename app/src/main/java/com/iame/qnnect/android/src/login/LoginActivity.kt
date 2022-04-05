@@ -39,6 +39,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             if(!it.userSettingDone){
                 val intent = Intent(this, AllowActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             else{
                 val fcmToken = baseToken.getFCM(this)
@@ -50,6 +51,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                 else{
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
 
@@ -103,7 +105,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
                         Toast.makeText(this, "앱이 요청 권한이 없음", Toast.LENGTH_SHORT).show()
                     }
                     else -> { // Unknown
-                        Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "카카오톡의 미로그인", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
