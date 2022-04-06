@@ -57,6 +57,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
 
     var date = ""
     var dday = ""
+    var dday_num = 0
     var questioner = ""
     var question = ""
 
@@ -105,6 +106,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             }
 
             create_date.text = main.createdAt
+            dday_num = main.daysLeft
             dday_txt.text = "D-"+main.daysLeft
             who_question.text = main.questioner+"의 질문"
             question_txt.text = main.question
@@ -206,6 +208,7 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             intent.putExtra("dday", dday)
             intent.putExtra("questioner", questioner)
             intent.putExtra("question", question)
+            intent.putExtra("dday_num", dday_num)
             startActivity(intent)
         }
 

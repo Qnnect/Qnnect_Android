@@ -9,11 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.test.core.app.ActivityScenario.launch
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.UpdateAvailability
-import com.google.android.play.core.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
 import com.iame.qnnect.android.base.BaseToken

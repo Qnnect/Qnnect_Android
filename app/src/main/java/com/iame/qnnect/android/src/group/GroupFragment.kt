@@ -181,7 +181,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             activity = fragment_s.activity as MainActivity?
             //change_for_adapter는 mainactivity에 구현
             activity?.fragmentChange_for_adapter()
-            Toast.makeText(context, "신고를 받은 방입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "네트워크 상태가 안좋습니다.", Toast.LENGTH_SHORT).show()
             dismissLoadingDialog()
         })
     }

@@ -88,9 +88,8 @@ class AnswerViewModel(private val model: PostAnswerDataModel,
                     postAnswereResponse.postValue(this)
                 }
             }, {
-                BadResponse.postValue("질문을 답변할 수 있는 기간이 지났습니다")
+                BadResponse.postValue("음료를 선택하지 않으면 답변을 다실 수 없어요!")
                 Log.d(TAG, "response error, message : ${it.message}")
-
             })
         )
     }

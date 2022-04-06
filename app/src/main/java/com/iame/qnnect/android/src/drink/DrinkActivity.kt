@@ -113,7 +113,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
                 if(current.iceFilled < current.ice){
                     complete_shadow.visibility = View.GONE
                     lemon_shadow.visibility = View.GONE
-                    shadow.visibility = View.VISIBLE
+                    shadow.visibility = View.GONE
 
                     ice_txt.setTextColor(Color.parseColor("#FD774C"))
                     ice_count.setTextColor(Color.parseColor("#FD774C"))

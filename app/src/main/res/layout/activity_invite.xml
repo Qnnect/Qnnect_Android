@@ -135,9 +135,10 @@
         </TextView>
 
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.7"
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
             app:layout_constraintHeight_percent="0.23"
             android:scaleType="fitXY"
             app:layout_constraintTop_toBottomOf="@id/text5"

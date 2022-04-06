@@ -66,6 +66,7 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
     var dday = ""
     var questioner = ""
     var question = ""
+    var dday_num = 0
 
     var check = false
 
@@ -79,6 +80,7 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
         dday_txt.text = intent.getStringExtra("dday")!!
         who_question.text = intent.getStringExtra("questioner")!!+"의 질문"
         question_txt.text = intent.getStringExtra("question")!!
+        dday_num = intent.getIntExtra("dday_num", 0)
 
         answer_edit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
@@ -174,7 +176,12 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
 
                 viewModel.badResponse.observe(this, Observer {
                     dismissLoadingDialog()
-                    Toast.makeText(baseContext, "질문을 답변할 수 있는 기간이 지났습니다", Toast.LENGTH_SHORT).show()
+                    if(dday_num == 0){
+                        Toast.makeText(baseContext, "질문을 답변할 수 있는 기간이 지났습니다", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        Toast.makeText(baseContext, it, Toast.LENGTH_SHORT).show()
+                    }
                 })
             }
         }

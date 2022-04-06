@@ -24,8 +24,8 @@ android {
         applicationId "com.iame.qnnect.android"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 7   // 출시시 5로 바꾸기
-        versionName "1.7"
+        versionCode 9
+        versionName "1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -136,7 +136,11 @@ dependencies {
     // Declare the dependencies for the Dynamic Links and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
-    
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
     // fcm
     implementation 'com.google.firebase:firebase-messaging:20.1.2'
 
@@ -144,7 +148,8 @@ dependencies {
     compile  'com.squareup.retrofit2:converter-scalars:2.1.0'
 
     // 자동 업데이트 처리
-    implementation 'com.google.android.play:core:1.10.3'
+//    implementation 'com.google.android.play:core:1.10.3'
 }
 //가장 밑에 한줄을 추가하자!!
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

@@ -86,11 +86,11 @@ class DiaryViewModel(private var model: PostScrapDataModel,
             .subscribe({
                 it.run {
                     var response = "200 OK"
-                    postLikeResponse.postValue(response)
+                    deleteQuestionResponse.postValue(response)
                 }
             }, {
                 var response = "204 OK"
-                postLikeResponse.postValue(response)
+                deleteQuestionResponse.postValue(response)
                 Log.d(TAG, "response error, message : ${it.message}")
             })
         )
