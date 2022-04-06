@@ -103,6 +103,7 @@
             android:id="@+id/empty_img"
             android:layout_width="180dp"
             android:layout_height="230dp"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -122,6 +123,7 @@
             android:fontFamily="@font/im_hyemin_bold"
             app:layout_constraintTop_toBottomOf="@id/empty_img"
             android:layout_marginTop="30dp"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
         </TextView>

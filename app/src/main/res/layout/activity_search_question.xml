@@ -109,6 +109,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/empty_character"
             android:layout_marginBottom="70dp"
+            android:visibility="gone"
             android:layout_marginLeft="10dp">
         </ImageView>
 
@@ -122,6 +123,7 @@
             android:fontFamily="@font/im_hyemin_bold"
             app:layout_constraintTop_toBottomOf="@id/empty_img"
             android:layout_marginTop="30dp"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
         </TextView>
