@@ -66,3 +66,4 @@
 - 8th Week
 1.2022.04.04(MON) -> Firebase Dynamic Link & Kakao Link Deep link & Fcm push, layout update
 2.2022.04.05(TUE) -> Search Error Throwable, Deep Link Complete, Search Keyboard, Drink Img Update, Firebase Message Complete(Foreground, Background)
+3.2022.04.06(WEN) -> Version 8 Release, Store & Material Top scroll
