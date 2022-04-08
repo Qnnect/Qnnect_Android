@@ -2,6 +2,7 @@ package com.iame.qnnect.android.src.group.member
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.group.model.CafeUser
 import com.iame.qnnect.android.src.group.model.group_drink_item
 import com.iame.qnnect.android.src.main.MainActivity
+import com.iame.qnnect.android.util.drinkName
 import com.iame.qnnect.android.util.drink_imgName
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_group.*
@@ -53,10 +55,16 @@ class GroupMemberAdapter() : RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>
                 holder.member_drink.setImageResource(R.mipmap.complete_drink_default_foreground)
             }
             else{
+                var step = itemList[position].cafeDrinkCommonResponse
+                var userStep = "빈잔"
+                if(step.ice == step.iceFilled){userStep = "얼음"}
+                if(step.base == step.baseFilled){userStep = "베이스"}
+                if(step.main == step.mainFilled){userStep = "메인"}
+                if(step.topping == step.toppingFilled){userStep = "토핑"}
+
+                Log.d("step!!", userStep)
                 var userDrink = itemList.get(position).cafeDrinkCommonResponse.userDrinkName
-                var list = itemList.get(position).cafeDrinkCommonResponse.currentDrinkIngredientsFilled
-                var last = itemList.get(position).cafeDrinkCommonResponse.currentDrinkIngredientsFilled.size-1
-                var img = drink_imgName(userDrink, list.get(last).ingredientName)
+                var img = drinkName(userDrink, userStep)
 
                 holder.member_drink.setImageResource(img)
             }
