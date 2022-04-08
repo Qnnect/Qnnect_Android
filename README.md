@@ -68,3 +68,4 @@
 2. 2022.04.05(TUE) -> Search Error Throwable, Deep Link Complete, Search Keyboard, Drink Img Update, Firebase Message Complete(Foreground, Background)
 3. 2022.04.06(WEN) -> Version 8 Release, Store & Material Top scroll
 4. 2022.04.07(THU) -> Drink Error Throwable
+5. 2022.04.08(FRI) -> Group Drink Edit
