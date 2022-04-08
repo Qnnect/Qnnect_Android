@@ -19,6 +19,7 @@ import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.databinding.ActivityAnswerBinding
+import com.iame.qnnect.android.src.add_drink.AddDrinkBottomSheet
 import com.iame.qnnect.android.viewmodel.AnswerViewModel
 import kotlinx.android.synthetic.main.activity_answer.*
 import kotlinx.android.synthetic.main.activity_answer.create_date

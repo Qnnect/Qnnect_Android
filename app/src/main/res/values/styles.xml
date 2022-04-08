@@ -4,6 +4,9 @@
         <item name="colorPrimaryDark">@color/p_ivory</item>
         <item name="colorAccent">@color/p_ivory</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorControlActivated">@color/p_brown</item>
+        <item name="android:textCursorDrawable">@color/p_brown</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">

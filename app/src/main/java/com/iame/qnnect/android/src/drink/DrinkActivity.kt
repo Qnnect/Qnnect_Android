@@ -42,7 +42,6 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
     var userDrink = ""
     var item: CafeUser? = null
 
-
     override fun initStartView() {
         cafeId = intent.getIntExtra("cafeId", 0)
         userId = intent.getIntExtra("userId", 0)
@@ -222,18 +221,20 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
         })
 
         viewModel.errorResponse.observe(this, Observer {
-//            drink_img.setImageResource(R.mipmap.drink_none_foreground)
-//            complete_main.visibility = View.GONE
-//            ok_btn.visibility = View.GONE
-//            seek_main.visibility = View.GONE
-//            lemon_shadow.visibility = View.GONE
-//            complete_shadow.visibility = View.GONE
-//            shadow.visibility = View.VISIBLE
-//
-//            null_txt.visibility = View.VISIBLE
-            Toast.makeText(this, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show()
+            drink_img.setImageResource(R.mipmap.drink_none_foreground)
+            complete_main.visibility = View.GONE
+            ok_btn.visibility = View.GONE
+            seek_main.visibility = View.GONE
+            lemon_shadow.visibility = View.GONE
+            complete_shadow.visibility = View.GONE
+            shadow.visibility = View.VISIBLE
+
+            null_txt.visibility = View.VISIBLE
+            null_txt.text = item!!.nickName+"님은 아직\n음료를 고르지 않았어요."
+
+//            Toast.makeText(this@DrinkActivity, "네트워크 오류입니다.", Toast.LENGTH_SHORT).show()
             dismissLoadingDialog()
-            finish()
+//            finish()
         })
     }
 

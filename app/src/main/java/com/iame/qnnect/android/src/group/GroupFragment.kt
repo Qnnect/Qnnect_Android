@@ -144,7 +144,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 drink_img.setImageResource(img)
             }
 
-            if(it.cafeUserList.size == 0){
+            if(it.cafeUserList.isEmpty()){
                 empty_drink.visibility = View.VISIBLE
                 member_recycler.visibility = View.GONE
             }
