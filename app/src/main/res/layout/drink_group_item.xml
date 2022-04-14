@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="0.5dp">
         <ImageView
             android:id="@+id/user_img"
             android:layout_width="65dp"

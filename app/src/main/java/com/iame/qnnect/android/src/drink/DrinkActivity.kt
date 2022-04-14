@@ -262,6 +262,7 @@ class DrinkActivity : BaseActivity<ActivityDrinkBinding, DrinkViewModel>() {
         userAdapter.setOnItemClickListener(object : DrinkUserAdapter.OnItemClickEventListener {
             override fun onItemClick(a_view: View?, a_position: Int) {
                 item = userAdapter.getItem(a_position)
+                userAdapter.notifyDataSetChanged()
                 viewModel.getUserDrink(cafeId, item!!.cafeUserId)
                 showLoadingDialog(this@DrinkActivity)
             }
