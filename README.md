@@ -69,3 +69,6 @@
 3. 2022.04.06(WEN) -> Version 8 Release, Store & Material Top scroll
 4. 2022.04.07(THU) -> Drink Error Throwable
 5. 2022.04.08(FRI) -> Group Drink Edit
+
+- After Demo Day
+1.2022.04.14(THU) -> Layout Update, Out Cafe User Select Background & text color change
