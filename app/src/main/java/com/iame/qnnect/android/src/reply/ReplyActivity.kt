@@ -114,7 +114,6 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             my_profile_name.text = it.writerInfo.nickName
             answer_txt.text = it.content
 //            content = it.content
-
             date_txt.text = it.createdAt
 
             if(it.writer){

@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "template-kotlin"
+rootProject.name = "qnnect-android"

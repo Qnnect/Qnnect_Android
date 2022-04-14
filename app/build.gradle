@@ -6,6 +6,10 @@ plugins {
     id 'kotlin-android-extensions'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -29,6 +33,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+//
+//        buildConfigField "String", "KAKAO_LINK_KEY", properties['kakao_link_key']
+//        buildConfigField "String", "KAKAO_LOGIN_KEY", properties['kakao_login']
     }
 
     buildTypes {

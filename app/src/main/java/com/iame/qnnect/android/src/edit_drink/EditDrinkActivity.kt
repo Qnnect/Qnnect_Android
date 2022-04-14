@@ -140,9 +140,9 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                     shadow.visibility = View.GONE
                 }
                 else{
-                    complete_shadow.visibility = View.GONE
+                    complete_shadow.visibility = View.VISIBLE
                     lemon_shadow.visibility = View.GONE
-                    shadow.visibility = View.VISIBLE
+                    shadow.visibility = View.GONE
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -150,7 +150,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                     intent.putExtra("drinkId", userDrink)
                     startActivity(intent)
                     finish()
-                }, 500)
+                }, 50)
             }
 
 

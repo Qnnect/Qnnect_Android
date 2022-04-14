@@ -16,6 +16,7 @@ class LoginViewModel(private val model: LoginDataModel,
                      private val model2: PostFcmTokenDataModel) : BaseViewModel() {
 
     private val TAG = "LoginViewModel"
+    
 
     private val postLoginResponse = MutableLiveData<PostLoginResponse>()
     val loginResponse: LiveData<PostLoginResponse>

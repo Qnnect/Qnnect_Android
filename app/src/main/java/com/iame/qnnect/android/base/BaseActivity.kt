@@ -14,21 +14,13 @@ import com.iame.qnnect.android.src.splash.model.RefreshDataModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-
-/**
- * BaseActivity<ActivitySbsMainBinding>
- * 와 같이 상속 받을 때, ActivitySbsMainBinding 과 같은 파일이 자동생성되지 않는다면
- * 1. 해당 엑티비티의 레이아웃이 <layout></layout> 으로 감싸져 있는지 확인
- * 2. 다시 빌드 수행 or 클린 빌드 후 다시 빌드 수행
- * 3. 이름 확인 : sbs_main_activity => ActivitySbsMainBinding
- */
 abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatActivity() {
 
     lateinit var viewDataBinding: T
 
     /**
      * setContentView로 호출할 Layout의 리소스 Id.
-     * ex) R.layout.activity_sbs_main
+     * ex) R.layout.activity_main
      */
     abstract val layoutResourceId: Int
 

@@ -12,12 +12,13 @@
 
     <ImageView
         android:id="@+id/stamp_img"
-        android:layout_width="105dp"
-        android:layout_height="105dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:scaleType="fitXY"
         android:src="@mipmap/stamp_straw_foreground">
     </ImageView>
 
