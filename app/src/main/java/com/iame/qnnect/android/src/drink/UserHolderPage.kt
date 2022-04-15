@@ -45,12 +45,12 @@ class UserHolderPage internal constructor(itemView: View, var context: Context,
             }
         })
         if(drinkUserAdapter.select_index == position){
-            img_main.setBackgroundResource(R.drawable.drink_user_select_custom)
-            img_main.clipToOutline = true
+            user_img.setBackgroundResource(R.drawable.drink_user_select_custom)
+            user_img.clipToOutline = true
             user_name.setTextColor(Color.parseColor("#000000"))
         }
         else{
-            img_main.setBackgroundResource(R.drawable.drink_user_custom)
+            user_img.setBackgroundResource(R.drawable.drink_user_custom)
             user_name.setTextColor(Color.parseColor("#828282"))
         }
     }
