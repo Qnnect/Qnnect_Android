@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -48,6 +49,9 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
     var commentId = 0
     var check = false
+
+    // scroll move 를 하기 위한 handler
+    val moveHandler = Handler(Looper.getMainLooper())
 
 //    var cafeQuestionId = 0
 //    var date = ""
@@ -153,20 +157,24 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
 
             imageAdapter.notifyDataSetChanged()
             replyAdapter.notifyDataSetChanged()
-            dismissLoadingDialog()
-
 
             if(check){
-                // coroutine 써보려고 -> coroutine 안쓰면 제대로 안넘어감
-                CoroutineScope(Dispatchers.Main).launch {
-                    delay(100)
-                    smoothScroller.targetPosition = replyAdapter.itemCount-1
-                    reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
-                    group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
-//                    group_scroll.postDelayed() // <- coroutine delay 보다는 이게 권장 큐에 들어갈때 딜레이를 줘서
-                }
+
+                // coroutine 써보려고 -> coroutine 안쓰면 제대로 안넘어감 -> handler 로 전환
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    delay(100)
+//                    smoothScroller.targetPosition = replyAdapter.itemCount-1
+//                    reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
+//                    group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
+////                    group_scroll.postDelayed() // <- coroutine delay 보다는 이게 권장 큐에 들어갈때 딜레이를 줘서
+//                }
+//                check = false
+
+                moveBottom()
                 check = false
             }
+
+            dismissLoadingDialog()
         })
 
         viewModel.po_replyResponse.observe(this, Observer {
@@ -296,5 +304,19 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             }
             declareBottomSheet.show(supportFragmentManager, declareBottomSheet.tag)
         }
+    }
+
+    fun moveBottom(){
+        val move = Thread {
+            // UI 작업 수행 X
+            moveHandler.post {
+                // UI 작업 수행 O
+                // smoothScroller <- 좀 자연스럽게 움직이게 하려고
+                smoothScroller.targetPosition = replyAdapter.itemCount - 1
+                reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
+                group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
+            }
+        }
+        move.start()
     }
 }
