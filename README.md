@@ -71,4 +71,5 @@
 5. 2022.04.08(FRI) -> Group Drink Edit
 
 - After Demo Day
-1.2022.04.14(THU) -> Layout Update, Out Cafe User Select Background & text color change
+1. 2022.04.14(THU) -> Layout Update, Out Cafe User Select Background & text color change
+2. 2022.04.15(FRI) -> Reply Scroll Logic Change (Coroutine -> Handler(using Message Queue))
