@@ -51,7 +51,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     var check = false
 
     // scroll move 를 하기 위한 handler
-    val moveHandler = Handler(Looper.getMainLooper())
+    private val moveHandler = Handler(Looper.getMainLooper())
 
 //    var cafeQuestionId = 0
 //    var date = ""
@@ -159,7 +159,6 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             replyAdapter.notifyDataSetChanged()
 
             if(check){
-
                 // coroutine 써보려고 -> coroutine 안쓰면 제대로 안넘어감 -> handler 로 전환
 //                CoroutineScope(Dispatchers.Main).launch {
 //                    delay(100)
@@ -306,7 +305,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
         }
     }
 
-    fun moveBottom(){
+    private fun moveBottom(){
         val move = Thread {
             // UI 작업 수행 X
             moveHandler.post {
