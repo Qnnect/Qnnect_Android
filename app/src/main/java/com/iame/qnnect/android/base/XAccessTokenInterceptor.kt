@@ -20,11 +20,11 @@ class XAccessTokenInterceptor : Interceptor {
 
         if (jwtToken != null) {
             builder.addHeader("Authorization", "Bearer "+jwtToken)
-            if(refreshToken != null){
-//                builder.addHeader("Authorization", "Bearer "+jwtToken)
-                // refresh_token
-//                builder.addHeader("refresh-token", refreshToken!!)
-            }
+//            if(refreshToken != null){
+////                builder.addHeader("Authorization", "Bearer "+jwtToken)
+//                // refresh_token
+////                builder.addHeader("refresh-token", refreshToken!!)
+//            }
         }
         return chain.proceed(builder.build())
     }

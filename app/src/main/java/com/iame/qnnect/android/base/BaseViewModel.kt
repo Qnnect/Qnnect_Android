@@ -50,14 +50,4 @@ open class BaseViewModel : ViewModel() {
         snackbarMessageString.value = str
     }
 
-    /**
-     * BaseActivity에서 쓰는 함수
-     */
-    fun observeSnackbarMessage(lifeCycleOwner: LifecycleOwner, ob:(Int) -> Unit){
-        snackbarMessage.observe(lifeCycleOwner, ob)
-    }
-    fun observeSnackbarMessageStr(lifeCycleOwner: LifecycleOwner, ob:(String) -> Unit) {
-        snackbarMessageString.observe(lifeCycleOwner, ob)
-    }
-
 }

@@ -65,15 +65,6 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: In
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    private fun snackbarObserving() {
-        viewModel.observeSnackbarMessage(this) {
-            Snackbar.make(this.requireActivity().findViewById(android.R.id.content), it, Snackbar.LENGTH_LONG).show()
-        }
-        viewModel.observeSnackbarMessageStr(this) {
-            Snackbar.make(this.requireActivity().findViewById(android.R.id.content), it, Snackbar.LENGTH_LONG).show()
-        }
-    }
-
     // 로딩 다이얼로그, 즉 로딩창을 띄워줌.
     // 네트워크가 시작될 때 사용자가 무작정 기다리게 하지 않기 위해 작성.
     fun showLoadingDialog(context: Context) {
