@@ -9,7 +9,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.test.core.app.ActivityScenario.launch
 import com.iame.qnnect.android.R
@@ -23,10 +23,11 @@ import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.viewmodel.SearchViewModel
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.coroutines.CoroutineContext
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
@@ -35,30 +36,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override val viewModel: SearchViewModel by viewModel()
     private val questionListAdapter: QuestionListAdapter by inject()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // life cycler scope
-        search_keyword.addTextChangedListener(object : TextWatcher {
-            private var searchFor = ""
-            override fun afterTextChanged(s: Editable?) = Unit
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val searchText = s.toString().trim()
-                if (searchText == searchFor)
-                    return
-                searchFor = searchText
-                    CoroutineScope(Dispatchers.IO).launch {
-                    delay(500)  //debounce timeOut
-                    if (searchText != searchFor)
-                        return@launch
-
-                    viewModel.getBookamrk(searchFor)
-                }
-            }
-        })
-    }
 
     override fun initStartView() {
         // question list recycler
@@ -132,6 +109,32 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 //                }
 //            }
 //        })
+
+        search_keyword.addTextChangedListener(object : TextWatcher {
+            private var searchFor = ""
+            var job: Job? = null
+
+            override fun afterTextChanged(s: Editable?) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val searchText = s.toString().trim()
+                if (searchText == searchFor)
+                    return
+
+                job?.cancel()
+                searchFor = searchText
+                job = lifecycleScope.launch {
+                    delay(500)  //debounce timeOut
+                    if (searchText != searchFor)
+                        return@launch
+
+                    Log.d("lifecycle_scope", searchText.toString())
+
+                    viewModel.getBookamrk(searchFor)
+                }
+            }
+        })
 
         back_btn.setOnClickListener {
             finish()
