@@ -7,6 +7,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -108,7 +111,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                check = viewModel.nickname_check(nick_name_edit, ok_btn, check_txt1, edit_text_len)
+                check = nicknameCheck(nick_name_edit, ok_btn, check_txt1, edit_text_len)
             }
         })
 
@@ -151,6 +154,25 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
                 .load(selectedImageUri)
                 .transform(CenterCrop(), RoundedCorners(200))
                 .into(user_img)
+        }
+    }
+
+
+    // nickname check
+    fun nicknameCheck(nick_name_edit: EditText, ok_btn: ConstraintLayout, check_txt: TextView, len_check: TextView): Boolean{
+        var str = nick_name_edit.text.toString()
+        return if(str.length in 2..8 && str != "null"){
+            ok_btn.setBackgroundResource(R.drawable.allow_btn_ok)
+            nick_name_edit.setBackgroundResource(R.drawable.nickname_edit_ok)
+            check_txt.visibility = View.INVISIBLE
+            len_check.text = str.length.toString()+"/8"
+            true
+        } else{
+            check_txt.visibility = View.VISIBLE
+            nick_name_edit.setBackgroundResource(R.drawable.nickname_edit)
+            ok_btn.setBackgroundResource(R.drawable.allow_btn_fail)
+            len_check.text = str.length.toString()+"/8"
+            false
         }
     }
 }

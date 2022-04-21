@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.test.core.app.ActivityScenario.launch
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivitySearchBinding
@@ -85,20 +86,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
             }
             false
         })
-//        search_keyword.setOnKeyListener(object : View.OnKeyListener {
-//            override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-//                //Enter key Action
-//                if (event.getAction() === KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-//                    var search = search_keyword.text.toString()
-//
-//                    if(search != null){
-//                        viewModel.getBookamrk(search)
-//                    }
-//                    return true
-//                }
-//                return false
-//            }
-//        })
 
         // coroutine search
         search_keyword.addTextChangedListener(object : TextWatcher {
@@ -111,16 +98,16 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 if (searchText == searchFor)
                     return
                 searchFor = searchText
-                CoroutineScope(Dispatchers.Main + Job()).launch {
+                CoroutineScope(Dispatchers.IO + Job()).launch {
                     delay(500)  //debounce timeOut
                     if (searchText != searchFor)
                         return@launch
 
-                    Log.d("coroutin_reponse", "Success")
                     viewModel.getBookamrk(searchFor)
                 }
             }
         })
+
 
         back_btn.setOnClickListener {
             finish()
