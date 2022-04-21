@@ -1,6 +1,7 @@
 package com.iame.qnnect.android.src.search
 
 import android.content.Intent
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -34,6 +35,30 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override val viewModel: SearchViewModel by viewModel()
     private val questionListAdapter: QuestionListAdapter by inject()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // life cycler scope
+        search_keyword.addTextChangedListener(object : TextWatcher {
+            private var searchFor = ""
+            override fun afterTextChanged(s: Editable?) = Unit
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val searchText = s.toString().trim()
+                if (searchText == searchFor)
+                    return
+                searchFor = searchText
+                    CoroutineScope(Dispatchers.IO).launch {
+                    delay(500)  //debounce timeOut
+                    if (searchText != searchFor)
+                        return@launch
+
+                    viewModel.getBookamrk(searchFor)
+                }
+            }
+        })
+    }
 
     override fun initStartView() {
         // question list recycler
@@ -88,26 +113,25 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         })
 
         // coroutine search
-        search_keyword.addTextChangedListener(object : TextWatcher {
-            private var searchFor = ""
-            override fun afterTextChanged(s: Editable?) = Unit
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val searchText = s.toString().trim()
-                if (searchText == searchFor)
-                    return
-                searchFor = searchText
-                CoroutineScope(Dispatchers.IO + Job()).launch {
-                    delay(500)  //debounce timeOut
-                    if (searchText != searchFor)
-                        return@launch
-
-                    viewModel.getBookamrk(searchFor)
-                }
-            }
-        })
-
+//        search_keyword.addTextChangedListener(object : TextWatcher {
+//            private var searchFor = ""
+//            override fun afterTextChanged(s: Editable?) = Unit
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+//
+//            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+//                val searchText = s.toString().trim()
+//                if (searchText == searchFor)
+//                    return
+//                searchFor = searchText
+//                CoroutineScope(Dispatchers.IO + Job()).launch {
+//                    delay(500)  //debounce timeOut
+//                    if (searchText != searchFor)
+//                        return@launch
+//
+//                    viewModel.getBookamrk(searchFor)
+//                }
+//            }
+//        })
 
         back_btn.setOnClickListener {
             finish()
