@@ -33,6 +33,7 @@ import com.iame.qnnect.android.src.reply.model.Replies
 import com.iame.qnnect.android.src.reply.reply_more.DeleteReplyDialog
 import com.iame.qnnect.android.src.reply.reply_more.ReplyMoreBottomSheet
 import com.iame.qnnect.android.src.reply.reply_more.service.DeleteReplyService
+import com.iame.qnnect.android.util.setOnSingleClickListener
 import com.iame.qnnect.android.viewmodel.DiaryViewModel
 import com.iame.qnnect.android.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
@@ -212,7 +213,8 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             startActivity(intent)
         }
 
-        bookmark_btn.setOnClickListener {
+        // 중복 클릭 방지
+        bookmark_btn.setOnSingleClickListener {
             if(scraped){
                 viewModel.deleteScrap(cafeQuestionId)
                 showLoadingDialog(this)
@@ -276,7 +278,8 @@ class DiaryActivity : BaseActivity<ActivityDiaryBinding, DiaryViewModel>() {
             }
         })
 
-        like_btn.setOnClickListener {
+        // 중복 클릭 방지
+        like_btn.setOnSingleClickListener {
             if(liked){
                 viewModel.postLike(cafeQuestionId, !liked)
                 showLoadingDialog(this)
