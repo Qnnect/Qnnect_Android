@@ -12,6 +12,9 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+<!--        중복터치 막기-->
+        <item name="android:splitMotionEvents">false</item>
     </style>
 
 <!--    <style name="AppTheme.statusBarTheme" parent="Theme.AppCompat.Light">-->
