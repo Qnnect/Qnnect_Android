@@ -1,6 +1,5 @@
 package com.iame.qnnect.android.di
 
-import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.MyApplication
 import com.iame.qnnect.android.MyConstant.Companion.BASE_URL
 import com.iame.qnnect.android.base.NullOnEmptyConverterFactory

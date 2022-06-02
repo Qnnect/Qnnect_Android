@@ -79,18 +79,18 @@ class EditAnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>(
     var before_size = 0
 
     override fun initStartView() {
-        bookmark_txt.text = "답변 수정"
+        binding.bookmarkTxt.text = "답변 수정"
 
         commentId = intent.getIntExtra("commentId", 0)
 
-        answer_edit.setText(intent.getStringExtra("content")!!)
-        create_date.text = intent.getStringExtra("date")!!
-        dday_txt.text = intent.getStringExtra("dday")!!
-        who_question.text = intent.getStringExtra("questioner")!!+"의 질문"
-        question_txt.text = intent.getStringExtra("question")!!
+        binding.answerEdit.setText(intent.getStringExtra("content")!!)
+        binding.createDate.text = intent.getStringExtra("date")!!
+        binding.ddayTxt.text = intent.getStringExtra("dday")!!
+        binding.whoQuestion.text = intent.getStringExtra("questioner")!!+"의 질문"
+        binding.questionTxt.text = intent.getStringExtra("question")!!
 
         // image recycler
-        image_recycler.run {
+        binding.imageRecycler.run {
             adapter = editImageAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
@@ -107,14 +107,14 @@ class EditAnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>(
             Glide.with(this)
                 .load(image)
                 .transform(CenterCrop(), RoundedCorners(200))
-                .into(my_profile_img)
+                .into(binding.myProfileImg)
             // User Name
-            my_profile_name.setText(it.nickName)
+            my_profile_name.text = it.nickName
             dismissLoadingDialog()
         })
 
         viewModel.replyResponse.observe(this, Observer {
-            answer_edit.setText(it.content)
+            binding.answerEdit.setText(it.content)
             if(it.imageUrl1 != null){
 //                ImageDownload().execute(it.imageUrl1)
                 var uri = downloadImage(it.imageUrl1)
@@ -171,84 +171,32 @@ class EditAnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>(
             }
         })
 
-        answer_edit.addTextChangedListener(object : TextWatcher {
+        binding.answerEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 var len = answer_edit.text.toString()
                 check = if(len.length in 10..99){
-                    save_btn.setTextColor(Color.parseColor("#FD774C"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#FD774C"))
                     true
                 } else{
-                    save_btn.setTextColor(Color.parseColor("#BDBDBD"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#BDBDBD"))
                     false
                 }
             }
         })
 
-        save_btn.setOnClickListener {
+        binding.saveBtn.setOnClickListener {
             if(check){
-
-//                for(i in 0..uriList.size-1){
-//                    var path = viewModel.getFilePathFromURI(this, uriList.get(i))
-//                    pathList.add(path)
-//                }
-//
-//                val content = answer_edit.text.toString()
-//                val contentPart: MultipartBody.Part = MultipartBody.Part.createFormData("content", content)
-
-//                if(uriList.size == 0){
-//                    if(delete_list.size == 0){
-//                    }
-//                    else if(delete_list.size == 1){
-//                        if(delete_list.get(0) == 1){}
-//                    }
-//                }
-//                else if(uriList.size == 1){
-//                    var request = getPath(pathList.get(0), "image1")
-//                    viewModel.postAnswer(null, null, null, null, request,
-//                        contentPart, cafeQuestionId)
-//                }
-//                else if(uriList.size == 2){
-//                    var request1 = getPath(pathList.get(0), "image1")
-//                    var request2 = getPath(pathList.get(1), "image2")
-//                    viewModel.postAnswer(null, null, null, request2, request1,
-//                        contentPart, cafeQuestionId)
-//                }
-//                else if(uriList.size == 3){
-//                    var request1 = getPath(pathList.get(0), "image1")
-//                    var request2 = getPath(pathList.get(1), "image2")
-//                    var request3 = getPath(pathList.get(2), "image3")
-//                    viewModel.postAnswer(null, null, request3, request2, request1,
-//                        contentPart, cafeQuestionId)
-//                }
-//                else if(uriList.size == 4){
-//                    var request1 = getPath(pathList.get(0), "image1")
-//                    var request2 = getPath(pathList.get(1), "image2")
-//                    var request3 = getPath(pathList.get(2), "image3")
-//                    var request4 = getPath(pathList.get(3), "image4")
-//                    viewModel.postAnswer(null, request4, request3, request2, request1,
-//                        contentPart, cafeQuestionId)
-//                }
-//                else{
-//                    var request1 = getPath(pathList.get(0), "image1")
-//                    var request2 = getPath(pathList.get(1), "image2")
-//                    var request3 = getPath(pathList.get(2), "image3")
-//                    var request4 = getPath(pathList.get(3), "image4")
-//                    var request5 = getPath(pathList.get(3), "image5")
-//                    viewModel.postAnswer(request5, request4, request3, request2, request1,
-//                        contentPart, cafeQuestionId)
-//                }
-
                 showLoadingDialog(this)
             }
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        gallery_btn.setOnClickListener {
+        binding.galleryBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = MediaStore.Images.Media.CONTENT_TYPE
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)

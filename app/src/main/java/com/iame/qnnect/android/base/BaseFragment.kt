@@ -13,7 +13,8 @@ import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: Int) : Fragment(layoutId) {
 
-    lateinit var viewDataBinding: T
+    private var _binding: T? = null
+    val binding get()= requireNotNull(_binding)
 
     /**
      * setContentView로 호출할 Layout의 리소스 Id.
@@ -54,7 +55,7 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: In
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewDataBinding = DataBindingUtil.bind(view)!!
+        _binding = DataBindingUtil.bind(view)!!
 
 //        snackbarObserving()
         initStartView()
@@ -63,6 +64,11 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: In
 
         // 다크모드 비활성화
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     // 로딩 다이얼로그, 즉 로딩창을 띄워줌.

@@ -1,32 +1,14 @@
 package com.iame.qnnect.android.src.main.home
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.src.main.home.model.group_item
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.HomeFragment_case
-import com.iame.qnnect.android.src.group.GroupFragment
-import com.iame.qnnect.android.src.group.model.CafeUser
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.src.main.home.home_model.HomeCafes
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.home_group_item.view.*
-import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
 class GroupAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(){

@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.diary.model.Comments
 import com.iame.qnnect.android.src.diary.model.answer_item
-import com.iame.qnnect.android.src.reply.ReplyAdapter
-import com.iame.qnnect.android.src.reply.model.Replies
 
 class AnswerAdapter() :
     RecyclerView.Adapter<QuestionHolderPage>(){

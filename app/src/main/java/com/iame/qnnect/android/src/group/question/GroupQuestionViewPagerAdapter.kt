@@ -1,23 +1,15 @@
 package com.iame.qnnect.android.src.group.question
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 
 import android.view.LayoutInflater
 import android.view.View
 
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 
 import androidx.recyclerview.widget.RecyclerView
-import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
-import com.iame.qnnect.android.src.diary.DiaryActivity
 import com.iame.qnnect.android.src.group.model.CafeQuestion
-import com.iame.qnnect.android.src.group.model.group_question_item
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
 class GroupQuestionViewPagerAdapter internal constructor() :

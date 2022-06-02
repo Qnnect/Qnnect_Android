@@ -1,28 +1,17 @@
 package com.iame.qnnect.android.src.group.member
 
-import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.src.group.model.CafeUser
 import com.iame.qnnect.android.src.group.model.group_drink_item
 import com.iame.qnnect.android.src.main.MainActivity
 import com.iame.qnnect.android.util.drinkName
-import com.iame.qnnect.android.util.drink_imgName
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_group.*
-import kotlinx.android.synthetic.main.group_member_item.view.*
-import kotlinx.android.synthetic.main.item_main_image.view.*
 
 
 class GroupMemberAdapter() : RecyclerView.Adapter<GroupMemberAdapter.ViewHolder>(){

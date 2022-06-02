@@ -32,7 +32,7 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
         baseToken.setAlarm(this, false)
         Log.d("fcm_response", "Alarm "+baseToken.getAlarm(this))
         // alarm recycler
-        alarm_recycler.run {
+        binding.alarmRecycler.run {
             adapter = alarmAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -44,12 +44,12 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
     override fun initDataBinding() {
 
         if(alarmAdapter.itemCount != 0){
-            empty_img.visibility = View.VISIBLE
-            empty_txt.visibility = View.VISIBLE
+            binding.emptyImg.visibility = View.VISIBLE
+            binding.emptyTxt.visibility = View.VISIBLE
         }
         else{
-            empty_img.visibility = View.GONE
-            empty_txt.visibility = View.GONE
+            binding.emptyImg.visibility = View.GONE
+            binding.emptyTxt.visibility = View.GONE
         }
 
         viewModel.alarmResponse.observe(this, Observer {
@@ -82,12 +82,8 @@ class AlarmActivity : BaseActivity<ActivityAlarmBinding, AlarmViewModel>() {
         viewModel.getAlarm()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 

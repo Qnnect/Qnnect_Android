@@ -77,25 +77,25 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
 
     override fun initDataBinding() {
         cafeQuestionId = intent.getIntExtra("cafeQuestionId", 0)
-        create_date.text = intent.getStringExtra("date")!!
-        dday_txt.text = intent.getStringExtra("dday")!!
-        who_question.text = intent.getStringExtra("questioner")!!+"의 질문"
-        question_txt.text = intent.getStringExtra("question")!!
+        binding.createDate.text = intent.getStringExtra("date")!!
+        binding.ddayTxt.text = intent.getStringExtra("dday")!!
+        binding.whoQuestion.text = intent.getStringExtra("questioner")!!+"의 질문"
+        binding.questionTxt.text = intent.getStringExtra("question")!!
         dday_num = intent.getIntExtra("dday_num", 0)
 
-        answer_edit.addTextChangedListener(object : TextWatcher {
+        binding.answerEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                var len = answer_edit.text.toString()
+                var len = binding.answerEdit.text.toString()
                 check = if(len.length in 10..99){
-                    save_btn.setTextColor(Color.parseColor("#FD774C"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#FD774C"))
                     true
                 } else{
-                    save_btn.setTextColor(Color.parseColor("#BDBDBD"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#BDBDBD"))
                     false
                 }
             }
@@ -108,9 +108,9 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
             Glide.with(this)
                 .load(image)
                 .transform(CenterCrop(), RoundedCorners(200))
-                .into(my_profile_img)
+                .into(binding.myProfileImg)
             // User Name
-            my_profile_name.setText(it.nickName)
+            binding.myProfileName.text = it.nickName
             dismissLoadingDialog()
         })
     }
@@ -119,9 +119,9 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
         viewModel.getUser()
         showLoadingDialog(this)
 
-        save_btn.setOnClickListener {
+        binding.saveBtn.setOnClickListener {
             if(check){
-                for(i in 0..uriList.size-1){
+                for(i in 0 until uriList.size){
                     var path = viewModel.getFilePathFromURI(this, uriList.get(i))
                     pathList.add(path)
                 }
@@ -187,11 +187,11 @@ class AnswerActivity : BaseActivity<ActivityAnswerBinding, AnswerViewModel>() {
             }
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        gallery_btn.setOnClickListener {
+        binding.galleryBtn.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = MediaStore.Images.Media.CONTENT_TYPE
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)

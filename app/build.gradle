@@ -152,7 +152,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.1.2'
 
     // utf-8
-    compile  'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
 
     // life cycle scope
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'

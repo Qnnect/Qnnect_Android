@@ -1,20 +1,11 @@
 package com.iame.qnnect.android.src.group
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.iame.qnnect.android.src.main.home.model.group_item
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.iame.qnnect.android.MainActivity
-import com.iame.qnnect.android.R
-import com.iame.qnnect.android.src.group.GroupFragment
-
-
 
 
 class SubGroupAdapter(

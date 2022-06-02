@@ -53,48 +53,48 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
     }
 
     override fun initAfterBinding() {
-        allow_radio_all.setOnClickListener {
-            radioSelectAll(allow_radio_all, allow_radio1, allow_radio2, allow_radio3, ok_btn)
+        binding.allowRadioAll.setOnClickListener {
+            radioSelectAll(binding.allowRadioAll, binding.allowRadio1, binding.allowRadio2, binding.allowRadio3, binding.okBtn)
         }
 
-        allow_radio1.setOnClickListener {
-            radio_select(allow_radio1, allow_radio2, ok_btn)
-            allow_radio_all.isChecked = allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked
+        binding.allowRadio1.setOnClickListener {
+            radio_select(binding.allowRadio1, binding.allowRadio2, binding.okBtn)
+            allow_radio_all.isChecked =  binding.allowRadio1.isChecked && binding.allowRadio2.isChecked && binding.allowRadio3.isChecked
         }
 
-        allow_radio2.setOnClickListener {
-            radio_select(allow_radio2, allow_radio1, ok_btn)
-            allow_radio_all.isChecked = allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked
+        binding.allowRadio2.setOnClickListener {
+            radio_select(binding.allowRadio2, binding.allowRadio1, binding.okBtn)
+            allow_radio_all.isChecked =  binding.allowRadio1.isChecked && binding.allowRadio2.isChecked && binding.allowRadio3.isChecked
         }
 
-        allow_radio3.setOnClickListener {
-            allow_radio_all.isChecked = allow_radio1.isChecked && allow_radio2.isChecked && allow_radio3.isChecked
+        binding.allowRadio3.setOnClickListener {
+            allow_radio_all.isChecked =  binding.allowRadio1.isChecked && binding.allowRadio2.isChecked && binding.allowRadio3.isChecked
         }
 
         // 개인정보 처리
-        txt2.setOnClickListener {
+        binding.txt2.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/5a8dd6542fcf4ed9bd90e9f69d7a2e90"))
             startActivity(intent)
         }
-        more_btn1.setOnClickListener {
+        binding.moreBtn1.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/5a8dd6542fcf4ed9bd90e9f69d7a2e90"))
             startActivity(intent)
         }
 
         // 서비스 이용
-        txt3.setOnClickListener {
+        binding.txt3.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/c5609c94300b42caae2610c3f3dc0d4b"))
             startActivity(intent)
         }
-        more_btn2.setOnClickListener {
+        binding.moreBtn2.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://windy-laundry-812.notion.site/c5609c94300b42caae2610c3f3dc0d4b"))
             startActivity(intent)
         }
 
-        ok_btn.setOnClickListener {
-            if(checkNext(allow_radio1, allow_radio2)){
-                if(allow_radio3.isChecked){
-                    viewModel.patchAlarmCheck(allow_radio3.isChecked)
+        binding.okBtn.setOnClickListener {
+            if(checkNext(binding.allowRadio1, binding.allowRadio2)){
+                if(binding.allowRadio3.isChecked){
+                    viewModel.patchAlarmCheck(binding.allowRadio3.isChecked)
                 }
                 else{
                     var intent = Intent(this, ProfileActivity::class.java)
@@ -105,8 +105,8 @@ class AllowActivity : BaseActivity<ActivityAllowBinding, AllowViewModel>() {
     }
 
     fun radioSelectAll(select_item: CheckBox,
-                       item1: CheckBox, item2: CheckBox, item3: CheckBox
-                       , nextBtn: ConstraintLayout){
+                       item1: CheckBox, item2: CheckBox, item3: CheckBox,
+                       nextBtn: ConstraintLayout){
         var check = select_item.isChecked
         if(check){
             nextBtn.setBackgroundResource(R.drawable.allow_btn_ok)

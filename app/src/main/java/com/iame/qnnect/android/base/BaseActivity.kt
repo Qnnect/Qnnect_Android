@@ -16,7 +16,8 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatActivity() {
 
-    lateinit var viewDataBinding: T
+    private var _binding: T? = null
+    val binding get()= requireNotNull(_binding)
 
     /**
      * setContentView로 호출할 Layout의 리소스 Id.
@@ -57,7 +58,7 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewDataBinding = DataBindingUtil.setContentView(this, layoutResourceId)
+        _binding = DataBindingUtil.setContentView(this, layoutResourceId)
 //        snackbarObserving()
 
         initStartView()
@@ -66,6 +67,11 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
 
         // 다크모드 비활성화
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
     // 로딩 다이얼로그, 즉 로딩창을 띄워줌.

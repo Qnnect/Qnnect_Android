@@ -23,7 +23,7 @@ class UserDeclareActivity : BaseActivity<ActivityUserDeclareBinding, UserDeclare
     private val declareAdapter: DeclareAdapter by inject()
 
     override fun initStartView() {
-        declare_recycler.run {
+        binding.declareRecycler.run {
             adapter = declareAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
@@ -64,7 +64,7 @@ class UserDeclareActivity : BaseActivity<ActivityUserDeclareBinding, UserDeclare
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 

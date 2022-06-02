@@ -1,8 +1,6 @@
 package com.iame.qnnect.android.src.main
 
 import android.util.Log
-import androidx.fragment.app.Fragment
-import com.iame.qnnect.android.MainSearchRecyclerViewAdapter
 import com.iame.qnnect.android.R
 import com.iame.qnnect.android.base.BaseActivity
 import com.iame.qnnect.android.databinding.ActivityMainBinding
@@ -15,8 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iame.qnnect.android.base.HomeFragment_case
 import com.iame.qnnect.android.src.group.GroupFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main_two.*
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
