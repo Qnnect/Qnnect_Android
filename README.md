@@ -74,3 +74,4 @@
 1. 2022.04.14(THU) -> Layout Update, Out Cafe User Select Background & text color change
 2. 2022.04.15(FRI) -> Reply Scroll Logic Change (Coroutine -> Handler(using Message Queue))
 3. 2022.04.24(SUN) -> Multi click block, Auto Search Logic (CoroutineScope -> lifecycleScope)
+4. 2022.06.11(SAT) -> Layout Databinding Update
