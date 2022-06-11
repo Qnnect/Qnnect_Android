@@ -20,7 +20,7 @@ class EditAlarmActivity : BaseActivity<ActivityEditAlarmBinding, EditAlarmViewMo
 
     override fun initDataBinding() {
         viewModel.alarmstatusResponse.observe(this, Observer {
-            alarm_switch.isChecked = it
+            binding.alarmSwitch.isChecked = it
         })
         viewModel.alarmCheckResponse.observe(this, Observer {
             dismissLoadingDialog()
@@ -30,11 +30,11 @@ class EditAlarmActivity : BaseActivity<ActivityEditAlarmBinding, EditAlarmViewMo
     override fun initAfterBinding() {
         viewModel.getUserAlarmStatus()
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        alarm_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.alarmSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 // 체크시
                 viewModel.patchAlarmCheck(true)

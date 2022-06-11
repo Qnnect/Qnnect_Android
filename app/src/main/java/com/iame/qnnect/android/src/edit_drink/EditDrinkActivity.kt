@@ -43,7 +43,7 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
     override fun initStartView() {
         cafeId = intent.getIntExtra("cafeId", 0)
         // member recycler
-        material_recycler.run {
+        binding.materialRecycler.run {
             adapter = recipeAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
