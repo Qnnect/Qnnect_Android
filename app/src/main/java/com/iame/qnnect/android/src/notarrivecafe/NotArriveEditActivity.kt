@@ -33,24 +33,24 @@ class NotArriveEditActivity : BaseActivity<ActivityNotArriveEditBinding, NotArri
     }
 
     override fun initDataBinding() {
-        contents.setText(content)
+        binding.contents.setText(content)
         viewModel.editResponse.observe(this, Observer {
             finish()
         })
     }
 
     override fun initAfterBinding() {
-        contents.addTextChangedListener(object : TextWatcher {
+        binding.contents.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
                 check = if(len.length >= 10 && contents.text.toString() != content){
-                    save_btn.setTextColor(Color.parseColor("#FD774C"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#FD774C"))
                     true
                 } else{
-                    save_btn.setTextColor(Color.parseColor("#BDBDBD"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#BDBDBD"))
                     false
                 }
             }
@@ -58,7 +58,7 @@ class NotArriveEditActivity : BaseActivity<ActivityNotArriveEditBinding, NotArri
             }
         })
 
-        save_btn.setOnClickListener {
+        binding.saveBtn.setOnClickListener {
             if(check){
                 val request = NotArriveEditRequest(contents.text.toString())
                 viewModel.patchEdit(questionId, request)
@@ -66,7 +66,7 @@ class NotArriveEditActivity : BaseActivity<ActivityNotArriveEditBinding, NotArri
             }
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

@@ -120,9 +120,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             }
         }
 
-
-
-        viewDataBinding.kakaoLoginBtn.setOnClickListener {
+        binding.kakaoLoginBtn.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
             }else {

@@ -48,7 +48,7 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 
     override fun initStartView() {
         // question list recycler
-        question_recycler.run {
+        binding.questionRecycler.run {
             adapter = questionListAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -59,24 +59,24 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 
     override fun initDataBinding() {
         viewModel.questionResponse.observe(this, Observer {
-            if(it.cafeQuestionList.size != 0 ){
-                empty_img.visibility = View.GONE
-                empty_txt.visibility = View.GONE
+            if(it.cafeQuestionList.isNotEmpty()){
+                binding.emptyImg.visibility = View.GONE
+                binding.emptyTxt.visibility = View.GONE
 
                 it.cafeQuestionList.forEach { item ->
                     questionListAdapter.addItem(item)
                 }
             }
             else{
-                empty_img.visibility = View.VISIBLE
-                empty_txt.visibility = View.VISIBLE
+                binding.emptyImg.visibility = View.VISIBLE
+                binding.emptyTxt.visibility = View.VISIBLE
             }
             questionListAdapter.notifyDataSetChanged()
         })
 
         viewModel.errorResponse.observe(this, Observer {
-            empty_img.visibility = View.VISIBLE
-            empty_txt.visibility = View.VISIBLE
+            binding.emptyImg.visibility = View.VISIBLE
+            binding.emptyTxt.visibility = View.VISIBLE
 
             questionListAdapter.clear()
             questionListAdapter.notifyDataSetChanged()
@@ -93,7 +93,7 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
             startActivity(intent)
         }
 
-        search_keyword.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        binding.searchKeyword.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 var search = search_keyword.text.toString()
                 if(search != null){
@@ -120,7 +120,7 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 //        })
 
         // coroutine search
-        search_keyword.addTextChangedListener(object : TextWatcher {
+        binding.searchKeyword.addTextChangedListener(object : TextWatcher {
             private var searchFor = ""
             override fun afterTextChanged(s: Editable?) = Unit
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
@@ -143,7 +143,7 @@ class SearchQuestionActivity : BaseActivity<ActivitySearchQuestionBinding, Searc
 
         // search click
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

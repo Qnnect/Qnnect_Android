@@ -23,7 +23,7 @@ class EmptyActivity : BaseActivity<ActivityEmptyBinding, EmptyViewModel>() {
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

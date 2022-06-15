@@ -21,7 +21,7 @@ class FinishDrinkActivity : BaseActivity<ActivityFinishDrinkBinding, FinishDrink
     var drinkId = ""
 
     override fun initStartView() {
-        var window = getWindow()
+        var window = window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.parseColor("#FFD373")
         window.decorView.systemUiVisibility = 0
@@ -30,12 +30,12 @@ class FinishDrinkActivity : BaseActivity<ActivityFinishDrinkBinding, FinishDrink
     override fun initDataBinding() {
         drinkId = intent.getStringExtra("drinkId")!!
         var drink = drink_imgName(drinkId, "완성")
-        drink_img.setImageResource(drink)
-        complete_name.text = drinkId+" 완성!"
+        binding.drinkImg.setImageResource(drink)
+        binding.completeName.text = drinkId+" 완성!"
     }
 
     override fun initAfterBinding() {
-        main.setOnClickListener {
+        binding.main.setOnClickListener {
             finish()
         }
     }

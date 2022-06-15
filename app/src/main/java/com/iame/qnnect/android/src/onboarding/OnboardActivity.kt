@@ -18,9 +18,9 @@ class OnboardActivity : BaseActivity<ActivityOnboardBinding, OnboardViewModel>()
 
     override fun initStartView() {
         // question viewpager
-        viewpager2.adapter = OnboardAdapter(this, 4)
+        binding.viewpager2.adapter = OnboardAdapter(this, 4)
         //인디케이터 타입1
-        val dotsIndicator = dots_indicator
+        val dotsIndicator = binding.dotsIndicator
         dotsIndicator.setViewPager2(viewpager2)
     }
 

@@ -81,7 +81,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
     }
 
     override fun initAfterBinding() {
-        profile_img.setOnClickListener {
+        binding.profileImg.setOnClickListener {
             val editImageSheet: EditImageBottomSheet = EditImageBottomSheet {
                 when (it) {
                     0 -> {
@@ -104,7 +104,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
         }
 
 
-        nick_name_edit.addTextChangedListener(object : TextWatcher {
+        binding.nickNameEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -115,7 +115,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding, ProfileViewModel>()
             }
         })
 
-        ok_btn.setOnClickListener {
+        binding.okBtn.setOnClickListener {
             if(check){
                 // nickname
                 val nickname = nick_name_edit.text.toString()

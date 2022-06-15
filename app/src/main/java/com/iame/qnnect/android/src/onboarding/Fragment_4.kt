@@ -23,7 +23,7 @@ class Fragment_4 : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        var ok_btn = activity!!.findViewById<ConstraintLayout>(R.id.ok_btn)
+        var ok_btn = requireActivity().findViewById<ConstraintLayout>(R.id.ok_btn)
         ok_btn.setOnClickListener {
             var intent = Intent(context, LoginActivity::class.java)
             intent.flags =

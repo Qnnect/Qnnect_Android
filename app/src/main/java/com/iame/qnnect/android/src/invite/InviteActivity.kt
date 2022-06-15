@@ -62,19 +62,19 @@ class InviteActivity : BaseActivity<ActivityInviteBinding, InviteViewModel>() {
         code = intent.getStringExtra("code")!!
         title = intent.getStringExtra("title")!!
 
-        text4.text = title+" 카페에\n초대합니다!"
+        binding.text4.text = title+" 카페에\n초대합니다!"
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        kakao_btn.setOnClickListener {
+        binding.kakaoBtn.setOnClickListener {
             sendKakaoLink()
         }
 
-        link_btn.setOnClickListener {
+        binding.linkBtn.setOnClickListener {
             val inviteBottomSheet: InviteBottomSheet = InviteBottomSheet {
                 when (it) {
                     // 초대 링크 복사

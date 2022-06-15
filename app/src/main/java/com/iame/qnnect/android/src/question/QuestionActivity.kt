@@ -49,22 +49,22 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
     }
 
     override fun initAfterBinding() {
-        contents.addTextChangedListener(object : TextWatcher {
+        binding.contents.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
                 check = if(len.length in 10..49){
-                    save_btn.setTextColor(Color.parseColor("#FD774C"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#FD774C"))
                     true
                 } else{
-                    save_btn.setTextColor(Color.parseColor("#BDBDBD"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#BDBDBD"))
                     false
                 }
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        save_btn.setOnClickListener {
+        binding.saveBtn.setOnClickListener {
             if(check){
                 var cafeId = HomeFragment_case().getGroupname(this)
                 viewModel.postQuestion(cafeId!!, contents.text.toString())
@@ -72,7 +72,7 @@ class QuestionActivity : BaseActivity<ActivityQuestionBinding, QuestionViewModel
             }
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

@@ -34,7 +34,7 @@ class EditQuestionActivity : BaseActivity<ActivityEditQuestionBinding, EditQuest
     }
 
     override fun initDataBinding() {
-        contents.setText(content)
+        binding.contents.setText(content)
         viewModel.editquestionResponse.observe(this, Observer {
             dismissLoadingDialog()
             finish()
@@ -42,18 +42,18 @@ class EditQuestionActivity : BaseActivity<ActivityEditQuestionBinding, EditQuest
     }
 
     override fun initAfterBinding() {
-        contents.addTextChangedListener(object : TextWatcher {
+        binding.contents.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int, ) {
                 var len = contents.text.toString()
                 if(len.length >= 10 && contents.text.toString() != content && len.length < 50){
-                    save_btn.setTextColor(Color.parseColor("#FD774C"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#FD774C"))
                     check = true
                 }
                 else{
-                    save_btn.setTextColor(Color.parseColor("#BDBDBD"))
+                    binding.saveBtn.setTextColor(Color.parseColor("#BDBDBD"))
                     check = false
                 }
             }
@@ -63,14 +63,14 @@ class EditQuestionActivity : BaseActivity<ActivityEditQuestionBinding, EditQuest
         })
 
 
-        save_btn.setOnClickListener {
+        binding.saveBtn.setOnClickListener {
             if(check){
                 viewModel.patchEditQuesiton(cafeQuestionId, contents.text.toString())
                 showLoadingDialog(this)
             }
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

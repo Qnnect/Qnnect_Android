@@ -63,7 +63,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
 
     override fun initStartView() {
         // member recycler
-        member_recycler.run {
+        binding.memberRecycler.run {
             adapter = groupMemberAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
@@ -72,12 +72,12 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
         }
 
         // question viewpager
-        question_viewPager2.run {
+        binding.questionViewPager2.run {
             adapter = groupQuestionViewPagerAdapter
         }
         
         //인디케이터 타입1
-        val dotsIndicator = dots_indicator
+        val dotsIndicator = binding.dotsIndicator
         dotsIndicator.setViewPager2(question_viewPager2)
     }
 
@@ -92,9 +92,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
 
     override fun initDataBinding() {
         viewModel.groupResponse.observe(this, Observer {
-            group_date_txt.text = it.createdAt
-            group_name_txt.text = it.title
-            group_name_main.text = it.title
+            binding.groupDateTxt.text = it.createdAt
+            binding.groupNameTxt.text = it.title
+            binding.groupNameMain.text = it.title
             title = it.title
 
             memberCount = it.cafeUserList.size+1
@@ -104,9 +104,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             userId = it.cafeUserId
 
             if(it.currentUser.cafeDrinkCommonResponse.userDrinkName == null){
-                drink_img_default.visibility = View.VISIBLE
-                select_text.visibility = View.VISIBLE
-                drink_img.visibility = View.GONE
+                binding.drinkImgDefault.visibility = View.VISIBLE
+                binding.selectText.visibility = View.VISIBLE
+                binding.drinkImg.visibility = View.GONE
                 drink_check = false
                 drink_editCheck = false
             }
@@ -115,9 +115,9 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                 drink_editCheck = it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled == null
                 drink_check = true
 
-                drink_img_default.visibility = View.GONE
-                select_text.visibility = View.GONE
-                drink_img.visibility = View.VISIBLE
+                binding.drinkImgDefault.visibility = View.GONE
+                binding.selectText.visibility = View.GONE
+                binding.drinkImg.visibility = View.VISIBLE
                 if(it.currentUser.cafeDrinkCommonResponse.currentDrinkIngredientsFilled.isEmpty()){
                     drink_editCheck = true
                 }
@@ -141,31 +141,31 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
                         img = drinkName(userDrink, "토핑")
                     }
                 }
-                drink_img.setImageResource(img)
+                binding.drinkImg.setImageResource(img)
             }
 
             if(it.cafeUserList.isEmpty()){
-                empty_drink.visibility = View.VISIBLE
-                member_recycler.visibility = View.GONE
+                binding.emptyDrink.visibility = View.VISIBLE
+                binding.memberRecycler.visibility = View.GONE
             }
             else{
-                member_recycler.visibility = View.VISIBLE
-                empty_drink.visibility = View.GONE
+                binding.memberRecycler.visibility = View.VISIBLE
+                binding.emptyDrink.visibility = View.GONE
                 it.cafeUserList.forEach { item ->
                     groupMemberAdapter.addItem(item)
                 }
                 groupMemberAdapter.notifyDataSetChanged()
             }
 
-            if(it.cafeQuestionList.size == 0){
-                item_main.visibility = View.VISIBLE
-                question_viewPager2.visibility = View.GONE
-                dots_indicator.visibility = View.GONE
+            if(it.cafeQuestionList.isEmpty()){
+                binding.itemMain.visibility = View.VISIBLE
+                binding.questionViewPager2.visibility = View.GONE
+                binding.dotsIndicator.visibility = View.GONE
             }
             else{
-                item_main.visibility = View.GONE
-                question_viewPager2.visibility = View.VISIBLE
-                dots_indicator.visibility = View.VISIBLE
+                binding.itemMain.visibility = View.GONE
+                binding.questionViewPager2.visibility = View.VISIBLE
+                binding.dotsIndicator.visibility = View.VISIBLE
                 it.cafeQuestionList.forEach { item ->
                     groupQuestionViewPagerAdapter.addItem(item)
                 }
@@ -187,23 +187,23 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
     }
 
     override fun initAfterBinding() {
-        question_list_btn.setOnClickListener {
+        binding.questionListBtn.setOnClickListener {
             var intent = Intent(context, QuestionListActivity::class.java)
             startActivity(intent)
         }
 
-        drink_img_default.setOnClickListener {
+        binding.drinkImgDefault.setOnClickListener {
             val addDrinkBottomSheet = AddDrinkBottomSheet(this)
             addDrinkBottomSheet.show(requireActivity().supportFragmentManager, addDrinkBottomSheet.tag)
         }
-        drink_img.setOnClickListener {
+        binding.drinkImg.setOnClickListener {
             var intent = Intent(context, DrinkActivity::class.java)
             intent.putExtra("cafeId", cafeId)
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
 
-        select_text.setOnClickListener {
+        binding.selectText.setOnClickListener {
             if(drink_check){
                 var intent = Intent(context, DrinkActivity::class.java)
                 intent.putExtra("cafeId", cafeId)
@@ -216,7 +216,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             }
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             home_case.setHome(requireContext(), 0, -1)
 
             activity = fragment_s.activity as MainActivity?
@@ -224,7 +224,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             activity?.fragmentChange_for_adapter()
         }
 
-        question_btn.setOnClickListener {
+        binding.questionBtn.setOnClickListener {
             if(drink_check){
                 var intent = Intent(context, QuestionActivity::class.java)
                 startActivity(intent)
@@ -243,7 +243,7 @@ class GroupFragment : BaseFragment<FragmentGroupBinding, GroupViewModel>(R.layou
             }
         }
 
-        more_btn.setOnClickListener {
+        binding.moreBtn.setOnClickListener {
             val groupSettingBottomSheet: GroupSettingBottomSheet = GroupSettingBottomSheet {
                 when (it) {
                     // 초대하기

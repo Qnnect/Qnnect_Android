@@ -28,7 +28,7 @@ class MyQuestionActivity : BaseActivity<ActivityMyQuestionBinding, MyQuestionVie
     }
 
     override fun initDataBinding() {
-        contents.text = content
+        binding.contents.text = content
         // 삭제하기
         viewModel.deleteResponse.observe(this, Observer {
             dismissLoadingDialog()
@@ -38,7 +38,7 @@ class MyQuestionActivity : BaseActivity<ActivityMyQuestionBinding, MyQuestionVie
 
     override fun initAfterBinding() {
 
-        more_btn.setOnClickListener {
+        binding.moreBtn.setOnClickListener {
             val myQuestionEditBottomSheet: MyQuestionEditBottomSheet =
                 MyQuestionEditBottomSheet() {
                     when (it) {
@@ -60,7 +60,7 @@ class MyQuestionActivity : BaseActivity<ActivityMyQuestionBinding, MyQuestionVie
             myQuestionEditBottomSheet.show(supportFragmentManager, myQuestionEditBottomSheet.tag)
         }
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

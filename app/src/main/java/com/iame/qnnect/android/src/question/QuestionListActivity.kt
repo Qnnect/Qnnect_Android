@@ -31,7 +31,7 @@ class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
 
     override fun initStartView() {
         // question list recycler
-        question_recycler.run {
+        binding.questionRecycler.run {
             adapter = questionListAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -43,12 +43,12 @@ class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
     override fun initDataBinding() {
         viewModel.questionResponse.observe(this, Observer {
             if(it.cafeQuestionList.size == 0){
-                empty_img.visibility = View.VISIBLE
-                empty_txt.visibility = View.VISIBLE
+                binding.emptyImg.visibility = View.VISIBLE
+                binding.emptyTxt.visibility = View.VISIBLE
             }
             else{
-                empty_img.visibility = View.GONE
-                empty_txt.visibility = View.GONE
+                binding.emptyImg.visibility = View.GONE
+                binding.emptyTxt.visibility = View.GONE
                 it.cafeQuestionList.forEach { item ->
                     questionListAdapter.addItem(item)
                 }
@@ -66,23 +66,20 @@ class QuestionListActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
         viewModel.getQuestion(cafeId!!)
         showLoadingDialog(this)
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        search_btn.setOnClickListener {
+        binding.searchBtn.setOnClickListener {
             var intent = Intent(this, SearchQuestionActivity::class.java)
             startActivity(intent)
         }
 
-        questionListAdapter.setOnItemClickListener(object :
-            QuestionListAdapter.OnItemClickEventListener {
-            override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: Bookmark = questionListAdapter.getItem(a_position)
-                var intent = Intent(this@QuestionListActivity, DiaryActivity::class.java)
-                intent.putExtra("cafeQuestionId", item.cafeQuestionId)
-                startActivity(intent)
-            }
-        })
+        questionListAdapter.setOnItemClickListener { _, a_position ->
+            val item: Bookmark = questionListAdapter.getItem(a_position)
+            var intent = Intent(this@QuestionListActivity, DiaryActivity::class.java)
+            intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+            startActivity(intent)
+        }
     }
 }

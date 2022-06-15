@@ -35,16 +35,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initAfterBinding() {
         supportFragmentManager.beginTransaction().replace(R.id.main_frm, HomeFragment()).commitAllowingStateLoss()
-        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom_clicked_foreground)
+        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom_clicked_foreground)
 
-        main_btm_nav.setOnNavigationItemSelectedListener(
+        binding.mainBtmNav.setOnNavigationItemSelectedListener(
             BottomNavigationView.OnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.menu_main_btm_nav_home -> {
                         item.setIcon(R.mipmap.ic_home_bottom_clicked_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_bookmark).setIcon(R.mipmap.ic_bookmark_bottom_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_bookmark).setIcon(R.mipmap.ic_bookmark_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
 
                         if(case_num == 0){
                             supportFragmentManager.beginTransaction()
@@ -61,9 +61,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                     }
                     R.id.menu_main_btm_nav_bookmark -> {
                         item.setIcon(R.mipmap.ic_bookmark_bottom_clicked_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom1_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom1_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
 
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, BookmarkFragment())
@@ -72,9 +72,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                     }
                     R.id.menu_main_btm_nav_sotre -> {
                         item.setIcon(R.mipmap.ic_store_bottom_clicked_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom1_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_bookmark).setIcon(R.mipmap.ic_bookmark_bottom_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom1_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_bookmark).setIcon(R.mipmap.ic_bookmark_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_my_page).setIcon(R.mipmap.ic_my_bottom_foreground)
 
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, StoreFragment())
@@ -83,9 +83,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                     }
                     R.id.menu_main_btm_nav_my_page -> {
                         item.setIcon(R.mipmap.ic_my_bottom_clicked_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom1_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_bookmark).setIcon(R.mipmap.ic_bookmark_bottom_foreground)
-                        main_btm_nav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_home).setIcon(R.mipmap.ic_home_bottom1_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_bookmark).setIcon(R.mipmap.ic_bookmark_bottom_foreground)
+                        binding.mainBtmNav.menu.findItem(R.id.menu_main_btm_nav_sotre).setIcon(R.mipmap.ic_store_bottom_foreground)
 
                         supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frm, MypageFragment())

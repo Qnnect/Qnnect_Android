@@ -59,35 +59,35 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
             userdrinkId = current.userDrinkSelectedId
             userDrink = current.userDrinkName
 
-            ice_count.text = current.iceFilled.toString()+"/"+current.ice.toString()
-            base_count.text = current.baseFilled.toString()+"/"+current.base.toString()
-            main_count.text = current.mainFilled.toString()+"/"+current.main.toString()
-            topping_count.text = current.toppingFilled.toString()+"/"+current.topping.toString()
+            binding.iceCount.text = current.iceFilled.toString()+"/"+current.ice.toString()
+            binding.baseCount.text = current.baseFilled.toString()+"/"+current.base.toString()
+            binding.mainCount.text = current.mainFilled.toString()+"/"+current.main.toString()
+            binding.toppingCount.text = current.toppingFilled.toString()+"/"+current.topping.toString()
 
 
             if(current.iceFilled < current.ice){
                 now = "빈잔"
                 next = "얼음"
                 var img = drinkName(userDrink, "빈잔")
-                drink_img.setImageResource(img)
+                binding.drinkImg.setImageResource(img)
 
-                complete_shadow.visibility = View.GONE
-                lemon_shadow.visibility = View.GONE
-                shadow.visibility = View.VISIBLE
+                binding.completeShadow.visibility = View.GONE
+                binding.lemonShadow.visibility = View.GONE
+                binding.shadow.visibility = View.VISIBLE
             }
 
             if(current.iceFilled == current.ice){
-                seekBar.setImageResource(R.drawable.img_drink_progress2)
-                ice_txt.setTextColor(Color.parseColor("#828282"))
-                ice_count.setTextColor(Color.parseColor("#828282"))
+                binding.seekBar.setImageResource(R.drawable.img_drink_progress2)
+                binding.iceTxt.setTextColor(Color.parseColor("#828282"))
+                binding.iceCount.setTextColor(Color.parseColor("#828282"))
                 now = "얼음"
                 next = "베이스"
                 var img = drinkName(userDrink, "얼음")
-                drink_img.setImageResource(img)
+                binding.drinkImg.setImageResource(img)
 
-                complete_shadow.visibility = View.GONE
-                lemon_shadow.visibility = View.GONE
-                shadow.visibility = View.VISIBLE
+                binding.completeShadow.visibility = View.GONE
+                binding.lemonShadow.visibility = View.GONE
+                binding.shadow.visibility = View.VISIBLE
             }
 
             if(current.baseFilled == current.base){
@@ -97,11 +97,11 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 now = "베이스"
                 next = "주재료"
                 var img = drinkName(userDrink, "베이스")
-                drink_img.setImageResource(img)
+                binding.drinkImg.setImageResource(img)
 
-                complete_shadow.visibility = View.GONE
-                lemon_shadow.visibility = View.GONE
-                shadow.visibility = View.VISIBLE
+                binding.completeShadow.visibility = View.GONE
+                binding.lemonShadow.visibility = View.GONE
+                binding.shadow.visibility = View.VISIBLE
             }
 
             if(current.mainFilled == current.main){
@@ -111,38 +111,38 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
                 now = "주재료"
                 next = "토핑"
                 var img = drinkName(userDrink, "메인")
-                drink_img.setImageResource(img)
+                binding.drinkImg.setImageResource(img)
 
                 if(userdrinkId == 2){
-                    complete_shadow.visibility = View.GONE
-                    lemon_shadow.visibility = View.VISIBLE
-                    shadow.visibility = View.GONE
+                    binding.completeShadow.visibility = View.GONE
+                    binding.lemonShadow.visibility = View.VISIBLE
+                    binding.shadow.visibility = View.GONE
                 }
                 else{
-                    complete_shadow.visibility = View.GONE
-                    lemon_shadow.visibility = View.GONE
-                    shadow.visibility = View.VISIBLE
+                    binding.completeShadow.visibility = View.GONE
+                    binding.lemonShadow.visibility = View.GONE
+                    binding.shadow.visibility = View.VISIBLE
                 }
             }
 
             if(current.toppingFilled == current.topping){
-                seekBar.setImageResource(R.drawable.img_drink_progress4)
-                main_txt.setTextColor(Color.parseColor("#828282"))
-                main_count.setTextColor(Color.parseColor("#828282"))
+                binding.seekBar.setImageResource(R.drawable.img_drink_progress4)
+                binding.mainTxt.setTextColor(Color.parseColor("#828282"))
+                binding.mainCount.setTextColor(Color.parseColor("#828282"))
                 now = "완료"
                 next = "완료"
                 var img = drinkName(userDrink, "토핑")
-                drink_img.setImageResource(img)
+                binding.drinkImg.setImageResource(img)
 
                 if(userDrink == "레몬에이드"){
-                    complete_shadow.visibility = View.GONE
-                    lemon_shadow.visibility = View.VISIBLE
-                    shadow.visibility = View.GONE
+                    binding.completeShadow.visibility = View.GONE
+                    binding.lemonShadow.visibility = View.VISIBLE
+                    binding.shadow.visibility = View.GONE
                 }
                 else{
-                    complete_shadow.visibility = View.VISIBLE
-                    lemon_shadow.visibility = View.GONE
-                    shadow.visibility = View.GONE
+                    binding.completeShadow.visibility = View.VISIBLE
+                    binding.lemonShadow.visibility = View.GONE
+                    binding.shadow.visibility = View.GONE
                 }
 
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -155,13 +155,13 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
 
 
             recipeAdapter.clear()
-            if(it.myIngredient.size == 0){
-                group_scroll.visibility = View.GONE
-                drink_list.visibility = View.VISIBLE
+            if(it.myIngredient.isEmpty()){
+                binding.groupScroll.visibility = View.GONE
+                binding.drinkList.visibility = View.VISIBLE
             }
             else{
-                drink_list.visibility = View.GONE
-                group_scroll.visibility = View.VISIBLE
+                binding.drinkList.visibility = View.GONE
+                binding.groupScroll.visibility = View.VISIBLE
                 it.myIngredient.forEach { item ->
                     recipeAdapter.addItem(item)
                 }
@@ -195,21 +195,21 @@ class EditDrinkActivity : BaseActivity<ActivityEditDrinkBinding, EditDrinkViewMo
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        store_btn.setOnClickListener {
+        binding.storeBtn.setOnClickListener {
             var intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
         }
 
-        material_btn.setOnClickListener {
+        binding.materialBtn.setOnClickListener {
             var intent = Intent(this, MyMaterialActivity::class.java)
             startActivity(intent)
         }
 
-        recipe_btn.setOnClickListener {
+        binding.recipeBtn.setOnClickListener {
             var intent = Intent(this, RecipeActivity::class.java)
             intent.putExtra("drinkId", userdrinkId)
             intent.putExtra("cafeId", cafeId)
