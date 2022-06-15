@@ -75,3 +75,4 @@
 2. 2022.04.15(FRI) -> Reply Scroll Logic Change (Coroutine -> Handler(using Message Queue))
 3. 2022.04.24(SUN) -> Multi click block, Auto Search Logic (CoroutineScope -> lifecycleScope)
 4. 2022.06.11(SAT) -> Layout Databinding Update
+5. 2022.06.15(WEN) -> Databinding until Recipe package 
