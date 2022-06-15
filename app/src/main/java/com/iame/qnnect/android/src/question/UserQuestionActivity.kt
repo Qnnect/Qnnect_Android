@@ -27,10 +27,10 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
 
     override fun initStartView() {
         // question list recycler
-        bookmark_txt.text = "내가 보낸 질문"
-        search_btn.visibility = View.GONE
+        binding.bookmarkTxt.text = "내가 보낸 질문"
+        binding.searchBtn.visibility = View.GONE
 
-        question_recycler.run {
+        binding.questionRecycler.run {
             adapter = questionListAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -42,12 +42,12 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
     override fun initDataBinding() {
         viewModel.userquestionResponse.observe(this, Observer {
             if(it.isEmpty()){
-                empty_img.visibility = View.VISIBLE
-                empty_txt.visibility = View.VISIBLE
+                binding.emptyImg.visibility = View.VISIBLE
+                binding.emptyTxt.visibility = View.VISIBLE
             }
             else{
-                empty_img.visibility = View.GONE
-                empty_txt.visibility = View.GONE
+                binding.emptyImg.visibility = View.GONE
+                binding.emptyTxt.visibility = View.GONE
                 it.forEach { item ->
                     if(item != null){
                         questionListAdapter.addItem(item)
@@ -59,39 +59,35 @@ class UserQuestionActivity : BaseActivity<ActivityQuestionlistBinding, QuestionL
         })
 
         viewModel.errorResponse.observe(this, Observer {
-            empty_img.visibility = View.VISIBLE
-            empty_txt.visibility = View.VISIBLE
+            binding.emptyImg.visibility = View.VISIBLE
+            binding.emptyTxt.visibility = View.VISIBLE
             dismissLoadingDialog()
         })
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        search_btn.setOnClickListener {
+        binding.searchBtn.setOnClickListener {
             var intent = Intent(this, SearchQuestionActivity::class.java)
             startActivity(intent)
         }
 
-        questionListAdapter.setOnItemClickListener(object :
-            UserQuestionListAdapter.OnItemClickEventListener {
-            override fun onItemClick(a_view: View?, a_position: Int) {
-                val item: GetUserQuestionListResponse = questionListAdapter.getItem(a_position)
-                if(item.waitingList){
-                    var intent = Intent(this@UserQuestionActivity, MyQuestionActivity::class.java)
-                    intent.putExtra("content", item.question)
-                    intent.putExtra("questionId", item.cafeQuestionId)
-                    startActivity(intent)
-                }
-                else{
-                    var intent = Intent(this@UserQuestionActivity, DiaryActivity::class.java)
-                    intent.putExtra("cafeQuestionId", item.cafeQuestionId)
-                    startActivity(intent)
-                }
+        questionListAdapter.setOnItemClickListener { _, a_position ->
+            val item: GetUserQuestionListResponse = questionListAdapter.getItem(a_position)
+            if (item.waitingList) {
+                var intent = Intent(this@UserQuestionActivity, MyQuestionActivity::class.java)
+                intent.putExtra("content", item.question)
+                intent.putExtra("questionId", item.cafeQuestionId)
+                startActivity(intent)
+            } else {
+                var intent = Intent(this@UserQuestionActivity, DiaryActivity::class.java)
+                intent.putExtra("cafeQuestionId", item.cafeQuestionId)
+                startActivity(intent)
             }
-        })
+        }
     }
 
     override fun onResume() {

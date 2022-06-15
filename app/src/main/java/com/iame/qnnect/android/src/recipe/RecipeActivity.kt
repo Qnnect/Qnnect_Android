@@ -48,8 +48,8 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
             Glide.with(this)
                 .load(drink.img)
                 .transform(CenterCrop())
-                .into(drink_img)
-            drink_name.text = drink.name
+                .into(binding.drinkImg)
+            binding.drinkName.text = drink.name
 
             var recipe = it.drinkRecipeResponses
 
@@ -58,51 +58,51 @@ class RecipeActivity : BaseActivity<ActivityRecipeBinding, RecipeViewModel>() {
             Glide.with(this)
                 .load(img.img)
                 .transform(CenterCrop())
-                .into(ice_img)
-            recipe_ice_txt.text = ice.name
-            recipe_ice_count.text = "X"+ice.count.toString()
+                .into(binding.iceImg)
+            binding.recipeIceTxt.text = ice.name
+            binding.recipeIceCount.text = "X"+ice.count.toString()
 
             var base = recipe.get(1)
             img = recipe(base.ingredientId)
             Glide.with(this)
                 .load(img.img)
                 .transform(CenterCrop())
-                .into(base_img)
-            recipe_base_txt.text = base.name
-            recipe_base_count.text = "X"+base.count.toString()
+                .into(binding.baseImg)
+            binding.recipeBaseTxt.text = base.name
+            binding.recipeBaseCount.text = "X"+base.count.toString()
 
             var main = recipe.get(2)
             img = recipe(main.ingredientId)
             Glide.with(this)
                 .load(img.img)
                 .transform(CenterCrop())
-                .into(main_img)
-            recipe_main_txt.text = main.name
-            recipe_main_count.text = "X"+main.count.toString()
+                .into(binding.mainImg)
+            binding.recipeMainTxt.text = main.name
+            binding.recipeMainCount.text = "X"+main.count.toString()
 
             var topping = recipe.get(3)
             img = recipe(topping.ingredientId)
             Glide.with(this)
                 .load(img.img)
                 .transform(CenterCrop())
-                .into(topping_img)
+                .into(binding.toppingImg)
             if(topping.name == "바닐라 아이스크림"){
-                recipe_topping_txt.text = "바닐라\n아이스크림"
+                binding.recipeToppingTxt.text = "바닐라\n아이스크림"
             }
             else{
-                recipe_topping_txt.text = topping.name
+                binding.recipeToppingTxt.text = topping.name
             }
-            recipe_topping_count.text = "X"+topping.count.toString()
+            binding.recipeToppingCount.text = "X"+topping.count.toString()
         })
     }
 
     override fun initAfterBinding() {
         viewModel.getReciepe(drinkId, cafeId)
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        store_btn.setOnClickListener {
+        binding.storeBtn.setOnClickListener {
             var intent = Intent(this, StoreActivity::class.java)
             startActivity(intent)
         }
