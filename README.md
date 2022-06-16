@@ -1,5 +1,5 @@
 ## 큐넥트(Qnnect)
-### [Google Play Store]("https://play.google.com/store/apps/details?id=com.iame.qnnect.android")
+### [Google Play Store](https://play.google.com/store/apps/details?id=com.iame.qnnect.android)
 ## 가족, 친구, 연인과 함께 쓰는 Q&A 다이어리, 큐넥트 하나의 질문 만으로 ‘나’에 대해 알아가고, 나와 가까운 다른 이의 답변을 통해 ‘서로’ 알아갈 수 있는 공유 Q&A 다이어리 서비스, 큐넥트 입니다!
 - 1️⃣ - 그룹이 정한 질문 주기(매일, 3일, 1주일..) 에 푸시알림으로 질문 1개를 드립니다.
 - 2️⃣ 가족/친구/연인의 답변을 통해 서로에 대해 알아가고, 소통할 수 있어요
