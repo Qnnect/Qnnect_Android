@@ -13,7 +13,7 @@
 - Firebase Messaging, Firebase DynamicLink
 - KakaoLink
 
-### 주차별 진행상황
+## 주차별 진행상황
 - 함께 쓰는 Q&A 다이어리 App
 - 1st Week
 1. 2022.02.12(SAT) -> gradle setting
