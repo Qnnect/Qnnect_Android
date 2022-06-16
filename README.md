@@ -4,10 +4,7 @@
 - 2️⃣ 가족/친구/연인의 답변을 통해 서로에 대해 알아가고, 소통할 수 있어요
 - 3️⃣ 답변을 통해 쌓은 포인트로 우리만의 음료 ☕️ 를 만들어보세요!
 
-<img src="https://user-images.githubusercontent.com/84956038/174083810-f668b143-a04a-471b-b16d-f4cfc358eace.jpg", "https://user-images.githubusercontent.com/84956038/174083835-4a7861e5-1c6b-4d79-9cd3-c2e54d777a3c.jpg" width="20%" height="20%%">
-<img src= width="20%" height="20%%">
-<img src="https://user-images.githubusercontent.com/84956038/174083844-7ed9f07a-a49a-4242-acd1-6f5eb5a1ccb4.jpg" width="20%" height="20%%">
-<img src="https://user-images.githubusercontent.com/84956038/174083845-faf679d4-517a-4c36-a5d7-2c9db2484acc.jpg" width="20%" height="20%%">
+<img src="https://user-images.githubusercontent.com/84956038/174083810-f668b143-a04a-471b-b16d-f4cfc358eace.jpg", "https://user-images.githubusercontent.com/84956038/174083835-4a7861e5-1c6b-4d79-9cd3-c2e54d777a3c.jpg", "https://user-images.githubusercontent.com/84956038/174083844-7ed9f07a-a49a-4242-acd1-6f5eb5a1ccb4.jpg", "https://user-images.githubusercontent.com/84956038/174083845-faf679d4-517a-4c36-a5d7-2c9db2484acc.jpg" width="20%" height="20%%">
 <img src="https://user-images.githubusercontent.com/84956038/174083850-cd71346d-58c6-48b0-a6ab-ce7993a8d80e.jpg" width="20%" height="20%%">
 <img src="https://user-images.githubusercontent.com/84956038/174083853-b458d1e3-1778-4f12-b6fc-378197489dc4.jpg" width="20%" height="20%%">
 <img src="https://user-images.githubusercontent.com/84956038/174083860-1449e30e-4562-4dc1-9a29-0ca0e3c5e30b.jpg" width="20%" height="20%%">
