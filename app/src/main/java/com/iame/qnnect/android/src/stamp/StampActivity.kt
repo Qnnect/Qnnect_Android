@@ -22,8 +22,8 @@ class StampActivity : BaseActivity<ActivityStampBinding, StampViewModel>() {
 
 
     override fun initStartView() {
-        text1.text = intent.getStringExtra("userName")+"님의\n적립 스탬프"
-        stamp_recycler.run {
+        binding.text1.text = intent.getStringExtra("userName")+"님의\n적립 스탬프"
+        binding.stampRecycler.run {
             adapter = stampAdapter
             layoutManager = GridLayoutManager(context,3).apply {
                 orientation = GridLayoutManager.VERTICAL
@@ -64,7 +64,7 @@ class StampActivity : BaseActivity<ActivityStampBinding, StampViewModel>() {
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

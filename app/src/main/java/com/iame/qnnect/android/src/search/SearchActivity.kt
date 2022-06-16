@@ -39,7 +39,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
     override fun initStartView() {
         // question list recycler
-        question_recycler.run {
+        binding.questionRecycler.run {
             adapter = questionListAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -52,24 +52,23 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         viewModel.bookmarkResponse.observe(this, Observer {
             questionListAdapter.clear()
 
-            if(it.size != 0 ){
-                empty_img.visibility = View.GONE
-                empty_txt.visibility = View.GONE
+            if(it.isNotEmpty()){
+                binding.emptyImg.visibility = View.GONE
+                binding.emptyTxt.visibility = View.GONE
                 it.forEach { item ->
                     questionListAdapter.addItem(item)
                 }
             }
             else{
-                empty_img.visibility = View.VISIBLE
-                empty_txt.visibility = View.VISIBLE
+                binding.emptyImg.visibility = View.VISIBLE
+                binding.emptyTxt.visibility = View.VISIBLE
             }
             questionListAdapter.notifyDataSetChanged()
         })
     }
 
     override fun initAfterBinding() {
-
-        questionListAdapter.setOnItemClickListener { a_view, a_position ->
+        questionListAdapter.setOnItemClickListener { _, a_position ->
             val item: Bookmark = questionListAdapter.getItem(a_position)
             var intent = Intent(this, DiaryActivity::class.java)
             intent.putExtra("cafeQuestionId", item.cafeQuestionId)
@@ -78,9 +77,9 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
 
 
-        search_keyword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.searchKeyword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                var search = search_keyword.text.toString()
+                var search = binding.searchKeyword.text.toString()
                 if(search != null){
                     viewModel.getBookamrk(search)
                     return@OnEditorActionListener true
@@ -89,7 +88,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
             false
         })
 
-        // coroutine search
+        // coroutineScope search
 //        search_keyword.addTextChangedListener(object : TextWatcher {
 //            private var searchFor = ""
 //            override fun afterTextChanged(s: Editable?) = Unit
@@ -110,7 +109,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 //            }
 //        })
 
-        search_keyword.addTextChangedListener(object : TextWatcher {
+        binding.searchKeyword.addTextChangedListener(object : TextWatcher {
             private var searchFor = ""
             var job: Job? = null
 
@@ -136,7 +135,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
             }
         })
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }

@@ -1,17 +1,8 @@
 package com.iame.qnnect.android.base
 
-import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import com.iame.qnnect.android.src.splash.model.PostRefreshRequest
-import com.iame.qnnect.android.src.splash.model.PostRefreshResponse
-import com.iame.qnnect.android.src.splash.model.RefreshDataModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import what.the.mvvm.util.SnackbarMessage
-import what.the.mvvm.util.SnackbarMessageString
 
 
 open class BaseViewModel : ViewModel() {

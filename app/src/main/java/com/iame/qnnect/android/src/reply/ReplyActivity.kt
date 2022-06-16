@@ -74,7 +74,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     }
 
     override fun initStartView() {
-        reply_recycler.run {
+        binding.replyRecycler.run {
             adapter = replyAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -82,7 +82,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             setHasFixedSize(true)
         }
 
-        image_recycler.run {
+        binding.imageRecycler.run {
             adapter = imageAdapter
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.HORIZONTAL
@@ -113,18 +113,18 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 .transform(CenterCrop(), RoundedCorners(200))
                 .apply(RequestOptions().placeholder(R.mipmap.profile_default_foreground)
                     .error(R.mipmap.profile_default_foreground))
-                .into(my_profile_img)
+                .into(binding.myProfileImg)
 
-            my_profile_name.text = it.writerInfo.nickName
-            answer_txt.text = it.content
+            binding.myProfileName.text = it.writerInfo.nickName
+            binding.answerTxt.text = it.content
 //            content = it.content
-            date_txt.text = it.createdAt
+            binding.dateTxt.text = it.createdAt
 
             if(it.writer){
-                more_btn.visibility = View.VISIBLE
+                binding.moreBtn.visibility = View.VISIBLE
             }
             else{
-                more_btn.visibility = View.GONE
+                binding.moreBtn.visibility = View.GONE
             }
 
             it.replies.forEach { item ->
@@ -143,32 +143,22 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 Glide.with(this)
                     .load(imageAdapter.getItem(0))
                     .transform(CenterCrop(), RoundedCorners(50))
-                    .into(img_one)
-                image_recycler.visibility = View.GONE
+                    .into(binding.imgOne)
+                binding.imageRecycler.visibility = View.GONE
             }
             else if(imageAdapter.itemCount == 0){
-                image_recycler.visibility = View.GONE
-                img_one.visibility = View.GONE
+                binding.imageRecycler.visibility = View.GONE
+                binding.imgOne.visibility = View.GONE
             }
             else{
-                image_recycler.visibility = View.VISIBLE
-                img_one.visibility = View.GONE
+                binding.imageRecycler.visibility = View.VISIBLE
+                binding.imgOne.visibility = View.GONE
             }
 
             imageAdapter.notifyDataSetChanged()
             replyAdapter.notifyDataSetChanged()
 
             if(check){
-                // coroutine 써보려고 -> coroutine 안쓰면 제대로 안넘어감 -> handler 로 전환
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    delay(100)
-//                    smoothScroller.targetPosition = replyAdapter.itemCount-1
-//                    reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
-//                    group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
-////                    group_scroll.postDelayed() // <- coroutine delay 보다는 이게 권장 큐에 들어갈때 딜레이를 줘서
-//                }
-//                check = false
-
                 moveBottom()
                 check = false
             }
@@ -201,11 +191,11 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
     }
 
     override fun initAfterBinding() {
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        more_btn.setOnClickListener {
+        binding.moreBtn.setOnClickListener {
             val answerMoreBottomSheet: AnswerBottomSheet = AnswerBottomSheet {
                 when (it) {
                     // 답변 수정
@@ -230,7 +220,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             answerMoreBottomSheet.show(supportFragmentManager, answerMoreBottomSheet.tag)
         }
 
-        reply_edit.addTextChangedListener(object : TextWatcher {
+        binding.replyEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -239,7 +229,7 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
             }
         })
 
-        send_btn.setOnClickListener {
+        binding.sendBtn.setOnClickListener {
             if(reply_check){
                 Log.d("edittext_reply", reply_edit.text.toString())
                 viewModel.postReply(commentId, reply_edit.text.toString())
@@ -312,8 +302,8 @@ class ReplyActivity : BaseActivity<ActivityReplyBinding, ReplyViewModel>() {
                 // UI 작업 수행 O
                 // smoothScroller <- 좀 자연스럽게 움직이게 하려고
                 smoothScroller.targetPosition = replyAdapter.itemCount - 1
-                reply_recycler.layoutManager?.startSmoothScroll(smoothScroller)
-                group_scroll.fullScroll(ScrollView.FOCUS_DOWN)
+                binding.replyRecycler.layoutManager?.startSmoothScroll(smoothScroller)
+                binding.groupScroll.fullScroll(ScrollView.FOCUS_DOWN)
             }
         }
         move.start()

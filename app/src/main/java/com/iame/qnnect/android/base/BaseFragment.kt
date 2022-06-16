@@ -57,7 +57,6 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: In
         super.onViewCreated(view, savedInstanceState)
         _binding = DataBindingUtil.bind(view)!!
 
-//        snackbarObserving()
         initStartView()
         initDataBinding()
         initAfterBinding()
@@ -66,8 +65,8 @@ abstract class BaseFragment<T : ViewDataBinding, R : BaseViewModel>(layoutId: In
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

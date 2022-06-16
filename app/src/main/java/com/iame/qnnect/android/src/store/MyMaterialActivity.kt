@@ -29,7 +29,7 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
 
     override fun initStartView() {
         // member recycler
-        recipe_recycler.run {
+        binding.recipeRecycler.run {
             adapter = recipeAdapter
             layoutManager = GridLayoutManager(context, 2).apply {
                 orientation = GridLayoutManager.VERTICAL
@@ -43,12 +43,12 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
         viewModel.mymaterialAllResponse.observe(this, Observer {
             recipeAdapter.clear()
             if(it.isEmpty()){
-                empty_img.visibility = View.VISIBLE
-                empty_txt.visibility = View.VISIBLE
+                binding.emptyImg.visibility = View.VISIBLE
+                binding.emptyTxt.visibility = View.VISIBLE
             }
             else{
-                empty_img.visibility = View.GONE
-                empty_txt.visibility = View.GONE
+                binding.emptyImg.visibility = View.GONE
+                binding.emptyTxt.visibility = View.GONE
             }
             it.forEach { item ->
                 recipeAdapter.addItem(item)
@@ -61,12 +61,12 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
             recipeAdapter.clear()
 
             if(it.isEmpty()){
-                empty_img.visibility = View.VISIBLE
-                empty_txt.visibility = View.VISIBLE
+                binding.emptyImg.visibility = View.VISIBLE
+                binding.emptyTxt.visibility = View.VISIBLE
             }
             else{
-                empty_img.visibility = View.GONE
-                empty_txt.visibility = View.GONE
+                binding.emptyImg.visibility = View.GONE
+                binding.emptyTxt.visibility = View.GONE
             }
             it.forEach { item ->
                 recipeAdapter.addItem(item)
@@ -79,31 +79,31 @@ class MyMaterialActivity : BaseActivity<ActivityMymaterialBinding, MyMaterialVie
     override fun initAfterBinding() {
         viewModel.getMyMaterialAll()
 
-        back_btn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
-        all_btn.setOnClickListener {
-            viewModel.recipe_click(all_btn, base_btn, main_btn, topping_btn)
+        binding.allBtn.setOnClickListener {
+            viewModel.recipe_click(binding.allBtn, binding.baseBtn, binding.mainBtn, binding.toppingBtn)
             viewModel.getMyMaterialAll()
         }
 
-        base_btn.setOnClickListener {
-            viewModel.recipe_click(base_btn, all_btn, main_btn, topping_btn)
+        binding.baseBtn.setOnClickListener {
+            viewModel.recipe_click(binding.baseBtn, binding.allBtn, binding.mainBtn, binding.toppingBtn)
             viewModel.getMyMaterial("ice_base")
         }
 
-        main_btn.setOnClickListener {
-            viewModel.recipe_click(main_btn, base_btn, all_btn, topping_btn)
+        binding.mainBtn.setOnClickListener {
+            viewModel.recipe_click(binding.mainBtn, binding.baseBtn, binding.allBtn, binding.toppingBtn)
             viewModel.getMyMaterial("main")
         }
 
-        topping_btn.setOnClickListener {
-            viewModel.recipe_click(topping_btn, base_btn, main_btn, all_btn)
+        binding.toppingBtn.setOnClickListener {
+            viewModel.recipe_click(binding.toppingBtn, binding.baseBtn, binding.mainBtn, binding.allBtn)
             viewModel.getMyMaterial("topping")
         }
 
-        recipe_recycler.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recipeRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 // 최하단
                 if (!recipe_recycler.canScrollVertically(-1)) {
